@@ -1,0 +1,67 @@
+
+\section{Implementation: generelle metoder}
+	NYE KONSEPT FØRST:
+	\subsection{tid}
+	%\include{tid}
+		\subsubsection{tid: simulert asynkrone events}
+		\subsubsection{om effektivitsering av sim.asynk.tid ved SANN}
+
+	
+	\subsection{Biologisk nært. Bra oppdeling av neuronet. Generellt om dette -som gjelder for SANN og KANN}
+		\emph{Generellt for de to implementasjonene: oppbygning}
+			Beskriv modellen. Klasse-UML. Generellt og spesifikt for KANN/SANN, skrive om:
+			\begin{itemize}
+				\item Auron - ``artificial neuron''
+				\item Axon hillock - axon proper - axon terminal
+				\item går til: Synapser, går til:
+				\item Dendritt
+			\end{itemize}
+
+			Kanskje lage object-diagram (UML)? For å vise kor peikarane går mellom klassene for kvart objekt.
+
+		\subsubsection{Skriv om koblingene mellom objekta, tilknytta auron.}
+			(type: auron har peiker til axon (og axon har peiker til moder-auron), axon har peiker til alle output-synapser (og output-synapser har peiker til tilhørende presynaptisk axon OG postsynaptic dendritt), 
+			postsyn. dendritt har peiker til synapse OG postsyn auron, osv..)
+
+	 	\subsubsection{Neuron-oppdeling er bra for tidsmodellen min også}
+			- at Dersom det skal ta f.eks. to tidssteg gjennom akson, eit i synapsen, eit i dendritt, så kan eg legge inn akson1 -> akson2 -> synapse -> dendritt. 
+			Dersom synapse skal ta 0 tid, kan synapse sjølv direkte kalle dendritt->doTask(). Osv. Skriv om dette.
+
+			Kan dermed tilpasse programmet veldig: Dersom det er en simulering av eit neuron, kan programmet godt simulere time-delay i f.eks. axon ved å ha mange axon-segment etter kvarandre (og små time-steps).
+			Dersom det skal være effektivt som ANN kan axon.doTask() direkte kalle synapse.doTask()
+
+
+	\subsection{valg av programmeringsspråk for implementasjon. Kvifor.} % Kansje dette skal være seinare. Tenkte etter meir generelle implementasjonsmetoder (tid, optimalisering (ny tid vs. synkron modell), tidsdelay ved kø, ...)
+		\subsubsection{C++ :concurrency kommer.} % Nevn artikkel koch fann om concurrency i library.}
+		\subsubsection{objektorientert. Skrive subsubsection om dette?}
+
+	\subsection{synaptisk platisitet}
+
+
+
+
+
+
+
+
+%*********************** SANN ***************************
+\section{SANN}
+	\subsection{basically en simulering av biologiske neuron.}
+		\subsubsection{Korleis spikes propagerer (gjennom axon, synapse, summert ved dendritt. Lekkasje.)}
+		Skrive at det er ei etterligning av det biologiske neuronet. Sjå seksjon \ref{secTheBiologicalNeuralSystem}.
+
+	\subsubsection{Optimalisering av lekkasje ved simulert asynkron tid.}
+		\emph{lekkasje ved kvar iterasjon vs. lekkasje bare når innsignal :}
+			Ved brute-force metode kjøres lekkasjen kvar tidsiterasjon for kvart neuron. Ved sim.asynk.tid kan det kjøres som $[lekkasjefaktor]^n$ når neste input skjer $n$ iterasjoner etter forrige. Meir optimalisert!
+
+	\subsection{Skrive om kode her? Gå gjennom kode / UML?}
+
+
+%*********************** KANN ***************************
+\section{KANN}
+	\subsection{simulering vha. ligning \eqref{eqVerdiligninga} fra section \ref{secMatematiskModelleringAvBioNeuron}}
+	\subsection{Osv.}
+
+
+
+

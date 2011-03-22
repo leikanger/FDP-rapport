@@ -1,0 +1,53 @@
+\documentclass[a4paper,11 pt]{article}
+
+\usepackage[utf8]{inputenc}
+%\usepackage[T1]{fontenc}
+%\usepackage{babel}
+\usepackage{graphicx}
+
+\usepackage[font=small,format=plain,labelfont=bf,up,textfont=it,up]{caption}
+
+\usepackage{amsmath}
+\usepackage{mathrsfs} %brukt for krølle-L : laplace
+
+
+\author{Per R. Leikanger}
+                             
+\title{Project}
+\date{\today}     
+
+%\usepackage{natbib}    Kva er dette? Er med i rapport 3002.
+
+\begin{document}   
+
+\maketitle
+
+\tableofcontents
+
+\newpage
+\input{introduksjon}
+
+\include{detBiologiskeSystemet}
+\newpage
+\include{theNewModel}
+\include{ANN}
+
+
+\newpage
+
+\include{implementasjon}
+%TODO \include{tid}
+
+
+%METODE for SAMMENLIGNING
+\include{metodeForSammenligning}
+
+\include{resultat}
+
+\section{diskusjon}
+
+\bibliography{bibliografi}
+%\bibliographystyle{abbrvnat}
+\bibliographystyle{plain}
+\end{document}
+

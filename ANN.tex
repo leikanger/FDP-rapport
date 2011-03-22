@@ -1,0 +1,145 @@
+\section{Bakgrunn: ANN}
+	\subsection{årsak for bruk av ANN}
+	
+	\subsection{The traditional ANN}
+Early ANNs used float values as the value that propagates through the network. According to sec. \ref{secTheBiologicalNeuralSystem} this is not so in the biological neuron.
+The biological neuron have a boolean (``all--or--none'') transfer of value. A ``true'' value propagating through a neuron is called an action potential or a ``spike''.
+
+The biological understanding of the float value as the signal is that the value represents the frequency of the neuron's firing in a given time interval.
+
+Modelling the neuron in this way makes it better for simulating ANNs in a computer. 
+Instead of a vast amount of bolean signals generated at each neuron and transmitted through its many synapses, the computations are done by operation on variables representing the spike frequency of the neuron.
+If the non-linear function at each node is made to aproximate the neurons response to different input frequencies, the theory is that ANNs based on this model aproximates a network of biological neurons.
+
+Aspects of the neuron that are functions of time, however is lost because the simplification removes all information of the relative timing of spikes.
+The temporal delay at the axon hillock (generation of a spike), the axon and the synapse (transmission of a spike), temporal leakage of the neurons depolarization value and many other mechanisms in the time domain is at best crudely aproximated.
+It is more efficient, however. This makes this kind of ANN popular for algorithms that need associative properties, e.g. pattern recognition. It is seldomly used for simulations of neural systems.
+
+%Neuroscience is a relatively young field, and knowledge about the importance of prevously ignored aspects of the signal is discovered every year. 
+
+		\subsubsection{Synaptic plasticity for the early ANNs}
+Since the traditional ANNs (tANN) does not contain information about the phase of the signal, the information about the relative timing of spikes is lost. This implies that STDP can not be calculated for these ANNs. 
+The learning rule for tANN is based on a wery simple variant of STDP that does not consider the relative timing of spikes.
+
+In 1949 Donal O. Hebb proposed the famous Hebb's postulate:
+\begin{quote}
+When an axon of cell A is near enough to excite a cell B and repeatedly or persistently takes part in firing it, some growth process og metabolic change takes place in one or both cells such that A's efficiency, as one of the cells firing B, is increased.\cite{Hebb1949Kap4}
+\end{quote}
+
+This has been an important postulate both for neuroscience and for ANNs, and led to what later has been referred to as ``Hebb's learning rule''.
+\begin{equation}
+	\delta w_{ij} = \sum{k r_i r_j'}
+\end{equation}
+Where $w_{ij}$ is the synaptic weight between neuron j and i. $r_i$ is the rate of neuron i and $r_j'$ is the output of neuron j (the input of neuron i). \mbox{k} is the learning constant. See \cite{Hebb1949Kap4}, where Hebb originally postulated Hebb's principle.
+
+Learning in the early ANN is based on a hebbs postulate of learning. %XXX Skriv noke som skal referere: \cite{Hebb1949Kap4}.
+
+Since the frequency is a defined as a positive size, the weight change $\delta w_{ij} = \sum{k r_i r_j'}$ will allways be either positive or negative depending on $k$. 
+For any useful learning rule, $\delta w_{ij}$ will sometimes need to be positive. This implies that $k$ need to be positive. In this case, Hebbs learning rule will, for any time iteration be positive. 
+This gives makes the synaptic weight unstable in terms of unlimited synaptic growth. Many atempts have been made to stabilize the synaptic growth for neural networks, eg. \cite{hebbUstabilt}.
+
+One method for stabilizing synaptic weight is based on the concept of STDP discovered from biological neurons in 1987.
+Gustafsson et al. proposed that the synaptic weight gain varied with the postsynaptic neurons depolarization after synaptic transmission\cite{Gustafsson03011987}. 
+\begin{quote}
+Moreover, the finding that homosynaptic tetanization produced little LTP after this pairing procedure suggests that LTP, at least over the time span examined, is controlled by postsynaptic depolarization and does not depend on high-frequency presynaptic activity for induction.\cite{Gustafsson03011987}.
+\end{quote}
+This has later been known as Spike Timing Dependent Plasticity (STDP). Se \cite{reviewSTDP} for more information about STDP. The biophysiological background for STDP has been described in section \ref{forklaringBakSTDP}.
+
+% figur funker bare for pdflatex. Ta med til leveringa.
+%\begin{figure}[htb!p]
+%	\centering
+%	\includegraphics[width=0.8\textwidth]{figurSTDP.jpeg}
+%	\caption{Spike timing-dependent plasticity. a, Synapses are potentiated if the synaptic event precedes the postsynaptic spike. Synapses are depressed if the synaptic event follows the postsynaptic spike. b, The time window for synaptic modification. The relative amount of synaptic change is plotted versus the time difference between synaptic event and the postsynaptic spike. The amount of change falls off exponentially as the time difference increases. In addition, the amount of potentiation decreases for stronger synapses, whereas the relative amount of depression is independent of synaptic size.}
+%	\cite{stableHebbVedSTDP}
+%\end{figure}
+
+\subsection{Spiking Artificial Neural Network}
+The importance of the relative spike timing of the presynaptic vs. the postsynaptic neuron for synaptic plasticity led to development of Spiking Artificial Neural Network (SANN). 
+
+SANN is a simulation of a network of neurons in the time domain. Activity of each node is represented as the neurons depolarization. For this simulation of biological neurons, it is important to calculate the leakage of value each iteration. 
+The behaviour of the neuron in the frequency domain follows that of the biological neuron since each node is a simulation of the biological neuron. %For this reason network aspects of the ANN will also aproximate that of biological NN
+Simulating each neuron will not be as effective as the traditional ANNs because of simulating every spike, every transmission and leakage of each neurons depolarization every time step. 
+
+SANN use boolean signals intracellularly. At the synapse, the tranmission is given by the synaptic weigth. 
+
+The major advantage of SANN is that it retains imformation about the timing of the spiking for the neurons. 
+Because of the advantage following STDP, SANN is frequently referred to as ``third generation ANN''. 
+
+Neural science is a relatively young field (aprox. 50 years), and the important mechanisms in neural networks has not been discovered fully. 
+Discovery of Local Field Potential Oscillations (LFPOs) has generated much discussion. LFPOs are oscillations in the activity of local inhibitory neural circuits. 
+These circuits give output to a large part of the neurons(local to each inhibitory circuit), and can be seen both on network behaviour and on the individual neuron. 
+Whether this is purely a network phenomenon or following each neuron is unknown, but the importance of LFPOs in neural calculations is assumed.
+%referer XXX
+
+Anyway, the focus of computational neuroscience is to a much larger extent on the timing of the indivitual neural spike. 
+
+
+
+
+%Skriv tilslutt at simulering av kvart neuron virker lite effektivt. Det leda meg inn på tanken om KANN. Så skriv om KANN.
+\subsection{The reason for developing a new model}
+As a computational system, a neural system is fundamentally different from the processor in a computer. 
+The neural system is based on a vast amount of computationally weak, massively parralell indivitual ``processors'' ---the neuron. 
+The computational unit of a computer, the processor, is in many ways the opposite. It is (one ore more) single, computationally strong, serial processor(s). 
+
+In neural systems the neurons are directly connected, such that the output of one node is the input of an other. In computers, the result of a computation is saved somewhere in memory and that can be accessed by another processor.
+
+With this fundamental difference betwee
+
+
+
+\newpage
+		\emph{SJÅ essay i NEVR3004 - rapport}
+
+	\subsection{historie for ANN}
+
+
+	\subsection{årsak til å gå vidare fra tANN til SANN}
+	\subsection{Grunn til å gå vidare fra SANN til $\kappa$ANN. Ide for $\kappa$ANN}
+		Kanskje eg skal her skrive om kva eg  reagerte på med SANN? (ikkje vent å sjå på resultatet, skriv uansett. Tolk heller at dette var feilt..)
+
+
+
+
+
+
+% motivasjon bak ANN
+
+Computers are specialized for calculating through ecplicit algorithms. Here the action is expressed almost as mathematical functions with an output value based on its input. 
+The functions are expressed 
+
+JAJA : SKRIV INTRO seinare. No over til kva eit ANN er:
+
+-------------------------------------------
+
+In order to describe a neural network, I first need to establish the basic building blocks. The nodes of the network are neurons. The connections between neurons are called synapses.
+
+The neuron has an internal state given by the voltage difference between the intracellular fluid and the extracellular fluid to the neuron. This is given by the ionic balance over the cellular membrane. 
+If this value excedes a threshold the neuron will initiate an action potential.  
+
+------------------------
+
+
+The nodes of a neural network is nonlinear units with a boolean signal (an action potential). 
+When the action potential reaches an output connection to an other neuron (a synapse) a signal is transmitted based on the trength of the connection. 
+
+When this boolean signal reaches the output connections (synapses) of the neuron, a signal 
+
+
+------------------------------------------------
+The neuron:
+The biological neuron is a node in the neural network with a value based on the voltage across the neurons cell membrane. If this value excedes a threshold, an action potential will be initiated. 
+An action potential is a boolean signal that will spread along the axon of the neuron. 
+This enshures that the signal transmitted through synapses will be invariant with the distance from where the action potential is initiated to the synapse.
+
+When the action potential reaches the synapse, neurotransmitters are released from the presynaptic membrane of the synapse. 
+These neurotransmitters will exite receptors located on the postsynaptic membrane, and the postsynaptic membranes will change value. This value will further change the value for the whole neuron.
+
+On the presynaptic side of the synapse is the axon terminal of the presynaptic neuron that recieves the action potential generated as a function of the presynaptic neurons value. 
+On the postsynaptic side lies a dendrite (input) of the postsynaptic neuron. The dendrites main function is to be a leaky integrator for the 
+
+The synaptic connection between two neurons is directional, that is
+
+Even though the signal transmitted through the neuron is a boolean signal, the transmission to other neurons are based on the synaptic connection to the next neuron. This connection will 
+
+
