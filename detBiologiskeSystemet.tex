@@ -1,6 +1,9 @@
 %Før eg kan begynne med ANN, må eg beskrive det bioloiske neuronet. Seinare kjem synapse osv. Synapse kan være sterkt basert på rapporter fra NEVR300[1,3,4] 
 %Så kjem seinare ANN. Kan lese mykje fra rapport i NEVR3004.
 
+\chapter{Neuroscience: background information} %xxx rapport
+\label{chapNeuroscience}
+
 
 \section{Bakgrunn: Biological Neural System} 
 \label{secTheBiologicalNeuralSystem}
@@ -9,11 +12,14 @@
 Neural networks are comprised of nodes called neurons and connections between the neurons called synapses. 
 Before we can discuss neural networks, we need to know more about the basic building blocks, the neuron and the synapse. 
 
-The arcitecture of the neuron is important to understand the directionality of of the graph. The mechanisms of the synapse is important later when we will discuss stability of learning. 
+The arcitecture of the neuron is important to understand the directionality of of the graph. %kanskje også: med forståelse av biologiske system er det lettere å forstå min simulering(meir om dette seinere). 
+	The mechanisms of the synapse is important later when we will discuss stability of learning. 
 Finally, important aspects of the network that cannot be un derstood from a single unit, will be described.
 
 %I will start by describing relevant information about the neuron before I prepare the reader for important aspects of synaptic plasticity by describing the synapse. Finally, important aspects of the network will be described.
 
+%TODO Skriv om neuronet(overordna) i section: Biological Neural System} og skriv heller subsection{soma}
+%TODO XXX XXX XXX SKRIV neuron inneholder soma,dendritt,axon,(synapser). subsubsection{kvar av desse}
 \subsection{The neuron}
 \label{ssecTheNeuron}
 In mathematical terms from graph theory, a biological version of a neural network can be called a directed syclic graph. 
@@ -47,7 +53,8 @@ Since depolarizing the neuron causes firing, the neurons potential is often refe
 
 \subsection{The axon}
 
-In order to give (approximately) the same output to different output sites (axon terminals) along the axon, the action potential is a self carrying--signal based on different voltage gated channels along the axon membrane. 
+In order to give (approximately) the same output to different output sites (axon terminals) along the axon, the action potential %XXX Har eg introduset action potential før? Uttrykket må etableres.
+is a self carrying--signal based on different voltage gated channels along the axon membrane. 
 Since the ion channels are voltage gated, and cause larger depolarization when open, the membrane potential diverges, and the channels are open until some timing mechanism causes them to close. 
 The exact mechanisms are not important in this context, but the boolean carracteristics of the action potential is. 
 
@@ -56,12 +63,32 @@ In the membrane on the oposite side of the synaptic cleft are neurotransmittor-r
 
 %neste linje: meiner at synapsenes sted er ikkje så vel bestemt.. : Skriv om:
 %XXX The other aspect of information processing, recieving information, is not so defined. 
-Most, but not all incoming synapses are located in the dendrite, a specialized part of the neuron for recieving information. 
+Most, but not all input synapses are located in the dendrite, a specialized part of the neuron for recieving information. 
 %Some synapses are also located on the cell body and on the axon terminal.
 At the postsynaptic membrane are receptors. Most of these receptors are ligand-gated receptors, either exitatory (causes more depolarization of the neuron) or inhibitory (hyperpolarizes the neuron). 
 % Skriv om neste linje. 
 The combination of neurotransmitters released from the presynaptic terminal and postsynaptic receptors in one synapse typically makes the synapse either exitatory or inhibitory.
 %In one synapse you typically have a combination of neurotransmitter release and postsynaptic receptors that causes the whole synapse to either be exitatory or inhibitory.
+
+
+\subsubsection{The action potential}
+\label{sssecTheActionPotential}
+Through mechanisms based on voltage--gated channels, the action potential is a self carrying signal.
+%An important result of this is that the presynaptic membrane at the synapses recieves an equal depolarization, independent of its location. The release of neurotransmitters is a result of this depolarization, and the action potential enshures an equal depolarization of the presynaptic membrane, so that the transmission is dependent only on the synaptic weight.
+%
+%The action potential is a self--carrying signal. 
+This means that sufficient depolarization of the membrane of the axon opens voltage gated ion channels that will further depolarize the membrane. 
+Through passive transmission of the voltage, the signal is distributed to the next voltage gated channels.
+
+To ensure that every spot of the axon is reset after an action potential, the voltage gated channels will close after being open for a little while. 
+The channel stays closed for a while, until the polarization is reset. This introduces an important aspect of the neuron: the refraction period. 
+
+After firing an action potential, the neuron will have a period where it is impossible to exite the cell, called \emph{the absolute refraction period}. 
+%Skrive at refraction period består av absolute og relative ref. per.?
+The refraction period of a neuron usually lasts for a few milliseconds.
+%\cite Bear kap. 4  (s.91, nede) og Kandel kap.9 s 157 (nede)
+The refraction period is important for limiting the frequency of the neuron. Se section \ref{sssecValueOfAlpha} for more on this. %XXX Skriv noke anna enn "proof"! Meir ydmykt, mindre bastant!
+%The signals transmitted in the axon is strictly directional, that is: the signal goes from the axon hillock (close to the neurons soma) to the axon terminals (where the synapses is). 
 
 
 %TODO Skriv mindre, eller i det minstre mindre kraftige utsagn. Følgande er rett, men kanskje urelevant for denne oppgava?
@@ -141,6 +168,9 @@ The NMDA-related synaptic plasticity is the background for what is called ``Spik
 %HER ELLER OVER. kjør \label{forklaringBakSTDP}
 \label{forklaringBakSTDP} %der forklaringa kommer...
 
+\subsection{Skriv om Dale's  principle}
+At eit neuron kan sleppe bare en neurotransmittor (eller to, fleire). Desse kan gi ulik virkning på ulike receptore, men i utgangspkt. kan man sei at eit neuron enten er exitatory eller inhibitory. 
+Men dette er også feil. Drøft fram og tilbake.. Skriv konklusjonen (til korleis eg gjør det i min implementasjon) i section{implementation}.
 
 
 %Because of the boolean nature of the action potential, the transmission of the action potential to the next neuron is desided by the strength of the synaptic connection.

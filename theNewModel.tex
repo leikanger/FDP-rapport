@@ -40,7 +40,7 @@ The reason behind this is that I do not believe that the individual ions contrib
 
 
 %skriv om neste:
-The reason for introducing the background information about the neuron is 
+The reason for introducing the background information about the neuron is  %TODO SKRIV OM: Skriv at det er viktig for å forstå simulatoren min(meir om dette seinere). XXX Ta vekk denne itemize(?):
 \begin{itemize}
 	\item to introduce the ide of different states for the neurons membrane. Each with its own equilibrium potential.
 	\item to introduce an important consept for the neuron that will be important for ANN as well, $V_{r}$.
@@ -177,15 +177,15 @@ When this is incorporated to the model, this gives that the neuron fires when:
 \end{equation}
 
 Where $\tau$ is the firing threshold of the neuron. 
-If we define $p(\kappa)$ as the inter--spike period (the time from resetting the neuronal value to the next firing)%, $p(\kappa)=t^*$) 
-, for constant interspike $\kappa$ we get $v_0 = 0$ and the period given by
+%XXX TODO Neste linjene er litt feil. Dette beskrive oppladninga av depol., m.a.o. ikkje heile p_isi(K). Bare p_charge,isi(K). Skriv dette. TODO
+If we define $p_d(\kappa)$ as the depolarizing phase of the inter--spike interval, for constant inter--spike $\kappa$ we get $v_0 = 0$ and the period given by
 \begin{equation}
 	\label{eqPeriodeligningForKonstIntraPeriodKAPPA}
-	p(\kappa) = -\alpha^{-1} \, \ln(\frac{\kappa - \tau}{\kappa})
+	p_d(\kappa) = -\alpha^{-1} \, \ln(\frac{\kappa - \tau}{\kappa})
 \end{equation}
 
-It is impotant to remember that equation \eqref{eqPeriodeligningForKonstIntraPeriodKAPPA} is based on a constant $\kappa$ during the period. 
-If $\kappa$ varies during one period, $t^*$ from equation \eqref{eqTidTilFyringVedEndraKappa} is an estimate of the remainting time until firing. This estimate is updated each time $\kappa$ is.
+It is impotant to remember that equation \eqref{eqPeriodeligningForKonstIntraPeriodKAPPA} is based on a constant $\kappa$ during the whole period. 
+If $\kappa$ varies during one period, $t^*$ from equation \eqref{eqTidTilFyringVedEndraKappa} is an estimate of the remainting time until firing. This estimate is updated every time $\kappa$ is.
 
 
 
@@ -211,21 +211,20 @@ For equation \eqref{eqVerdiligninga} to still be valid when $\kappa$ varies with
 When $\kappa$ is updated, a new time window will start. 
 %$v(t)$ is still defined by equation \eqref{eqVerdiligninga} with $v_0$ given as the value at the start of the time window (the end of the previous time window) and  $t$ representing time into the current time window.
 $v_0$ from eq. \eqref{eqVerdiligninga} now represents the value at the start of the time window ( $v_0 = v(t=0)$ ). 
-This value is equal to the value $v(t)$ at the time of change from the previous time window(se fig. \ref{figVerdifunskjonen}).
+This value is equal to the value $v(t)$ at the time of change from the previous time window(se fig. \ref{figVerdifunksjonen}).
 %For eache time window, equation \eqref{eqVerdiligninga} contains the value at the start of the time window ( $v_0 = v(t=0)$ (in the time window) ). 
 This is equal to the value of the neuron at the time of variation of $\kappa$ (the value after the previous time window).
 
 In fig. \ref{figVerdifunskjonen}, $v(t)$ is simulated for three different time windows. At time $t_p=100$, $\kappa$ changes from $\kappa_0=0.7$ to $\kappa_1=0.5$. At time $t_p=150$, $\kappa$ becomes $\kappa_2=1$. 
 The simulation implies that the value function is a continous function that converges toward the neurons final value, $\kappa$, even for varying $\kappa$.
 
-
-%\begin{figure}[hbtp]
-%	\caption{$v(t)$ for changing $\kappa$. $\kappa_0=0.7$. At time $t_p=100$ $\kappa$ changes to $\kappa_1=0.5$. At time $t_p=150$ the neurons imput increases, and $\kappa_2=1$. See eq.\eqref{eqVerdiligninga}.}
-%	\label{figVerdifunskjonen}
+%\begin{figure}[b!htp]
+%	\label{figVerdifunksjonen}
 %	\begin{center}
-%		\includegraphics[width=0.75\textwidth]{demonstrasjonAvUlikeKappaforVerdifunksjonen.ps}
+%		\includegraphics[width=0.95\textwidth]{demonstrasjonAvUlikeKappaforVerdifunksjonen.eps}
 %		%\caption{Demonstration of the value function for changing kappa}
 %	\end{center}
+%	\caption{$v(t)$ for changing $\kappa$. $\kappa_0=0.7$. At time $t_p=100$ $\kappa$ changes to $\kappa_1=0.5$. At time $t_p=150$ the neurons imput increases, and $\kappa$ becomes $\kappa_2=1$. See eq.\eqref{eqVerdiligninga}.}
 %\end{figure}
 
 With this new use of eq. \eqref{eqVerdiligninga}, we can calculate the remaining part of the neurons period after $\kappa$ changes value. 
@@ -235,6 +234,72 @@ If this is updated each time $\kappa$ varies, we get an estimate of the remainin
 
 
 
+
+
+%TODO Finn eit bedre navn på denne subsubsection.
+%\subsection{Values for the value equation}
+\subsection{Redying the equation for use in ANN}
+\label{sssecValueOfAlpha}
+
+%XXX Veit ikkje om dette er relevant!
+
+The inter--spike interval for a neuron consists of two phases. 
+The absolute refraction period and the depolarizing phase (se sec. \ref{sssecTheActionPotential}).
+
+Equation \ref{eqPeriodeligningForKonstIntraPeriodKAPPA} describes the depolarizing phase of the neuron.
+The equation for the whole inter--spike interval is given by
+\begin{equation}
+	p_{isi}(\kappa) = p_d(\kappa) + t_r
+\end{equation}
+
+Where $t_r$ is the absolute refraction period of the neuron. 
+If we consider the firing frequency of the neuron, $f(\kappa) = p_{isi}^{-1}(\kappa)$ we can se that the asymptote is given by
+\begin{equation}
+	\begin{split}
+		\lim_{\kappa->\infty}(f(\kappa)) &= \lim_{\kappa->\inf}\left( \frac{-\alpha}{\ln \left( \frac{\kappa - \tau}{\kappa} \right) - \alpha t_r} \right) \\
+	%									 &= \frac{-\alpha}{\ln \left( \lim_{\kappa->\inf}\left( \frac{\kappa - \tau}{\kappa} \right) \right)- \alpha t_r } \\
+	\end{split}
+\end{equation}
+
+Using l'Hôpital's rule %INNI ln(-) funksjonen. TODO Viktig å få med dette i denne setninga!
+%on $\lim_{\kappa->\infty}(\ln \left( \frac{\kappa - \tau}{\kappa} \right)$
+and get %sjå wolframalpha.com ...
+\begin{equation}
+	\label{eqFrekvensLlim}
+	\lim_{\kappa->\infty}{ f(\kappa}) = \frac{1}{t_r}
+\end{equation}
+
+
+
+We can see from this analysis that the refraction period of the neuron is fundamental for restricting the neurons output frequency (se fig. \ref{figFrekvensMedOgUtenRefractionPeriod}).
+For biological neurons, the maximum firing frequency is about 1000 Hz \cite{NeuroscienceExploringTheBrain3edKAP4}. %s 79
+\begin{equation}
+	\lim_{\kappa->\infty}{ f(\kappa}) \approx 1000 \, \text{Hz}
+\end{equation}
+%If we define the maximum firing frequency to be 1000, equation \ref{eqFrekvensLlim} gives us the absolute refraction period as
+We define the maximum firing frequency for the artificial neuron to be 1000 Hz. From equation \ref{eqFrekvensLlim} we get the absolute refraction period as
+\begin{equation}
+	t_r = \frac{1}{1000 \text{Hz}} = 1 \, \text{m}s %= 0.001 s = 
+\end{equation}
+
+If we define the time step of the simulation to be 1 m$s$, the refraction period will be one time step in the simulation.
+With a time step of 1 m$s$, the absolute refraction period (the time interval where it is impossible to exite the neuron) can be set to one time step. 
+For SANN nodes, this means that the node will not change its value for the duration of the next time step. For $\kappa$ANN this can be implemented as a 
+%TODO fullfør!
+
+
+% Plott av frekvens med, og uten refraction period:
+%\begin{figure}[bhtp]
+%	\label{figFrekvensMedOgUtenRefractionPeriod}
+%	\begin{center}
+%		\includegraphics[width=0.95\textwidth]{frekvensPlotRefractionPeriod.eps}
+%	\end{center}
+%	\caption{Frequency for a neuron for different values of input. With and without refraction period}
+%\end{figure}
+
+
+
+%TODO Skriv meir om kva de ulike variablane betyr. Kva er \kappa! kva er \tau,\alpha. Skriv om v_0 for tidsvinduet (referer mykje til rett section)
 
 
 
