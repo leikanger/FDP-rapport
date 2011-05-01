@@ -1,20 +1,77 @@
 
 \chapter{Implementation} %xxx rapport
 
+Skriv innledning. Kva skal stå her?
+\begin{itemize}
+	\item Korleis man impleneterer er abhengig av kva som er målet for implementsjonen (likhet til det simulerte systemet("retthet"), effektivitet(pragmatisk), anna? ). 
+	\item Skrive mine valg. Dette er avhengig av kva eg ønsker å sammenligne systemet for. Velger vel den pragmatiske veien(?)
+	\item programmeringsspråk. Kvifor C++?
+%	\item Sammenligne læring?
+\end{itemize}
+
+	This (fokus på simulering av det biologiske system), and the strong focus on simulating the neural system, makes an object oriented language most appropriate. 
+
+% Innledning RÅKLADD (på nårsk):
+	% Kva er fokus for implementasjonen?
+		% pragmatisk eller simulering?
+			% Skrive at lite er kjendt om kva som er viktig i neural science, så fokus bør være å ha implementsjonen nært det biologiske systemet. Bør også være lett utvidbart.
+			% I utgangspunktet pragmatisk, men pga at vi ikkje veit kva som er viktig, gjør det biologisk nært (dette kan også brukes for å teste ut hypoteser i neural science).
+		% sammenligne de to modellane: Impelmentasjonen av de to modellane bør dermed være så lik som mulig (uten å gjøre de separate modellane dårligare).
+	%
+
+
+	%Innledning, kva programmeringsspråk brukes, osv. Etabler eit utgangdspunkt for resten av teksten!
+	Når man implementerer for å sammenligne to modeller er det best at de to er mest mulig lik. Dette kan lett gjøres vha. arv. Peiker mot OO-språk.
+	
+	Det sterke fokus på være mest mulig likt biologiske neurale system peiker mot OO-språk virker bra. Da kan man dele opp neuronet i "compartments", som i utgangspunktet er adskilt.
+
+	C er eit språk som er effektivt (raskt), samtidig som det har vore undervist på kyb.
+
+	= C++.
+
+	Etterkvart: Skriv litt om Stroustrup's anbefalinger om å bruke stl.
+
+
 
 
 \section{Imlementation, general consepts}
 
+	%	Veldig viktig å etablere eit underlag, som eg kan leike på vidare (merka eg veldig godt i "time" subsection, no (helvetes rot i starten, no).
+	%   (etter bra innledning har eg og leseren samme utgangspunkt i følgande subsections).
+
+
+
+%XXX XXX XXX XXX XXX  Råkladd, på norsk:
+	%Skriv at dette avsnittet er generelle konsept som gjelder for begge implementasjonane. Det er kva dette avsnittet handler om.
+
+
+	% TODO TODO TODO TODO
+	% TODO TODO TODO TODO 		SKRIV først innledning til avsnittet, så begynn å skrive meir om min implementasjon!
+	% TODO TODO TODO TODO 		
+	
+
+
+
+
+
 	\subsection{Time}
 	\label{ssecTime}
+%TODO Skriv om heile subsection. Skriv først innledning til section (over), så rydd opp (under).
 Following the fact that the ANN will be simulated asynchronous, the computer resources will deside the size of the time iterations. The maximum size is desided by the real--time requirement of the task.
 
-To make the software general, the simulated time should therefore be unconnected to the world time outside the simulation. To achieve this, a scheduler has been devised for my simulation.
+To make the software general, the simulated time should therefore be unconnected to the world time outside the simulation. To achieve this, a scheduler has been devised for this implementation.
 
-In object oriented programming languages, we can make a linked list of elements. 
-If the data of the elements are pointers, the pointers can be pointers to any kind of data. 
-Let the list be of type \emph{$std::list<father*> LIST$} and \emph{$[father]$} contain virtual fuctions, then only pointers to objects derived from \emph{[father]} can be placed in the list. 
-Every element thus contains the virtual functions from \emph{[father]}. (Virtual functions may be overloaded in the derived classes).
+SKRIV OM KSRIM OM VKEIN OM SKRIV OM KSRIV OMS SKRIV OM:
+
+In most programming languages we can make a linked list of elements. %TODO Skriv at eg vil bruke objektorientert språk, fordi da kan man ha funksjoner tilknytta objekta (istedenfor variabel--struct..). Velger C++
+If we use an object oriented programming language, every derived element contains the functions and variables from \emph{[father]}. 
+If the data of the elements are pointers, the pointers can be pointers to any kind of data.  %TODO SKRIV OM!
+Let the list be of type \emph{std::list$<$father*$>$ LIST} and \emph{$[father]$} contain virtual fuctions %SKRIV OM! XXX ikkje virtual fuctions, men functions. Dessuten skriv at skal bruke objektorientert språk først.
+, then only pointers to objects derived from \emph{[father]} can be placed in the list. 
+% Skriv avsnittet bedre, skriv neste linje bedre! XXX
+
+%skriv meir: "for this implementation" skal vi gjøre "så her".
+If we use virtual functions, the functions can be overloaded in the derived classes.%(Virtual functions may be overloaded in the derived classes).
 The containers of the standard library in C++ is used instead of arrays, due to its optimalized and well tested behavior\cite{Stroustrup2000KAP16}. More on this later. %TODO more on this later!
 
 When it is time for the scheduler-thread to start a new task, it calls \emph{LIST.front()$\rightarrow$doTask()}. 
@@ -66,30 +123,28 @@ Finally it will append a \emph{self--pointer} to the end of the task list.
 %HER ELLER UNDER subsection{Biologisk nært}
 	\subsection{The object design}
 	\label{ssecTheObjectDesign}
-		With the web the objects of my nodes 
-		In neural simulations, it is important
-		Each node in the neural simulation consists of many
-		
-		Like from biology, each node of the neural network consists of numerous subelements(se sec. \ref{secTheBiologicalNeuralSystem} for more about biological neural systems). 
+		Inspired by biology, each node of the neural network consists of numerous subelements(se sec. \ref{secTheBiologicalNeuralSystem} for more about biological neural systems). 
 		Each node in the neural web consists of the same elements as in biological neural systems. 
 		Each node (``auron'' -- artificial neuron) is comprised of 
 		\begin{itemize}
-			\item Soma, with an output axon and input dendrite.
-			\item Axon, with the neurons output synapses.%XXX Skriv seinare at dette gir mulighet for nøyaktig simuleing av time delay. Men også rask simulering (best for teknologi (pragmatisk)).
-			\item Synapses, connected to both presynaptic axon terminal and to the postsynaptic dendrite.
-			\item Dendrites, with the input synapses to the next neuron.
+			\item Auron, the core of the artificial neuron. With one output axon and one input dendrite.
+			%\item Soma, with an output axon and input dendrite.
+			\item Synapses, connected to both presynaptic axon terminal and the postsynaptic dendrite.
+			\item Axon, containing the neurons output synapses.%XXX Skriv seinare at dette gir mulighet for nøyaktig simuleing av time delay. Men også rask simulering (best for teknologi (pragmatisk)).
+			\item Dendrites, containing the input synapses to artificial neuron.
 		\end{itemize}
 		
-		
+% TODO TODO BARE ROT: TODO SKRIV OM neste par avsnitta!
+
 		%XXX TODO Skriv heller at "av implementasjonstekniske årsaker". Destructor. Beskriv meir i "Biologisk nært"avsnitt. Kall det heller for "Object layout". XXX
 		%Lets start with the dendrite. Each object of the dendrite class will have one or more input synapses. It will also need to be able to access the elements of the postsynaptic auron. 
 		Lets start with the dendrite. When the dendrite recieves much information through its input synapses, it need access to the postsynaptic neurons activationObject (more on this later).%TODO XXX Skriv meir, og bruk heller \ref{secA}
 		To retain the possibility to simulate new theories in what is important in neural systems, the auron will also need access to its dendrites functions and variables. 
 		One element of learning (synaptic plasticity) might be the so--called ``backpropagating action potential'', that propagates back to the synapses of the dendrite when the auron fires.
-		To be able to simulate such elements of learning, we need a two--way connection between the dendrite and the soma. %XXX KANSKJE EG SKAL KALLE auron FOR soma I PROGGINGA OG?
+		To be able to simulate such elements of learning, we need a two--way connection between the dendrite and the soma.
 
 
-		The learning happens in the synapse (the connection between nodes of the network). In biological neural systems, the synapse will be part of both the presynaptic neuron and the postsynaptic neuron.
+		The learning happens in the synapse (the connection between nodes of the network). In biological neural systems, the synapse can be percieved as part of both the presynaptic neuron and the postsynaptic neuron.
 		Again, to retain the possibility of retrograde messangers from the postsynaptic auron and to send retrograde signals to the presynaptic auron, the synapse will need access to both the earlier and the latter object in the signal path. To do this the synapse will not be part of either neuron but be an object of its own with pointers to the previous and the next object in the signal path. 
 		This also enables us to have an abituary number of synapses connected to the presynaptic axon (part of the presynaptic neuron) and to the postsynaptic dendrite (part of the postsynaptic neuron).
 		%litt mykje å beskrive både for dendrite og synapse?
@@ -116,7 +171,7 @@ Finally it will append a \emph{self--pointer} to the end of the task list.
 		Pragmatic ANNs are often use ``one compartment models'' of the neuron.%REFERER noke!
 		Here, each node only has one element (no subelements). This ignores the time delay of transmission through each subelement. 
 		In my implementation this can be easily achieved with letting each node directly call the next nodes' \emph{\small{doTask()}}. 
-				
+
 		%For a simulation of neural network with a focus on the time delay of each element in the neuron, we can use the object model with more elements 
 		%For a simulation that does not focus of the time delay of each element of the neuron, the \small{\emph{axon.doTask()}} can call \small{\emph{synapse.doTask()}} directly.
 		
@@ -245,9 +300,8 @@ Finally it will append a \emph{self--pointer} to the end of the task list.
 	
 
 
-
-%TODO todo TODO Skriv også om nye ideen:  at alle element av eit auron har peiker til eit felles objekt av type auron. Dette skal bl.a. ha aktivitetsvariabel (K for KANN og depol for SANN)
-% Skriv om at dette er kanskje raskare, siden det ikkje krever at vi sender aktivitetsnivået vidare som argument, men bare trenger å accessere den gjennom pElementAvAuron->aktivitetsvariabel..):
+% Bedre å accessere tidligere elements mdl.variabler enn å sende som argument. Skriv om dette.
+% Skriv om at det er kanskje raskare å accessere mdl. variabler i de andre elementa av auronet enn å sende alt vidare som argument i funksjonskalla (argument må også construeres, kopieres, osv), 
 	% - Fører til mindre å gjøre ved funksjonskall. Trenger ikkje kopiere variabel og sende kopien inn i funk (slik det vanligvis blir gjort). Trenger bare endre pElementAvAuron->aktivitetsvar., så å si fra til postElement at: dens tur
 	
 
@@ -321,27 +375,70 @@ Finally it will append a \emph{self--pointer} to the end of the task list.
 %neuroElements/neuroElement.cpp:443:21: error: ‘class i\_dendrite’ has no member named ‘calculateLeakage’
 	\newline \emph{error: 'class i\_dendrite' has no memeber named 'calculateLeakage'}
 
-	One way to avoid this error is explicit type convertion (also called `casting') from \emph{i\_dendrite} to \emph{s\_dendrite} for calls to model specific functions.
+	One way to avoid this error is explicit type convertion (often called `casting') from \emph{i\_dendrite} to \emph{s\_dendrite} for calls to model specific functions.
 	Casting will work wery well, if every call to model--specific functions and variables is from other node elements from the same model.
 	Stroutrups advice is to avoid explicit type convertion\cite{Stroustrup2000KAP6}. 
 	
 	An alternative approach will be to access the function and variables of the model--specific classes only internally in the class. 
 	External calls should only be made to functions declared in the abstract ancestor class \emph{i\_dendrite}.
 
+	In this implementation, we have a special situation. We have a sort of a ``meta--class'' for each node. Each node is comprised of four sub--classes; Axon, Auron, Dendrite and Synapses. 
+	Three of these classes can be seen as internal to the node, while the synapse could be said to be a connector between two nodes.
+
+	To access the model--specific functions and variables internally in the node, inherited from the i\_[element] demands casting of the pointer (from i\_auron to s\_auron og K\_auron). 
+	An alternative approach is to overwrite the pointer to the next and previous element in the signal path with a pointer to a model specific element.
+	This will best be described by an example:
+
+	For the s\_auron class, we have one inherited pointer to the previous element and one inherited pointer to the next element in the signal path.
+	The pointer inherited from i\_auron pointing at the next element in the signal path, the \emph{i\_dendrite* pInputDendrite}, is overloaded to a pointer to a modelspecific \emph{s\_dendrite} class in s\_auron.
+	When calls are made to \emph{s\_auron.pInputDendrite}, every function and variable available in \emph{s\_dendrite} will be accessable.
+	This gives us the oppurtunity to access the model specific functions and varibles in the aurons dendrite whithout defying stroustrup's advice.
+
+	At the same time, we still have the oppurtunity to access the pInputDendrite from a pointer to i\_auron, which is the pointers used in the different containers (e.g. the \emph{static i\_auron::pAllAurons}).
+	
+	As previously mentioned, the synapse is somewhat different. The synapse is in between the presynaptic and the postsynaptic node, and can not be said to belong to either of these. 
+	For this reason, the synapse is (????)%XXX TODO sjekk om dette vil stemme i framtida også. Akkurat no er det litt rot i implementasjonen.. TODO TODO Skriv ferdig når du har rydda opp! TODO
+
+%TODO HER HER EHR HER HER HER TODO Gjør det over! Godnatt.
+
+
+
 	% TODO DÅRLIG SKREVET. SKRIV OM :
 	Functions that is localized only in one of the model--specific classes, like \emph{s\_dendrite::calculateLeakage(int)} is only called only from within the \emph{s\_dendrite} class (before addition of the new synaptic input to the value).
-
+%/****************************************************************************/ SKRIV OM: tekst og tilhørende kode.
+	% TODO TODO TODO TODO SKRIV om. Har endra meining. Mellom auron og dendrite er det greit (siden alle dendritter er laga i constructor for auron er ALLE auron-dendrite par alltid av samme type).
+	% Skriv heller det. Det som står under gjelder fortsatt, men for andre underelement i ANN nodene.. TODO endre også dette i kode:
 	In addition the \emph{s\_dendrite} contains a boolean variable called \emph{bBlockInput} that blocks synaptic input to the node. 
-	This variable is set (to true) when the dendrite caculates that the nodes value goes to suprathreshold values. In addition a pointer to the \emph{s\_dendrite} will be added to the time\_class::pTaskArbeidsKoe list.
+	This variable is set (\emph{bBlockInput = true}) when the dendrite caculates that the nodes value goes to suprathreshold values. In addition a pointer to the \emph{s\_dendrite} will be added to the time\_class::pTaskArbeidsKoe list.
 	This calls \emph{s\_dendrite::doTask()} the next iteration, which will add the next element in the signal path to the work que.
-	Depending on the length of the absolute refraction period for the node, the bBlockInput will be reset (bBlockInput=false) either in class s\_auron or in class s\_axon.
+	Depending on the length of the absolute refraction period for the node, the bBlockInput will be reset (\emph{bBlockInput=false}) either in class s\_auron or in class s\_axon (one or two time iterations later).
 	Because of the choice to avoid explicit type convertion, bBlockInput will be reset internally in \emph{s\_dendrite} by a call to a derived function from i\_dendrite, \emph{void feedbackToDendrite()}.
+%/****************************************************************************/
 
-	
+%Kanskje skrive at internt i meta-objektet som utgjør kvar [node] kan dette trygt gåes ut fra. 
+%For å gjøre det litt trygt, lages de modellspesifikke variabler og funksjoner [private], slik at bare andre klasser og evt funksjoner som er [friend] kan accessere dei. Dette innebærer bare andre klasser i metaklassen som utgjør kvar node
+% skriv det først, så hopp over neste avsnitt, og gå rett på kva casting som skal brukes (static_cast).
 
+	Because the dendrite always is constructed in the construcor of the associated auron object, the two can safely be assumed to be % modelspecific elements 
+		of the same model (KANN or SANN). %TODO Skriv om setninga over. Blir mange "assume" her. Funker best under (?)
+	This is so certain that casting (e.g. from i\_auron to K\_auron) can be assumed safe.
 
+	In C++, the \emph{static\_cast} operator can be used to convert related types, such as a pointer to an object of one class to an other in the same class hiriachy. 
+	This will be safer that C style casting (or the \emph{reinterpret\_cast} in C++), that can convert a pointer to one class to some other totally unrelated class or variable.
+	To follow stroustrup advice, %og kjøre compile-time type cheching når eg caster, så [det under]. Skriv litt om kvifor eg ikkje bruker dynamic cast.
+	the safer \emph{static\_cast} will be used whenever explicit type convertion is exercised in this project.
 
+	It is even safer to use the \emph{dynamic\_cast} operator when casting. \emph{dynamic\_cast} will provide run time type identification whenever casting. %litt rart å sei ".. whenever casting". Casting: kall noke anna, eller fyll ut.
+	There is a small run--time cost associated with the \emph{dynamic\_cast} operator. 
+	\emph{static\_cast} relies on altervative (compile time) methods to be certain that the type convertion is valid, and run time cheching in \emph{dynamic\_cast} is seen as redundant.
+	For ANN, the small run--time cost at each node will sum up to a significant amount.
+	Because of the above elements, the \emph{static\_cast} operator will be used rather than \emph{dynamic\_cast} or \emph{reinterpret\_cast} in this implementation.
 
+% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+% opp til ********* boksa skal alt skrives om. Har gjordt det om i koden, slik at istaden for å bare bruke i\_[element] funksjoner, og isteden for å bruke eksplisitt casting, overskrives pre-signal og post-signal element fra 
+% 	i_[element] (arva fra i_*) med den modellspesifikke s_[element] eller K_[element], avhengig av kva modellspesifikkt element det er snakk om..
+% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+% DERMED: Skriv om all teksten opp til *****-boksa! (men bruk gjerne en del som eksempel eller noke)
 
 
 
@@ -415,7 +512,47 @@ Finally it will append a \emph{self--pointer} to the end of the task list.
 
 
 
-\subsection{Litt om effektivisering}
+\subsection{About efficiency}
+When it comes to what algorithms are effective in terms of computational load, it is impossible to generalize across hardware.
+One set of hardware may be as effective, or in some cases even more effective on floating point operations, than ???. %TODO cite !
+Optimalization of ANN to a particular set of hardware is in many aspects a differet project. 
+The aim of this project is a general comparison of ANN based on two different models.
+To make the comparison general, we should therefore not be to concerned with the execution time, since the execution time spent on different operations wary greatly between different hardware.
+
+It is however important to optimalize the code for both of the two ANNs. 
+For the SANN the leakage (of the nodes value) will be calculated each time the node gets input.
+BLABLA BLA. SKRIV OM SANN OPTIMALISERING.
+% TODO Skriv om tid, effektivisering i SANN osv., her..
+
+
+When it comes to the $\kappa$ANN, the leakage is not a concern, and is already implemented in the value equation that is the basis of the model (se section \ref{secMatematiskModelleringAvBioNeuron}).
+The leakage in each nodes value is the background of the non--linearity of the equation, and no further calculation if required for this.
+
+\large{HER}
+
+\subsection{Om oppsamling av $\kappa$}
+To do the minimalize the number of times $p(\kappa)$ is calculated, it is best to wait to after the current time iteration before calculating the result of the new $\kappa$ in terms of the nodes period.
+%Skriv heller noke slikt som :  Når kappa er ferdig oppdatert, dvs på slutten av current time iteration.
+This is best done by collecting all the calculations in a list and at the end of the time iteration, after all the change of input level at the node is registere, do the calculations.
+
+The most convenient way of doing this is to use the standard library [set]. %Skriv at det antagelig også er mest optimalt: godt optimaiserte funksjoner i std!
+\emph{std::set} is an associative container where the key is the same as the value, with unique elements. %Ref stroustrup kap 17 (bl.a. s 491 og 480 under "map" (ca samme greia står på s. 491)
+This means that the set will keep the list of collected computation tasks so that every task only appear once.
+
+The \emph{std::set} is optimalized for maintaining a list with a unique key, and for efficient access to the list's elements. 
+A better container for the calculation que is \emph{list}, optimalized for insertions and deletions on either end of the list. Random access of the \emph{list} elements are painfully slow\cite{Stroustrup2000KAP17}.
+Because the \emph{std::list} is better suited for pCalculationTaskQue's task, \emph{std::list} will be used.
+The uniqueness of each element is manually coded in \emph{time\_element::calculateTask()}.
+
+If we define \emph{std::list$<$timeInterface*$>$ pCalculationTaskQue} and let time\_class::doCalculation() be responcible for the uniqueness of every element and to perform the calculatons listed in pCalculationTaskQue, 
+	the calculaton of every node with an updated $\kappa$ will only be done once for each time iteration.
+These mechanisms means that for every time some nodes $\kappa$ is updated, a [\emph{this}] pointer can be added to pCalculationTaskQue without fear of duplicate entries. 
+At the end of the current time iteration, \emph{time\_class.doCalculation()} will perform the calculations required by the elements listed in \emph{pCalculationTaskQue}.    % (once for each entry).
+
+
+
+
+\subsection{kladd fra tidligere}
 Skriv om at det er veldig vanskelig å forutse kva som vil være effektivt. Ulike hardware aritekturer gir  ulikt resultat. Dette er grunn til at eg bare teller antall operasjone. Dersom van lager spesial-hw, så vil det det er spesialisert for gå fort og anna gå seinare..
 
 Skriv også om generellt optimalisering:
@@ -430,12 +567,17 @@ Her kan også ``Firing Cycle'' stå. Dette er estimering fordi hastighet ikkje e
 %		\subsubsection{C++ :concurrency kommer.} % Nevn artikkel koch fann om concurrency i library.}
 %		\subsubsection{objektorientert. Skrive subsubsection om dette?}
 
+
+
 	\subsection{synaptisk platisitet}
 	Skrive at siden eg velger å lage recurrent ANN kan eg ikkje bruke backpropagation eller supervised learning. Må starte fra scratch, og lage en modell for reinforcement learning som er basert på biologien. 
 	Fortell om dopamin, diffuse modulatory system, dopamine blir utløst når biologien gjenkjenner pos resultat (mat, sex, trening, glede). Forsterker de synapsene som var aktiv før pos resultat. 
 	Lage reinforcement learning basert på dette!
 
 	Dersom eg får lov å utvide FDP til å være FDP+diplom kan eg gjøre det direkte. Evt blir dette neste prosjekt. Skriv dette isåfall..
+
+
+
 
 \subsection{Log, for comparison}
 To evaluate the transient time course of the nodes values, the best is to write the variables we are interrested in to a log and later evaluate this log in software specialized for this.
@@ -496,6 +638,12 @@ This will finalize the log for each auron, and the octave scripts will be execut
 
 %*********************** SANN ***************************
 \section{Implementasjon: SANN}
+	Skriv først innledning!
+
+	Skriv at siden SANN ofte er brukt som eksempel, for å kunne sammenligne mitt arbeid med tidligere arbeid innen SANN, så er allerede mange aspekter med SANN implementasjonen beskrevet.
+
+	Det som kommer i tilleg skal stå her.
+	Det er kanskje også lurt å repetere de gode ideene og største forskjellene (f.eks. optimalisering av lekkasje med simulering asynkron tid).
 	\subsection{basically en simulering av biologiske neuron.}
 		\subsubsection{Korleis spikes propagerer (gjennom axon, synapse, summert ved dendritt. Lekkasje.)}
 		Skrive at det er ei etterligning av det biologiske neuronet. Sjå seksjon \ref{secTheBiologicalNeuralSystem}.
@@ -507,14 +655,5 @@ This will finalize the log for each auron, and the octave scripts will be execut
 	\subsection{Skrive om kode her? Gå gjennom kode / UML?}
 
 
-%*********************** KANN ***************************
-\section{inplementasjon: KANN}
-	\subsection{simulering vha. ligning \eqref{eqVerdiligninga} fra section \ref{secMatematiskModelleringAvBioNeuron}}
-	\subsection{Osv.}
 
 
-%*********************** Forenklinger *******************
-\section{ANN simplifications and what is known in neuroscience}
-HER skal tabellen ligge. Diskutere korleis mine ANN er laga, kva forenklinger har eg gjort, og kvifor. (sjå side 27 i FDP-loggbok)
-
-Referer en del til kapittel \ref{chapNeuroscience}.

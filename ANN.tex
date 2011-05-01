@@ -39,8 +39,10 @@ Where $w_{ij}$ is the synaptic weight between neuron j and i. $r_i$ is the rate 
 Learning in the early ANN is based on a hebbs postulate of learning. %XXX Skriv noke som skal referere: \cite{Hebb1949Kap4}.
 
 Since the frequency is a defined as a positive size, the weight change $\delta w_{ij} = \sum{k r_i r_j'}$ will allways be either positive or negative depending on $k$. 
-For any useful learning rule, $\delta w_{ij}$ will sometimes need to be positive. This implies that $k$ need to be positive. In this case, Hebbs learning rule will, for any time iteration be positive. 
-This gives makes the synaptic weight unstable in terms of unlimited synaptic growth. Many atempts have been made to stabilize the synaptic growth for neural networks, eg. \cite{hebbUstabilt}.
+For any useful learning rule, $\delta w_{ij}$ will sometimes have to be positive. This implies that $k$ is a positive constant, and Hebbs learning rule will for any time iteration be positive
+%, which makes the synaptic weight unstable in terms of unlimited synaptic growth.
+ . This makes the synaptic weight unstable in terms of unlimited synaptic growth.
+Many atempts have been made to stabilize the synaptic growth for neural networks, eg. \cite{hebbUstabilt}. %ikkje skriv "eg.", sjå heller om påstanden er skrevet i artikkelen og referer isåfall dette (da kan eg fjærne "eg.")
 
 One method for stabilizing synaptic weight is based on the concept of STDP discovered from biological neurons in 1987.
 Gustafsson et al. proposed that the synaptic weight gain varied with the postsynaptic neurons depolarization after synaptic transmission\cite{Gustafsson03011987}. 
@@ -66,17 +68,23 @@ Simulating each neuron will not be as effective as the traditional ANNs because 
 
 SANN use boolean signals intracellularly. At the synapse, the tranmission is given by the synaptic weigth. 
 
-The major advantage of SANN is that it retains imformation about the timing of the spiking for the neurons. 
+The major advantage of SANN is that it retains imformation about the timing of the spiking for the neurons.  %TODO Ikkje skriv "retains". Finn på noko som gir bedre flyt i teksten.
 Because of the advantage following STDP, SANN is frequently referred to as ``third generation ANN''. 
 
-Neural science is a relatively young field (aprox. 50 years), and the important mechanisms in neural networks has not been discovered fully. 
+Neural science is a relatively young field % (aprox. 50 years)
+	, and the important mechanisms in neural networks has not been discovered fully. %referer eller kutt ut "approx 50 years"
 Discovery of Local Field Potential Oscillations (LFPOs) has generated much discussion. LFPOs are oscillations in the activity of local inhibitory neural circuits. 
 These circuits give output to a large part of the neurons(local to each inhibitory circuit), and can be seen both on network behaviour and on the individual neuron. 
-Whether this is purely a network phenomenon or following each neuron is unknown, but the importance of LFPOs in neural calculations is assumed.
+%kva meiner eg med "following each neuron" ? Skriv bedre!
+Whether this is purely a network phenomenon or following each neuron is unknown, but the importance of LFPOs in neural calculations is assumed. %to be [stor]
 %referer XXX
 
+%The relative timing of the firing of each node have [blitt mykje større i det siste] Kvar er "det siste". Referer. osv
+%Skriv bedre, mykje bedre :
 Anyway, the focus of computational neuroscience is to a much larger extent on the timing of the indivitual neural spike. 
-
+%TODO :
+Finn ut når timing ble så viktig, og skriv litt meir om dette. Skriv at SANN har blitt populært, og at eg syns det er litt teit å direkte simulere neurona når man har høgare matematikk tilgjengelig.
+%Denne tanken min er bakgrunnen for at eg har utvikla KANN. Dette kommer kanskje litt seinare i teksten?
 
 
 
@@ -84,11 +92,11 @@ Anyway, the focus of computational neuroscience is to a much larger extent on th
 \subsection{The reason for developing a new model -- $\kappa$ANN}
 As a computational system, a neural system is fundamentally different from the processor in a computer. 
 The neural system is based on a vast amount of computationally weak, massively parralell indivitual ``processors'' ---the neuron. 
-The computational unit of a computer, the processor, is in many ways the opposite. It is (one ore more) single, computationally strong, serial processor(s). 
+The computational unit of a computer, the processor, is funtamentally different. It is one or a few, computationally strong, serial processor(s). 
 
-In neural systems the neurons are directly connected, such that the output of one node is the input of an other. In computers, the result of a computation is saved somewhere in memory and that can be accessed by another processor.
+In neural systems the neurons are directly connected, such that the output of one node is the input of another. In computers, the result of a computation is saved somewhere in memory and that can be accessed by (one of) the processor(s).
 
-With this fundamental difference betwee
+With this fundamental difference betwee  \emph{XXX} SKRIV MEIR HER.
 
 
 

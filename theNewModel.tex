@@ -185,35 +185,32 @@ If we define $p_d(\kappa)$ as the depolarizing phase of the inter--spike interva
 \end{equation}
 
 It is impotant to remember that equation \eqref{eqPeriodeligningForKonstIntraPeriodKAPPA} is based on a constant $\kappa$ during the whole period. 
-If $\kappa$ varies during one period, $t^*$ from equation \eqref{eqTidTilFyringVedEndraKappa} is an estimate of the remainting time until firing. This estimate is updated every time $\kappa$ is.
+If $\kappa$ varies during the interspike period, $t^*$ from equation \eqref{eqTidTilFyringVedEndraKappa} is an estimate of the remainting time until firing. This estimate is updated every time $\kappa$ is.
 
 
 
 \subsection{Variable input between spikes}
 \label{ssecVariableInputBetweenSpikes}
-If we assume the input to the neuron to be constant during the interspike period, the equations are simular to the model used in the early ANNs (where the nodes recieves and sends float-values, interpreted as the frequency of the nodes).
-% skriv litt annaleis: ikkje "we can read out" men "from eq. ?, the activity can ..." eller noke.
-%Given this assumption, we can read out the activity of the neuron from equation \eqref{eqPeriodeligningForKonstIntraPeriodKAPPA}, as the frequency $f(t) = \frac{1}{p(\kappa)}$
+If we assume the input to the neuron to be constant during the interspike period, the equations give an ANN model simular to the model used in the early ANNs 
+	(where the node recieves and sends float-values, often interpreted as the node's firing frequency). %men den ulineære funksjonen er basert på det biologiske systemet heller enn effektivitet. (står lenger nede)
 Given this assumption, the activity can be read out of eq. \eqref{eqPeriodeligningForKonstIntraPeriodKAPPA} as the frequency $f(t) = \frac{1}{p(\kappa)}$
 
+% Skriv om starten litt. "In this case" er dårlig. Resten er bra. XXX
 In this case, the equation is the same as with the frequency based ANNs, with the non-linear activity function of each node based on mechanistic model of the neuron. %MERK: snakk litt om denne `assumption' XXX
 
-%So far we have a non--linear function of the neurons input giving the activity of the neuron. 
-%If the activity in the above equation is read out as the freqency ($f(\kappa)=p^{-1}(\kappa)$), 
-%the model gets very simular to the traditional frequency based ANN. 
 %The non--linear activity function in this model is however based on a mechanistic model of the biological neuron. 
 
 If we allow the input and activity of each neuron to vary between spikes, the model approaches the model for the biological neuron.
 %Equation \eqref{eqVerdiligninga} takes into variable leakage as a function of the neurons value %XXX skriv noke slikt som: i motsetning til SANN
-For equation \eqref{eqVerdiligninga} to still be valid when $\kappa$ varies within each interspike period, we need to define a time window as the period where $\kappa$ remains constant. 
+For \eqref{eqVerdiligninga} to be valid when $\kappa$ varies within each interspike period, we need to define a time window as the period where $\kappa$ remains constant. 
 %Equation \eqref{eqVerdiligninga} can also be used when $\kappa$ varies within each firing period.
 %For this we define a time window of $\kappa$ as a time interval where $\kappa$ is constant. 
-When $\kappa$ is updated, a new time window will start. 
+When $\kappa$ is updated, a new time window starts. 
 %$v(t)$ is still defined by equation \eqref{eqVerdiligninga} with $v_0$ given as the value at the start of the time window (the end of the previous time window) and  $t$ representing time into the current time window.
-$v_0$ from eq. \eqref{eqVerdiligninga} now represents the value at the start of the time window ( $v_0 = v(t=0)$ ). 
-This value is equal to the value $v(t)$ at the time of change from the previous time window(se fig. \ref{figVerdifunksjonen}).
+$v_0$ from \eqref{eqVerdiligninga} now represents the value at the start of the time window ( $v_0 = v(t=0)$ ). 
+This value is equal to the value $v(t)$ at the time of change of $\kappa$ from the previous time window(se fig. \ref{figVerdifunksjonen}).
 %For eache time window, equation \eqref{eqVerdiligninga} contains the value at the start of the time window ( $v_0 = v(t=0)$ (in the time window) ). 
-This is equal to the value of the neuron at the time of variation of $\kappa$ (the value after the previous time window).
+This is equal to the value of the neuron at the time of variation of $\kappa$ (the value at the end of the previous time window).
 
 In fig. \ref{figVerdifunskjonen}, $v(t)$ is simulated for three different time windows. At time $t_p=100$, $\kappa$ changes from $\kappa_0=0.7$ to $\kappa_1=0.5$. At time $t_p=150$, $\kappa$ becomes $\kappa_2=1$. 
 The simulation implies that the value function is a continous function that converges toward the neurons final value, $\kappa$, even for varying $\kappa$.
@@ -246,13 +243,13 @@ If this is updated each time $\kappa$ varies, we get an estimate of the remainin
 The inter--spike interval for a neuron consists of two phases. 
 The absolute refraction period and the depolarizing phase (se sec. \ref{sssecTheActionPotential}).
 
-Equation \ref{eqPeriodeligningForKonstIntraPeriodKAPPA} describes the depolarizing phase of the neuron.
+Equation \eqref{eqPeriodeligningForKonstIntraPeriodKAPPA} describes the depolarizing phase of the neuron. % , $p_d(\kappa)$.
 The equation for the whole inter--spike interval is given by
 \begin{equation}
 	p_{isi}(\kappa) = p_d(\kappa) + t_r
 \end{equation}
 
-Where $t_r$ is the absolute refraction period of the neuron. 
+Where $t_r$ is the absolute refraction period of the neuron. % , and $p_d(\kappa)$ is given in \eqref{eqPeriodeligningForKonstIntraPeriodKAPPA}.
 If we consider the firing frequency of the neuron, $f(\kappa) = p_{isi}^{-1}(\kappa)$ we can se that the asymptote is given by
 \begin{equation}
 	\begin{split}
@@ -284,7 +281,8 @@ We define the maximum firing frequency for the artificial neuron to be 1000 Hz. 
 
 If we define the time step of the simulation to be 1 m$s$, the refraction period will be one time step in the simulation.
 With a time step of 1 m$s$, the absolute refraction period (the time interval where it is impossible to exite the neuron) can be set to one time step. 
-For SANN nodes, this means that the node will not change its value for the duration of the next time step. For $\kappa$ANN this can be implemented as a 
+For SANN nodes, this means that the node will not change its value for the duration of the next time step. 
+For $\kappa$ANN this can be implemented more effective by incrementing the estimated firing time by one time iteration. 
 %TODO fullfør!
 
 
@@ -302,6 +300,9 @@ For SANN nodes, this means that the node will not change its value for the durat
 %TODO Skriv meir om kva de ulike variablane betyr. Kva er \kappa! kva er \tau,\alpha. Skriv om v_0 for tidsvinduet (referer mykje til rett section)
 
 
+
+%TODO Skriv om høgare syn på systemet. Kva betyr Kappa (=ett slags mål på input/lekkasje), output gjennom utsynapser er en funksjon som avhenger av [syn.weight]/[isi_intervall].
+% 		- får dermed en { alpha*w_ij / ln(1-(T/K)) } relasjon mellom neuronets aktivering (K) og neste neurons input. Bør kanskje lese deg opp på "log-summering som multiplikasjon"-artikkelen, og referere!
 
 
 
@@ -386,5 +387,9 @@ For SANN nodes, this means that the node will not change its value for the durat
 
 
 
-%kva er forskjellen mellom denne modellen og SANN? Denne modellen holder input fra kvart inputneuron konstant mellom dets spiker(?) mens SANN holder lekkasjen konstant over kvar tidsiterasjon.
+%XXX XXX XXX kva er forskjellen mellom denne modellen og SANN? Denne modellen holder input fra kvart inputneuron konstant mellom dets spiker(?) mens SANN holder lekkasjen konstant over kvar tidsiterasjon.
+
+
+
+
 
