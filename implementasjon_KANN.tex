@@ -1,0 +1,292 @@
+%
+% PLAN:
+% - ta med "propagating of kappa". At metoden brukt er antagelig ikkje den mest effektive, men det gjøres likt for å lage det meir egna for sammenligning.(ligger i implementation.tex)
+% - ta med "om oppsamling av kappa" (ligger i implementation.tex)
+
+%*********************** KANN ***************************
+\section{implementasjon: KANN}
+	Skriv først innledning, med mål om å sette meg og leser på samme utgangsnivå.
+
+	\subsection{Estimation of firing time}
+	For KANN, synaptic transmission can be defined as transmission of change in the postsynaptic node's input level.
+	The input of a node, in terms of $\kappa$, is propotional to the synaptic weight and inversly propotional with the presynaptic inter--spike period.
+
+	When the presynaptic node changes its activation level, and its period increases or decreases, the level of synaptic transmission will be altered accordingly. 
+	Because of the number of synapses per axon/ dendrite, it is most efficient to perform as many of the calucations as possible, in the presynaptic axon.
+	For this reason, the most efficient way of calucating the postsynaptic dendrite's activation level is to let the synapse transmit the derived of the signal (change).
+
+	If the transmitted varible is the derived of the signal, the postsynaptic dendrite can easily calculate the changed postsynaptic $\kappa_i$. 
+	If we define $\kappa_{ij}$ as the contribution on $\kappa_i$ from the synapse between node $j$ and node $i$ , $\kappa_i$ can be calculated as
+
+	\begin{equation}
+		\kappa_{i} = \sum_j{\kappa_{ij}}
+	\end{equation}
+	
+	If every $\kappa_{ij}$ but one, $\kappa_{ix}$, is kept constant, it can be shown that $\Delta K_i$ is equal to $\Delta K_{ix}$.
+	Following that $\kappa$ is calculated as a superposition of all the input synapses contribution, these equations can be extended to change of transmission of multiple synapses.
+	This gives us the equation for the change of postsynaptic activation level following synaptic transmission at synapse from node $x$ to node $i$.
+
+	\begin{equation}
+		\kappa_{ij, new} = \kappa_{ij, old} + \Delta \kappa_{ij}
+	\end{equation}
+
+	Instead of calculating all of this at every synapse, or for every synapse at the postsynaptic dendrite, it is better to calculate as much as possible presynapticlly.
+	This gives one calulation every time a node fires an action potential, instead of once for every output synapse.
+
+	%XXX XXX XXX Trur eg skrive  resten i subsubsection: implementation:KANN -> pEstimatedTaskTime -> execution of elements
+	
+	% TODO SKRIV litt om dette her, og lag eit frampeik til etter pEstimatedTaskTime, der eg skal skrive meir om dette.
+	%Transmission of the derived solves many problems concerning efficiency, but it also introduces integral error for the postsynaptic $\kappa_i$
+	%This problem can be solved, and we will come out JAJAJ. Skriv anna gang-- TODO
+
+
+	%Etterkvart: skriv om integral-errors og fiksing av dette ved å bruke pEstimatedTaskTime (regelmessig fiksing, som er adaptiv med basis i feilen på postsyn signal (høg feil=>oftere regelmessighet på resumming av kappa)).
+
+
+
+
+%antagligvis her, men veit ikkje heilt. Iterators. Brukes mykje, så bør forklares (spess for en C patriot)
+\subsection{Skriv om iterators, en plass}
+Dette er veldig viktig for produktet, så bør skrives om.
+
+Iterators er en høgare form for peiker. 
+I standard library er mange basisfunksjoner implementert, og små operatorer (som lenka liste iterering) er lett å implementere.
+Mange små funksjoner som er lett å implementere får alle en liten sannsynlighet for feil. Når det er mange av desse får man mange potensielle feil som er vanskelig å finne.
+
+I standard library er blandt anna en del "containers", som list. Dette er ei ``doubly linked list''.
+Man har også såkalla ``iterators'', som er en peiker til element i slike containers.
+Desse har blandt anna implementert iterator operatoren \emph{++}. Denne er garantert feilfri, og bør brukes fremfor å imlementere slikt selv (seier stroustrup)[referere!].
+
+Skriv at i tillegg til at man kan gå ut  fra at de er feilfri, så er de også godt optimalisert, og vil ofte gi en meir effektiv implementsjon.
+
+%Iteratoren har veldig masse til felles med en peiker, bare med lettere, feilfri, meir optimalisert utførelse.
+
+\subsubsection{Ikkje mulig å lagre iteratoren}
+ELLER ER DET MULIG? (Kan være det under bare gjelder for vector!)
+
+Iteratore blir ugyldige, og gir udefinert oppførsel dersom lista blir rezised i mellom iteratoren blir laget og brukt. 
+Initiellt var tanken at K\_auron (og kanskje andre timeInterface som bruker pEstimatedTaskTime) skulle også inneholde en iterator (peiker) til rett element i lista.
+Siden iteratore blir ugyldig når listas lengde endres %stroustrup s. 550, nede. Understreka.
+	så går ikkje dette.
+
+Dette er grunnen til at kvar gang eit element skal flyttes, må det søkes opp på nytt (forrige plass kan inneholde eit nytt element, eller være forbi slutten av lista..)
+
+Siden vi ikkje bør anta kor den er, bør lista itereres gjennom på nytt. 
+En antagelse som er trygg er at elementet ikkje har flyttet seg veldig langt, når estimatet oppdateres.
+Dette gjør at det antagelig ligger i samme halvdel av lista, og det kan være lurt å begynne søket fra den siden som er nærmast ny plassering. %type før eller etter size() / 2 , før => start søk fra starten ...
+
+For å effektivisere, lages to funksjoner: en som legger til element, og en som flytter det. 
+Ved fyring av K\_auron fjærnes elementet, men skal også legges til på tidspkt. [no]+[estimert periode].
+Løsninga mi blir: i funksjonen som fjærner elementet, vil også nytt element legges til om element->periode. Dette er en rein insertion.
+
+For flytting av element må lista itereres gjennom, og kvar iterasjon må lista--elementet gjennomsøkes etter gjeldende element. 
+Dette er meir tidkrevende, og er grunnen til at eg skiller mellom de to operasjonene: insertion og moving of an element.
+
+%Les stroustrup s. 550 for meir, når dette skal skrives om!
+
+
+
+
+
+
+
+
+
+
+
+
+	\subsection{pEstimatedTaskTime}
+	$\kappa$ANN is based on calculating the firing time, given the present level of input. 
+	Because the input level of an ANN node varies constantly, the calculated firing time is but an estimation of the nodes firing time. 
+	The estimation changes as the input level does.
+	%The estimated firing time for a node changes as the input level does.
+	
+	The std::list pEstimatedTaskTime is basically an array of dynamic size consisting of std::list--elements,
+	where the outer list is an array of future time iterations and the inner lists are arrays of tasks estimated for the respective future time iterations.
+	%The inner list is an array of tasks, the outer list is an array of future time iterations. 
+	%This can be used for planning the time of execution for different tasks.
+	%that keeps overview of when the tasks in the inner tasklist is to be executed.
+
+	The outer list could be said to be the time iteration (relative to the present time iteration) when the tasks in the conlaining list are to be performed. 
+	When every task in the inner task list is completed, % ELLER "moved to the pWorkTaskQue" 
+		the task list is removed from the outer list. 
+	In this way it is possible to keep the relative time--task list updated.
+
+	The tasks located in the inner list of the first element of the outer list are the tasks that are to be executed the next time iteration.
+%	Tasks that are to be performed the next time iteration is inserted in the first element (inner list) of the outer list.
+%	In time\_class::doTask(), the first element of the outer list (the first inner list) is evaluated, and all the taskt are executed. 
+	time\_class::doTask() is responsible for tasks being executed at the planned time. 
+	Before time\_class::doTask() iterates time (and moves its pointer from the first element to the last element of pWorkTaskQue), all tasks that are planned for next time iteration is moved from pEstimatedTaskTime to pWorkTaskQue.
+	The tasks are appended at the back of pWorkTaskQue before the time\_class object pointer is moved to the end of pWorkTaskQue. 
+	This will cause the planned tasks to be performed the next time iteration.
+
+%	Before the discrete time is iterated, the first element is removed from the outer pEstimatedTaskTime--list.
+%	In this way it is possible to keep an overview of the immediate future with pEstimatedTaskTime.
+
+	If a new element (a new task) is to be inserted somewhere outside the present scope of the pEstimatedTaskTime, the element (std::list) needs to be constructed.
+	Because of the mechanisms of pEstimatedTaskTime, not only the element needs to be produced but also all the estimated time iterations between the length of pEstimatedTaskTime and the estimated time of the respective task.
+
+%dette står lenger nede, under "insertion of elements"
+%\begin{lstlisting}
+%int nDiff = uRelativeTime - pEstimatedTaskTime.size();
+%if( nDiff >= 0 ) //Mangler ledd. Legg til rett antall.
+%{
+%  for(int i=0; i <= nDiff; i++){
+%  pEstimatedTaskTime.push_back( new std::list<timeInterface*> );
+%  }
+%}
+%\end{lstlisting}
+	
+	\subsubsection{Insertion of elements}
+	The std::list container is implemented as a doubly linked list\cite{Stroustrup2000KAP16}.
+	To find element nr. $n$ we can iterate throught the list $n$ times from the beginning.
+% 	To find element nr. $n$ we can either iterated throught the list ($n$ times) from the beginning, or $S-n$ iterations from the end.
+%	An alternative approach if we are concerned with efficiancy, is to iterate from the end that is closest to the element (the beginning or the end of the list).
+	In doubly linked lists, we can also iterate thourgh the list from the end.
+	If we always iterate from the end that is closest to the target element, the number of iterations required will be halved (if the target position is completely random within a fixed--size list).
+
+	If, for example, we have a list that is 10 elements long and want to access element nr. 9, the most efficient way of doing this in a doubly linked list is to start at the end.
+	To generalize this, we can say that if the element that needs to be accessed is later than $\frac{[\text{size of list}]}{2}$ the ``search'' will start at the end.
+
+\begin{lstlisting}
+if( uRelativeTime_arg < (pEstimatedTaskTime.size())/2 ){
+  // Seach from the last element.
+}else{
+  // Seach from the first element.
+}
+\end{lstlisting}
+
+	%If, however, the estimated task time is outside the scope of pEstimatedTaskTime, new elements will have to be inserted.
+	Insertion of tasks outside the immediate length of pEstimatedTaskTime requires some attention.
+	When an event is planned for some time iteration outside the scope of pEstimatedTaskTime, the scope of pEstimatedTaskTime will have to be increased.
+	Because the pEstimatedTaskTime works as a FIFO--que, where the first element % (containing a list of all the planned tasks for the future time iteration)  (se section \ref{ssecEvaluationOfpEstimatedTaskTimeELEMENTS})
+		is popped in time\_class::doTask(), it is important to insert every element between the present scope of pEstimatedTaskTime and the new planned task time.
+	This is done by
+\begin{lstlisting}
+int nDiff = uTimeToTask-pEstimatedTaskTime.size();
+if( nDiff >= 0){
+  for(int i=0; i<=nDiff; i++)
+    pEstimatedTaskTime.push_back( new std::list<timeInterface*> );
+}
+\end{lstlisting}
+%This algorithm enshures that pEstimatedTaskTime is correct in terms of time planning.
+The expression in the for loop is the reason for having the outer elements of pEstimatedTaskTime defined as std::list$<$timeInterface*$>$ pointers.
+In the above algorithm, new std::lists are created in the free store. This creates elements for pEstimatedTaskTime that will exist after the return from the function where the elements are constructed.
+%When the free store is used, it is important to deallocate the memory after the element is used. %skriv bedre, denne setininga
+To avoid memory exhaustion, it is important to deallocate the memory allocated in the free store when the variable no longer will be used. This is done when the inner lists are evaluated in \emph{time\_class::doTask()}.
+For more about the execution of pEstimatedTaskTime tasks, se section \ref{ssecEvaluationOfpEstimatedTaskTimeELEMENTS}.
+%TODO Skrim om deallocating memory i ssecEvaluationOfpEstimatedTaskTimeELEMENTS   asd123
+
+
+	%TODO Koden for denne insertion--funksjonen skal være med i appendix!
+	% 			- og skal refereres til fra [her]
+
+
+
+%
+% 	Skriv om at funk får inn relativ tidsflytt som argument. For å finne relativ tidsflytt trenger eg å lagre gammelTidsPkt i timeInterface-objekt.
+% 	Skriv om iterator opplegg. Iterator-returnerende funksjon som søker seg fram til rett ytre-liste (fremtidig tidsiterasjon..)
+
+	\subsubsection{Moving tasks in pEstimatedTaskTime}
+	When the planned task time for a timeInterface object is changed, the pointer to the object have to be moved in the pEstimatedTaskTime list.
+	
+	%In the standard library containers, pointers to elements are called iterators. An iterator 
+
+% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TOD
+% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TO
+% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO T
+	%TODO lagre heller iteratoren i timeInterface objektet. Tar langt mindre tid. Trur det at iteratoren blir invalidated bare gjelder for vector..
+	XXX KORLEIS skal eg gjøre dette? No lagrer eg ulTid i objektet. Kanskje eg heller skal lagre list<list*>::iterator ? Funker dette bedre?
+	\emph{Det er bare for vector at iteratoren blir ivalidated når størrelsen på container endre!}
+
+	%Uavhengig av korleis eg finner element, kan eg skrive om flytting av element:
+	When the estimated task time is altered, one can assume that the new position will be located not far from the old position, compared to the size of the whole pEstimatedTaskTime list.
+	In this case, the most efficient way of finding the new position is to iterate $x$ positions from the old estimated time iteration in pEstimatedTaskTime, instead of finding the position from one of the ends of pEstimatedTaskTime.
+	The relative moval of the task can be desided by taking the difference between the new estimate and the old estimate of the task time, $x$, and move the object pointer $x$ iterations along pEstimatedTaskTime. 
+	$x$ may be positive or regative.
+	
+%	\subsubsection{Flytting av element}
+%	Implementer først, så skriv om flytting av element som resultat av ny $\kappa$.
+%	Element vil ikkje flyttes langt, så beste vil være å flytte elementet fra [no-posisjon].
+%	Dette kan lett gjøres i ei `doubly linked list'.
+%
+%	(planen no er å flytte den ved å ta inn no-iterator-plass (som er lagra i K\_auron) og kor langt den skal flyttes. 
+%	Dette gjøres best ved å overlagre funksjonen for når den får argument (iter, timeInterface, tidsFlytt). 
+%	Bør returnere iterator, for at auronet skal ha muligheten til å lagre også ny iterator i pEstimatedTaskTime).
+
+
+
+
+	\subsubsection{Evalutation of pEstimatedTaskTime elements}
+	%\subsubsection{execution of element tasks}
+	\label{ssecEvaluationOfpEstimatedTaskTimeELEMENTS}
+
+	%pEstimatedTaskTime: where all planned tasks for future time iteration lies,
+	%pWorkTaskQue: where the tasks for the immediate future lies.
+	When the time iteration for the planned events in pEstimatedTaskTime arrives, the tasks in the pEstimatedTaskTime element need execution.
+
+	This can be done by executing the tasks in a separate function, e.g. time\_class::doTask(), that is called at an ideal time for evaluating pEstimatedTaskTime elements.
+	%time\_class::doTask() is ideal for executing the tasks. 
+	To be consistent about the execution of tasks, it is better to move the tasks planned for the next time iteration from the next element in pEstimatedTaskTime to the pWorkTaskQue list.
+	pWorkTaskQue is the list used to plan the immediate future for the ANN, initially developed for the SANN model that focus more on the immediate state of the system.
+
+	When this is done in time\_class::doTask() before time is iterated and the time\_class time separation object is moved to the end of pWorkTaskQue, the tasks from pEstimatedTaskTime will be executed the next time iteration.
+	%When the estimated time for the elements task is at the next time iteration, time\_class::doTask() will insert a pointer to the element into pWorkTaskQue.
+	%This will will call the node elements \emph{doTask()} function the next time iteration. 
+
+%	The elements of pEstimatedTaskTime is created in the free store, and needs to be deallocated to avoid memory exhaustion. 
+	When a pointer to an element is removed from pEstimatedTaskTime, the elements destructor is not called. 
+	%When an element is removed from pEstimatedTaskTime, the value of the dereferenced elements destructor is not called because the element is a pointer. 
+	It is therefore important to deallocate the memory used for the object in the free store to avoid memory exhaustion.
+	%When the element us used and no longer needs to be stored, 
+	At the end of time\_class::doTask() this is done explicitly:
+\begin{lstlisting}
+delete pEstimatedTaskTime.front();
+pEstimatedTaskTime.pop_front();
+\end{lstlisting}
+	The \emph{delete} operator frees the memory allocated to the task list planned for the next time iteration (the dereferenced pointer)
+	and the \emph{pop\_front{}} operator removes the now empty pointer in the first element of \emph{pEstimatedTaskTime}.
+
+
+	
+
+% TODO Skrive eksempel med "the action potential cascade? :
+	%I will in the remainder of this section focus on the action potential cascade. 
+	%When the firing time of the auron is estimated, a pointer to the auron node element is inserted into pEstimatedTaskTime. 
+	%When the time comes for the auron to fire an action potential, the auron pointer is interted into pWorkTaskQue, and the \emph{K\_auron::doTask()} will be executed at the estimated time iteration, inducing the action potential cascade.
+
+	%For K\_aurons, the \emph{doTask()} will first calculate the aurons inverse period (``instantaneous frequency''). 
+	%The result is variable \emph{K\_auron::uLastCalculatedPeriod} is made to save this value for later use.
+	
+	%The new period is calculated, using equation \eqref{eqPeriodeligningForKonstIntraPeriodKAPPA}, giving the level of transmission at the nodes output synapses.
+	
+	%skriv litt om at denne ligninga er basert på konst. interspike kappa. Dette har vi ikkje her. Kvifor er det viktig alikevel. 
+	% 	- delay i ANN. Vente på første spike kan være uoptimalt, men det vil være proposjonalt med aktiviteten, som kan være bra. osv. Drøft (seinare, nevne det her..)
+	% 	- arbeidsbelastning.
+	
+
+
+
+
+
+\section{Rekalkulering av Kappa}
+Siden kappa bare regnes ut som integralet av den deriverte, vil det være behov for rekalkulering av Kappa, i ny og ne. Dette bør ikkje skje for ofte, heller ikkje for sjeldent.
+Difor: lage en adaptiv utførelse av dette. Dette sjekker avviket mellom den rekalkulerte verdien og den gjeldende verdien, ved rekalkulering. 
+
+Dette avviket sjekkes opp i mot en predefinert ønska verdi, og differansen er med på å bestemme om periode til neste rekalkulering skal auke eller minke (auker/minker som en funksjon av avvik-avviket). 
+
+Dette avviket er m.a.o. med på å bestemme tid til neste rekalkulering av Kappa.
+Auken/minken bør ha en maksverdi.
+
+
+%	\subsection{Anna fra tidligare:}
+%	-- kanskje skrive om vanskene med log() ? Returnerer samme som argumentet, difor må vi typekonvertere til (float) eller (double) før man tar log() av det. Dette skapte hodebry, siden eg bare fekk resultatet 0.
+% 		Ganga med FAKTOR, og fekk 0. Når eg typekonverterte argumenta til log() om til float gjekk fekk eg bra output..
+
+%	Skriv også om at istedenfor å skrive $t_{estimert} = - \frac{1}{\alpha} \ln(\frac{\kappa-\tau}{\kappa-v_0})$ kan eg skrive $t_{estimert} = \frac{1}{\alpha} \ln(\frac{\kappa-v_0}{\kappa-\tau})$
+%	(ferre operasjoner, meir effektivt!).
+
+%	\subsection{simulering vha. ligning \eqref{eqVerdiligninga} fra section \ref{secMatematiskModelleringAvBioNeuron}}
+%	\subsection{Osv.}
+

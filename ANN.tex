@@ -1,4 +1,71 @@
 
+
+
+
+%
+%
+% 		Disposisjon for kapittelet:
+% 		\section{ Why ANN? }
+% 			- Om at Ann gir assossiative egenskaper til den algoritmiske computeren.
+% 			- Om læring. I enkleste form: 
+% 							- ulineært filter med gode læreegenskaper.
+% 							- Natively distributed and asynchrounous. 
+% 			- Anna ? 							
+%
+% 		\section{ Background: ANN history }
+% 			- Skrive om starten for ANN; Skriv kort om:
+% 				- McCullock-Pitts neuron, 1943. 
+% 					- Lineær funksjon med threshold. 
+% 					- Boolske signal (ikkje syaptisk weight, syn.plast. (?) )
+% 					- Feedforward.
+% 				- Hebb, 1949 (?). Skriv om Hebb rule(?)
+% 				- Perceptron, 1957 ("simplest form of feedforward ANN" - wiki) 		Sjå s. 75, Rolls/Treves 
+% 					- Skriv om dette; Kva som var bra, dårlig, osv.
+% 					- Kunne ikkje gjøre en del handlinger. Førte til pause i ANN-utviklinga fram til tidlig 80 tall.
+% 				- ADALINE ("ADAptive LINear Elements") 								Sjå s. 79, Rolls/Treves
+% 					- Brukt for å fjærne ekko fra telefonlinjer.
+% 				- Hopfield 90-tallet. (ta med? Ikkje uten at det er direkte relevant..) --Kanskje bare nemne det som folk/funding ble interrester i ANN igjen(Om dette stemmer..)  (?)
+% 				
+% 				Når ble aktiveringsfunksjonen ulineær? Finn ut, og skriv at dette (i tillegg til multilayered perceptron) gjorde utviklinga aktuell igjen. Forskere ble gira igjen..
+% 	
+% 				- Frekvensbasert. Kontinuerlig ulineær funksjon som kan sies å representere frekvensen til neuronet.
+% 				- Synkron oppdatering: alle nodene oppdateres likt, i motsetning til den biologiske ekvivalent, som er "event-basert" (asynkron).
+% 				- Læring: skriv om læring. Fokus på "Hebbs law", ustabilitet (forberede leser for seinare å lese om stabilitet for spiking ANN)
+% 					- Skrive at mange forsøk er gjort på å stabilisere Hebb. Ikkje einaste læringsregel, men einaste "biologically plausible". Stabilitet for læring er eit issue intill no, uansett.
+%
+% 		\section{ Third generation ANNs }
+% 			- Oppdagelsen av STDP satte fokus på relativ spike timing for pre- og post- synapsisk neuron.
+% 			- Skrive om SANN. Bedre simulering av nodene (neuron). Sender ikkje signal vidare kvar tidsiterasjon, men bare når depol er over terskel. Basert på modell presented in Hodkin/Huxley, 1952 artikkel.
+% 				"Thus, one of the fundamental questions of neuroscience is to determine if neurons communicated by a rate code or by a pulse code.[1]" 
+% 					[1]: (Wulfram Gerstner (2001). "Spiking Neurons". In Wolfgang Maass and Christopher M. Bishop. Pulsed Neural Networks. MIT Press. ISBN 0262632217.)
+% 			 	- Dette kan eg skrive masse om i forhold til modelle min: Aktivitet er koda med aktivitet ("frekvens"), mens syn.plast. er avhengig av timing på spikes. (?)
+% 			- Pga. meir realistiske egenskaper og bedre simulering av neuronet, kan SANN også brukes for simuleringer til neuroscience.
+% 				("They have proved useful in neuroscience, but (not yet) in engineering. " (fra wiki))
+% 				 "To date, there have been no large scale spiking neural networks that solve computational tasks of the order and complexity of rate coded (second generation) neural networks." (Fra linja under på wiki)
+% 			
+% 			- SANN 	-  Korleis er dette for SANN?  Skriv at dette er en simulering av enkeltnodene i neurale nett, og at dette skjer i presens (input fører til auka verdi, over terskel fører til output, osv)
+% 				- Skjer i presens, planlegger ikkje lenger enn kva som skal gjøres neste tidssteg (kø). Moore automata (basert bare på tilstand for enkeltnodene (depol.verdi)).
+% 			- KANN  -  Korleis er dette for KANN?  Skriv at dette er en høgare ordens simulering av ligningene som er resultat av prosessane i enkeltnodene i neurale nett.
+% 				- Dette skjer i presens, men planlegger også framtida: er framsynt. Mealy automata (basert på state + inputs).
+% 			- Kanskje: Skriv om forskjellane mellom Moore og Mealy automata.
+% 			
+% 			
+% 			
+% 			
+% 			
+% 			
+% 			
+%
+% 		TODO Sjekk ut EDLUT. GPL software for å lage pragmatisk SANN. (brukt f.eks. i robot-styring)
+%
+%
+% 		MULIGHET:
+% 			- IDE: Bra for å distribuere utregning over fleire enheter, sammenknytta vha. ethernet (dette er bare en mulighet/ide)
+% 				Skrive i så fall: at dette bare gjelder for SANN, der nodene
+%
+%
+%
+%
 \chapter{Artificial neural networks: background} %xxx rapport
 
 
