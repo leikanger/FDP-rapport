@@ -5,12 +5,16 @@
 %
 %
 % 		Disposisjon for kapittelet:
-% 		\section{ Why ANN? }
+% 	 INNLEDNING til kapittelet:
+% 	TODO Skrive at oppgaveteksten ber meg om å finne eksisterende modeller som representerer BÅDE fyringsrate og -frekvens. Dette finnes ikkje.
+% 	Tenkte difor å heller gå gjennom historien for ANN, for at leser skal ha eit innblikk i kva som eksisterer av frekvens-ANN og etterkvart fyringstid-ANN.
+% 	Skriv også "Why ANN?" i innledninga til kapittelet.
 % 			- Om at Ann gir assossiative egenskaper til den algoritmiske computeren.
 % 			- Om læring. I enkleste form: 
 % 							- ulineært filter med gode læreegenskaper.
 % 							- Natively distributed and asynchrounous. 
 % 			- Anna ? 							
+% 	Skriv "Why ANN?" først, så skriv det om oppgaveketsten, der eg slutter med å innlede neste section: "ANN history".
 %
 % 		\section{ Background: ANN history }
 % 			- Skrive om starten for ANN; Skriv kort om:
@@ -18,16 +22,20 @@
 % 					- Lineær funksjon med threshold. 
 % 					- Boolske signal (ikkje syaptisk weight, syn.plast. (?) )
 % 					- Feedforward.
-% 				- Hebb, 1949 (?). Skriv om Hebb rule(?)
 % 				- Perceptron, 1957 ("simplest form of feedforward ANN" - wiki) 		Sjå s. 75, Rolls/Treves 
 % 					- Skriv om dette; Kva som var bra, dårlig, osv.
 % 					- Kunne ikkje gjøre en del handlinger. Førte til pause i ANN-utviklinga fram til tidlig 80 tall.
+% 				SKRIV AT desse to ikkje hadde synaptisk vekt. Signalet var boolsk (?)trur eg. Bli sikker på dette først.
+%
+% 				Så skriv litt om synapser, gå vidare til syn.p. og Hebb:
+% 				- Hebb, 1949 (?). Skriv om Hebb rule(?)
 % 				- ADALINE ("ADAptive LINear Elements") 								Sjå s. 79, Rolls/Treves
 % 					- Brukt for å fjærne ekko fra telefonlinjer.
 % 				- Hopfield 90-tallet. (ta med? Ikkje uten at det er direkte relevant..) --Kanskje bare nemne det som folk/funding ble interrester i ANN igjen(Om dette stemmer..)  (?)
 % 				
 % 				Når ble aktiveringsfunksjonen ulineær? Finn ut, og skriv at dette (i tillegg til multilayered perceptron) gjorde utviklinga aktuell igjen. Forskere ble gira igjen..
 % 	
+% 				KVA ER FEIL MED DESSE MODELLANE i forhold til biologiske NN?
 % 				- Frekvensbasert. Kontinuerlig ulineær funksjon som kan sies å representere frekvensen til neuronet.
 % 				- Synkron oppdatering: alle nodene oppdateres likt, i motsetning til den biologiske ekvivalent, som er "event-basert" (asynkron).
 % 				- Læring: skriv om læring. Fokus på "Hebbs law", ustabilitet (forberede leser for seinare å lese om stabilitet for spiking ANN)
@@ -48,8 +56,11 @@
 % 			- KANN  -  Korleis er dette for KANN?  Skriv at dette er en høgare ordens simulering av ligningene som er resultat av prosessane i enkeltnodene i neurale nett.
 % 				- Dette skjer i presens, men planlegger også framtida: er framsynt. Mealy automata (basert på state + inputs).
 % 			- Kanskje: Skriv om forskjellane mellom Moore og Mealy automata.
-% 			
-% 			
+% 		\section{ KANN. }
+% 			. Skrive at: dersom målet er å lage eit pragmatisk nyttig ANN med tidspunkt-info for spikes, bør SANN skrives helt om. Skriv om at SANN bruker mykje ressurser på å opprettholde en stabil tilstand i nettet.
+% 			- Siden beregning kreves bare når verdiane endres (i biologiske NN), bør dette være fokus for ANN. SANN bruker mye ressurser på å opprettholde en stabil tilstand (dersom det ikkje er endring i nettet).
+% 			- Det beste hadde vore å utvikla eit ANN som bare krever ressurser ved endring av input til nodene. Skrive litt fram og tilbake om dette. Ende opp med at vi trenger en Mealey automata? (dersom dette stemmer)
+% 			-
 % 			
 % 			
 % 			
@@ -68,7 +79,8 @@
 %
 \chapter{Artificial neural networks: background} %xxx rapport
 
-
+% TODO Skrive at oppgaveteksten ber meg om å finne eksisterende modeller som representerer BÅDE fyringsrate og -frekvens. Dette finnes ikkje.
+% Tenkte difor å heller gå gjennom historien for ANN, for at leser skal ha eit innblikk i kva som eksisterer av frekvens-ANN og etterkvart fyringstid-ANN.
 \section{Bakgrunn: ANN}
 	\subsection{årsak for bruk av ANN / historie}
 	

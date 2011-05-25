@@ -1,10 +1,138 @@
 
 \chapter{Introduction} %rapport xxx
 \section{Introdusjon}
-\subsection{Motivational text about neural networks. Kvifor ha ANN i computeren?}
+%
+% OPPSETT:
+% 	- Først-> skriv kvifor leser skal bry seg om ANN. Kvifor ANN i computer (ANN framfor andre direkte algoritmer).
+	% bionics (kopiere biologiske fremgangsmåter i teknologi). Skrive at det er utvikla over lang tid ved evolusjon.
+	% Mønstergjennkjenning er overlegent i biologiske NN enn gjort i data.
+	% Spesiellt for adaptive distribuerte syste
+% 	- Skriv om computeren. Kva har blitt gjort, kva er bra. Fokus på matematikk og proof.
+% 	- Begynn å lede leser inn på når dette er for komplext til å utvikle direkte algoritmer for løsning av problemet.
+%  	- Bionics. Skriv litt om kva dette er.
+%  	- ANN for å løse problemet (som ble introdusert, to opp). 
+% 	- Skriv at en god innføring i ANN ligg seinare (chapter: ANN). For no er det nok å skrive at moderne teorier innen læring i biologiske NN er veldig avhengig av timing (STDP).
+% 	- "3. gen." ANN har blitt utvikla.
+%  	- Skriv om problema med denne direkte simuleringa av enkeltneurona, og at det ikkje er effektivt nok (har ikkje blitt brukt til teknologi enda)
+% 		, OG min ide om eit meir effektivt SANN (vær kortfatta her. Frampeik).
+% 	- I denne oppgaven vil eg utlede en ny formalisme for 3.generasjons ANN, samt sammenligne implementasjonen og effektiviteten av de to måtene å implementere SANN på.
 
-\subsection{motivasjon bak å lage ny ANN-modell}
 
+	Tasks that can be expressed by algorithms of the basic operations of the processing unit (CPU, FPU, etc.) can be solved efficiently by the computer.
+	% referer til turing komplett maskin. Dette gir basisoperasjonane.
+	For performing tasks of a more complex nature, the task needs to be divided into subtasks of these basic operations.
+
+	Some tasks are so complex that it is hard or even impossible to describe them with sentralized mathematics.
+	One example of such tasks is filters involving distibuted calculations over multiple nodes, where the connections themselves are adaptive.
+
+	e.g. networks of neurons.
+
+	In neural networks in biology, the calculation at each node is often modelled as a leaky-integration of input.
+	When the value of one node reaches some predefined threshold, the node will give output to all its output nodes.
+	The size of the output is defined by the strength of the connection between the nodes, the synapse.
+	The biology of the neuron and biological neural systems is introduced in section ?.
+
+	The size of the transmission between neurons is highly adaptive. Based on different learning rules the strength of the connection between the two nodes will either become stronger or weeker.
+	This idaptive nature of the connections between the nodes is an important element in the strong non--linearity of neural networks.
+
+	\subsection{Kvifor gjøre alt dette?}
+	When is it nessecary to use this kind
+	When do we want to use this kind of filtering?
+	The neural networks from biology is far superior to algorithmic calculations when it comes to learning
+	The distributed adaptive filter 
+
+	Why use ANNs? 
+	When 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% Tidligere råkladd: ***************************************************************************************************************************************************************
+
+In Merrian-Websters online dictionary, Bionics is defined as 
+%\begin{ SITERING }
+"a science concerned with the application of data about the functioning of biological systems to the solution of engineering problems"
+%\end{}
+
+Bionics has been used as a term describing biomimicry for prostesis as well as other bio--inspired methods in technology.
+%One field of technology where bionics has been supprisingly promising is for solving tasks requiring associative facilities.
+One field where bionics has shown suprisingly promising is for associative computations, in the form of Artificial Neural Networks (ANN).
+
+To explain what is ment by associative computations, we first have to review other computation--systems, the computer.
+The computer have one or a few processing units. The main unit of a computer is called the central processing unit (CPU).
+
+In these processing units the computations are done in a strict algorithmic, serial manner.
+Each task can be devided into numerous small subtasks, each of a basic operation for the CPU.
+
+This algorithmic procieding has shown wery efficient for a certain set of taskts, tasks that have a high degree of [A->Så B]. 
+Most calculations can be described by algebra, and can thus be calculated efficiently by the algorithmic computer.
+Some tasks are more complex, and have not been sufficiently developed in mathematics to be calculated directly in the algorithmic computer.
+Espessially tasks that involve adaptation (learning) of the the associated ouput following some input have prooven difficult to solve in this fasion.
+
+When pattern recognition, or other complex adaptive filters are to be solved, bionics has proven especially 
+
+
+
+
+
+
+
+%{Kvifor ANN} %motivational text. Ikkje som i å gire opp leser, men overbevise om at det er relevant.
+%Først innlede med å nemne "bionics" - å etterligne bio. (Les wiki:bionics).\\
+%Kvifor: Fordi live er basert på evolusjon. Dette har laga veldig optimaliserte sytemer.\\
+%Så skrive litt om at biologiske 'computational systems' har andre områder det er bra på enn digitale 'computational systems'. Assosiative oppgaver og læring.
+
+%Når det gjeld læring, så har det nyleg blitt avdekka at relativ spike time for presyn og postsyn neuron vil i enkelte synapser bestemme synaptisk plasticity (læring). 
+
+%På grunn av dette har ANN fått større fokus på spike-timing, og ``third-generation ANN'' (SANN) har blitt utvikla. 
+%Problemet er at for datamaskinen er dette 'computationally demanding' og krever mykje dataressurser eller mykje tid. Dette har så langt gjordt at SANN ikkje har vore benytta for 'pragmatic uses' (technology).
+%% Finn kor dette sto, og referer dette.
+
+% Meir om dette seinare (I ANN.tex).
+
+
+
+%neste section: Denne oppgaven går ut på å utvikle en ny modell for ANN med informasjon om 'spike timing', i tillegg til det generelle aktivitetsnivået til neuronet, 
+% 		med mål om å lage en modell som er meir effektiv enn den som er i bruk i dag.
+
+[Skrive litt om at testingen gjort på effektivitet ikkje er så omfattende i dette prosjektet, delvis siden bare grunn-funksjonaliteten er implementert.
+I eit så komplekst system kan f.eks. synaptisk plasticity få veldig mye å si for effektiviteten til ANN. Skriv litt om lite tid (uten å klage, heller beklage at det desverre ikkje er gjort enda).
+]
+
+\subsection{Skrive om korleis oppgava er lagt opp.}
+Skrive kvifor eg legg så mykje vekt på det biologiske systemet først. Ha litt tilbakepeik til / snakk litt om : "bionics". Vidare sei at eg har gjort eit valg om å gjøre det likt det biologiske systemet av andre grunner (se diskurs).\\
+Anna grunn er at det gjør det lettere for leser å "appreciate" det modelleringa som er gjort til den nye modellen ($\kappa$ANN).
+
+Deretter: modelleringa til $\kappa$ANN.
+
+Så: litt om ANN: historie, ???
+
+Så: Så begynner litt om implementasjon: Først generelle prinsipper for impelmentasjonene, så litt om implementasjonen av SANN og KANN.
+
+Til slutt sammenligning.
+
+
+\subsection{Kanskje meir i innledning:}
 
 Skrive om at recurrent ANN gir meir kompleks oppførsel. Men dette gir også mykje fleire muligheter! Uten dette blir det bare eit adaptivt ulineært filter..
+Denne trenger bedre (lokale) regler for synaptisk plasticity. Hebbian learning er uegna pga. ustabilitet. Nye regler opner seg når man har med spike timing for neurona. 
+Denne trenger bedre (lokale) regler for synaptisk plasticity. Hebbian learning er uegna pga. ustabilitet. Nye regler opner seg når man har med spike timing for neurona. 
 

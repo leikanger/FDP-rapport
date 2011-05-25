@@ -5,6 +5,7 @@
 %\usepackage{babel}
 \usepackage{graphicx}
 
+% sudo apt-get install texlive
 \usepackage[font=small,format=plain,labelfont=bf,up,textfont=it,up]{caption}
 
 \usepackage{amsmath}
@@ -31,6 +32,48 @@
 %TODO 
 Mealey vs More state maschine model of spiking Artificial Neural Network. A comparison.
 % Er dette en mulig tittel?
+
+
+Når det gjelder skriving, så er det veldig effektivt med uttrykk som "the rationale behind the choise of letters $n$,$s$, and $a$ is explained in chapter 3."
+Bruk dette! 
+Frampeik, med litt mystikk som impliserer at eg veit meir enn leser. (Hugs norsk fra grunnskulen: frampeik er bra!)
+I tillegg til at det impliserer at eg har tenkt mykje over saken, så syr det teksten bedre sammen!
+
+
+\chapter{Om oppgaveteksten:}
+Les meir grundig det som står på toppen. Den punktinndelte oppgava på bunnen gir følgende notater:
+
+Eit poeng: "(NB: Hold deg innenfor oppgaven,du kan ikke regne med å få
+kreditt for arbeid som går på siden av oppgavens uttalte fokus)."
+------> Skriv kvifor eg har implementert simuleringa så nøyaktig. Begrunn dette, for å få uttelling for det i karrakteren. 
+
+Hold også eit auge med skrivet eg fekk fra Øyvind S.: Korleis gjennomføre prosjekt. Spesiellt i forhold til innledning er dette viktig!
+	\section{Pkt. 1}
+Oppgaveteksten seier: "Gi en oversikt over eksisterende modeller for ANN som representerer både fyringsrate og -tidspunkt. 
+Legg spesielt vekt på forhold som kan knyttes til stabilitet under læring og/eller tilbakekobling ("recurrent ANN")."
+
+Første setninga kan tolkes, men eg trur tolkininga som går på at det er en modell som representerer begge er mest rett (BÅDE). 
+Trur ikkje det er nokon modell som gjør dette. Kan skrive dette, så skrive om modeller som representerer fyringsrate ELLER -tidspunkt. (fANN, SANN).
+
+
+	\section{Pkt. 2}
+"Beskriv det nye konseptet, og påpek hvordan dette skiller seg kvalitativt fra tidligere kjendte metoder."
+
+Tolkning: tidligere kjendte metoder - tidligare modeller som representerer tidspunkt for fyring. Bare SANN!
+
+Ellers er dette punktet rett--fram.
+
+	\section{Pkt. 3}
+"Foreta en sammenlikning av det nye konseptet og konkurrerende metoder. Evalueringen kan baseres på et antall konkrete scenarier(mhp. inngangsdata osv.)."
+
+Tolkning:
+Konkurerende metoder er andre metoder som også representerer tidspunkt for spikes. Dette er bare SANN (kanskje ta med ulike implementasjonsmetoder av SANN? Timedriven/eventdriven?)
+Eg tenker at eg ikkje får tid til å gjøre en omfattende sammenligning av effektivitet, så sammenligner med bakgrunn i implementasjon. 
+
+Sammenligne litt for effektivitet (for ulike oppsett).
+
+Sammenligne tematisk? Skrive at eine er Moore, andre Mealy auromata?
+
 
 \tableofcontents
 
@@ -62,7 +105,7 @@ HER skal tabellen ligge. Diskutere korleis mine ANN er laga, kva forenklinger ha
 
 Referer en del til kapittel \ref{chapNeuroscience}.
 
-
+Her skal eg legge inn tekst som impliserer at eg er reflektert. Skrive alle feil og mangler som ligger i mine modeller, og implementasjon-design.
 
 
 
@@ -71,7 +114,7 @@ Referer en del til kapittel \ref{chapNeuroscience}.
 
 \include{resultat}
 
-\section{diskusjon}
+%Kanskje eg skal ha med "table of abbrevations" i appendix, eller først.
 
 \bibliography{bibliografi}
 %\bibliographystyle{abbrvnat}

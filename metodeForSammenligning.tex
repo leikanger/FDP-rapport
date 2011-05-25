@@ -1,7 +1,114 @@
 
-\chapter{Comparison and result} %Dårlig kapittelnavn.
+\chapter{Comparison and result} 
+
+Skrive innledning: Kva er felles for de to implementasjonane: Kva er kjendt i biologien, og kva er utelatt for desse implementasjonene?
+
+Kva har dette til felles med andre implementasjoner, og kva er gjort bedre i denne impelementasjonen i forhold til andre varianter av ANN (1. gen., 2. gen. og 3.gen. ANN).
+
+\section{Forskjell i implementasjon}
+Skrive at forskjellen mellom gamle og nye varianten av 3.gen. ANN (SANN) har mykje til felles med forskjellane mellom Moore vs. Mealy Auromata.
+
+Den gamle varianten er for så vidt den som er mest intuitiv å implementere / designe. Denne ser på umiddelbar tilstand (depol. verdi) for nodene. Dersom denne depol. kommer over terskel vil noden gi output til alle sine utnoder.
+Dette er en direkte simulering av det biologiske neuronet. Kan beskrives (direkte?) med Moore Automata.
+
+For den foreslåtte varianten vil Mealy automata beskrive systemet bedre. Her er det 'state' for noden og i tillegg input som gir ut-oppførselen.
+[skriv kva "utoppførsel" betyr. Alltid samme output (før synapsen) for den Moore-Automata varianten av SANN. For Mealy variant vil output være en flyttallsvariabel]
+[skriv kvifor denne tanken kom -- at enkel kraftig prosessor vil være oppmot like effektiv med større flyttalsoperasjoner som ved enkle boolske transmissjoner (tjaneei..)
+Dersom vi har mulighet er ferre større operasjoner bedre for den serielle CPU enn mange små operasjoner.]
+
+[Skriv at implementasjonen viste seg å bli meir omfattende enn først tenkt. Skriv om pEstimatedTaskTime og anna ekstra tidsplanlegging]
+
+
 
 
 \section{Testoppsett for sammenligning av KANN og SANN}
+Skrive at design av/teorien bak  de to impelmentasjonene er så forsjellig at det er vanskelig å sammenligne de to. En enkel kjøring vil ha statisk input (ikkje-endrende input).
+Mealy varianten av SANN (KANN) er spesialisert for ANN med dynamisk (endrende) input. Vil gi eit vanskeligere testoppsett for sammenligning av de to. Lett å implementere for KANN, vanskeligere å implementere for SANN.
+(Da må eg ha egene sensor-neuron som er spesiallaga for å sense en slik dynamisk state).
+
 	\subsection{Fleire testoppsett? Beskriv de ulike oppsetta, og kvifor!}
 	\subsection{Teste for oppdelte nett: med koblinger med lite overføring/endring i overføring}
+
+\section{Skrive kva som er utelatt} % Kanskje heller i discussion?
+Kva var originalt planlagt, men viste seg å bli for mykje arbeid?
+
+\begin{itemize}
+ 	\item Synaptisk plastisitet.
+\end{itemize}
+
+
+
+\section{Resultat for effektivitetssammenligning}
+
+
+
+
+
+\section{Discussion}
+
+%En eller anna plass: (ikkje akkurat her) Skriver her fordi eg har inspirasjon no, og ikkje vil leite..) 	Ja! Kanskje i "conclutions"XXX
+Implementing the mechanisms of a neural simulator is not trivial, even without optimizing it for run time efficiency.
+Even if this is not an important aspect of this project I have tried to, wherever possible, optimize the implementation for efficiency.
+%Skrive kvifor: Om at designet er optimalisert både for generalitet (for å gjøre utvidelser/endring lettere) og for effektivitet. DETTE for å kunne bruke implementationen videre (personlig, eller for andre).
+
+The functions that are most often called are inlined. This means that I have given a hint to the compiler to put the compiled code wherever the functions are called.
+This causes the function calls to run faster but also increases the size of the executable file, so this should be used with caution. %Kanskje skrive dette, men også da skrive størrelse på endelig program. ca. 0.5 M (?)
+For this implementation, size will not be a problem. %Kvifor?
+Inlining of functions are still kept to a minimum, in case of further work on this software. %skriv annaleis. Kvifor "in case of further work on this software."? Forklar bedre, eller skriv om (anna argumentering).
+
+Also in other parts of the implementation, the code is written with a focus on possible future expantion.
+%Difor er ting laga enkel å forstå for en som kan nevro: oppsettet av nodene er lagt opp som det biologiske neuronet.
+The object model is designed to be general for the two models, both to make the two implementations more comparable for this project and to make the implementation better suitable for future comparison.
+
+The design of each node is based on the biological neuron to be more intuitive for programmers with knowledge of neuroscience. 
+This is not only to make the implementation easier to use for potential future programmers, but also because little is known about what is important in neuroscience.
+If the implementation is constructed strongly inspired by the emulated system, with multible elements constructed in the same way as the original system, expantion and modification of the indivitual elements involve less effort.
+Say, for example, that new aspects are discovered tomorrow. In this case, the code can easier be modified after this discovery.
+
+This principle does not only account for future uses by other programmers.
+In multiple occations, aspects that are where new to me have been implemented at after the main functionality of the classes where designed. 
+This required less work because I followed principles that was important to Bjarne Stroustrup during the creation of C++; To make the design general and open and suited for any future uses.%ELLER NOKE Siter"TheDesignAndEvolution of C++".
+
+One element that is not implemented, is axo--somatic and axo--axonic synases. 
+This is synapses where the input to the postsynaptic neuron enters at other places of the neuron than the dendrite. 
+In biology, most inhibitory synases have theire input close to the soma of the postsynaptic neuron. 
+This will give the inhibitory input less delay compared to the exitatory input, and might be an important aspect in neural computations.
+This can be implemented easily if this is found to be important for some future use of this code.
+
+An other important aspect that is not impelented is axo-axonic synapses, linked to short term synaptic plasticity.
+%XXX An axo--axonic synapse is a synase that enters the postsynaptic neuron somewhere close to one of its output synapses.
+% Gjør om rekkefølgen litt. Skriv om short-term syn.p. først, så evt. axo-axonic synapses.
+Short--term synaptic plasticity is synaptic plasticity that does not have any long term effect of the neuroal network (learning), only on more immedate aspects of signal transmission.
+In particular, we have the synapses that gives input near the axon terminal of the neuron (axo-axonic synapses). This will alter the depolarization at the neurons output synapses. %og auke/minke mengde Ca2+ i presyn. bit av synapsen.
+This will not cause any transmission to occur, only ``prime'' the presynaptic membrane of the synapse for transmission.
+When the next action potential arrives, the size of the transmission will be larger than usual (or less, depending on whether the axo--axonic synapse is exitatory or inhibitory).
+Again, neither short--term synaptic plasticity or axo--axonic synapses has been implemented because this was not an aspect of this project and due to time constraints.
+% Skriv heller at short--term syn.p. ikkje er implementert, så axo-axonic synapses ville ikkje auka funksjonaliteten til simulatoren.
+Implementing it will involve less work due to the implementation design in this code.
+% Denne setninga er for å vise at det er lett å innføre. Skriv om.
+
+If the goal of the implementation is to simulate a neural network from biology, spatial and temporal resolution is more important than efficiency of the calculation.
+%When it comes to temporal and spatial resolution, this can easily be extended.
+In this implementation, spatial and temporal resolution can easity be extended.
+If we want to increase the accuracy, this can be done by increasing the number of elements in each node (and making the timestep accordingly smaller).
+This will also make the computational efficiency of the simulator less, and the pragmatic use of the simulator will suffer.
+
+If we need a better accuracy, and for example double the number of serial elements in each node and halve the size of the timestep, the functioning of each element will be the same.
+The temporal and spatial resolution will be increased two-fold at the expence of the computational efficiency of the simulator.
+
+With ``spatial resolution'' i refer to the ability to separate between elements located at different positions in space.
+This is important for the output, scince different output synapses are situated at different locations of the neurons axon.
+This will cause different transmission delays, and might be important for the neural calculations.
+% Also the axon will be have more elements, and different synapses along the axon may have differenti time delay.
+This gives us the ability to make a separation between ``early synapses'' and ``late synapses'' along the axon, and gives us a better spatial resolution for the simulated neuron.
+
+The whole reason for developing the third generation ANN, spiking artificial neural networks, was the growing focus on the timing of the different events within the neural network.
+This is computational demanding, and high resolution simulations is not suited for real time pragmatic uses of ANNs. For simulations used to test hypothesis in neural science, however, accuracy is most important.
+The focus on generality in this implementation will therefore make the code reusable for possible future pragmatic uses and for implementing neural simulators.
+
+If the new model is more effective than the old model for spiking neural networks, we can not now whether this is only goes for one of these uses. 
+For this reason I found it best to implement as generally as possible, for future efficiancy comparison between the two models.
+%Skrive eksempel: "More specifically, if we divide the axon into smaller pieces, spatial accuracy is better."
+%Skriv om forskjellane mellom KANN og SANN. Her kommer kanskje største fordelen med KANN? (Kan kanskje legge inn vilkårlig antall element, til tilsvarende størrelse på 'time step').
+
+%slutt: En eller anna plass: ....
