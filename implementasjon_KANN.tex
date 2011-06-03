@@ -4,10 +4,111 @@
 % - ta med "om oppsamling av kappa" (ligger i implementation.tex)
 
 %*********************** KANN ***************************
-\section{implementasjon: KANN}
+\chapter{implementasjon: KANN}
 	Skriv først innledning, med mål om å sette meg og leser på samme utgangsnivå.
 
-	\subsection{Estimation of firing time}
+	
+	\section{Updating $\kappa$} %Calculation and recalculation of $\kappa$
+		\subsection{Synaptic transmission}
+			% skrive om korleis synaptic transmission fåregår (generellt (om at $\kappa_{ij} = \frac{W_{ij}}{p_{pre}}$ ).
+			In biology, a synaptic transmission happens every time a presynaptic action potential is fired.
+			The size of this transmission is given by the synaptic weight of the synapse.
+
+			Over some time interval, the total transmisson in a synapse ,$o(\Delta t)$, can be modelled as the synaptic weight times the presynaptic neurons firing frequency times the evaluated time interval.
+			We write the presynaptic firing frequency as $f_{pre} = \frac{1}{p_{pre}} = \frac{1}{p(\kappa_{pre})}$ and get:
+			\begin{equation}
+				\label{eqSynapticTransmission}
+				o(\Delta t) = \frac{ W_{ij} }{ p(\kappa_{pre})} * \Delta t 
+			\end{equation}
+
+			In discrete--time systems, we can define every synaptic transmission to last for one time iteration (if the time step is large enough).  % MED ELLER IKKJE: "(if the time step is large enough)" ??? XXX
+			This causes $\Delta t$ to become constant. We can incoorporate this constant into $W_{ij}$.
+
+			For an ANN based on the activity variable $\kappa$, as previously introduced in chapter \ref{secMatematiskModelleringAvBioNeuron} %TODO Sjekk denne  referansen bedre / skriv bedre (?).
+			eq. \eqref{eqSynapticTransmission} is highly relevant.  % highly relevant skurrer litt. Det er veldig relevant. Finn synonym..
+			If we define $\Delta t$ to be some constant, and incoorporate this constant into $W_{ij}$, we get the equation for the synaptic transmission of the activity variable.
+			We call the size of this transmission $\kappa_{ij}$.
+
+			\begin{equation}
+				\label{eqSynapticTransmissionForKANN}
+				\kappa_{ij} = \frac{ W_{ij} }{ p(\kappa_{pre})}
+			\end{equation}
+
+			For nodes with multiple input synapses, the activity variable $\kappa$ is the sum of all the contributions from different synapses. %VERIFISER DETTE! Vær heilt heilt sikker på at K=sum(K_ij)
+			We can write this mathematically as 
+			\begin{equation}
+				\label{eqSumOfKij}
+				\kappa_i = \sum_j{\kappa_{ij}}
+			\end{equation}
+
+			In this way the synaptic transmission of the individual synapses can be decoupled from the postsynaptic activity variable, $\kappa_i$.
+			
+		\subsection{Synaptic input to a node}
+			In an $\kappa$ANN we call the nodes for a K\_auron.
+			The synaptic input for the activity variable of a K\_auron is defined by \eqref{eqSumOfKij}.
+			%Efficiency is important in artificial neural networks,
+			To avoid having to recalculate $\kappa_i$ from \eqref{eqSumOfKij} every time the transmission of a synapse changes, we can implement synaptic transmission as the transmission of the derived of $\kappa_{ij}$.
+			In this case the postsynaptic $\kappa$ can be recalucated without summing all the synaptic inputs every time one synapse changes its transmission.
+
+			For synapses transmitting the derived of $\kappa_{ij}$ we only have to integrate this change of transmission from all the input synapses with a changed level of transmission, and get
+			\begin{equation}
+				\kappa_i = \sum_k{\kappa_{ik}}
+			\end{equation}
+			Where ${k}$ is a subset of ${j}$ consisting of all the synapses with a changed level of transmission.
+			%In the case of only one synapse changing its transmission
+
+			We can, in other words add the change in synaptic transmission, $\Delta K_{ij}$, to the postsynaptic activity variable to get the updated activity variable, $\kappa_i$.
+			This can be done at the time of transmission in the implementation.
+
+			When $\kappa_i$ changes for a node of the $\kappa$ANN, it is important to recalculate the inverse of the period for this new $\kappa_i$ to get the synaptic transmissions right.
+			Because the time step of one time iteration is defined as the smallest time interval in the simulated system, we can say define that the propagation of $\kappa$ will happen after this time interval.
+			%eller "not instantly".
+			If we introduce this as a rule, we can introduce an aspect that will further increase the efficiancy of the system. 
+			The period of the node, and thus the synaptic transmission of its synapses can in this case wait to after the current time iteration before calculating the effect of the new $\kappa_i$.
+			When a nodes $\kappa$ changes value, a pointer to the node is inserted into a specialized que for this use, pCalculateTaskQue.
+\begin{lstlisting}
+static std::list<timeInterface*> pCalculateTaskQue;
+\end{lstlisting}
+			This list is static in the time\_class, that is only one variable is made for time\_class (not one per object).
+			When time\_class::doTask() runs, it first calls time\_class::doCalculations().
+			%First it makes shure that each entry of the list pCalculateTaskQue is unique (it removes any duplicate). 
+
+			time\_class::doCalculation() enshures that each element of pCalculateTaskQue is unique by removing every duplicate of an entry, before calling each elements .doCalculation().
+			The function doCalculation() is defined as a pure virtual function in timeInterface, and every class that does not define its own doCalculation() remains an interface class.
+			This causes each timeInterface derived class to have its own doCalculation() function.
+
+			For K\_aurons, doCalculation() is responsible for calculating every variable that changes as a consequence of a changed activity variable for the auron.
+
+			%Først sørger den for at kvart elment bare er oppført ein gang i pCalculateTaskQue. Så
+
+			%TODO skriv også om at eg venter med å rekalkulere kappa til etter gjeldende tidsiterasjon.
+			
+			\begin{itemize}
+				\item skrive om at for å sleppe å rekalkulere heile kappa for kvar gang, innfører eg derivert--overføring: at overføring er den deriverte av state.
+			\end{itemize}
+		\subsection{Skrive om implementasjon av dette}
+		\subsection{Skrive om effekter ved denne metoden}
+			\begin{itemize}
+				\item At når $\kappa$ nermer seg $\tau$, vil perioden gå mot uendelig veldig raskt. For diskret system vil dette oppfattes som en ulinearitet 
+				(peride går fra normal verdi til veldig høg verdi -> overføring går "plutselig" til 0). Dette fører til en høg derivert som sørger for at $W_{ij}=0$. Vis transmission plot.
+				\item at når vi velger å integrere opp den deriverte (overføring) for å finne state, vil vi får 'integral--error' for $\kappa_{post}$.
+				Dette fører til neste avsnitt: "rekalkulering av Kappa".
+			\end{itemize}
+
+
+		\subsection{Rekalkulering av Kappa}
+		Siden kappa bare regnes ut som integralet av den deriverte, vil det være behov for rekalkulering av Kappa, i ny og ne. Dette bør ikkje skje for ofte, heller ikkje for sjeldent.
+		Difor: lage en adaptiv utførelse av dette. Dette sjekker avviket mellom den rekalkulerte verdien og den gjeldende verdien, ved rekalkulering. 
+
+		Dette avviket sjekkes opp i mot en predefinert ønska verdi, og differansen er med på å bestemme om periode til neste rekalkulering skal auke eller minke (auker/minker som en funksjon av avvik-avviket). 
+
+		Dette avviket er m.a.o. med på å bestemme tid til neste rekalkulering av Kappa.
+		Auken/minken bør ha en maksverdi.
+
+
+
+
+	\section{Estimation of firing time}
 	For KANN, synaptic transmission can be defined as transmission of change in the postsynaptic node's input level.
 	The input of a node, in terms of $\kappa$, is propotional to the synaptic weight and inversly propotional with the presynaptic inter--spike period.
 
@@ -43,58 +144,13 @@
 	%Etterkvart: skriv om integral-errors og fiksing av dette ved å bruke pEstimatedTaskTime (regelmessig fiksing, som er adaptiv med basis i feilen på postsyn signal (høg feil=>oftere regelmessighet på resumming av kappa)).
 
 
-
-
-%antagligvis her, men veit ikkje heilt. Iterators. Brukes mykje, så bør forklares (spess for en C patriot)
-\subsection{Skriv om iterators, en plass}
-Dette er veldig viktig for produktet, så bør skrives om.
-
-Iterators er en høgare form for peiker. 
-I standard library er mange basisfunksjoner implementert, og små operatorer (som lenka liste iterering) er lett å implementere.
-Mange små funksjoner som er lett å implementere får alle en liten sannsynlighet for feil. Når det er mange av desse får man mange potensielle feil som er vanskelig å finne.
-
-I standard library er blandt anna en del "containers", som list. Dette er ei ``doubly linked list''.
-Man har også såkalla ``iterators'', som er en peiker til element i slike containers.
-Desse har blandt anna implementert iterator operatoren \emph{++}. Denne er garantert feilfri, og bør brukes fremfor å imlementere slikt selv (seier stroustrup)[referere!].
-
-Skriv at i tillegg til at man kan gå ut  fra at de er feilfri, så er de også godt optimalisert, og vil ofte gi en meir effektiv implementsjon.
-
-%Iteratoren har veldig masse til felles med en peiker, bare med lettere, feilfri, meir optimalisert utførelse.
-
-\subsubsection{Ikkje mulig å lagre iteratoren}
-ELLER ER DET MULIG? (Kan være det under bare gjelder for vector!)
-
-Iteratore blir ugyldige, og gir udefinert oppførsel dersom lista blir rezised i mellom iteratoren blir laget og brukt. 
-Initiellt var tanken at K\_auron (og kanskje andre timeInterface som bruker pEstimatedTaskTime) skulle også inneholde en iterator (peiker) til rett element i lista.
-Siden iteratore blir ugyldig når listas lengde endres %stroustrup s. 550, nede. Understreka.
-	så går ikkje dette.
-
-Dette er grunnen til at kvar gang eit element skal flyttes, må det søkes opp på nytt (forrige plass kan inneholde eit nytt element, eller være forbi slutten av lista..)
-
-Siden vi ikkje bør anta kor den er, bør lista itereres gjennom på nytt. 
-En antagelse som er trygg er at elementet ikkje har flyttet seg veldig langt, når estimatet oppdateres.
-Dette gjør at det antagelig ligger i samme halvdel av lista, og det kan være lurt å begynne søket fra den siden som er nærmast ny plassering. %type før eller etter size() / 2 , før => start søk fra starten ...
-
-For å effektivisere, lages to funksjoner: en som legger til element, og en som flytter det. 
-Ved fyring av K\_auron fjærnes elementet, men skal også legges til på tidspkt. [no]+[estimert periode].
-Løsninga mi blir: i funksjonen som fjærner elementet, vil også nytt element legges til om element->periode. Dette er en rein insertion.
-
-For flytting av element må lista itereres gjennom, og kvar iterasjon må lista--elementet gjennomsøkes etter gjeldende element. 
-Dette er meir tidkrevende, og er grunnen til at eg skiller mellom de to operasjonene: insertion og moving of an element.
-
-%Les stroustrup s. 550 for meir, når dette skal skrives om!
+	When the firing time is estimated, it is fundamental that we have a mechanism for executing these elements at the right time. 
+	In the following two sections i propose two different solutions for this. 
+	In section \ref{ssChoiceOfTimeEstimationForThisImplementation} the choice for this implementation will be presented, and different pros and cons with each method will be discussed.
 
 
 
-
-
-
-
-
-
-
-
-
+	
 	\subsection{pEstimatedTaskTime}
 	$\kappa$ANN is based on calculating the firing time, given the present level of input. 
 	Because the input level of an ANN node varies constantly, the calculated firing time is but an estimation of the nodes firing time. 
@@ -266,18 +322,42 @@ pEstimatedTaskTime.pop_front();
 	% 	- arbeidsbelastning.
 	
 
+	%\subsection{Checking a member variable of timeInterface--derived elements}
+	\subsection{Checking estimated task time directly from time\_class::doTask()}
+	A more direct approach is to check the elements estimated firing time directly from time\_class::doTask(). 
+	Every class derived from timeInterface contains a variable called ulEstimatedTaskTime where the elements estimated task time is written every time this is updated.
+	If we check ulEstimatedTaskTime every time iteration, and number is the same as the next time iteration's index (ulTidsiterasjoner), time\_class::doTask() is responsible to insert its pointer into pWorkTaskQue.
+	This will cause the element to do its task on the planned time iteration.
+	%If lEstimatedTaskTime is the same as the next time iterations ulTidsiterasjoner, we can insert a pointer to the element into pWorkTaskQue, causing it to do its task next time iteration.
+
+	When $\kappa$ is updated, and K\_auron::doCalculation() updates the aurons estimated firing time, it also updates the K\_auron::lEstimatedTaskTime.
+	If $\kappa$ is less than the firing threshold, the K\_aurons lEstimatedTaskTime is set to 0. 
+
+	\subsubsection{Execution of elements}
+	time\_class::doTask() runs through the list K\_auron::allKappaAurons to see if any elements have an estimated firing time the next iteration.
+	When it finds an element scheduled for the next iteration, the pointer to the element is imnserted into pWorkTaskQue.
+
+
+	\subsection{Choice for this implementation}
+	\ref{ssChoiceOfTimeEstimationForThisImplementation}
+	The two methods for execution of tasks at the planned time both have flaws and cons.
+	
+	pEstimatedTaskTime krever at alle flyttinger av element er riktig. Dersom det er mykje endring av kappa er dette dårlig for denne metoden (krever mykje flytting av element i pEstimatedTaskTime).
+	Denne lista er derimot heilt uavhengig av antall auron vi simulerer. For store ANN vil nok denne pEstimatedTaskTime-varianten være best.
+
+	Dersom vi har endring av kappa heile tida, kan metode 2 (den direkte metoden) være best.
+	Da koster det ikkje noke å endre fyringsestimatet, men man har en konstant 'cost' ved iterasjon av tid. (BEMERK AT DENNE ER const SEINARE)
+	Denne 'cost' er avhengig av antall K\_auron (da den må iterere gjennom alle element [med K>T?]). Denne 'cost' er constant for eit gitt antall auron.
+
+	Det er to grunner til at eg har valt den siste metoden: 1) mine ANN vil være små med mykje endring av kappa. Dette gjør at det er heilt forsvarlig å velge metode nr. 1.
+	Den andre grunnen til at eg velger metode nr.1 er at denne har konstant timedelay, noko som er bra..
+
+	jeje... Osv.
+
+	For this implementation, both methods were implemented and tested. 
 
 
 
-
-\section{Rekalkulering av Kappa}
-Siden kappa bare regnes ut som integralet av den deriverte, vil det være behov for rekalkulering av Kappa, i ny og ne. Dette bør ikkje skje for ofte, heller ikkje for sjeldent.
-Difor: lage en adaptiv utførelse av dette. Dette sjekker avviket mellom den rekalkulerte verdien og den gjeldende verdien, ved rekalkulering. 
-
-Dette avviket sjekkes opp i mot en predefinert ønska verdi, og differansen er med på å bestemme om periode til neste rekalkulering skal auke eller minke (auker/minker som en funksjon av avvik-avviket). 
-
-Dette avviket er m.a.o. med på å bestemme tid til neste rekalkulering av Kappa.
-Auken/minken bør ha en maksverdi.
 
 
 %	\subsection{Anna fra tidligare:}
@@ -289,4 +369,61 @@ Auken/minken bør ha en maksverdi.
 
 %	\subsection{simulering vha. ligning \eqref{eqVerdiligninga} fra section \ref{secMatematiskModelleringAvBioNeuron}}
 %	\subsection{Osv.}
+
+
+
+
+
+
+
+
+
+
+
+
+%antagligvis her, men veit ikkje heilt. Iterators. Brukes mykje, så bør forklares (spess for en C patriot)
+%\subsection{Skriv om iterators, en plass}
+%Dette er veldig viktig for produktet, så bør skrives om.
+%
+%Iterators er en høgare form for peiker. 
+%I standard library er mange basisfunksjoner implementert, og små operatorer (som lenka liste iterering) er lett å implementere.
+%Mange små funksjoner som er lett å implementere får alle en liten sannsynlighet for feil. Når det er mange av desse får man mange potensielle feil som er vanskelig å finne.
+%
+%I standard library er blandt anna en del "containers", som list. Dette er ei ``doubly linked list''.
+%Man har også såkalla ``iterators'', som er en peiker til element i slike containers.
+%Desse har blandt anna implementert iterator operatoren \emph{++}. Denne er garantert feilfri, og bør brukes fremfor å imlementere slikt selv (seier stroustrup)[referere!].
+%
+%Skriv at i tillegg til at man kan gå ut  fra at de er feilfri, så er de også godt optimalisert, og vil ofte gi en meir effektiv implementsjon.
+%
+%Iteratoren har veldig masse til felles med en peiker, bare med lettere, feilfri, meir optimalisert utførelse.
+
+
+%\subsubsection{Ikkje mulig å lagre iteratoren}
+%ELLER ER DET MULIG? (Kan være det under bare gjelder for vector!)
+%
+%Iteratore blir ugyldige, og gir udefinert oppførsel dersom lista blir rezised i mellom iteratoren blir laget og brukt. 
+%Initiellt var tanken at K\_auron (og kanskje andre timeInterface som bruker pEstimatedTaskTime) skulle også inneholde en iterator (peiker) til rett element i lista.
+%Siden iteratore blir ugyldig når listas lengde endres %stroustrup s. 550, nede. Understreka.
+%	så går ikkje dette.
+%
+%Dette er grunnen til at kvar gang eit element skal flyttes, må det søkes opp på nytt (forrige plass kan inneholde eit nytt element, eller være forbi slutten av lista..)
+%
+%Siden vi ikkje bør anta kor den er, bør lista itereres gjennom på nytt. 
+%En antagelse som er trygg er at elementet ikkje har flyttet seg veldig langt, når estimatet oppdateres.
+%Dette gjør at det antagelig ligger i samme halvdel av lista, og det kan være lurt å begynne søket fra den siden som er nærmast ny plassering. %type før eller etter size() / 2 , før => start søk fra starten ...
+%
+%For å effektivisere, lages to funksjoner: en som legger til element, og en som flytter det. 
+%Ved fyring av K\_auron fjærnes elementet, men skal også legges til på tidspkt. [no]+[estimert periode].
+%Løsninga mi blir: i funksjonen som fjærner elementet, vil også nytt element legges til om element->periode. Dette er en rein insertion.
+%
+%For flytting av element må lista itereres gjennom, og kvar iterasjon må lista--elementet gjennomsøkes etter gjeldende element. 
+%Dette er meir tidkrevende, og er grunnen til at eg skiller mellom de to operasjonene: insertion og moving of an element.
+%
+%Les stroustrup s. 550 for meir, når dette skal skrives om!
+
+
+
+
+
+
 

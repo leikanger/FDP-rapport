@@ -1,5 +1,5 @@
 
-\chapter{ Implementation }
+\chapter{ Implementation  -- Denne kan kanskje takast vekk}
 % Her skal eg skrive om implementasjon av det som er planlagt i "Design".
 % Kvifor C++ ?
 
@@ -24,24 +24,21 @@ Først brukte eg integer for å beskrive f.eks. depol. og Kappa, men dette ført
 Gjekk dermed over til å bruke flyttal for å beskrive aktivitetsvariabel. (denne notaten er notert før eg har endra de fra int til float.. Sjå korleis det går.
 
 
-%*********************** SANN ***************************
-\section{Implementasjon: SANN}
-	Skriv først innledning!
 
-	Skriv at siden SANN ofte er brukt som eksempel, for å kunne sammenligne mitt arbeid med tidligere arbeid innen SANN, så er allerede mange aspekter med SANN implementasjonen beskrevet.
+\section{Notater:}
+\subsection{Skruve om std::vector vs. list.}
+Eg har brukt en halv dag på å teste om eg skal bruke vector eller list for pAllAurons og pAllKappaAurons. Konskluderte med at det ikkje hadde noko å seie.
 
-	Det som kommer i tilleg skal stå her.
-	Det er kanskje også lurt å repetere de gode ideene og største forskjellene (f.eks. optimalisering av lekkasje med simulering asynkron tid).
-	\subsection{basically en simulering av biologiske neuron.}
-		\subsubsection{Korleis spikes propagerer (gjennom axon, synapse, summert ved dendritt. Lekkasje.)}
-		Skrive at det er ei etterligning av det biologiske neuronet. Sjå seksjon \ref{secTheBiologicalNeuralSystem}.
+Hadde 101 test-auron (K\_auron) og eit sensor-auron. De var ikkje kobla ihop, og hadde kvar en Kappa på 2.07*FYRINGSTERSKEL. Sensorauronet hadde en sinus-varierende kappa.
+Kjørte 10.000 tidsiterasjoner. Resultat av kjøretid:
 
-	\subsubsection{Optimalisering av lekkasje ved simulert asynkron tid.}
-		\emph{lekkasje ved kvar iterasjon vs. lekkasje bare når innsignal :}
-			Ved brute-force metode kjøres lekkasjen kvar tidsiterasjon for kvart neuron. Ved sim.asynk.tid kan det kjøres som $[lekkasjefaktor]^n$ når neste input skjer $n$ iterasjoner etter forrige. Meir optimalisert!
+Vector variant:
+15.626 15,537 14,8 13,3 13,5 13,6
 
-	\subsection{Skrive om kode her? Gå gjennom kode / UML?}
+List variant:
+13,46 13,41 	13,72 13,6 14,9 14,7 13,3 14,9
 
+Konkluderer med at de ikkje har stor nok forskjell til å bry seg.
 
+(dette kan være smart å skrive inn i rapporten. (og da blir ikkje denne halve dagen fullstendig bortkasta..))
 
-% XXX Sp kommer KANN etterpå.
