@@ -596,6 +596,8 @@ The leakage in each nodes value is the background of the non--linearity of the e
 \large{HER}
 
 \subsection{Om oppsamling av $\kappa$}
+\label{secCalcultaionTaskQue}
+% Skriv om lekkasje, slik at lekkasje gjennomføres i s_auron::doCalculation(). Da kan eg skrive om pCalculationTaskQue generelt her, og seinare i implementation_KANN.tex skrive om kappa-oppsamling.
 To do the minimalize the number of times $p(\kappa)$ is calculated, it is best to wait to after the current time iteration before calculating the result of the new $\kappa$ in terms of the nodes period.
 %Skriv heller noke slikt som :  Når kappa er ferdig oppdatert, dvs på slutten av current time iteration.
 This is best done by collecting all the calculations in a list and at the end of the time iteration, after all the change of input level at the node is registere, do the calculations.

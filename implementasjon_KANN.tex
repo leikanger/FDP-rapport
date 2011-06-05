@@ -44,11 +44,13 @@
 			In this way the synaptic transmission of the individual synapses can be decoupled from the postsynaptic activity variable, $\kappa_i$.
 			
 		\subsection{Synaptic input to a node}
-			In an $\kappa$ANN we call the nodes for a K\_auron.
+			\label{ssecSynInputToANode}
+			In $\kappa$ANN we call the nodes for a K\_auron.
 			The synaptic input for the activity variable of a K\_auron is defined by \eqref{eqSumOfKij}.
-			%Efficiency is important in artificial neural networks,
-			To avoid having to recalculate $\kappa_i$ from \eqref{eqSumOfKij} every time the transmission of a synapse changes, we can implement synaptic transmission as the transmission of the derived of $\kappa_{ij}$.
-			In this case the postsynaptic $\kappa$ can be recalucated without summing all the synaptic inputs every time one synapse changes its transmission.
+			%To avoid having to recalculate $\kappa_i$ from \eqref{eqSumOfKij} every time the transmission of a synapse changes, we can implement synaptic transmission as the transmission of the derived of $\kappa_{ij}$.
+			To avoid recalculation of $\kappa_i$ from all the input synapses when one synapse changes its transmission, this implementation defines edge transmission as the derived of $\kappa_{ij}$.
+			Now the postsynaptic $\kappa_i$ can be calculated without summing all the synapse inputs after changed input at one of its edges.
+			%In this case the postsynaptic $\kappa$ can be recalucated without summing all the synaptic inputs every time one synapse changes its transmission.
 
 			For synapses transmitting the derived of $\kappa_{ij}$ we only have to integrate this change of transmission from all the input synapses with a changed level of transmission, and get
 			\begin{equation}
@@ -58,13 +60,29 @@
 			%In the case of only one synapse changing its transmission
 
 			We can, in other words add the change in synaptic transmission, $\Delta K_{ij}$, to the postsynaptic activity variable to get the updated activity variable, $\kappa_i$.
-			This can be done at the time of transmission in the implementation.
+			This can be done at the time of each transmission, and without having to consider any of the other synaptic transmissions to the node.
+			
+			%XX Skal eg skrive dette her:
+			%If we wait until after the current time iteration before calculating the effects of the changed kappa, much calculations will be saved.
 
-			When $\kappa_i$ changes for a node of the $\kappa$ANN, it is important to recalculate the inverse of the period for this new $\kappa_i$ to get the synaptic transmissions right.
-			Because the time step of one time iteration is defined as the smallest time interval in the simulated system, we can say define that the propagation of $\kappa$ will happen after this time interval.
+			\subsubsection{Effects of the new $\kappa$}
+			When $\kappa_i$ changes for a node, we need to recalculate the inverse of the period for this new $\kappa_i$ to get the synaptic transmissions right.
+			Because the time step of one time iteration is defined as the smallest time interval in the simulated system, we can define that the propagation of $\kappa$ will happen at the end of the current time iteration. %after this time interval.
 			%eller "not instantly".
-			If we introduce this as a rule, we can introduce an aspect that will further increase the efficiancy of the system. 
-			The period of the node, and thus the synaptic transmission of its synapses can in this case wait to after the current time iteration before calculating the effect of the new $\kappa_i$.
+			Now %If we introduce this as a rule,
+			 we can wait until after the current time iteration before calculating the effects of the changed $\kappa_i$.
+			%The period of the node, and thus the synaptic transmission of its synapses can in this case wait to after the current time iteration before calculating the effect of the new $\kappa_i$.
+			This includes recalculating the estimated firing time, the period inverse and thus the synaptic transmission, and initiate the new time window by calculating the initial depolarization of the neuron and setting 
+				ulStartOfTimeWindow for the next time window.
+
+			If we wait til after the current time iteration before calculating the effect of the changed kappa, the above calculations can be done once per time iteration instead of once for each input to the node.
+																													% Og vil auke effektiviteten stort!
+			This can be wieved as a time delay in the neuron, and is probably  very short compared to what it should be. % TODO: Skriv i Discussion: 
+															%At denne delayen er antaklig alt for liten. Dersom eg hadde tid ville eg utforska kor lang denne delayen burde være.
+															% Veldig vanskelig å vita kva den SKAL være...
+
+
+			To wait with the recalculation of the variabled affected by the change in $\kappa$, is implemented with the concept of pCalculateTaskQue, introduced in section \ref{secCalcultaionTaskQue}.
 			When a nodes $\kappa$ changes value, a pointer to the node is inserted into a specialized que for this use, pCalculateTaskQue.
 \begin{lstlisting}
 static std::list<timeInterface*> pCalculateTaskQue;
@@ -73,37 +91,126 @@ static std::list<timeInterface*> pCalculateTaskQue;
 			When time\_class::doTask() runs, it first calls time\_class::doCalculations().
 			%First it makes shure that each entry of the list pCalculateTaskQue is unique (it removes any duplicate). 
 
-			time\_class::doCalculation() enshures that each element of pCalculateTaskQue is unique by removing every duplicate of an entry, before calling each elements .doCalculation().
-			The function doCalculation() is defined as a pure virtual function in timeInterface, and every class that does not define its own doCalculation() remains an interface class.
-			This causes each timeInterface derived class to have its own doCalculation() function.
-
-			For K\_aurons, doCalculation() is responsible for calculating every variable that changes as a consequence of a changed activity variable for the auron.
-
-			%Først sørger den for at kvart elment bare er oppført ein gang i pCalculateTaskQue. Så
-
-			%TODO skriv også om at eg venter med å rekalkulere kappa til etter gjeldende tidsiterasjon.
+			The first task of time\_class::doCalculation() is to enshure that each element of pCalculateTaskQue is unique. 
+			This is done by iterating through the list and removing all duplicates of each entry.
 			
-			\begin{itemize}
-				\item skrive om at for å sleppe å rekalkulere heile kappa for kvar gang, innfører eg derivert--overføring: at overføring er den deriverte av state.
-			\end{itemize}
-		\subsection{Skrive om implementasjon av dette}
-		\subsection{Skrive om effekter ved denne metoden}
-			\begin{itemize}
-				\item At når $\kappa$ nermer seg $\tau$, vil perioden gå mot uendelig veldig raskt. For diskret system vil dette oppfattes som en ulinearitet 
-				(peride går fra normal verdi til veldig høg verdi -> overføring går "plutselig" til 0). Dette fører til en høg derivert som sørger for at $W_{ij}=0$. Vis transmission plot.
-				\item at når vi velger å integrere opp den deriverte (overføring) for å finne state, vil vi får 'integral--error' for $\kappa_{post}$.
-				Dette fører til neste avsnitt: "rekalkulering av Kappa".
-			\end{itemize}
+			The next task is to call each of the remaining elements' .doCalculation() function.
+			The function doCalculation() is defined as a pure virtual function in timeInterface, and every class that does not define its own doCalculation() remains an interface class.
+			This makes shure that every object of a timeInterface derived class have defined a doCalculation() function. This function is defined in the class if to make it possible to make an istance of the class.
+			% gitt av kva elementet har behov for å vente med å kalkulere. For K_auron er det effekten av endring av Kappa som er hensiktsmessig å vente med. For s_auron er det kanskje lekkasjen?
+
+			For K\_aurons, the inherited virtual function .doCalculation() has the task of calculating every variable that changes as a consequence of a changed activity variable for the auron.
+			% TODO Skriv bedre XXX
+
+			\subsection{Analysis of synaptic transmission as the derived}
+			When synaptic transmission is defined as the derived of $\kappa_{ij}$ the gain in efficiency can be noticable. 
+			It also introduces some effects that is important to consider. 
+
+			The most imminent effect is the possibility of an integral error from integrating the derived to get the new $\kappa_i$. 
+			This is important, and a whole section is dedicated consideration of this (se sec. \ref{ssecRecalcKappa}).
 
 
-		\subsection{Rekalkulering av Kappa}
-		Siden kappa bare regnes ut som integralet av den deriverte, vil det være behov for rekalkulering av Kappa, i ny og ne. Dette bør ikkje skje for ofte, heller ikkje for sjeldent.
-		Difor: lage en adaptiv utførelse av dette. Dette sjekker avviket mellom den rekalkulerte verdien og den gjeldende verdien, ved rekalkulering. 
 
-		Dette avviket sjekkes opp i mot en predefinert ønska verdi, og differansen er med på å bestemme om periode til neste rekalkulering skal auke eller minke (auker/minker som en funksjon av avvik-avviket). 
+\begin{figure}[hb!tp]
+	\centering
+	%
+   	\subfloat[Presynaptic activity variable, {$\kappa_j$}]{\label{figSynTransmission:edge-a} 						\includegraphics[width=0.5\textwidth]{./synapticTransmissionPlots/eps_auronKs2-kappa.eps} 		} 
+   	\subfloat[Synaptic transmission]{\label{figSynTransmission:edge-b} 		\includegraphics[width=0.5\textwidth]{./synapticTransmissionPlots/eps_transmission_Ks2->K1.eps} 	}
+	%\caption{Demonstration of the value function for changing kappa}
+	\label{figSynTransmission}
+	\caption{The presynapsic activity variable kappa ( \ref{figSynTransmission:edge-a}  ) and the following synaptic transmission ( \ref{figSynTransmission:edge-b} ). 
+			Notice the nonlinearity of the synaptic transmission when $\kappa_j \leq \tau$.}
+\end{figure}
 
-		Dette avviket er m.a.o. med på å bestemme tid til neste rekalkulering av Kappa.
-		Auken/minken bør ha en maksverdi.
+
+			When the presynaptic activity variable, $\kappa_j$ varies as a sin( t ) and is at all times above firing threshold, the synaptic transmission will wary as its derived, the cosine.
+			%LEGG VED PLOT for [kappa alltid over terskel] også?
+			If the presynaptic activity variable as times is equal or below the firing threshold, the plot becomes more interresting.
+			Figure \ref{figSynTransmission} shows the presynaptic activity variable, $\kappa_j$ and the following transmission in the synapse. 
+			The plots are made from the octave log files following one run of the implementation.
+
+			When $\kappa_j$ approaches the threshold, the presynaptic period goes toward infinity. This causes a synaptic transmission $\kappa_{ij}$ of size zero.
+			Since the edge transmission in the implementation is the derived of $\kappa_{ij}$, we get the nonlinearity when $\kappa$ goes below the firing threshold of the presynaptic neuron.
+			In the empty interval in the synaptic transmission curve it can be seen that $\kappa_j$ is below the $\tau$, and we do not need to have synaptic transmission.
+			% Skrive at dette er ordna med ei if-setning?
+
+
+		%\subsection{Skrive om implementasjon av dette}
+		%\subsection{Skrive om effekter ved denne metoden}
+		%	\begin{itemize}
+		%		\item At når $\kappa$ nermer seg $\tau$, vil perioden gå mot uendelig veldig raskt. For diskret system vil dette oppfattes som en ulinearitet 
+		%		(peride går fra normal verdi til veldig høg verdi -> overføring går "plutselig" til 0). Dette fører til en høg derivert som sørger for at $W_{ij}=0$. Vis transmission plot.
+		%		\item at når vi velger å integrere opp den deriverte (overføring) for å finne state, vil vi får 'integral--error' for $\kappa_{post}$.
+		%		Dette fører til neste avsnitt: "rekalkulering av Kappa".
+		%	\end{itemize}
+
+
+		\subsection{Relcalculating $\kappa$}
+		\label{ssecRecalcKappa}
+		Because synaptic transmission is implemented as the derived of the $\kappa_{ij}$, and the postsynaptic activity variable $\kappa_i$ as the integral of this kind of synaptic transmission
+		, we have to consider the integral error of $\kappa_i$. 
+		Every small error in the calculated $\kappa_i$ will for ever be a part of the result, and we can get potential large errors after a relatively short time.
+
+		For this reason it is important to recalculate $\kappa_i$ periodically.
+		The period of recalculating $\kappa$ should find the right balance between recalculating to often, and use to much effort on recalculating $\kappa$, and not recalculating often enough and get integral errors of unacceptable size.
+
+		To best achieve this, the period between recalculating $\kappa$ is dynamic as a function of the error at the last recalcualation. 
+		This function should have some kind of maximum when the error is wery small, and a minimum period as the error grows wery large. 
+
+		I have devised an altered sigma function suitable for this purpose.
+		\begin{equation}
+			\label{eqSigmaFunk}
+			p(F) = (c_1+c_2) - \frac{c_2}{1+e^{-(c_4*F-c_3)}}
+		\end{equation}
+
+
+		\begin{figure}[b!htp]
+			\label{figSigmaFunk}
+			\begin{center}
+				\includegraphics[width=0.95\textwidth]{sigmaPlot.eps}
+				%\caption{Demonstration of the value function for changing kappa}
+			\end{center}
+			\caption{Plot of the altered sigma function (eq. \ref{eqSigmaFunk}), with \mbox{$c_1$ = 100}, \mbox{$c_2$ = 250}, \mbox{$c_3$ = 10} and \mbox{$c_4$ = 0.5} }
+		\end{figure}
+	
+		We can se that \eqref{eqSigmaFunk} has the maximum value of $c_1+c_2$, 350 in figure \ref{figSigmaFunk}. $c_2$ has the value of 250, witch gives the min. value as 100.
+		The altered sigma function \eqref{eqSigmaFunk} is used when the period between recalculation of $\kappa$ is calculated. 
+		The maximum value, in this context, gives the maximum period before the new recalculation is done. This happens when the error is wery small (se fig \ref{figSigmaFunk}).
+
+		One other thing that is worth noting is the variables $c_3$ and $c_4$ giving the shape of the curve. $c_4$ gives the lenght of the curve, that is how steep it is.
+		
+		After some analysis, I desided to use the values used in fig. \ref{figSigmaFunk}.
+		This gives a function that gives maximum period between recalculation of $\kappa$ when the error is below about 10. 
+		It has a relatively steep decent between an error of 10 and 30. The minimum period is set to 100 time steps and the maximum to 350 time iterations.
+
+		The minimum time between recalculation of $\kappa$ will cause the simulation not to use to much resouces.
+		The maximum value of this function is limited because the error will have a stocastic nature, and one could e.g. end up with zero error if one get equal positive and negative errors.
+		This could give a very large period before the next recalculation of $\kappa$.
+
+		For this reason, the calculation of the period between recalculation of $\kappa$ is also implemented as a FIR--filter with a moving average over the last three values.
+		The first time $\kappa$ is calculated, it is calculated with the recalculate function, giving the filter a small initial period, based on the initial level of input.
+		If the initial $\kappa$ is large, the first error will be large and the recalculation period will start out as a small period given by the level of input to the node.
+
+		\subsection{Implementation of recalculation of $\kappa$}
+		The execution of the planned recalculation of $\kappa$ is done in the same way as the execution of the planned action potential for the $\kappa$ auron.
+		In the next section I will use some time on evaluating different methods for executing planned events at the planned time.
+		The choice of method for this implementation is described in section \ref{ssChoiceOfTimeEstimationForThisImplementation}.
+		
+		For recalculation of $\kappa$ with the chosen method, we need a separate object whose doTask() function will call the K\_aurons recalculateKappa() function.
+		To achieve this, each K\_auron has its own object of the class recalcKappaClass().
+
+		recalcKappaClass::doTask() then will call the associated K\_aurons recalculateKappa() function, in addition to planning the time of the next recalculation according to the considerations in section \ref{ssecRecalcKappa}.
+		
+
+% HER EHER HER er eg.
+
+		%Siden kappa bare regnes ut som integralet av den deriverte, vil det være behov for rekalkulering av Kappa, i ny og ne. Dette bør ikkje skje for ofte, heller ikkje for sjeldent.
+		%Difor: lage en adaptiv utførelse av dette. Dette sjekker avviket mellom den rekalkulerte verdien og den gjeldende verdien, ved rekalkulering. 
+		%
+		%Dette avviket sjekkes opp i mot en predefinert ønska verdi, og differansen er med på å bestemme om periode til neste rekalkulering skal auke eller minke (auker/minker som en funksjon av avvik-avviket). 
+		%
+		%Dette avviket er m.a.o. med på å bestemme tid til neste rekalkulering av Kappa.
+		%Auken/minken bør ha en maksverdi.
 
 
 
@@ -113,17 +220,17 @@ static std::list<timeInterface*> pCalculateTaskQue;
 	The input of a node, in terms of $\kappa$, is propotional to the synaptic weight and inversly propotional with the presynaptic inter--spike period.
 
 	When the presynaptic node changes its activation level, and its period increases or decreases, the level of synaptic transmission will be altered accordingly. 
-	Because of the number of synapses per axon/ dendrite, it is most efficient to perform as many of the calucations as possible, in the presynaptic axon.
+	Because of the number of synapses per axon/ dendrite, it is most efficient to perform as many of the calucations as possible in the presynaptic auron.
 	For this reason, the most efficient way of calucating the postsynaptic dendrite's activation level is to let the synapse transmit the derived of the signal (change).
+	%TODO Har skrevet dette tidligare. (to subsections før). Skriv om, og referer/underbygg denne måten.
 
-	If the transmitted varible is the derived of the signal, the postsynaptic dendrite can easily calculate the changed postsynaptic $\kappa_i$. 
-	If we define $\kappa_{ij}$ as the contribution on $\kappa_i$ from the synapse between node $j$ and node $i$ , $\kappa_i$ can be calculated as
-
-	\begin{equation}
-		\kappa_{i} = \sum_j{\kappa_{ij}}
-	\end{equation}
+	If the transmitted varible is the derived of the signal the postsynaptic dendrite can easily calculate the changed postsynaptic $\kappa_i$, as sen in section \ref{ssecSynInputToANode}.
+	% XXX SAGT FØR: If we define $\kappa_{ij}$ as the contribution on $\kappa_i$ from the synapse between node $j$ and node $i$ , $\kappa_i$ can be calculated as
+	%\begin{equation}
+	%	\kappa_{i} = \sum_j{\kappa_{ij}}
+	%\end{equation}
 	
-	If every $\kappa_{ij}$ but one, $\kappa_{ix}$, is kept constant, it can be shown that $\Delta K_i$ is equal to $\Delta K_{ix}$.
+	If every $\kappa_{ij}$ but one, $\kappa_{ix}$, is kept constant, it can be shown that $\Delta \kappa_i$ is equal to $\Delta \kappa_{ix}$.
 	Following that $\kappa$ is calculated as a superposition of all the input synapses contribution, these equations can be extended to change of transmission of multiple synapses.
 	This gives us the equation for the change of postsynaptic activation level following synaptic transmission at synapse from node $x$ to node $i$.
 
@@ -132,7 +239,7 @@ static std::list<timeInterface*> pCalculateTaskQue;
 	\end{equation}
 
 	Instead of calculating all of this at every synapse, or for every synapse at the postsynaptic dendrite, it is better to calculate as much as possible presynapticlly.
-	This gives one calulation every time a node fires an action potential, instead of once for every output synapse.
+	This gives one calulation every time a node fires an action potential, instead of one for every output synapse.
 
 	%XXX XXX XXX Trur eg skrive  resten i subsubsection: implementation:KANN -> pEstimatedTaskTime -> execution of elements
 	
@@ -145,7 +252,7 @@ static std::list<timeInterface*> pCalculateTaskQue;
 
 
 	When the firing time is estimated, it is fundamental that we have a mechanism for executing these elements at the right time. 
-	In the following two sections i propose two different solutions for this. 
+	In the following sections i propose two different solutions for this. 
 	In section \ref{ssChoiceOfTimeEstimationForThisImplementation} the choice for this implementation will be presented, and different pros and cons with each method will be discussed.
 
 
@@ -154,7 +261,7 @@ static std::list<timeInterface*> pCalculateTaskQue;
 	\subsection{pEstimatedTaskTime}
 	$\kappa$ANN is based on calculating the firing time, given the present level of input. 
 	Because the input level of an ANN node varies constantly, the calculated firing time is but an estimation of the nodes firing time. 
-	The estimation changes as the input level does.
+	The estimation of the nodes firing time changes as the input level does.
 	%The estimated firing time for a node changes as the input level does.
 	
 	The std::list pEstimatedTaskTime is basically an array of dynamic size consisting of std::list--elements,
@@ -340,6 +447,9 @@ pEstimatedTaskTime.pop_front();
 
 	\subsection{Choice for this implementation}
 	\ref{ssChoiceOfTimeEstimationForThisImplementation}
+	% XXX TODO BEGRUNN GODT KVIFOR EG HAR SKREVET SÅ MYKJE OM pEstimatedTaskTime! Det holder ikkje at eg har gjordt det.
+	% 	Skriv at det er godt mulig dette er den mest effektive algoritmen når antall noder auker kraftig!
+	% 	Skriv at i såfall må en maks-lengde på lista lages.
 	The two methods for execution of tasks at the planned time both have flaws and cons.
 	
 	pEstimatedTaskTime krever at alle flyttinger av element er riktig. Dersom det er mykje endring av kappa er dette dårlig for denne metoden (krever mykje flytting av element i pEstimatedTaskTime).
