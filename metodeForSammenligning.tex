@@ -1,5 +1,17 @@
+% Sammenligning:
+% 	- Sammenligning om implementasjon OG kjøring om: Bra/dårlig ved:
+% 		- kjøring av de to
+% 		- implementasjon av de to
+% 		- sensor(best for KANN)
+% 		- kjøretid (effektivitet for ulike 'scenarios')
+% 		- over nettverk : best for KANN.
+%
+
 
 \chapter{Comparison and result} 
+
+
+
 
 Skrive innledning: Kva er felles for de to implementasjonane: Kva er kjendt i biologien, og kva er utelatt for desse implementasjonene?
 
@@ -36,6 +48,101 @@ Kva var originalt planlagt, men viste seg å bli for mykje arbeid?
  	\item Synaptisk plastisitet.
 \end{itemize}
 
+\subsection{Comparison between the transient time course of the depolarization of the K auron and s auron ,   Vettafaen kor det skal ligge}
+To compare %the implementation of (?)
+			the two models, we will start with comparing the depolarization of a single node from each model.
+The same input to the two nodes should optimally give the same transient time course of the depolarization.
+
+Because of the complexity of each node in a neural network, we cannot use a network of neurons to generate an equal input to the analyzed neuron. 
+At least not before we now that they give the same output.
+My solution for this is 
+%The solution for this was
+						to devise an own underclass K\_sensor\_auron for the $\kappa$ANN model and s\_sensor\_auron for the SANN model, that gives an output based on some ``sensor function''.
+This sensor function can be made to give an output appropriate for comparing the variants of the node.
+
+Both sensor classes are constructed by sending a function pointer into the constructor of the object. 
+
+\begin{lstlisting}
+K_sensor_auron::K_sensor_auron(
+  std::string sNavn_Arg, double (*pFunk_arg)(void) ) 
+     :  K_auron(sNavn_Arg)
+{
+	// Assign the sensor function:
+	pSensorFunction = pFunk_arg;
+	// Add to pAllSensorAurons list:
+	pAllSensorAurons.push_back(this);
+
+	...
+}
+\end{lstlisting}
+
+Where the member variable \emph{double \mbox{(*pSensorFunction)(void);}} is a function pointer that is assigned the the function pointer adress that is sent in as an argument in the class constructor.
+%This causes \emph{pSensorFunction} for point to the function sent in as an argument in the constructor.'
+The variable pAllSensorAurons is a list containing all the valid sensor objects, used for updating the value of each sensor neuron when \emph{time\_class::doTask()} iterates time. %i time_class::doTask()
+
+\begin{figure}[hbtp!]
+	\label{figComparisonBetweenSsensorAndKsensorDepolCurve}
+	\centering
+	%\begin{center}
+		\includegraphics[width=0.95\textwidth]{eps_Comparison_between_the_two_sensors__depol.eps}
+	%\end{center}
+	\caption{The depolarization curve for a SANN node and a $\kappa$ANN node with the same input. The sensor function is also plotted for analysis of the result.}
+\end{figure}
+
+%The sensor function used for the comparison of the time course of the depolarization of a single node is 
+The sensor function used has the formula $f(t) = \tau (1 + cos( \frac{\pi \, t}{1000} ))$, where $\tau$ is the firing threshold for the neuron. 
+For the K\_auron the activity variable is at each time step set to this variable. 
+When K\_sensor\_auron changes its activation level, we do this by sending the sensed signal to the dendrite. 
+This is very simular to the way it is done in biology. %Evt kan eg skrive at "this is strongly inspired by nature".
+%referer.
+%Beste for refereringa over er nok å skrive om dette i BiologiskeSystemer.tex, og referere til plassen det står. 
+
+This implementation is strongly inspired by the biological neural system, and the stimuli is sent to the dendrite as any synaptic input.
+For the K\_sensor\_auron this gives the code
+\begin{lstlisting}
+  changeKappa( dSensedValue - dLastSensedValue );
+\end{lstlisting}
+and for the s\_auron we have
+\begin{lstlisting}
+  pInputDendrite->newInputSignal( (*pSensorFunction)() * ALPHA );
+\end{lstlisting}
+
+
+Because of the mechanisms implemented for synaptic transmission in $\kappa$ANN is based on the derived, we change $\kappa$ by the discrete variant of the derived; 
+The current value minus the last value or dSensedValue - dLastSensedValue.
+For the s\_auron we incoorporate the time constant T as $\frac{1}{T} = $ ALPHA by sending the above listed input to the s\_sensor\_auron's dendrite.
+
+
+In figure \ref{figComparisonBetweenSsensorAndKsensorDepolCurve} we can se the results. 
+As can be seen, the depolarization of the K\_auron and the s\_auron is quite simular.
+What is interesting about this curve is that we can see that the depolarization curve follows eachother exactly %Dette er rett: exactly (google translate)
+for the rising phase of the sensor curve. For the falling phase of the sensor fuction, we get an error that varies with the derived of the sensor function curve.
+When the sensor function decreases the most, we get an error of a couple of percent. %TODO finn dette nøyaktig, om det ikkje blir fikset!
+
+\newpage
+For the K\_sensor\_auron 
+
+% Den lille forskjellen mellom s_sensor_auron og K_sensor_auron er noko eg kan skrive mykje om i 'discussion'.
+% Eg har tanker om at det er pga. at eg bruker integer (tid) i ligningene, og vi får dermed avrundingsfeil. Litt overraska over at feilen er så liten..
+% 	Det er også mulig at den lille forskjellen kommer av forskellane i korleis sensor-funksjonen blir oversatt til depol.
+% 		- K_sensor_auron oversetter sensorFunk direkte til aktivitetsVariabel Kappa, mens
+% 		- s_sensor_auron sender gir eit enkelt input per tidsiterasjon gitt av ligninga (W_ij / [time constant]), eller  ALPHA * W_ij
+%   XXX Dette trenger grundigare analyser!
+
+
+To compare the transient time course of the value of single neurons, we give them the same input and compare the deloparization plot of the two nodes.
+%we need to have the same input to both nodes.
+This means that we cannot use a network of nodes, as equal output of such a network demands that each node behaves eqactly the same way for the same input, give the same input to the analyzed node.
+
+
+
+
+Because a network of connected neurons have a large degree of complexity, it is best to start with comparing the depolarization of single nodes.
+For this I will 
+For comparison of the two models, we will first compare the depolarization of a single neuron of each model.
+%Because a system comprised of a network of neurons have 
+
+The argument behind this choice is that the 
 
 
 \section{Resultat for effektivitetssammenligning}
@@ -112,5 +219,25 @@ For this reason I found it best to implement as generally as possible, for futur
 %Skriv om forskjellane mellom KANN og SANN. Her kommer kanskje største fordelen med KANN? (Kan kanskje legge inn vilkårlig antall element, til tilsvarende størrelse på 'time step').
 
 %slutt: En eller anna plass: ....
+
+
+\section{Conclution}
+% DET neste er ikkje bra å ha her!
+Grunnen for å fokusere på spike time, i utgangspunktet var oppdagelsen av at synapser lærer ved positiv eller negativ vekt-endring etter overføring. 
+Hvilken, og kva størrelse er avgjort av når synaptisk overføring kommer i forhold til postsyn. fyring.
+
+Etter litt har man funnet ut at desse mekanismene bare gjelder enkelte synapser, der postsynaptiske neurotransmittor receptors er spenningsavhengig for overføring. 
+Med høg depolarisering, dvs lav spenning overføres meir, og bl.a. $Ca^{2+}$ som er viktig for postsynaptisk plastisitet.
+"To my knowledge" har det bare blitt funnet en slik neurotransmittor-sensor i biologien. Dette er den glutamatiske NMDA receptoren.
+Glutamatisk overføring har vore veldig mykje i fokus for synaptisk overføring, og det er ikkje rart at STDP har fått så veldig høgt fokus %NEI, FAEN! må ikkje argumentere mot oppgaveteksten!
+
+
+\section{Notater: Kva burde eg gjordt annaleis?}
+Burde ikkje bygd de to implementasjonane så lik. (?)
+Det er vanskelig å sammenligne de to. For K\_auron kunne eg ivertfall droppa dendrite og kanskje axon.
+Jeje - vettafaen eg.
+
+Burde ikkje brukt så mykje tid på pEstimatedTaskTime-lista. Kanskje eg kan argumentere for at dette kan være nyttig, men for dette prosjektet er det tidssløs.
+
 
 
