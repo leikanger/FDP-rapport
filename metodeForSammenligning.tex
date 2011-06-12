@@ -8,6 +8,8 @@
 %
 
 
+%todo : analyser avviket fra KN til SN sine depolrarisasjonskurver. Kvifor finnes dette avviket? Kva er greia? Lag mikroplott for stigende og synkende flanke. osv.
+
 \chapter{Comparison and result} 
 
 
@@ -47,6 +49,9 @@ Kva var originalt planlagt, men viste seg å bli for mykje arbeid?
 \begin{itemize}
  	\item Synaptisk plastisitet.
 \end{itemize}
+
+
+
 
 \subsection{Comparison between the transient time course of the depolarization of the K auron and s auron ,   Vettafaen kor det skal ligge}
 To compare %the implementation of (?)
@@ -100,12 +105,12 @@ This is very simular to the way it is done in biology. %Evt kan eg skrive at "th
 This implementation is strongly inspired by the biological neural system, and the stimuli is sent to the dendrite as any synaptic input.
 For the K\_sensor\_auron this gives the code
 \begin{lstlisting}
-  changeKappa( dSensedValue - dLastSensedValue );
-\end{lstlisting}
+  changeKappa( dSensedValue - dLastSensedValue ); 
+\end{lstlisting} %Eller så kan vi gjøre det direkte. (sette Kappa til målt verdi. har impa begge..)
 and for the s\_auron we have
 \begin{lstlisting}
-  pInputDendrite->newInputSignal( (*pSensorFunction)() * ALPHA );
-\end{lstlisting}
+  pInputDendrite->newInputSignal( (*pSensorFunction)() * ALPHA ); 
+\end{lstlisting} % TODO Forstå greia med ALPHA!
 
 
 Because of the mechanisms implemented for synaptic transmission in $\kappa$ANN is based on the derived, we change $\kappa$ by the discrete variant of the derived; 
@@ -115,9 +120,86 @@ For the s\_auron we incoorporate the time constant T as $\frac{1}{T} = $ ALPHA b
 
 In figure \ref{figComparisonBetweenSsensorAndKsensorDepolCurve} we can se the results. 
 As can be seen, the depolarization of the K\_auron and the s\_auron is quite simular.
-What is interesting about this curve is that we can see that the depolarization curve follows eachother exactly %Dette er rett: exactly (google translate)
-for the rising phase of the sensor curve. For the falling phase of the sensor fuction, we get an error that varies with the derived of the sensor function curve.
-When the sensor function decreases the most, we get an error of a couple of percent. %TODO finn dette nøyaktig, om det ikkje blir fikset!
+There is a small difference between the curves.
+%It is hard to know the specific reason for the error in this implementation.  In the following section I will discuss possible explanations.
+
+What is interesting about this curve is that it seems that the depolarization curves follow eachother exactly %Dette er rett stavemåte: exactly (google translate)
+for the rising phase of the sensor curve. For the falling phase of the curve we get some difference between the depolarization of the SN and the $\kappa$N.
+
+After a more thorough analysis of the error, it seems that the difference is an effect based on the concept of a truncation error. %Sjekk wiki. Dette er engelsk ord for integralfeil.
+
+\subsubsection{Trunctation error of the SN} %Kanskje skrive "Spiking Node". Hugs at overskrifta blir også oppført i "index".
+In SANN each node is modelled as a leaky-integrate-and-fire neuron.
+When the depolarization of the SN is updated, the leak of the neuron calculated as the previous value times the leak constant.
+\begin{equation} %TODO Introduser denne ligninga tidligare i oppgava. Her skal eg bare skrive siste del av den:    v_t = (1-\alpha) * v_{t-1}  
+	v_t = v_{t-1} - v_{t-1} * \alpha = (1-\alpha) * v_{t-1}  
+\end{equation}
+The discretization of the system introduces a small error, the local truncation error, that varies with the size of the time step and the derived of the value function $\dot{v}(t)$. %"local truncation error"
+
+The leak is calculated as the $-\alpha v_{t-1}$.
+When $\dot{v}(t)$ is positive, $v_{t-1}$ is less than the value $v_t$, varying with the size of the time step and the differentiated value function $\dot{v}(t)$.
+When $\dot{v}(t)$ is negative, we get the oposite result.
+
+Each small error is integrated up to a larger error, the global trunction error. 
+If some situation is analyzed where the value is the same as the initial value, the integral of the derived over this interval is per definition zero.
+Global trunctation error will then dissapear. 
+This further implies that for a continous signal that varies around some working point, the global trunctation error will not diverge.  %google sa at det heite "diverge"
+
+The depolarization of a neuron have a discontinuity when the neuron fires an action potential. 
+When the neurons depolarization reaches the firing threshold the value is reset to $v_0 = 0$.
+In other words, each time the value of a node reaches a positive threshold, the value is reset.
+In this case the global trunctation error will continue to grow, and the difference between the value curves for the SN and the $\kappa$N becomes %TODO Ikkje dette. Skriv heller eit utfall som Stavdahl vil syns er SKUMMELT!
+
+%DENNE er en god forklaring. men det er feil veil (s er før/over K)
+\subsubsection{Time responce of the neuron}
+The analysis in the previous section is sound, but if we isolate the error by giving the sensor aurons a constant sensor function with an activity level of $\kappa = 1.5 \tau$ we se that the error is oposite of the predicted error.
+In the analysis in the previous section, the SN would have an error that gives a value that is higher than it should be.
+This implies that the depolarization curve of the SN should be ``before'' that of the $\kappa$N.
+In figure \ref{figComparisonBetweenSsensorAndKsensorDepolCurveCONStActivityLevel} we se that the error gives that the SN is "after".
+
+%it predicts the opposite error than the diffenerce between the $\kappa$N and the SN in fig. \ref{figComparisonBetweenSsensorAndKsensorDepolCurve}.
+According to the analysis, the depolarization of the SN should be more than (or ``before'') the depolarization kurve for the $\kappa$N.
+This does not mean that the analysis is incorrect, only that it is overshadowed by some other, more important error.
+
+A plausible canditate is that this error is comes from using a floating point variable. 
+Floating point variables has a varying degree of %nøyaktighet. Fører til avrundingsfeil ved kvar operasjon => SANN får tidligere fyring ?
+% Sjekka i octave. Begge er feil, men SANN er rettest. (14 fyringer skal ta 3845. KANN: 3838, SANN: 3864). Med refraction time
+
+For example the variable $p(\kappa) = 274,65$ for $\kappa = 1.5 \tau$ can get rounded to 274.7
+
+OK: eit problem er løstninga mi for refraction time for K\_auronet. Begynner å lade opp umiddelbart, og legger til en for estimering av fyring.
+Dette vil skape problem om kappa endres etter start, men ikkje ellers..
+Føkk.
+
+\begin{figure}[hbtp!]
+	\label{figComparisonBetweenSsensorAndKsensorDepolCurveCONStActivityLevel}
+	\centering
+	%\begin{center}
+		\includegraphics[width=0.95\textwidth]{eps_comparison_between_KN_and_SN_ConstKappa.eps}
+	%\end{center}
+	\caption{The depolarization curve for a SANN node and a $\kappa$ANN node with the same input. The sensor function has an input equivalent to an activation level of $\kappa = 1.5 \tau$.}
+\end{figure}
+
+
+\subsection{Floating point calculation pitfalls}
+Skriv om mulighetene for feil når man bruker float/double.
+
+
+% - integralfeil for SN
+% - Integralfeilen kommer antagelig av at lekkasjen  
+% - For SN vil lekkasjen regnes ut fra verdien ved forrige tissteg. Denne diskretiseringseffekten vil forplante seg i at for positiv derivert av depol-kurva vil SN-depol være litt over, og for negativ flanke : motsatt.
+% 		Dette er fordi lekkasjen regnes ut fra forrige verdi, som for stigende flanke er mindre enn den noværande verdien, og vi får en mindre lekkasje => for stor verdi.
+% - denne feilen vil nulles ut for eit periodisk signal uten sprang (over en periode vil integralet av positiv flanke og neg. flanke bli null.
+% - dersom vi har eit sprang, eller enda verre: eit sprang som alltid ligger etter en viss mengde med pos. flanke, vil vi få summert opp integral-feilen.
+% For auronet vil depol settes lik 0 etter en viss mendge pos. flanke for depol. kurva. Dette skaper problemet.
+
+% Eg har også vurdert om det er feil fra implemenasjonen: at de har ulik refraction time, MEN eg trur ikkje dette: 
+% 		En slik feil ville vore mindre (eit-to tidssteg per fyring) => ikkje synlig på eit plott over fleire tusen iter's.
+
+
+% MEN PROBLEMET ER FEIL VEI! JEje. Drit i det!
+
+
 
 \newpage
 For the K\_sensor\_auron 
@@ -239,5 +321,14 @@ Jeje - vettafaen eg.
 
 Burde ikkje brukt så mykje tid på pEstimatedTaskTime-lista. Kanskje eg kan argumentere for at dette kan være nyttig, men for dette prosjektet er det tidssløs.
 
+
+
+
+% XXX Skriv at resetting til v_r etter AP er ikkje instantaneous. Dette tar også litt tid. For videre arbeid vil også dette bli implementert!
+
+% XXX Skriv at KANN er en mellomting mellom fANN og SANN. Det har muligheten til å kommunisere med begge.
+% 		- fANN kan overføre aktivitetsnivået sitt direkte til KANN (Kan sette $\kappa$ = input-fra-fANN) -- Begge veier (KANN: kan få info FRA, og gi info TIL fANN).
+% 		- SANN kan overføre aktivitetsnivået sitt indirekte til KANN (KN kann analysere input til $\kappa$. KN kan gi output til SN (direkte))
+% Det kan være dette er eit stort bidrag for ANN-verden. Dersom det i tillegg er meir effektivt, så ...
 
 

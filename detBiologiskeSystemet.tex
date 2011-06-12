@@ -4,6 +4,12 @@
 % TODO I 'comparison' skriver  eg om sensor-aurona mine. Eg skriver at metoden eg har brukt er inspirert av naturen, og at sensor neuron får depol. gitt av stimuli. Dette skal referes. Da er det best å referere til en plass i teksten.HER.
 %TODO 		Skriv om sensor neuron i biologien, en plass i denne fila.
 
+
+
+
+% TODO Skriv eksplisitt kvifor eg vil gå gjennom denne informasjonen så nøye.
+% Eg skal prøve å holde implemensatjonene så lik biologien som mulig, for å beholde muligheten for å inføre nye konsept når desse blir funnet ut (av meg eller av neuroscience community).
+
 \chapter{Neuroscience: background information} %xxx rapport
 \label{chapNeuroscience}
 
@@ -76,21 +82,31 @@ The combination of neurotransmitters released from the presynaptic terminal and 
 
 \subsubsection{The action potential}
 \label{sssecTheActionPotential}
-Through mechanisms based on voltage--gated channels, the action potential is a self carrying signal.
+In the membrane of the axon we have voltage--gated channels that open if the level of depolarization is more than some value. This value is called the ``firing threshold of the neuron''.
+These channels will open and further depolarize the membrane. Through passive transmission of the electrical potential, the next site with voltage gated channels will also go beyond the firing threshold.
+This establishes the self carrying signal of the axon.
 %An important result of this is that the presynaptic membrane at the synapses recieves an equal depolarization, independent of its location. The release of neurotransmitters is a result of this depolarization, and the action potential enshures an equal depolarization of the presynaptic membrane, so that the transmission is dependent only on the synaptic weight.
 %
-%The action potential is a self--carrying signal. 
-This means that sufficient depolarization of the membrane of the axon opens voltage gated ion channels that will further depolarize the membrane. 
-Through passive transmission of the voltage, the signal is distributed to the next voltage gated channels.
+%This means that sufficient depolarization of the membrane of the axon opens voltage gated ion channels that will further depolarize the membrane. 
+%Through passive transmission of the voltage, the signal is distributed to the next voltage gated channels.
 
-To ensure that every spot of the axon is reset after an action potential, the voltage gated channels will close after being open for a little while. 
-The channel stays closed for a while, until the polarization is reset. This introduces an important aspect of the neuron: the refraction period. 
+The voltage gated channels will only be open for a small period of time.
+There are at multiple kinds of voltage gated channels. The sodium channel opens
+For the action potential there are two important voltage--gated channels; The sodium channel and the potassium channel.
+
+The $Na^{1+}$ channel opens faster than the $K^+$, and gives the rising phase of the action potential.
+After some time delay, the $K^+$ channel opens, and at about the same time the $Na^{2+}$--channel close.
+We have more $K^+$ ions inside the cell, so increasing the permeability for $K^+$ will decrease the potential over the membrane, or ``depolarize'' the membrane.
+When both channels are closed again we are back at the resting potential of the neuron. %SITER: Bear s:91
+
+These mechanisms take some time to execute and the neuron will be inpossible to excite right after the action potential takes place.
+This is called ``the absolute refraction time'' of the neuron..
+
 
 After firing an action potential, the neuron will have a period where it is impossible to exite the cell, called \emph{the absolute refraction period}. 
-%Skrive at refraction period består av absolute og relative ref. per.?
 The refraction period of a neuron usually lasts for a few milliseconds.
 %\cite Bear kap. 4  (s.91, nede) og Kandel kap.9 s 157 (nede)
-The refraction period is important for limiting the frequency of the neuron. Se section \ref{sssecValueOfAlpha} for more on this. %XXX Skriv noke anna enn "proof"! Meir ydmykt, mindre bastant!
+I have found that the refraction period is important for limiting the firing frequency of the neuron. Se section \ref{sssecValueOfAlpha} for more on this.
 %The signals transmitted in the axon is strictly directional, that is: the signal goes from the axon hillock (close to the neurons soma) to the axon terminals (where the synapses is). 
 
 

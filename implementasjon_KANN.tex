@@ -470,6 +470,28 @@ pEstimatedTaskTime.pop_front();
 
 
 
+
+
+
+
+
+
+
+\subsection{When do $\kappa$ propagate?}
+Stavdal meiner at det er tull å propagere heile tida (kvar gang K oppdateres i presyn). 
+Eg har laga plot for å sei imot dette: når kappa venter med å propagere til første fyring får man eit tidsdelay for depol til KN tilsvarende tida det tar til første fyring. (dette er veldig tydlig ved sprang i presyn K).
+
+Når Kappa propagerer kvar gang presyn endres, fjærnes dette problemet. Propagerer som det er gjordt før, med at axon legges til i pWorkTaskQue. Alle postsyn. noder får dermed input tidligst neste iterasjon.
+
+Dette har med synapstisk transmissjon å gjøre, og eg må gjøre dette ferdig før eg skrive meir om dette..
+
+NEI faen! no er feilen der igjen. Sjekka kode, og fann at den propagerete, men bare om K>T, så det over er TULL.
+
+
+
+
+
+
 %	\subsection{Anna fra tidligare:}
 %	-- kanskje skrive om vanskene med log() ? Returnerer samme som argumentet, difor må vi typekonvertere til (float) eller (double) før man tar log() av det. Dette skapte hodebry, siden eg bare fekk resultatet 0.
 % 		Ganga med FAKTOR, og fekk 0. Når eg typekonverterte argumenta til log() om til float gjekk fekk eg bra output..
