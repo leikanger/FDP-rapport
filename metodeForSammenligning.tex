@@ -126,7 +126,10 @@ There is a small difference between the curves.
 What is interesting about this curve is that it seems that the depolarization curves follow eachother exactly %Dette er rett stavemåte: exactly (google translate)
 for the rising phase of the sensor curve. For the falling phase of the curve we get some difference between the depolarization of the SN and the $\kappa$N.
 
-After a more thorough analysis of the error, it seems that the difference is an effect based on the concept of a truncation error. %Sjekk wiki. Dette er engelsk ord for integralfeil.
+%After a more thorough analysis of the error, it seems that the difference is an effect based on the concept of a truncation error. %Sjekk wiki. Dette er engelsk ord for integralfeil.
+For discrete integration we may get something called the trunctation error. The ``local truncation error'' is the immediate error after each time step. 
+The ``global truncation error'' is the error following integration many local truncation errors. 
+The global truncation error is defined as the absolute difference between the approximated solution and the actual solution. 
 
 \subsubsection{Trunctation error of the SN} %Kanskje skrive "Spiking Node". Hugs at overskrifta blir også oppført i "index".
 In SANN each node is modelled as a leaky-integrate-and-fire neuron.
@@ -150,27 +153,7 @@ When the neurons depolarization reaches the firing threshold the value is reset 
 In other words, each time the value of a node reaches a positive threshold, the value is reset.
 In this case the global trunctation error will continue to grow, and the difference between the value curves for the SN and the $\kappa$N becomes %TODO Ikkje dette. Skriv heller eit utfall som Stavdahl vil syns er SKUMMELT!
 
-%DENNE er en god forklaring. men det er feil veil (s er før/over K)
-\subsubsection{Time responce of the neuron}
-The analysis in the previous section is sound, but if we isolate the error by giving the sensor aurons a constant sensor function with an activity level of $\kappa = 1.5 \tau$ we se that the error is oposite of the predicted error.
-In the analysis in the previous section, the SN would have an error that gives a value that is higher than it should be.
-This implies that the depolarization curve of the SN should be ``before'' that of the $\kappa$N.
-In figure \ref{figComparisonBetweenSsensorAndKsensorDepolCurveCONStActivityLevel} we se that the error gives that the SN is "after".
-
-%it predicts the opposite error than the diffenerce between the $\kappa$N and the SN in fig. \ref{figComparisonBetweenSsensorAndKsensorDepolCurve}.
-According to the analysis, the depolarization of the SN should be more than (or ``before'') the depolarization kurve for the $\kappa$N.
-This does not mean that the analysis is incorrect, only that it is overshadowed by some other, more important error.
-
-A plausible canditate is that this error is comes from using a floating point variable. 
-Floating point variables has a varying degree of %nøyaktighet. Fører til avrundingsfeil ved kvar operasjon => SANN får tidligere fyring ?
-% Sjekka i octave. Begge er feil, men SANN er rettest. (14 fyringer skal ta 3845. KANN: 3838, SANN: 3864). Med refraction time
-
-For example the variable $p(\kappa) = 274,65$ for $\kappa = 1.5 \tau$ can get rounded to 274.7
-
-OK: eit problem er løstninga mi for refraction time for K\_auronet. Begynner å lade opp umiddelbart, og legger til en for estimering av fyring.
-Dette vil skape problem om kappa endres etter start, men ikkje ellers..
-Føkk.
-
+To se if this is the backgound for the error, we isolate the error by giving the sensor aurons a constant sensor function, with an action level of $\kappa = 1.5 \tau$.
 \begin{figure}[hbtp!]
 	\label{figComparisonBetweenSsensorAndKsensorDepolCurveCONStActivityLevel}
 	\centering
@@ -180,9 +163,43 @@ Føkk.
 	\caption{The depolarization curve for a SANN node and a $\kappa$ANN node with the same input. The sensor function has an input equivalent to an activation level of $\kappa = 1.5 \tau$.}
 \end{figure}
 
+The result is presented in fig. \ref{figComparisonBetweenSsensorAndKsensorDepolCurveCONStActivityLevel}.% .eps
+If the previous analysis of the problem is sound, the SN should have a depolarization that is higher than is should be.
+This implies than the depolarization curve for the SN should be ``before'' that of the $\kappa$N, which is the opposite of the situation of fig. \ref{figComparisonBetweenSsensorAndKsensorDepolCurveCONStActivityLevel}.
 
-\subsection{Floating point calculation pitfalls}
-Skriv om mulighetene for feil når man bruker float/double.
+\subsubsection{Rounding errors}
+After a more thorough analysis of the error, it seems that the difference is an effect of a rounding error.
+
+If we change wievpoint on the error and see the difference between the two cuves as an effect of time, we can say that the $\kappa$N's depolarization curve lies before the SN's depolarization curve.
+This implies that the $\kappa$N fires before the SN, and thus starts earlier on the depolarization for the next period.
+
+In many programming languages a float is always ``rounded down''. This means that the %Det som står etter komma
+is removed from the number, and the integer becomes the same as the integer part of the number.
+
+When the $\kappa$N calculates the estimated firing time, this calculation is done in a double precision floating point number. 
+To use this in the scheduler is must first be transformed to an integer variable. When this time step arrives, the task is executed.
+
+\begin{figure}[hbtp!]
+	\label{figComparisonBetweenSsensorAndKsensorDepolCurveFIXEdError}
+	\centering
+		\includegraphics[width=0.95\textwidth]{eps_Comparison_between_the_two_sensors__depol_FIKSA.eps}
+	\caption{Comparison between the SN's and $\kappa$N's depolarization curve. The sensor function is also plotted.}
+\end{figure}
+
+If we instead round to the closest integer, by adding $0.5$ to the float before it is converted into an integer, we get the depolarization curve presented in fig. \ref{figComparisonBetweenSsensorAndKsensorDepolCurveFIXEdError}.
+In the improved depolarization curves for the auron, the error is small and can not be seen on the plot.
+
+%Ikkje heilt sikker på om det er heilt rett: størst etter "rising flank of the ..", Bli heilt sikker på dette.
+The error is largest after right after the rising flank of the activity variable's curve, the value of the sensor function.
+For the situation in fig. \ref{figComparisonBetweenSsensorAndKsensorDepolCurveFIXEdError} this is at time t=3000.
+At this time iteration the value of the SN is 1.015 more than the value of the $\kappa$N. 
+
+This deviation is substantially smaller that the deviation that came from the rounding error, and it shows that the analysis made in the previous subsection is correct. %gjør om: ikkje "correct" men kanskje mindre påståelig?
+
+
+
+% TODO KANSKJE :   \subsection{Floating point calculation pitfalls}
+%                  Skriv om mulighetene for feil når man bruker float/double.
 
 
 % - integralfeil for SN
@@ -321,6 +338,16 @@ Jeje - vettafaen eg.
 
 Burde ikkje brukt så mykje tid på pEstimatedTaskTime-lista. Kanskje eg kan argumentere for at dette kan være nyttig, men for dette prosjektet er det tidssløs.
 
+
+\section{Ting som kanskje er nye}
+Skriv litt om optimaliseringa gjordt i SANN. Simulert asynkron tid istedetfor oppdatering kvart tidssteg.
+
+Kalkulering av lekkasje: Kvar gang det kommer nytt input, framfor å gjøre det kvar tidsiterasjon.
+
+\section{Kva burde eg gjordt annerledes?}
+Skriv at fokuset mitt i denne implementeringa var å sammenligne de to modellene. Dette gjorde at eg satt opp auronet på eg spesiell, og ikkje-optimal måte.
+(Både for effektivitet, men også for implementasjon. Det var kanskje vanskeligere å implementere modellen på måten eg gjorde det, enn nødvendig. Kann trenger bare eit auron, med synapser ut.)
+Dette burde eg gjordt annerledes, og både implementering og effektivitet ville vunnet på dette.
 
 
 
