@@ -218,14 +218,12 @@ Equation \eqref{eqPeriodeligningForKonstIntraPeriodKAPPA} is based on a constant
 If we allow the activation level of the node to change during the inter--spike period of the neuron, we cannot directly use %\eqref{eqVerdiligninga} and \eqref{eqTidTilFyringVedEndraKappa}.
 																			the equations from the previous section.
 To solve this problem, the concept of ``a time window'' was devised. A time window is defined as a time interval where the activation level of the node is constant.
-Within each time window we can therefore use both \eqref{eqVerdiligninga} and \eqref{eqTidTilFyringVedEndraKappa}.
+Within each time window both \eqref{eqVerdiligninga} and \eqref{eqTidTilFyringVedEndraKappa} is valid. % .. kan bli brukt.
 
 \begin{figure}[hbt!p]
 	\label{figVerdifunksjonen}
-	\begin{center}
-		\includegraphics[width=0.95\textwidth]{demonstrasjonAvUlikeKappaforVerdifunksjonen.eps}
-		%\caption{Demonstration of the value function for changing kappa}
-	\end{center}
+	\centering
+	\includegraphics[width=0.95\textwidth]{demonstrasjonAvUlikeKappaforVerdifunksjonen.eps}
 	\caption{$v(t)$ for changing $\kappa$. $\kappa_0=0.7$. At time $t_p=100$ $\kappa$ changes to $\kappa_1=0.5$. At time $t_p=150$ the neurons imput increases, and $\kappa$ becomes $\kappa_2=1$. See eq.\eqref{eqVerdiligninga}.}
 \end{figure}
 

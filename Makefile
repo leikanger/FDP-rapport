@@ -1,4 +1,4 @@
-kompilerAlt: *.tex rapport.bbl bibliografi.bib
+rapport.dvi: *.tex bibliografi.bib #rapport.bbl 
 	latex rapport.tex
 	bibtex rapport
 	latex rapport.tex
@@ -16,6 +16,7 @@ rapport.pdf:  rapport.tex rapport.bbl  bibliografi.bib
 		bibtex rapport
 		pdflatex rapport.tex
 	    pdflatex rapport.tex
+
 
 rapport.bbl:  bibliografi.bib 
 		pdflatex rapport.tex

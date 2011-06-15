@@ -1,9 +1,24 @@
 \documentclass[a4paper,11 pt]{report}
 
+%%%%%%%% KRISTOFFER sine usepackage (i diplomen)
+%\documentclass[a4paper, english, 12pt]{article}
+%\usepackage[utf8]{inputenc}
+%\usepackage[T1]{fontenc} %%
+%%%\usepackage{babel}
+%\usepackage{graphicx}
+%\usepackage{subfigure}
+%\usepackage[amssymb,binary]{SIunits}
+%\usepackage{amsmath,amsfonts,amssymb,textcomp,varioref}
+%\usepackage{listings} % Er lenger nede..
+%\usepackage{times}
+%\usepackage{nomencl}
+
+
+
+%%%%%%%%% Mine fra før dette:
+
 \usepackage[utf8]{inputenc}
-%\usepackage[T1]{fontenc}
-%\usepackage{babel}
-\usepackage{graphicx}
+\usepackage{graphicx} 
 
 % sudo apt-get install texlive
 \usepackage[font=small,format=plain,labelfont=bf,up,textfont=it,up]{caption}
@@ -12,20 +27,45 @@
 \usepackage{mathrsfs} %brukt for krølle-L : laplace
 
 \usepackage{subfig}   % for subfigures.
-
 \usepackage{listings} %for c++ kode
 \lstset{language=c++}
+
+%\usepackage{pstricks} % For teikning. 		FOR mykje styr å lære..
+%\usepackage{pstricks-add}
+ %\let\psgrid\relax %XXX Fjærner GRID på alle pstricks teikninger. (global removal)
+
+%\usepackage{epstopdf} % for å få med eps i pdf-latex (?)
+
+
 
 %Kanskje dette er naudsynt? For metapost:
 %\DeclareGraphicsRule{*}{mps}{*}{}
 
 
+%%%%%%%% Fra Kristoffer sin master:
+%\lstset{ %
+%basicstyle=\footnotesize,       % the size of the fonts that are used for the code
+%numbers=left,                   % where to put the line-numbers
+%numberstyle=\footnotesize,      % the size of the fonts that are used for the line-numbers
+%stepnumber=1,                   % the step between two line-numbers. If it's 1 each line will be numbered
+%numbersep=5pt,                  % how far the line-numbers are from the code
+%showspaces=false,               % show spaces adding particular underscores
+%showstringspaces=false,         % underline spaces within strings
+%showtabs=false,                 % show tabs within strings adding particular underscores
+%frame=single,                % adds a frame around the code
+%tabsize=3,                % sets default tabsize to 2 spaces
+%captionpos=b,                   % sets the caption-position to bottom
+%breaklines=true,                % sets automatic line breaking
+%breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
+%escapeinside={\%*}{*)}          % if you want to add a comment within your code
+%}
+
+
 \author{Per R. Leikanger}
-                             
 \title{Assessment of a novel model for artificial neural networks}
 \date{\today}     
 
-%\usepackage{natbib}    Kva er dette? Er med i rapport 3002.
+
 
 \begin{document}   
 
@@ -122,4 +162,46 @@ Her skal eg legge inn tekst som impliserer at eg er reflektert. Skrive alle feil
 %\bibliographystyle{abbrvnat}
 \bibliographystyle{plain}
 \end{document}
+
+
+%\section{Fokus}
+%I denne oppgaven er ikkje fokus på effektivitet av utregningene, men evt. effektivitetsdifferanse mellom de to. 
+%Først brukte eg integer for å beskrive f.eks. depol. og Kappa, men dette førte til en del avrundingsfeil. 
+%Gjekk dermed over til å bruke flyttal for å beskrive aktivitetsvariabel. (denne notaten er notert før eg har endra de fra int til float.. Sjå korleis det går.
+
+
+
+% Kvifor C++ ?
+
+	%Innledning, kva programmeringsspråk brukes, osv. Etabler eit utgangdspunkt for resten av teksten!
+	%Når man implementerer for å sammenligne to modeller er det best at de to er mest mulig lik. Dette kan lett gjøres vha. arv. Peiker mot OO-språk.
+	%Det sterke fokus på være mest mulig likt biologiske neurale system peiker mot OO-språk virker bra. Da kan man dele opp neuronet i "compartments", som i utgangspunktet er adskilt.
+	%C er eit språk som er effektivt (raskt), samtidig som det har vore undervist på kyb.
+	%= C++.
+	%Etterkvart: Skriv litt om Stroustrup's anbefalinger om å bruke stl.
+
+
+
+%\section{Notater:} XXX  XXX
+
+%TODO Skriv om pEstimatedTaskTime : 
+ % eller ... skriver jo rimelig mykje om dette i implementasjon_KANN.tex
+%TODO Skriv om pAllAurons og pAllKappaAurons: std::vector eller std::list?
+%Eg har brukt en halv dag på å teste om eg skal bruke vector eller list for pAllAurons og pAllKappaAurons. Konskluderte med at det ikkje hadde noko å seie, om eg bruker vector eller list på pAllAurons
+%
+%Hadde 101 test-auron (K\_auron) og eit sensor-auron. De var ikkje kobla ihop, og hadde kvar en Kappa på 2.07*FYRINGSTERSKEL. Sensorauronet hadde en sinus-varierende kappa.
+%Kjørte 10.000 tidsiterasjoner. Resultat av kjøretid:
+%
+%Vector variant:
+%15.626 15,537 14,8 13,3 13,5 13,6
+%
+%List variant:
+%13,46 13,41 	13,72 13,6 14,9 14,7 13,3 14,9
+%
+%Konkluderer med at de ikkje har stor nok forskjell til å bry seg.
+%(dette kan være smart å skrive inn i rapporten. (og da blir ikkje denne halve dagen fullstendig bortkasta..))
+
+
+
+
 
