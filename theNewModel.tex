@@ -8,59 +8,150 @@
 % 	TODO Lag frampeik om at "dette kan brukes til ANN", eller tilsvarende.
 %
 
-\chapter{Mathematical model for the biological neuron} % Var section{}. Dette var ikkje bra. Veit ikkje om chapter funker heller
+\chapter{Mathematical modelling of the biological neuron} 
 \label{secMatematiskModelleringAvBioNeuron}
-SKRIV INNLEDNING TIL MODELLERINGs-kapittel!
 
-SKRIV OM HEILE SKITEN!
-Kall kapittelet for "matematisk modellering av neuronet", eller noke.
-\section{Kva er gjordt fra før: Poengter at dette ikkje er mitt arbeid. Er dette INNLEDNING?}
+%Når eg skriver om:
+% Fokuser mest på at value, dvs. depol. til neuronet er kva som er viktig i forhold til fyring av AP. Difor bør vi prøve å modellere dette.
+% Ikkje tenk på Nernst, her. Det kommer i neste avsnitt.
+
+Mathematical modelling of the neuron helps understand the neuron, and the mechansims behind how the neuron works.
+A good model of the neuron will also give us a guide when simulating the system.
+
+In the neuron, the value of each node is given by the electrochemical potential over the cell membrane. 
+The neuron will fire an action potential if the value goes over the firing threhold. This makes the value of the neuron an important aspect of neuronal signal processing.
+When a neuron recieves a synaptic transmission, ligand--gated channels are opened, and the potential of the neuron is changed as a function of the time the channel is open, and the electrochemical driving force for the charged molechules.
+One part of the driving force is given by the electrical potential over the membrane. % XXX vent med dette : When ions are allowed to flow through a channel, the amount that will flow is given
+The electrical potential can be seen as a potential field for charged particles.
+An other element of the driving force is the distribution of the indivitual ions. Ions are transmitted across the membrane by passive diffusion. 
+This meens that the indiviual ions are pushed down its concentration gradient.
+If we combine these two effects we get a simplified system of the neuron.
+%TODO REFERER: \ref{NeuroscienceExploringTheBrain3edKAP3}
+%TODO TODO Skriv om! Bare rot!
+
+% TODO Slett det under. Skriv alt heilt om!
+In the biological neuron, the value of the node is governed by many factors. 
+The individual ion's equilibrium potential can be calculated by the Nernst equation (eq. \ref{eqNernstEquation}).
+%TODO Vent med dette:    For the artificial neuron the value corresponds to the membrane potential of the biological neuron.
+
+
+The membrane potential of the biological neuron is given by the distribution of electrically charged particles and molecules over the  membrane.
+The electrical potential is an impoirtant part of the driving force for changing the value of the node.
+From this we can later talk about the differential equation of the nodes value.
+%These are two of the mechanisms that gives the 
+%The electrical driving force is not the only one, and the value of the node at equilibrium is given by the sum of all these driving forces.
+%An important equation in this respect is the Nernst equation.
+
+
+% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+% Skriv også at simulering er basert på modellering, og at bedre modellering gir oss inspirasjon til nye typer simuleringer. (sikt veldig til meg, uten å sei det..)
+% Det fører også til bedre simuleringer?
+
+
+
+\section{The equilibrium potential}
 In the biological neuron, the reversal potential for the different ions is can be calculated by the Nernst equation. 
-The reversal potential is the potential where opening of the ions channel causes no net current flow through the membrane.
+The reversal potential is the electrical potential where the respective ion flow will be revesed (flow the oposite direction) if an ion channel is opened.
+This also involves that at the reversal potential, we get no ionic current following a channel opening. 
+This is due to a balance between the driving force provided by the concentration gradient of the ion and the electrical driving force.
+The reversal potential is also called the equilibrium potential.
+%The reversal potential is the potential where opening of the ions channel causes no net current flow through the membrane.
 
 % XXX Skrive inn nernst-equation? Referer kapittel 3 i Bear. (s 65)
 \begin{equation}
+	\label{eqNernstEquation}
  	E_{ion} = \frac{C}{z} log\frac{[ion]_o}{[ion]_i}
 \end{equation}
-Where $E_{ion}$ is the reversal/equilibrium potential for the ion, C is a constant (for some temperature), z is the charge of the ion and $[ion_i]$,$[ion_o]$ gives the number of ions on the inside and outside of the membrane
+Where $E_{ion}$ is the equilibrium potential for the ion, C is a constant (for some temperature), z is the charge of the ion and $[ion_i]$,$[ion_o]$ gives the number of ions on the inside and outside of the membrane
 \cite{NeuroscienceExploringTheBrain3edKAP3}.
 
-For a neuron permeable to a single ion, the equilibrium potential will eventually equal this ions reversal potential. %ref kandel kap 7. s129
+For a neuron permeable to a single ion, the equilibrium potential will be the same as this ion's equilibrium potential. %ref kandel kap 7. s129
 For systems where permeability of multiple ions are involved, the equations for each ion becomes a sum of electrical driving force and chemical driving force multiplied with membrane conductance for the ion
 \cite{PrinciplesOfNeuralScience4edKAP07}.
+%skrive om at dette gir oss at for en komplett simulering av dette, trenger vi en variabel som holder orden på kvart ion.
+A good simulation of the system therefore should have one variable for each of the electrically charged particles and molechules.
+There are many important ions and also a couple of protheins and neurotransmittors that are electrically charged, so this will introduce a large computational load in the simulation.
+%Many, if not all of the previous implementations I have seen have a simplified structure for the node's value, by having one activation value; The electrical potential.
+To my knowledge, no implementation of SANN with a pragmatic use (i.e. used in technology) uses multiple ions to find the depolarization of the nodes in the simulation.
+These implementations use the electrical potential as the value for each node. This will also be the focus of the remaining part of the modelling section.
+%It is unknown wheter this removes any important aspects of the neuron.
 
-At rest, the membrane is a permeable to some ions, and to prevent the ion reaching (and staying) at the membranes equilibrium potential, there are active pumps maintaining a different potential. 
-Opening of a membrane channel will change the permeability of the membrane to some ions (depending on the channel), and the ion pumps will not be able to maintain the potential different from the equilibrium potential. 
-This is the background for the exitatory and inhibitory postsynaptic potentials (E-PSP/I-PSP)\cite{PrinciplesOfNeuralScience4edKAP07}.
-%XXX ref kap 7. kandel. s. 131
+% Todo: Skriv om neste linja!
+At rest, the membrane is permeable to some ions, and to prevent the ion reaching (and staying) at the neurons equilibrium potential, there are active pumps maintaining a different potential. 
+%
+In the postsynaptic membrane of some synapses there is so--called \emph{ligand--gated ion channels}, channels that are activated by exposing the activating neurotransmittor\cite{NeuroscienceExploringTheBrain3edKAP5}.
+The channel will be open for a small time period, causing a flow of the ions that are let throught the channel, giving an altered postsynaptic potential. 
+Excitatory synapses increase the postsynaptic node's value. This is called an Excitatory PostSysnaptic Potential --- E-PSP \ref{PrinciplesOfNeuralScience4edKAP07}.
 
-Summed up, we have a complex system with continously changing ionic driving force and membrane conductances constantly changing for each ion. 
-For artificial neurons used in an ANN most of these aspects can be simplified, and in my system we have one value function giving only the membrane potential. 
-The reason behind this is that I do not believe that the individual ions contributions are important enough to justify the extra computational load from the ANN. 
+Other ligand--gated channels have other channels that will decrease the value of the neuron.
+%Inhibitory synapses have other channels that causes an inhibition of the postsynaptic neuron. 
+Because this inhibits the neuron in respect to firing an action potential, this is called inhibitory synapses, and the postsynaptic effect of a transmission is called Inhibitory PostSynaptic Potential (I--PSP).
+%This involves decreasing the postsynaptic neurons value. This is called an Inhibitory PostSynaptic Potential (I-PSP).
+%XXX ref kap 7. kandel.
+Because of time limitations, modelling of the time delay and size of each transmission has not been evaluated in this project.
+An other aspect that will be for further research, is modelling and implementation of synaptic plasticity. 
+This is one important reason behind using artificial neural networks in technology, and the reason behind developing the spiking variant of ANN.
+Synaptic plasticity will hopefully be modelled and implemented in a later project.
+%This project is about the comparison between 
+
+%Opening of a membrane channel will change the permeability of the membrane to some ions (depending on the channel), and the ion pumps will not be able to maintain the potential different from the equilibrium potential. 
+%This causes the potential of the neuron to change accordingly, and is the basis of exitatory and inhibitory postsynaptic potentials (E-PSP/I-PSP)\cite{PrinciplesOfNeuralScience4edKAP07}.
+%X XX ref kap 7. kandel. s. 131
+
+
+
+
+Some of the aspects in the theory of the electrical potential for the neuron was introduced to show that the simulated system is a complex one, even at the level of the individual node. %Videre har vi også at proteiner kan ha ladning.
+For each node we have a complex system with a continously changing driving force and membrane conductance for each ion. 
+For artificial neurons used in an ANN most of these aspects can be simplified without affecting the result much. 
+Because the primary focus for this implementation is the use of the neural simulator in technology, the efficiancy of the implementation is crucial. 
+We therefore have a single variable giving the membrane potential as the activity variable in this implementation. 
+The extra computational load introduced by multible activity variables is not worth is for simulators with a pragmatic focus. %Kva meines med pragmatic focus? Skriv dette..
+%TODO SJå over avsnittet og få bedre flyt!
 %In addition this is the VANLIGE INNEN SANN.
 
-
+%It is also important to know about the complex structure of neural signal processing
 
 
 %Rensa opp litt til hit. *********** fortsett rensing herifra. ****************
 
 
 %skriv om neste:
-The reason for introducing the background information about the neuron is  %TODO SKRIV OM: Skriv at det er viktig for å forstå simulatoren min(meir om dette seinere). XXX Ta vekk denne itemize(?):
-\begin{itemize}
-	\item to introduce the ide of different states for the neurons membrane. Each with its own equilibrium potential.
-	\item to introduce an important consept for the neuron that will be important for ANN as well, $V_{r}$.
-	\item to describe the complexity of the system. For a complete simulation of a neuron, each ions distribution across the membrane may need to be simulated as a dynamical system.
-	\item to give the background for the system to be modelled as a leaky integrator. The neurons value ``leaks'' toward the equilibrium potential.
-\end{itemize}
+%The reason for introducing the background information about the neuron is  %TODO SKRIV OM: Skriv at det er viktig for å forstå simulatoren min(meir om dette seinere). XXX Ta vekk denne itemize(?):
+%\begin{itemize}
+%	\item to introduce the ide of different states for the neurons membrane. Each with its own equilibrium potential.
+%	\item to introduce an important consept for the neuron that will be important for ANN as well, $V_{r}$.
+%	\item to describe the complexity of the system. For a complete simulation of a neuron, each ions distribution across the membrane may need to be simulated as a dynamical system.
+%	\item to give the background for the system to be modelled as a leaky integrator. The neurons value ``leaks'' toward the equilibrium potential.
+%\end{itemize}
 
-$V_{r}$ will be used as the resting membranes potential. For biological neurons this can be calculated by the Goldman equation (se \cite{PrinciplesOfNeuralScience4edKAP07}). 
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{------------SKREVET OM TIL HIT.----------}
+
+
+
+
+
+$V_{r}$ will be used as the resting membranes potential. For biological neurons this can be calculated by the Goldman equation\cite{PrinciplesOfNeuralScience4edKAP07}. 
 For our use if will be enough to know the extistance of the equilibrium potential for a membrane at rest,
 in addition to define a resting membrane potential for the implementation of the artificial neuron.
 
 %For multi--ion systems modelling the system becomes more complicated, but for our use it is enough to know that there is a resting membrane potential that is a function of
 
 
+% TODO Minimaliser reperering av det er nettop har sagt.. XXX
 
 %It is important however to know that there is such an equilibrium potential, given by the sum off all the contributions (from the individual ions).
 
@@ -85,28 +176,29 @@ For my implementations the external driving force on the membrane potential will
 
 %TODO Poengter at dette er mitt arbeid:
 \subsection{The differential equation for neurons depolarization}
-The equation for these mechanisms can be stated as a basic differential equation:
+The equation for the potential can be stated as a first order differential equation:
 \begin{equation}
-	\dot{v}(t) = \dot{v}_{in}(I) - \dot{v}_{out}(t), \qquad i = \text{ neural input }
+	\dot{v}(t) = \dot{v}_{in}(t) - \dot{v}_{out}(t) %, \qquad i = \text{ neural input } %% XXX Endra \dot{v}_{in}(I) til  \dot{v}_{in}(t). XXX
 	% skriv også at det er \dot{v}_{out]}(t, v(t)) ---avhengig av v(t) også!
 \end{equation}
-Where $\dot{v}_{in}(I)$ gives the external input to the neuron (the driving force). % XXX KVA er PÅDRAG på engelsk?
-$I$ is the effect of the input to the neuron (sum of exitatory and inhibitory input).
+Where $\dot{v}_{in}(t)$ gives the effect of synaptic input to the neuron% XXX KVA er PÅDRAG på engelsk?
+	, and $\dot{v}_{out}(t)$ represents the ``leakage'' of the neurons value.
 
-$\dot{v}_{out}(t)$ represents the ``leakage'' of the neurons membrane potential toward the equilibrium potential.
 
 
 % TODO Ikkje del opp i underavsnitt: Skriv heller "Element for diffligninga", eller noke, og få med begge her.
 % Men det eg heller kan ha med som underavsnitt er "forkrav for ligningene" eller "utgangspkt" eller "antagelser for ligningene"...
 \subsubsection{The input}
 The input, represented by $\dot{v}_{in}(i)$ in the above equation, is a function of the neurons exitatory and inbibitory input. 
-The neurons input waries with time, but for now we look at the variable $I$ as a constant in respect to time 
-(more on variable input in section \ref{ssecVariableInputBetweenSpikes}).
+The neurons input waries with time, but for now we look at the variable $I$ as a constant in respect to time.
+%One method for a varying degree of input will be introduced in section \ref{ssecVariableInputBetweenSpikes}.
+Later, in section \ref{ssecVariableInputBetweenSpikes}, the method will be expanded to account for a varying degree of input. % (section \ref{ssecVariableInputBetweenSpikes}).
 
 \begin{equation}
 	\dot{v}_{in}(t) = I
 \end{equation}
-$I$ represents the sum of exitatory and inhibitory input to the neuron.
+%$I$ is the effect of the input to the neuron (sum of exitatory and inhibitory input).
+$I$ represents the effect of the synaptic input to the neuron at time $t$, the sum of the effect of exitatory and inhibitory input to the neuron.
 
 %skriv også at v_in(i) er i virkeligheita eit dynamisk forløp, men for ANN kan vi forenkle, og sjå på denne som konstant.
 
@@ -156,9 +248,10 @@ And
 	\end{split}
 \end{equation}
 
-The diversity of neurons makes it unrealistic to generalize over all neurons, but for our artificial neuron we can define 
+The diversity of neurons makes it unrealistic to generalize over all neurons, and say to what the value is reset to.
+For our artificial neuron we can define 
 %Generalization for all neurons is unrealistic due to the divesity of neurons, but for our synthetic neurons we can define
-that the neuron is reset to the equilibrium potential at rest, $V_r = 0$ after firing an AP.
+that the neuron is reset to what corresponds to the equilibrium potential at rest, $V_r = 0$ after firing an AP.
 %In the simulated neurons this means that after firing, the neuron is reset to $v_0=0$ after firing. 
 
 The action potential is a discontinuity in the othervise continous system. The continous equation is only valid between action potentials (within one period).
@@ -201,7 +294,8 @@ If we define $p_d(\kappa)$ as the depolarizing phase of the inter--spike interva
 \end{equation}
 
 It is impotant to remember that equation \eqref{eqPeriodeligningForKonstIntraPeriodKAPPA} is based on a constant $\kappa$ during the whole period. 
-If $\kappa$ varies during the interspike period, the firing time will also change. More on this in the next section.
+If $\kappa$ varies during the interspike period, the firing time will also change. %More on this in the next section.
+
 %If $\kappa$ varies during the interspike period, $t^*$ from equation \eqref{eqTidTilFyringVedEndraKappa} is an estimate of the remainting time until firing. This estimate is updated every time $\kappa$ is.
 
 
@@ -209,16 +303,16 @@ If $\kappa$ varies during the interspike period, the firing time will also chang
 \subsection{Variable input between spikes}
 % TODO Skriv heilt om!
 \label{ssecVariableInputBetweenSpikes}
-Equation \eqref{eqPeriodeligningForKonstIntraPeriodKAPPA} is based on a constant $\kappa$ between the inter--spike period.
+Equation \eqref{eqPeriodeligningForKonstIntraPeriodKAPPA} is based on a constant $\kappa$ during the inter--spike period.
 % TODO Skriv om neste poeng: kom inn på ideen / beskriv ideen om "time window".
 %If we use this equation as the activation function of the node, we still can find the timing of the nodes action potential. STEMMER BARE DERSOM  if $\kappa$ is kept constant during the time interval.
 
 %If $\kappa$ needs to be constant during the whole period, we get a large time lag for the system, so we need to devise a scheme for avoiding this.
 
-If we allow the activation level of the node to change during the inter--spike period of the neuron, we cannot directly use %\eqref{eqVerdiligninga} and \eqref{eqTidTilFyringVedEndraKappa}.
-																			the equations from the previous section.
-To solve this problem, the concept of ``a time window'' was devised. A time window is defined as a time interval where the activation level of the node is constant.
-Within each time window both \eqref{eqVerdiligninga} and \eqref{eqTidTilFyringVedEndraKappa} is valid. % .. kan bli brukt.
+If we allow the activation level of the node to change during the inter--spike period of the neuron, we cannot use \eqref{eqVerdiligninga} and \eqref{eqTidTilFyringVedEndraKappa} directly.
+																			%the equations from the previous section.
+To solve this problem, the concept of ``a time window'' is introduced. A time window is defined as the longest time interval where the activation level of the node is constant.
+Within each time window both \eqref{eqVerdiligninga} and \eqref{eqTidTilFyringVedEndraKappa} is therefore valid. % .. kan bli brukt.
 
 \begin{figure}[hbt!p]
 	\label{figVerdifunksjonen}
@@ -228,8 +322,10 @@ Within each time window both \eqref{eqVerdiligninga} and \eqref{eqTidTilFyringVe
 \end{figure}
 
 When $\kappa$ is changed, the initial value of the next time window, $v_0$, can be calculated from \eqref{eqVerdiligninga}. 
-We can now use \eqref{eqTidTilFyringVedEndraKappa} and get a new estimate for the firing time of the neuron.
-I use the word estimate because we have no way of knowing whether $\kappa$ will change again before this time. If $\kappa$ is changed, the estimate changes.
+We can now use \eqref{eqTidTilFyringVedEndraKappa} to find the new estimate for the firing time of the node.
+I use the word estimate because we can not know when $\kappa$ will change.
+If $\kappa$ is changed before the estimated firing time, the firing time will be affected. 
+%XXX if this is before the estimated firing time, the estimate of the next task time will change accordingly.  %If $\kappa$ is changed, the estimate changes.
 %-> da er det "but an estimate of firing time.."
 
 %Equation \eqref{eqTidTilFyringVedEndraKappa} gives us the time of firing for a situation where the initial value of the node can be different from zero.
@@ -239,19 +335,15 @@ I use the word estimate because we have no way of knowing whether $\kappa$ will 
 
 
 
-The equations can also be used as the non--linear activation function for a fANN. This activation function is based on a mechanistic model of the biological neuron.
-The activity can be read out of eq. \eqref{eqPeriodeligningForKonstIntraPeriodKAPPA} as the frequency $f(t) = \frac{1}{p(\kappa)}$
-
-
-If we let the activity level vary between spikes, the model will give as accurate timing as ``Spiking Artificial Neural Network''(SANN). We will discuss different aspects of artificial neural networks later. %XXX Ref?
-
-The model is based on fundamentally different equations than the model for SANN. 
-If this new model is as effective or more effective than SANN this project will be a contribution because we calculated the firing time in a new way.
-%Ta vekk siste, forrige linje?
+%The equations can also be used as the non--linear activation function for a fANN. This activation function is based on a mechanistic model of the biological neuron.
+%The activity can be read out of eq. \eqref{eqPeriodeligningForKonstIntraPeriodKAPPA} as the frequency $f(t) = \frac{1}{p(\kappa)}$
+%
+%If we let the activity level vary between spikes, the model will give as accurate timing as ``Spiking Artificial Neural Network''(SANN). We will discuss different aspects of artificial neural networks later. %XXX Ref?
+%The model is based on fundamentally different equations than the model for SANN. 
+%If this new model is as effective or more effective than SANN this project will be a contribution because we calculated the firing time in a new way.
+%%Ta vekk siste, forrige linje?
 
 %An other aspect with this new model is that it lies between the two prior models of ANN, and can easily communicate with both.
-
-
 
 % If we allow the input and activity of each neuron to vary between spikes, the model approaches the model for the biological neuron.
 % When $\kappa$ is updated, a new time window starts. 
@@ -267,7 +359,7 @@ With this new use of eq. \eqref{eqVerdiligninga}, we can calculate the remaining
 The remaining time of the period is given by equation \eqref{eqTidTilFyringVedEndraKappa}, given constant $\kappa$. 
 If this is updated each time $\kappa$ varies, we get an estimate of the remaining time based on the present $\kappa$.
 
-
+%Skrive at dette plottet IKKJE er fra kjøring av programmet?
 
 
 

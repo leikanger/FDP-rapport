@@ -75,11 +75,9 @@
 % 	For kvart plott: Skriv at det er fra log-filene fra implementasjonen.
 
 
-Når det gjelder skriving, så er det veldig effektivt med uttrykk som "the rationale behind the choise of letters $n$,$s$, and $a$ is explained in chapter 3."
-Bruk dette! 
-Frampeik, med litt mystikk som impliserer at eg veit meir enn leser. (Hugs norsk fra grunnskulen: frampeik er bra!)
-I tillegg til at det impliserer at eg har tenkt mykje over saken, så syr det teksten bedre sammen!
-
+%Når det gjelder skriving, så er det veldig effektivt med uttrykk som "the rationale behind the choise of letters $n$,$s$, and $a$ is explained in chapter 3." 	Bruk dette! 
+%Frampeik, med litt mystikk som impliserer at eg veit meir enn leser. (Hugs norsk fra grunnskulen: frampeik er bra!)
+%I tillegg til at det impliserer at eg har tenkt mykje over saken, så syr det teksten bedre sammen!
 
 \chapter{Om oppgaveteksten:}
 Les meir grundig det som står på toppen. Den punktinndelte oppgava på bunnen gir følgende notater:
@@ -118,40 +116,52 @@ Sammenligne tematisk? Skrive at eine er Moore, andre Mealy auromata?
 
 \tableofcontents
 
+% Trenger "Table of abbrevations"
+% 	- LTP, LTD, STDP
+% 	- "spike" ? (at det betyr Action potential)?
+%
+
 \newpage
 
 \newpage
+%Intro: utvida innholdsfortegnelse
 \input{introduksjon}
 
-\include{detBiologiskeSystemet}
-\newpage
-\include{theNewModel}
+%ANN: Gjennomgang av ANN, før eg begrunner SANN (3.gen. ANN).
+% 	Legge vekt på at kvart generasjonsskifte så har ANN utvikla seg mot biologien. Skrive at ANN er 'bionics' for å gjøre assosiative oppgaver og læring. 
+% 	Det originale systemet virker som eit bra system, siden jo meir vi tilnærmer oss BioSys, jo bedre blir resultatet.
+% 		- skrive at SANN tar steget videre for SANN, i henhold til 'bionics'.
 \include{ANN}
 
+% Det biologiske systemet. Skrive i forhold til å lage en kunstig versjon av dette (ANN).
+\include{detBiologiskeSystemet}
 
-\newpage
+% Før vi kan lage en kunstig variant av neurale system, er det best å modellere det, og bruke matematiske rammer for simuleringa.
+% Dette er også for å formalisere det som tidligere er skrevet i "detBiologiskeSystemet". Gjøre mekanismene eksplisitt, matematisk.
+\include{theNewModel}
 
+% Generell design av implementasjon.
 \include{design}
 
-%\include{implementasjon} TODO Sjå gjennom implementasjon.tex, og sjå kva som skal flyttast inn i implementasjon_[K/S]ANN.tex eller design.tex
+% Inplementasjon for SANN. Korleis blir dette implementert? Kva er viktig? Korleis gjør eg det? 
+% Mangler?
 \include{implementasjon_SANN}
+
+% Implementasjon for KANN. Korleis gjør eg det? Kva er viktig?
+% Mangler?
 \include{implementasjon_KANN}
 
+% Kanskje skrive eget kapittel, eller seksjon i kvart av de overeståande, om "ANN simplifications and what is known in neuroscience".
+
+%\chapter{ANN simplifications and what is known in neuroscience}
+%HER skal tabellen ligge. Diskutere korleis mine ANN er laga, kva forenklinger har eg gjort, og kvifor. (sjå side 27 i FDP-loggbok)
+%Referer en del til kapittel \ref{chapNeuroscience}.
+%Her skal eg legge inn tekst som impliserer at eg er reflektert. Skrive alle feil og mangler som ligger i mine modeller, og implementasjon-design.
 
 
-
-%*********************** Forenklinger *******************
-\chapter{ANN simplifications and what is known in neuroscience}
-Veit ikkje kor denne skal ligge, men
-HER skal tabellen ligge. Diskutere korleis mine ANN er laga, kva forenklinger har eg gjort, og kvifor. (sjå side 27 i FDP-loggbok)
-
-Referer en del til kapittel \ref{chapNeuroscience}.
-
-Her skal eg legge inn tekst som impliserer at eg er reflektert. Skrive alle feil og mangler som ligger i mine modeller, og implementasjon-design.
-
-
-
-%METODE for SAMMENLIGNING
+% SAMMENLIGNING:
+% 	- korleis blir oppgavene tolket?
+% 	- sammenligning av ulike aspekter ved simuleringene.
 \include{metodeForSammenligning}
 
 \include{resultat}
@@ -164,15 +174,15 @@ Her skal eg legge inn tekst som impliserer at eg er reflektert. Skrive alle feil
 \end{document}
 
 
-%\section{Fokus}
-%I denne oppgaven er ikkje fokus på effektivitet av utregningene, men evt. effektivitetsdifferanse mellom de to. 
-%Først brukte eg integer for å beskrive f.eks. depol. og Kappa, men dette førte til en del avrundingsfeil. 
-%Gjekk dermed over til å bruke flyttal for å beskrive aktivitetsvariabel. (denne notaten er notert før eg har endra de fra int til float.. Sjå korleis det går.
 
 
+% XXX MEIR NOTATER: XXX
+%FOKUS:
+% 	I denne oppgaven er ikkje fokus på effektivitet av utregningene, men evt. effektivitetsdifferanse mellom de to. 
+% 	Først brukte eg integer for å beskrive f.eks. depol. og Kappa, men dette førte til en del avrundingsfeil. 
+% 	Gjekk dermed over til å bruke flyttal for å beskrive aktivitetsvariabel. (denne notaten er notert før eg har endra de fra int til float.. Sjå korleis det går.
 
-% Kvifor C++ ?
-
+% Skriv (såvidt) om Kvifor C++ ?
 	%Innledning, kva programmeringsspråk brukes, osv. Etabler eit utgangdspunkt for resten av teksten!
 	%Når man implementerer for å sammenligne to modeller er det best at de to er mest mulig lik. Dette kan lett gjøres vha. arv. Peiker mot OO-språk.
 	%Det sterke fokus på være mest mulig likt biologiske neurale system peiker mot OO-språk virker bra. Da kan man dele opp neuronet i "compartments", som i utgangspunktet er adskilt.
@@ -180,9 +190,6 @@ Her skal eg legge inn tekst som impliserer at eg er reflektert. Skrive alle feil
 	%= C++.
 	%Etterkvart: Skriv litt om Stroustrup's anbefalinger om å bruke stl.
 
-
-
-%\section{Notater:} XXX  XXX
 
 %TODO Skriv om pEstimatedTaskTime : 
  % eller ... skriver jo rimelig mykje om dette i implementasjon_KANN.tex

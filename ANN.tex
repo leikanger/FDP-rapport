@@ -1,4 +1,5 @@
 
+%Så kjem seinare ANN. Kan lese mykje fra rapport i NEVR3004.
 
 
 
@@ -77,10 +78,95 @@
 %
 %
 %
-\chapter{Artificial neural networks: background} %xxx rapport
+\chapter{Artificial neural networks: background}
 
 % TODO Skrive at oppgaveteksten ber meg om å finne eksisterende modeller som representerer BÅDE fyringsrate og -frekvens. Dette finnes ikkje.
 % Tenkte difor å heller gå gjennom historien for ANN, for at leser skal ha eit innblikk i kva som eksisterer av frekvens-ANN og etterkvart fyringstid-ANN.
+The assignment description want me to make a review of existing ANN models representing both firing rate and spike timing.
+To my knowledge such a model does not exist. 
+% XXX Skriv også noke slikt som:
+Despite my effort to find such models, none has been found.
+
+To illuminate the different aspects of the new model, different models will be reviewed. 
+These models are either of a historical interrest or of a more immediate relevance to this report.
+
+The pragmatic use of simulations of networks of neurons started with the McCulloch--Pitts neuron in 1943. 
+Warren McCulloch, an early neuroscientist and matematician Walter Pitts first began a formalized discussion of the mechanisms of the neuron.
+The result was the first artificial neural network, consisting of logical gates. These modelled the neuron as boolean devises (off--on response)\ref{MccullochPittsHistorie}. % TODO Vær heilt sikker på at dette står i denne artikkelen.
+What is later referred to as the first generation ANN is based on the McCulloch--Pitts neuron\cite{Maass97networksof}.
+One of these models is Rosenblatt's Perceptron\cite{HaykinANNbok}.%TODO Finn sitering!
+%Neural networks based on the McCulloch--Pitts neurons are also referred to as Perceptron or threshold gates.
+
+The next generation of ANNs have computational units with a continous activation function. 
+One common activation function is the \emph{sigmoid function} $\sigma(y)=\frac{1}{1+e^{-y}}$.
+As we discover in section \ref{ssecTheNeuron} and \ref{sssecTheActionPotential}, the biological neuron has a boolean carracteristic, in the form of having an on--off output to its synapses % TODO KAnskje skrive ref{secBiol.sys} isteden?
+	, where the transmission is a function of the size of the synaptic connection (the synaptic weight). %TODO Ta vekk det med synapsene? XXX Isåfall: Innfør begrepet "synaptic weight" annen plass.
+%In the synapses the transmission is dependent on the synaptic connection to the next neuron\ref{sssecTheActionPotential}.
+%The biological interpretation of a floating point number propagating through the network can therefore be viewed as ``firing rate interpretations'.
+Neural nets of the second generation can threrfore be viewed as ``firing rate interpretations'' of biological neural networks\cite{Maass97networksof}.
+
+%In neuroscience, learning is |||xxx Skriv at synaptisk plasticity er samme som læring. (innføring til det neste, og mulighet til å innføre begrepet "synaptisk weight".
+In 1949 Donal O. Hebb proposed a famous postulate, later known as Hebb's postulate:
+\begin{quote}
+When an axon of cell A is near enough to excite a cell B and repeatedly or persistently takes part in firing it, some growth process og metabolic change takes place in one or both cells such that A's efficiency, as one of the cells firing B, is increased.\cite{Hebb1949Kap4}
+\end{quote}
+
+This postulate were formalized into formulas for synaptic plasticity, and has been extencively used as a learning rule for artificial neural networks.
+This has been referred to as ``Hebbian learning''\cite{HaykinANNbok}.
+%Hebb's postulate were later formalized into learning formulas for synaptic plasticity. 
+%``Hebbian learning'' is still used in some forms for neural networks. % TODO Skriv HEILT spesifikkt / finn referanser.
+
+
+Synaptic plasticity can be divided in two groups, Long Term Potentiation (LTP) causing an a lasting increase in the synaptic weight and Long Term Depression (LTD) causing a lasting decrease in the synaptic weight.
+Gustavsen et. al found in 1987 that the synaptic plasticity vas a function of the postsynaptic depolarization at the time of transmission. 
+The synaptic plasticity varied from a strong LTP to a strong LTD as a result from a single transmission\cite{Gustafsson03011987}.
+%Dette ble også overført til ANN
+
+We can say that, statistically there is a correlation between the presynaptic depolarization after a synaptic transmission, and the relative timing of the postsynaptic action potential. %ELLER NOKE: RYDD OPP XXX XXX
+If we view this statistically, we can say that the timing of the presynaptic action potential (``firing'') in relation to the postsynaptic firing is a direct consequence of the postsynaptic potential at the time of transmission.
+Based on this analysis alone, we can say that the relative timing of the pre-- and post-- synaptic firing is fundamental for the size and direction of the synaptic plasticity.
+% XXX KVIFOR tidavhengig? XXX : There are also hypothesis about a retrograde signalling mechanism in the neuron that gives the same effect
+This recieved the name ``Spike Time Dependent Plasticity''(STDP).
+
+
+%XXX XXX XXX XXX X   XXX XXX XXX HER HER XXX HER XXX HER XXX HER XXX HER XXX HER XXX HER XXX HER XXX HER XXX HER XXX HER XXX HER XXX HER XXX HER XXX HER XXX HER XXX HER XXX 
+%her er eg.
+
+
+%Because Hebb's postulate only considered poitive weight change, STDP has later been %omtalt som stable hebbian learning.
+%As we will see later, a simple formulation based on ``Hebbian learning'' is unstable, because it only states a positive weight change. % As this varies with the activation  XXX Skriv at det er exponentially-ustabilt.
+%and many variations has been devised to stabilize synaptic plasticity, many of them biologically unplausible.
+After the discovery of STDP, the timing of the action potential recieved an increased focus also in ANN models. 
+
+
+%TODO NEVN action potential i innledning! XXX VIKTIG!
+
+%Simple variants of ``Hebbian learning'' only give an increase in the synaptic weight, and is clearly exponentially unstable. Different variations of the naive model of synaptic 
+
+
+
+
+
+
+
+The McCulloch--Pitts neuron has similarities with what is later reffered to the third generation ANN, Spiking Artificial neural networks.
+
+This started what later is called the first generation ANN\ref{Kunkle02pulsedneural}. %todo REFERER Pulsed NN and their application
+
+%dette førte til utvikling av perceptron. osv. Skriv om 1.gen ANN. gå over på Hebb:
+
+
+%xxx Skrive at forskjellen mellom de ulike generasjonene er på noden: kva gjør noden? Kva er input, activation function og output?
+
+
+
+
+
+
+
+
+
+
 \section{Bakgrunn: ANN}
 	\subsection{årsak for bruk av ANN / historie}
 	

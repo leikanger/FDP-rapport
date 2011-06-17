@@ -1,5 +1,10 @@
-%Før eg kan begynne med ANN, må eg beskrive det bioloiske neuronet. Seinare kjem synapse osv. Synapse kan være sterkt basert på rapporter fra NEVR300[1,3,4] 
-%Så kjem seinare ANN. Kan lese mykje fra rapport i NEVR3004.
+% Synapse kan være sterkt basert på rapporter fra NEVR300[1,3,4] 
+
+%KVIFOR I HELVETE skal han/vi gidde å lese om dette? Motiver leser of å lese om det biologiske systemet.
+% Dette er også viktig for å "justify" neste kapittel - om modellering.
+% 'Justification' skal hovedsaklig skje i forrige kap (ANN), og skal helst bare refereres til, her.
+
+
 
 % TODO I 'comparison' skriver  eg om sensor-aurona mine. Eg skriver at metoden eg har brukt er inspirert av naturen, og at sensor neuron får depol. gitt av stimuli. Dette skal referes. Da er det best å referere til en plass i teksten.HER.
 %TODO 		Skriv om sensor neuron i biologien, en plass i denne fila.
@@ -80,7 +85,8 @@ The combination of neurotransmitters released from the presynaptic terminal and 
 %In one synapse you typically have a combination of neurotransmitter release and postsynaptic receptors that causes the whole synapse to either be exitatory or inhibitory.
 
 
-\subsubsection{The action potential}
+% Eller subsubsection? (det var det før eg endra det, uten å tenke mykje på det..)
+\subsection{The action potential}
 \label{sssecTheActionPotential}
 In the membrane of the axon we have voltage--gated channels that open if the level of depolarization is more than some value. This value is called the ``firing threshold of the neuron''.
 These channels will open and further depolarize the membrane. Through passive transmission of the electrical potential, the next site with voltage gated channels will also go beyond the firing threshold.
@@ -177,6 +183,7 @@ $Ca^{2+}$ diffuses into the cell following an action potential\cite{PrinciplesOf
 Also on the postsynaptic part of the synapse $ca^{2+}$ has an important role in synaptic plasticity. 
 $Ca^{2+}$ activates production of more non-NMDA receptors for the postsynaptic membrane, resulting in LTP\cite{AMPARtrafficingArtikkel}.%\cite{PrinciplesOfNeuralScience4edKAP12}.
 
+%TODO Det under gjelder jo bare for kvifor vi får positiv vektendring. Skriv dette, eller finn ut forklaringa for negativ vektendring (LTD) som følge at STDP! XXX
 The NMDA-related synaptic plasticity is the background for what is called ``Spike Timing Dependent Plasticity'' (STDP) that will be important later in this text.
 % XXX ikkje "rest of this text." Det er ikkje viktig over alt. Noken plasser.. Kanskje "an important element in this text."?
 %Skriv om hebbian learning, ustabilitet  og at STDP kalles "stable hebbian learning". Sjå rapport i NEVR3004.
