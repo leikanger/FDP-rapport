@@ -1,5 +1,13 @@
 \documentclass[a4paper,11 pt]{report}
 
+
+
+
+
+% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO Skriv inn navn på alle refererte enkeltkapittel, i bibliografi.bib TODO
+% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO Endre rapport i NEVR3003, og legg det inn som appendix. Referert til i "The BiologiskeSystemet" -- kapittelet.
+% 																	TODO Gjør om denne, slik at en kybber kan lese den. Definer uttrykk som LTP, LTD, (AMPA?), ATP,  ...
+
 %%%%%%%% KRISTOFFER sine usepackage (i diplomen)
 %\documentclass[a4paper, english, 12pt]{article}
 %\usepackage[utf8]{inputenc}
@@ -12,8 +20,6 @@
 %\usepackage{listings} % Er lenger nede..
 %\usepackage{times}
 %\usepackage{nomencl}
-
-
 
 %%%%%%%%% Mine fra før dette:
 
@@ -130,9 +136,8 @@ Sammenligne tematisk? Skrive at eine er Moore, andre Mealy auromata?
 % MERK:   .., OG beskriv how this differs from earlier known models. TODO Gjør dette eksplisitt.
 % Peik på kor, i innledning.
 
-\newpage
 
-\newpage
+
 %Intro: utvida innholdsfortegnelse
 \input{introduksjon}
 
@@ -176,6 +181,9 @@ Sammenligne tematisk? Skrive at eine er Moore, andre Mealy auromata?
 \include{resultat}
 
 %Kanskje eg skal ha med "table of abbrevations" i appendix, eller først.
+
+\appendix
+\include{appendixSynPlast}
 
 \bibliography{bibliografi}
 %\bibliographystyle{abbrvnat}

@@ -116,7 +116,7 @@ I have found that the refraction period is important for limiting the firing fre
 %The signals transmitted in the axon is strictly directional, that is: the signal goes from the axon hillock (close to the neurons soma) to the axon terminals (where the synapses is). 
 
 
-%TODO Skriv mindre, eller i det minstre mindre kraftige utsagn. Følgande er rett, men kanskje urelevant for denne oppgava?
+%ODO Skriv mindre, eller i det minstre mindre kraftige utsagn. Følgande er rett, men kanskje urelevant for denne oppgava?
 %It must be said that this is a simplification of the system allready. Neurons, synapses and each transmission varies with a lot of other varables as well. 
 %You also have modulatory synapses at the axon terminal, that does not contribute to the value of the neuron, only the amount of neurotransmitters released following the next incoming action potential. 
 %The modulatory synapse is but an example of the complexity of the simplifications that are neccesary in order to make an artificial neural network.
@@ -137,24 +137,87 @@ I have found that the refraction period is important for limiting the firing fre
 \subsection{The synapse}
 \label{ssecTheSynapse}
 %\subsubsection{Synaptic Plasticity}
-When the action potential reaches the axon terminal, the size of the signal is the same as when it first was generated at the axon hillock.
-This enshures that the distance the action potential has to travel does not affect the transmission at the synapses of the different axon terminals. \cite{?}
+When the action potential reaches the axon terminal, the size of the signal is thought to be the same as when it first was initialized at the axon hillock.
+This enshures that the distance the action potential has to travel does not affect the transmission at the synapses of the different axon terminals. \cite{NeuroscienceExploringTheBrain3edKAP4}.
 
-The signal arriving at the presynaptic membrane is equal for all the synapses, the transmission is not. The transmission varies as a function of many mechanisms.
-For the scope of this text, we will focus on the mechanisms within the neuron. I will refer to this transmission as the weight of the synapse. 
-In the litterature $w_{ij}$ usually means the weight of the synapse between neuron $j$ and neuron $i$. This convention will be used in this text. 
+When an action potential reaches the location of a particular synapse, the membrane potential will cause release of neurotransmittors from the axon terminal (the presynaptic neuron).
+These neurotransmitters diffuse into the synaptic cleft, and if the receptors at the postsynaptic membrane are exposed to these neurotransmitters we get an altered depolarization value for the postsynaptic neuron.
+The transmission is thought to be a funcion of presynaptic and postsynaptic mechanisms.
+
+\begin{itemize}
+	\item Presynaptically, different amount of neurotransmittors could be released from the axon terminal following an action potential.
+	\item Postsynaptically the amount of receptors varies between different synapses. The amount also varies with time.% This is one mechanism of synaptic plasticity.
+\end{itemize}
+
+These two sides of synaptic transmission are important when synaptic plasticity is considered. 
+Patterns of long term synaptic plasticity is what is what is percieved as learning in the field of neuroscience \cite{NeuroscienceExploringTheBrain3edKAP25}.
+A comprehensive study of synaptic plasticity is outside the scope of this text, but it should be mentioned that the ion $Ca^{2+}$ is thought important in both presynaptic and postsynaptic plasticity.
+For the especially interrested, appendix \ref{appendixSynPlast}??%TODO SKRIV APPENDIX. Finn ut korleis eg referer til appendix. Endre rapport fra NEVR3003 slik at den passer inn i appendix, og legg inn denne!
+%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO DET OVER..
+										 	considers presynaptic and postsynaptic mechanisms behind synaptic transmission and synaptic platicity, with a special focus on the role of $Ca^{2+}$.
+From the study in relation to appendix ??%TODO
+											it can be concluded that 
+
+
+
+
+
+
+% xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx 
+% Ordne det over, før eg går videre!
+
+
+
+
+
+
+
+
+
+
+
+
+
+%The conclution from the study about 
+
+%XXX MED-noke-om: For now, it is enough to mention that the synaptic weight changes as a multifactorial function based on 
+For now, it is enough to mention that  $Ca^{2+}$ is important both presynaptically and postsynaptically for synaptic plasticity.
+%We will later make use of some of the 
+% XXX Jævla bra, men passer det inn:
+%When the action potential reaches the axon terminal, it will open voltage--gated $Ca^{2+}$ channels in the active zone of the terminal, and $Ca^{2+}$ enters the cytosol of the axon terminal of the presynaptic neuron\cite{PrinciplesOfNeuralScience4edKAP10}.
+
+
+
+
+
+
+
+
+
+
+
+
+The signal arriving at the presynaptic membrane is equal for all the synapses, the transmission is not. 
+The transmission varies as a function of many mechanisms. %xxx Dårlig setning!
+For the scope of this text, we will focus on the mechanisms within the neuron. 
+I will refer to the size of this transmission as the weight of the synapse. 
+% Dårlig skrevet, over her.
+In this report the convention used by Rolls and Treves in ``Neural Networks and Brain Functions'' will be used. 
+For any transmission through a synapse between neuron $j$ and neuron $i$, we define the synaptic strength $w_ij$. 
+Note that the first subscript refers to the recieving neuron and the last subscript to the presynaptic neuron (the signalling neuron) \cite{TrevesNeuralNetworks}.
+This convention will be used in this text. 
+
+The synaptic 
+
+
+
+
+
 
 Synaptic weight is dependent on presynptic mechanisms and postsynaptic mechanisms:
 
 %This does not mean that the transmission for different synapses is the same. At each synapse the connection to the postsynaptic neuron is different. 
 %There are many mechanisms behind this, but I will focus on the mechanisms within the neuron:
-\begin{itemize}
-	\item Presynaptically, different amount of neurotransmittors are released from the axon terminal following an action potential.
-	\item Postsynaptically the amount of receptors varies between different synapses. The amount also varies with time.% This is one mechanism of synaptic plasticity.
-\end{itemize}
-
-When the action potential reaches the axon terminal, it will open voltage--gated $Ca^{2+}$ channels in the active zone of the terminal, and $Ca^{2+}$ enters the cytosol of the axon terminal of the presynaptic neuron\cite{PrinciplesOfNeuralScience4edKAP10}.
-
 
 \subsubsection{Presynaptic mechanisms behind synaptic plasticity}
 $Ca^{2+}$ causes release of neurotransmittors from the presynaptic axon terminal into the synaptic cleft\cite{PrinciplesOfNeuralScience4edKAP10}. 
