@@ -86,36 +86,48 @@ Where the member variable \emph{double \mbox{(*pSensorFunction)(void);}} is a fu
 The variable pAllSensorAurons is a list containing all the valid sensor objects, used for updating the value of each sensor neuron when \emph{time\_class::doTask()} iterates time. %i time_class::doTask()
 
 \begin{figure}[hbtp!]
-	\label{figComparisonBetweenSsensorAndKsensorDepolCurve}
 	\centering
 	%\begin{center}
 		\includegraphics[width=0.95\textwidth]{eps_Comparison_between_the_two_sensors__depol.eps}
 	%\end{center}
-	\caption{The depolarization curve for a SANN node and a $\kappa$ANN node with the same input. The sensor function is also plotted for analysis of the result.}
+	\caption{The depolarization curve for a SANN node and a $\kappa$ANN node with the same input. The sensor function is also plotted in green for the analysis of the result.}
+	\label{figComparisonBetweenSsensorAndKsensorDepolCurve}
 \end{figure}
 
 %The sensor function used for the comparison of the time course of the depolarization of a single node is 
-The sensor function used has the formula $f(t) = \tau (1 + cos( \frac{\pi \, t}{1000} ))$, where $\tau$ is the firing threshold for the neuron. 
-For the K\_auron the activity variable is at each time step set to this variable. 
-When K\_sensor\_auron changes its activation level, we do this by sending the sensed signal to the dendrite. 
-This is very simular to the way it is done in biology. %Evt kan eg skrive at "this is strongly inspired by nature".
+The sensor function used in fig. \ref{figComparisonBetweenSsensorAndKsensorDepolCurve} has the formula \mbox{$f(t) = \tau (1 + cos( \frac{\pi \, t}{1000} ))$}, where $\tau$ is the firing threshold for the neuron. 
+The activity variable of the K\_sensor\_auron is set to the value of the sensor funciton every time we iterate time. %XXX i time_class::doTask() Skriv litt meir. 
+%For the K\_auron the activity variable is at each time step set to this variable. 
+When \emph{time\_class::doTask()} updates the K\_sensor\_auron's activation level, this is done by updating the ``input'' to the dendrite.
+%When K\_sensor\_auron changes its activation level, we do this by sending the sensed signal to the dendrite. 
+%TODO Neste linje: referer (cite) eller internreferer til annen plass i teksten. Trur det er best å CITE.
+This is very simular to the mechanisms of a sensor neuron in biology. %Evt kan eg skrive at "this is strongly inspired by nature".
 %referer.
 %Beste for refereringa over er nok å skrive om dette i BiologiskeSystemer.tex, og referere til plassen det står. 
 
+%TODO Skriv ENTEN forrige linje ELLER neste greiene. NO: Repeterer meg sjølv! XXX
 This implementation is strongly inspired by the biological neural system, and the stimuli is sent to the dendrite as any synaptic input.
 For the K\_sensor\_auron this gives the code
+%TODO Vær sikker på at dLastSensedValue = dSensedValue; dSensedValue = (*pSensorFunction)();
+% Først i koden, under.
+%ELLER kanskje heller: skriv om changeKappa_abs() ?!?
 \begin{lstlisting}
-  changeKappa( dSensedValue - dLastSensedValue ); 
+dLastSensedValue = dSensedValue;
+dSensedValue = (*pSensorFunction)();
+
+changeKappa( dSensedValue - dLastSensedValue ); 
 \end{lstlisting} %Eller så kan vi gjøre det direkte. (sette Kappa til målt verdi. har impa begge..)
-and for the s\_auron we have
+and for the s\_auron we have %TODO BLI HEILT SIKKER PÅ ALPHA. Sjekk om det fortsatt er som under, eller om dette har blitt tatt inn i s_dendrite::newSignal() XXX
 \begin{lstlisting}
-  pInputDendrite->newInputSignal( (*pSensorFunction)() * ALPHA ); 
-\end{lstlisting} % TODO Forstå greia med ALPHA!
+pInputDendrite->newInputSignal( (*pSensorFunction)() );  
+\end{lstlisting} % TODO Forstå greia med ALPHA! (er der fortsatt slik at eg sender inn
+							% pInputDendrite->newInputSignal( (*pSensorFunction)() * ALPHA );   XXX ?
 
 
 Because of the mechanisms implemented for synaptic transmission in $\kappa$ANN is based on the derived, we change $\kappa$ by the discrete variant of the derived; 
-The current value minus the last value or dSensedValue - dLastSensedValue.
-For the s\_auron we incoorporate the time constant T as $\frac{1}{T} = $ ALPHA by sending the above listed input to the s\_sensor\_auron's dendrite.
+The current sensed value minus the last sensed value.% or dSensedValue - dLastSensedValue.
+For the s\_auron we incoorporate the time constant T as $\frac{1}{T} = \alpha$ %eller :  $.. = $ ALPHA 
+		by sending the above listed input to the s\_sensor\_auron's dendrite.
 
 
 In figure \ref{figComparisonBetweenSsensorAndKsensorDepolCurve} we can se the results. 
@@ -126,76 +138,90 @@ There is a small difference between the curves.
 What is interesting about this curve is that it seems that the depolarization curves follow eachother exactly %Dette er rett stavemåte: exactly (google translate)
 for the rising phase of the sensor curve. For the falling phase of the curve we get some difference between the depolarization of the SN and the $\kappa$N.
 
-%After a more thorough analysis of the error, it seems that the difference is an effect based on the concept of a truncation error. %Sjekk wiki. Dette er engelsk ord for integralfeil.
+% Skrive at for SANN så:
 For discrete integration we may get something called the trunctation error. The ``local truncation error'' is the immediate error after each time step. 
-The ``global truncation error'' is the error following integration many local truncation errors. 
+The ``global truncation error'' is the error following integration multiple local truncation errors. %eller "many truncation errors", eller noke anna? (kan bli for pent språk også!)
 The global truncation error is defined as the absolute difference between the approximated solution and the actual solution. 
+For the SN this might become a problem, and could be the basis of the difference of the simulated node's depolarization.%Skriv om. XXX
+
+% TODO TODO TODO Skriv også at denne "truncation error" er tatt hand om i KANN, og bude vore minimal. For SANN er ikkje dette mulig (Ingen mulighet å rekalulere verdien).
+%  					XXX Dette er veldig viktig poeng for seinere analyse av KANN vs. SANN!
 
 \subsubsection{Trunctation error of the SN} %Kanskje skrive "Spiking Node". Hugs at overskrifta blir også oppført i "index".
 In SANN each node is modelled as a leaky-integrate-and-fire neuron.
 When the depolarization of the SN is updated, the leak of the neuron calculated as the previous value times the leak constant.
-\begin{equation} %TODO Introduser denne ligninga tidligare i oppgava. Her skal eg bare skrive siste del av den:    v_t = (1-\alpha) * v_{t-1}  
-	v_t = v_{t-1} - v_{t-1} * \alpha = (1-\alpha) * v_{t-1}  
+The updated value then becomes %todo Skriv om denne setninga.
+\begin{equation} %TODO Introduser denne ligninga tidligare i oppgava. Her skal eg bare skrive siste del av den:    v_t = (1-\alpha) * v_{t-1}  XXX HAR EG GJORT DET? TODO SJEKK!
+	v_t =  (1-\alpha) * v_{t-1}  
 \end{equation}
+%TODO Skriv om: krøtkete måte med/mellom alle komma'ane.
 The discretization of the system introduces a small error, the local truncation error, that varies with the size of the time step and the derived of the value function $\dot{v}(t)$. %"local truncation error"
 
 The leak is calculated as the $-\alpha v_{t-1}$.
+% Skriv at når feilen oppstår, så er dot(v(t)) positiv, dette gir:
 When $\dot{v}(t)$ is positive, $v_{t-1}$ is less than the value $v_t$, varying with the size of the time step and the differentiated value function $\dot{v}(t)$.
 When $\dot{v}(t)$ is negative, we get the oposite result.
+%skriv at dette nuller ut problemet. (MEN (det kommer at) siden det alltid fyrer etter positiv flanke, blir det integral av en liten integralfeil ved kvar fyring. XXX Viktig poeng. Sjekk at det er stort nok skrevet lenger nede.
 
 Each small error is integrated up to a larger error, the global trunction error. 
 If some situation is analyzed where the value is the same as the initial value, the integral of the derived over this interval is per definition zero.
 Global trunctation error will then dissapear. 
 This further implies that for a continous signal that varies around some working point, the global trunctation error will not diverge.  %google sa at det heite "diverge"
 
-The depolarization of a neuron have a discontinuity when the neuron fires an action potential. 
-When the neurons depolarization reaches the firing threshold the value is reset to $v_0 = 0$.
-In other words, each time the value of a node reaches a positive threshold, the value is reset.
-In this case the global trunctation error will continue to grow, and the difference between the value curves for the SN and the $\kappa$N becomes %TODO Ikkje dette. Skriv heller eit utfall som Stavdahl vil syns er SKUMMELT!
-
-To se if this is the backgound for the error, we isolate the error by giving the sensor aurons a constant sensor function, with an action level of $\kappa = 1.5 \tau$.
-\begin{figure}[hbtp!]
-	\label{figComparisonBetweenSsensorAndKsensorDepolCurveCONStActivityLevel}
+\begin{figure}[hbt!]
 	\centering
 	%\begin{center}
 		\includegraphics[width=0.95\textwidth]{eps_comparison_between_KN_and_SN_ConstKappa.eps}
 	%\end{center}
-	\caption{The depolarization curve for a SANN node and a $\kappa$ANN node with the same input. The sensor function has an input equivalent to an activation level of $\kappa = 1.5 \tau$.}
+	\caption{The depolarization curve for a SANN node and a $\kappa$ANN node with the same input. The sensor function has an input equivalent to an activation level of $\kappa = 1.5 \tau$ for both nodes.} %XXX Eller for begge nodeModeller
+	\label{figComparisonBetweenSsensorAndKsensorDepolCurveCONStActivityLevel}
 \end{figure}
 
-The result is presented in fig. \ref{figComparisonBetweenSsensorAndKsensorDepolCurveCONStActivityLevel}.% .eps
+The depolarization of a neuron have a discontinuity when the neuron fires an action potential. 
+When the neurons depolarization reaches the firing threshold the value is reset to $v_0 = 0$.
+In other words, each time the value of a node reaches a positive threshold, the value is reset.
+In this case the global trunctation error will continue to grow, and the difference between the value curves for the SN and the $\kappa$N continues to grow. %TODO Ikkje dette. Skriv heller eit utfall som Stavdahl vil syns er SKUMMELT!
+
+To se if this is the backgound for the error, we isolate the error by giving the sensor aurons a constant sensor function, with an activation level of $\kappa = 1.5 \tau$.
+
+The result is presented in fig. \ref{figComparisonBetweenSsensorAndKsensorDepolCurveCONStActivityLevel}. % .eps
 If the previous analysis of the problem is sound, the SN should have a depolarization that is higher than is should be.
-This implies than the depolarization curve for the SN should be ``before'' that of the $\kappa$N, which is the opposite of the situation of fig. \ref{figComparisonBetweenSsensorAndKsensorDepolCurveCONStActivityLevel}.
+This implies than the depolarization curve for the SN would be ``before'' that of the $\kappa$N, which is the opposite of the situation of fig. \ref{figComparisonBetweenSsensorAndKsensorDepolCurveCONStActivityLevel}.
 
 \subsubsection{Rounding errors}
+%TODO Skriv om: Ikkje røp løysing først. La det være litt spenning!
 After a more thorough analysis of the error, it seems that the difference is an effect of a rounding error.
 
 If we change wievpoint on the error and see the difference between the two cuves as an effect of time, we can say that the $\kappa$N's depolarization curve lies before the SN's depolarization curve.
 This implies that the $\kappa$N fires before the SN, and thus starts earlier on the depolarization for the next period.
 
-In many programming languages a float is always ``rounded down''. This means that the %Det som står etter komma
-is removed from the number, and the integer becomes the same as the integer part of the number.
+In many programming languages a float is always ``rounded down''. This means that the DECIMAL %XXX FINN RETT ORD: Det som står etter komma TODO
+	is removed from the number, and the integer becomes the same as the integer part of the number.
+
+%TODO Viktig: Hugs å skrive om kvifor eg valte en mindre periode i starten av sensor-funk. Dette er viktig, ellers trur han nok at eg bruker dette for å skjule feilen..
+\begin{figure}[hb!tp]
+	\centering
+		\includegraphics[width=0.95\textwidth]{eps_Comparison_between_the_two_sensors__depol_FIKSA.eps}
+	\caption{Comparison between the SN's and $\kappa$N's depolarization curve. The sensor function is plotted in green for analysis purposes.}
+	\label{figComparisonBetweenSsensorAndKsensorDepolCurveFIXEdError}
+\end{figure}
 
 When the $\kappa$N calculates the estimated firing time, this calculation is done in a double precision floating point number. 
 To use this in the scheduler is must first be transformed to an integer variable. When this time step arrives, the task is executed.
 
-\begin{figure}[hbtp!]
-	\label{figComparisonBetweenSsensorAndKsensorDepolCurveFIXEdError}
-	\centering
-		\includegraphics[width=0.95\textwidth]{eps_Comparison_between_the_two_sensors__depol_FIKSA.eps}
-	\caption{Comparison between the SN's and $\kappa$N's depolarization curve. The sensor function is also plotted.}
-\end{figure}
-
+%TODO Skriv at vi vil heller runde til nermeste integer, opp om det er best.
+% Så skriv korleis dette gjøres, så finn rett kurve.
+% TODO analyser frem og tilbake om kor feilen ligger. Det er fortsatt mulig at feilen er for KANN (men trur ikkje det. Legg at feilen er maks når subthreshold polarization er størst. Osv.) XXX
 If we instead round to the closest integer, by adding $0.5$ to the float before it is converted into an integer, we get the depolarization curve presented in fig. \ref{figComparisonBetweenSsensorAndKsensorDepolCurveFIXEdError}.
 In the improved depolarization curves for the auron, the error is small and can not be seen on the plot.
 
 %Ikkje heilt sikker på om det er heilt rett: størst etter "rising flank of the ..", Bli heilt sikker på dette.
-The error is largest after right after the rising flank of the activity variable's curve, the value of the sensor function.
+The error is found to be largest right after the rising flank of the activity variable's curve. %TODO ta vekk:   [ , the value of the sensor function. ] ?
 For the situation in fig. \ref{figComparisonBetweenSsensorAndKsensorDepolCurveFIXEdError} this is at time t=3000.
 At this time iteration the value of the SN is 1.015 more than the value of the $\kappa$N. 
 
 This deviation is substantially smaller that the deviation originating from the rounding error, but it indicates that the analysis made in the previous subsection is correct. %gjør om: ikkje "correct" men kanskje mindre påståelig?
-
+%TODO Skriv analyse av denne feilen, og peik på mulige scenarioer.
 
 
 % TODO KANSKJE :   \subsection{Floating point calculation pitfalls}
@@ -227,31 +253,49 @@ This deviation is substantially smaller that the deviation originating from the 
 %   XXX Dette trenger grundigare analyser!
 
 
-To compare the transient time course of the value of single neurons, we give them the same input and compare the deloparization plot of the two nodes.
-%we need to have the same input to both nodes.
-This means that we cannot use a network of nodes, as equal output of such a network demands that each node behaves eqactly the same way for the same input, give the same input to the analyzed node.
 
 
 
-
-Because a network of connected neurons have a large degree of complexity, it is best to start with comparing the depolarization of single nodes.
-For this I will 
-For comparison of the two models, we will first compare the depolarization of a single neuron of each model.
+%XXX Skriv i conclusion:
+%Because a network of connected neurons have a large degree of complexity, it is best to start with comparing the depolarization of single nodes.
+%For comparison of the two models, we will first compare the depolarization of a single neuron of each model.
 %Because a system comprised of a network of neurons have 
-
-The argument behind this choice is that the 
 
 
 \section{Resultat for effektivitetssammenligning}
 
 
 
-
-
 \section{Discussion}
+In the course of this project new model for artificial neural networks have been developed. 
+Because the primary focus of the project was to compare a new model for ANN with the ability to represent both firing time and firing frequency, with the SANN model, the development and implementation recieved this focus. 
+The new model is therefore implemented as a mere variant of a third generation ANN.
+%XXX Kanskje eg overdriver kor liten eg har gjort den :  "... mere variant of ..." Skriv litt mindre høg på pæra?
+
+If we define the third generation ANN as a network of nodes capable of integrating the input to a state for the node, and this state gives the firing time of the node, it is possible to place $\kappa$ANN in this group.
+The output of each node in $\kappa$ANN could be defined to be the spikes after a sufficient input to the node.
+In this case the ANN becomes a Mealey automata of the SANN model. This is how it is implemented in this project.
+
+If we instead let each $\kappa$N give an output as a function of the present and estimated future input, and give a similar output, the network becomes something else.
+The output now varies as a function of the input, and the node becomes stateless in this respect. If desired, the spike time and state of the neuron can still be calculated. 
+If the third generation ANN is defined as a network of nodes that gives output as a function of the nodes value, $\kappa$ANN therefore falls outside this group.
+
+In this implementation, it is possible that the full advantage of the new model is neglected in the desire to compare the model to the SANN model.
+Because this was first discovered when the results were analyzed, and due to little time, this will be placed under "for furter work". % TODO TA vekk/SKriv om!
+%FORTSETT HER!
+
+%så gå over til sammenligning av denne mot SANN.
+
+
+\section{Discussion 2. Denne skal nok vekk.}
+
+% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+% DETTE er ikkje diskussjon. Dette er implementasjon eller noke. Finn ny plass!
+% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
 
 %En eller anna plass: (ikkje akkurat her) Skriver her fordi eg har inspirasjon no, og ikkje vil leite..) 	Ja! Kanskje i "conclutions"XXX
 Implementing the mechanisms of a neural simulator is not trivial, even without optimizing it for run time efficiency.
+%todo SKriv om neste linje! xxx
 Even if this is not an important aspect of this project I have tried to, wherever possible, optimize the implementation for efficiency.
 %Skrive kvifor: Om at designet er optimalisert både for generalitet (for å gjøre utvidelser/endring lettere) og for effektivitet. DETTE for å kunne bruke implementationen videre (personlig, eller for andre).
 
@@ -273,6 +317,9 @@ This principle does not only account for future uses by other programmers.
 In multiple occations, aspects that are where new to me have been implemented at after the main functionality of the classes where designed. 
 This required less work because I followed principles that was important to Bjarne Stroustrup during the creation of C++; To make the design general and open and suited for any future uses.%ELLER NOKE Siter"TheDesignAndEvolution of C++".
 
+
+% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+% dette ER diskurs (?) :
 One element that is not implemented, is axo--somatic and axo--axonic synases. 
 This is synapses where the input to the postsynaptic neuron enters at other places of the neuron than the dendrite. 
 In biology, most inhibitory synases have theire input close to the soma of the postsynaptic neuron. 
@@ -310,7 +357,7 @@ The whole reason for developing the third generation ANN, spiking artificial neu
 This is computational demanding, and high resolution simulations is not suited for real time pragmatic uses of ANNs. For simulations used to test hypothesis in neural science, however, accuracy is most important.
 The focus on generality in this implementation will therefore make the code reusable for possible future pragmatic uses and for implementing neural simulators.
 
-If the new model is more effective than the old model for spiking neural networks, we can not now whether this is only goes for one of these uses. 
+If the new model is more effective than the old model for spiking neural networks, we can not know whether this is only goes for one of these uses. 
 For this reason I found it best to implement as generally as possible, for future efficiancy comparison between the two models.
 %Skrive eksempel: "More specifically, if we divide the axon into smaller pieces, spatial accuracy is better."
 %Skriv om forskjellane mellom KANN og SANN. Her kommer kanskje største fordelen med KANN? (Kan kanskje legge inn vilkårlig antall element, til tilsvarende størrelse på 'time step').

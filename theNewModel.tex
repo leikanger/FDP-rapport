@@ -50,6 +50,10 @@ From this we can later talk about the differential equation of the nodes value.
 
 
 \section{The equilibrium potential}
+% TODO TODO Skriv også om lekkasje! Fra ANN.tex refererer eg hit når eg snakker om lekkasje. XXX Hugs å skrive om lekkasje her!
+% Sjå ANN.tex: Snakker om LIF-neuron. Skriv om LIF-neuron når eg skriver om lekkasjen!
+\label{secTheEquilibriumPotential}
+%TODO Er det her eg skal skrive om LIF-neuron (leaky integration)?
 In the biological neuron, the reversal potential for the different ions is can be calculated by the Nernst equation. 
 The reversal potential is the electrical potential where the respective ion flow will be revesed (flow the oposite direction) if an ion channel is opened.
 This also involves that at the reversal potential, we get no ionic current following a channel opening. 
@@ -204,6 +208,7 @@ $I$ represents the effect of the synaptic input to the neuron at time $t$, the s
 
 
 \subsubsection{The ``leakage''}
+%TODO Finn referanse for neste påstand!
 The neuron is often modelled as a leaky integrator. The ``leakage'' is dependent on the polarization over the membrane. 
 
 For biological neurons, the leakage is given as a function of the difference between the membrane potential and the resting membrane potential $V_r$. 
@@ -374,7 +379,7 @@ If this is updated each time $\kappa$ varies, we get an estimate of the remainin
 %XXX Veit ikkje om dette er relevant!
 
 The inter--spike interval for a neuron consists of two phases. 
-The absolute refraction period and the depolarizing phase (se sec. \ref{sssecTheActionPotential}).
+The absolute refraction period and the depolarizing phase (se sec. \ref{ssecTheActionPotential}).
 
 Equation \eqref{eqPeriodeligningForKonstIntraPeriodKAPPA} describes the depolarizing phase of the neuron. % , $p_d(\kappa)$.
 The equation for the whole inter--spike interval is given by

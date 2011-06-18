@@ -5,12 +5,22 @@
 
 % Kan sei at dette er "original work by the author." Dette kan ivertfall brukes når dette kapittel blir referert til!
 
+%TODO Skriv om mealy automata, ANN, input som aktivitetsvariabel for 1.gen. og 2.gen. ANN og state som aktivitetsvariabel for 3.gen. ANN.
+% 	Kan da skrive at denne modellen har aktivitetsvariabel for både state og input (Kappa, dDepolAtStartOfTimeWindow), og kan dermed lett transformerer KANN's aktivitetsvariabel over til 1g.ANN, 2g.ANN og 3g.ANN!
+% 	Sjå [ ref_asdf2143@ANN ] i ANN.tex.
+
 %*********************** KANN ***************************
 \chapter{implementasjon: KANN}
 	Skriv først innledning, med mål om å sette meg og leser på samme utgangsnivå.
 	Skrive litt om kvifor eg tenker det er lurt å gå videre fra SANN.
 	Modellere det, og bruke formalisert matematikk fremfor å ha ei naiv direkte simulering av mekanismene i enkeltneuronet.
 	%Skrive at eg desverre ikkje fekk tid til syn.P. i dette prosjektet?
+
+	Skriv også det som står i TODO over, eller i ANN.tex: [ ref\_asdf2143@ANN ]% Søk etter ref_asdf2143@ANN i fila ANN.tex.
+	"As we will see, this new model for ANN have both a state and output given by the last time iteration's state and the input to the node. 
+	This gives that the node is able to communicate with all the previous forms of ANN, and might serve as an important transform between different models of ANN."
+	%XXX Dette er vel heller analyse, forresten. TODO Skriv det over i analyse/comparison kapittel.
+	% MEN kanskje også her?
 
 	
 	\section{Updating $\kappa$} %Calculation and recalculation of $\kappa$
@@ -153,48 +163,77 @@ static std::list<timeInterface*> pCalculateTaskQue;
 		\subsection{Relcalculating $\kappa$}
 		\label{ssecRecalcKappa}
 		Because synaptic transmission is implemented as the derived of the $\kappa_{ij}$, and the postsynaptic activity variable $\kappa_i$ as the integral of this kind of synaptic transmission
-		, we have to consider the integral error of $\kappa_i$. 
+		, we have to consider the trunction error of $\kappa_i$. 
 		Every small error in the calculated $\kappa_i$ will for ever be a part of the result, and we can get potential large errors after a relatively short time.
 
 		For this reason it is important to recalculate $\kappa_i$ periodically.
-		The period of recalculating $\kappa$ should find the right balance between recalculating to often, and use to much effort on recalculating $\kappa$, and not recalculating often enough and get integral errors of unacceptable size.
+		For the recalculation of $\kappa$, a period with the right balance between recalculating to often and not often enough was devised.
+		If the recalculation happens to often, to much effort will go into recalculating $\kappa$, and if the recaluclation happens to seldom, a global trunction error of unacceptable size might emerge.
 
-		To best achieve this, the period between recalculating $\kappa$ is dynamic as a function of the error at the last recalcualation. 
-		This function should have some kind of maximum when the error is wery small, and a minimum period as the error grows wery large. 
+		The truncation error might vary with variables such as hardware architecture, system load and even the individual auron's activity level,
+		Because it is hard to know the level of the individual auron's truncation error, the period between recalulation of truncation error is designed to be adaptive as a function of the last error.
+	%	The time of the next recalculation of the auron's $\kappa$ is computed after $\kappa$ is recalculated, as a function of the error given from the present recalculation.
 
-		I have devised an altered sigma function suitable for this purpose.
+		%To best achieve this, the period between recalculating $\kappa$ is designed to be dynamic as a function of the error at the last recalcualation. 
+		It is important to limit both the minimum and the maximum period between recalulations of $\kappa$.
+		To achieve this, an altered sigmoid function has been devised for this purpose.
+		This function should have the maximum value when the error is zero ($\lim_{E \to 0} p_e(E) \neq \infty$) and a minimal period ($\lim_{E\to\infty} p_e(E) \neq 0$).
+		This function should therefore have a maximum when the error is very small, and a minimum period as the error grows very large. 
+		%OVER: XXX Dårlig skrevet (bare siste linja)
+
+		An altered sigmoid function suitable for this purpose has been devised.
+		%I have devised an altered sigmoid function suitable for this purpose.
 		\begin{equation}
-			\label{eqSigmaFunk}
-			p(F) = (c_1+c_2) - \frac{c_2}{1+e^{-(c_4*F-c_3)}}
+			\label{eqAlteredSigmoidFunk}
+			p_e(E) = (c_1+c_2) - \frac{c_2}{1+e^{-(c_4*E-c_3)}}
 		\end{equation}
 
 
-		\begin{figure}[b!htp]
-			\label{figSigmaFunk}
+		\begin{figure}[bht!]
 			\begin{center}
 				\includegraphics[width=0.95\textwidth]{sigmaPlot.eps}
 				%\caption{Demonstration of the value function for changing kappa}
 			\end{center}
-			\caption{Plot of the altered sigma function (eq. \ref{eqSigmaFunk}), with \mbox{$c_1$ = 100}, \mbox{$c_2$ = 250}, \mbox{$c_3$ = 10} and \mbox{$c_4$ = 0.5} }
+			\caption{Plot of the altered sigmoid function (eq. \ref{eqAlteredSigmoidFunk}), with \mbox{$c_1$ = 100}, \mbox{$c_2$ = 250}, \mbox{$c_3$ = 10} and \mbox{$c_4$ = 0.5} }
+			\label{figAlteredSigmoidFunction}
 		\end{figure}
 	
-		We can se that \eqref{eqSigmaFunk} has the maximum value of $c_1+c_2$, 350 in figure \ref{figSigmaFunk}. $c_2$ has the value of 250, witch gives the min. value as 100.
-		The altered sigma function \eqref{eqSigmaFunk} is used when the period between recalculation of $\kappa$ is calculated. 
-		The maximum value, in this context, gives the maximum period before the new recalculation is done. This happens when the error is wery small (se fig \ref{figSigmaFunk}).
+		This will give a the largest output value when the error is very small. For increasing errors, the output of the altered sigmoid function will become smaller.
+		We can see from plot \ref{figAlteredSigmoidFunction} that the altered sigmoid function \eqref{eqAlteredSigmoidFunk} give a maximal and a minimal period for the recalculation of $\kappa$.
+	
+		From \eqref{eqAlteredSigmoidFunk} we can see that the altered sigmoid function has the maximum value of $c_1+c_2$.
+		In fig. \ref{figAlteredSigmoidFunction} the values $c_1 = 100$ and  $c_2 = 250$, giving the maximum value as 350 time iterations between recalculation of $\kappa$.
+		Because of a small degree of truncation error in the small test cases used while testing this implementation, the minimal period between recalculation was set so $c_1=100$ time iterations. 
+		This can easily be altered for larger test cases, or other situations where the truncation errors become an issue.
+		% TODO Skriv om det under. Blir overflødig..
+		%The altered sigmoid function \eqref{eqAlteredSigmoidFunk} is used when the period to the next recalculation of $\kappa$ is planned. 
+		%The maximum value, in this context, gives the maximum period before the new recalculation is done. %This happens when the error is wery small (se fig \ref{figAlteredSigmoidFunction}).
+		%The minimal and maximal period between recaluclation can be modified by altering the constants $c_1$ and $c_2$.
 
-		One other thing that is worth noting is the variables $c_3$ and $c_4$ giving the shape of the curve. $c_4$ gives the lenght of the curve, that is how steep it is.
+		%TODO skriv litt om, de neste to avsnitta.
+		% TODO SKRIV DETTE, MEN SKRIV OM FØRST :  One other thing that is worth noting is the variables $c_3$ and $c_4$ giving the shape of the curve. $c_4$ gives the lenght of the curve, that is how steep it is.
 		
-		After some analysis, I desided to use the values used in fig. \ref{figSigmaFunk}.
+
+
+		% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+		% Har rudda i tekst til hit.
+		\subsection{------------ Har rydda i tekst, til hit ------------- }
+
+		After some analysis, I desided to use the values used in fig. \ref{figAlteredSigmoidFunction}.
 		This gives a function that gives maximum period between recalculation of $\kappa$ when the error is below about 10. 
 		It has a relatively steep decent between an error of 10 and 30. The minimum period is set to 100 time steps and the maximum to 350 time iterations.
 
-		The minimum time between recalculation of $\kappa$ will cause the simulation not to use to much resouces.
+		The minimum time between recalculation of $\kappa$ will limit the use of resources. %cause the simulation not to use to much resouces.
 		The maximum value of this function is limited because the error will have a stocastic nature, and one could e.g. end up with zero error if one get equal positive and negative errors.
-		This could give a very large period before the next recalculation of $\kappa$.
+		This could potentially give a very large period before the next recalculation of $\kappa$.
 
-		For this reason, the calculation of the period between recalculation of $\kappa$ is also implemented as a FIR--filter with a moving average over the last three values.
-		The first time $\kappa$ is calculated, it is calculated with the recalculate function, giving the filter a small initial period, based on the initial level of input.
-		If the initial $\kappa$ is large, the first error will be large and the recalculation period will start out as a small period given by the level of input to the node.
+		Because of the stocastic element of the trunction error, the planning of the next recalculation of $\kappa$ is also implemented as a FIR--filter with a moving average over the last three values.
+		%For this reason, the calculation of the period between recalculation of $\kappa$ is also implemented as a FIR--filter with a moving average over the last three values.
+		%
+		%When the auron is constructed, $\kappa$ is recalculated before any input synapses is defined. This gives the filter a small initial period.
+		When the simulation starts, $\kappa$ is first calculated by the recaluclate function, giving the recalculate function a small initial period based on the level of synaptic input.
+		% ELLER MEIR RETT: The first time $\kappa$ is calculated, it is calculated with the recalculate function, giving the filter a small initial period, based on the initial level of input.
+		Aurons with a large initial input will therefore get a smaller initial recalculation period that some auron with a smaller initial input. %due to a large initial error.
 
 		\subsection{Implementation of recalculation of $\kappa$}
 		The execution of the planned recalculation of $\kappa$ is done in the same way as the execution of the planned action potential for the $\kappa$ auron.

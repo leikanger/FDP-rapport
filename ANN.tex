@@ -26,7 +26,7 @@
 % 				- Perceptron, 1957 ("simplest form of feedforward ANN" - wiki) 		Sjå s. 75, Rolls/Treves 
 % 					- Skriv om dette; Kva som var bra, dårlig, osv.
 % 					- Kunne ikkje gjøre en del handlinger. Førte til pause i ANN-utviklinga fram til tidlig 80 tall.
-% 				SKRIV AT desse to ikkje hadde synaptisk vekt. Signalet var boolsk (?)trur eg. Bli sikker på dette først.
+% 				SKRIV AT desse to ikkje hadde synaptisk vekt. Signalet var boolsk (? -> !).
 %
 % 				Så skriv litt om synapser, gå vidare til syn.p. og Hebb:
 % 				- Hebb, 1949 (?). Skriv om Hebb rule(?)
@@ -82,29 +82,208 @@
 
 % TODO Skrive at oppgaveteksten ber meg om å finne eksisterende modeller som representerer BÅDE fyringsrate og -frekvens. Dette finnes ikkje.
 % Tenkte difor å heller gå gjennom historien for ANN, for at leser skal ha eit innblikk i kva som eksisterer av frekvens-ANN og etterkvart fyringstid-ANN.
-The assignment description want me to make a review of existing ANN models representing both firing rate and spike timing.
-To my knowledge such a model does not exist. 
-% XXX Skriv også noke slikt som:
-Despite my effort to find such models, none has been found.
+The assignment description asks for a review of the existing ANN models representing both firing rate and spike timing.
+Despite my effort to find such models, none has presented itself, neither from a comprehensive litterature seach or by asking professor Yasser Roudi, topic supervisor of NEVR3004 -- neural networks.
+It is possible therefore possible that the model presented in this text is the first of its kind.
 
-To illuminate the different aspects of the new model, different models will be reviewed. 
-These models are either of a historical interrest or of a more immediate relevance to this report.
+To illuminate different aspects of artificial neural networks (ANN) a short history about ANN is presented. 
+The models presented in the following section are either of a historical interrest or of a more immediate relevance to this report.
+Because this project compares two different ANN with imformation about the timing of the spikes of the neuron, there will be a special focus on models with this capability. %XXX .. når vi går gjennom historien.
+%Because the new model and the model behind ``Spiking Artificial Neural Network'' will be compared in this project, we will have a special focus on SANN in the following review of ANN history.
+%
 
+
+
+%Krive: Såvidt om neuronet før eg begynner på hisorie for ANN? 																									%Ikkje "I refer to.." men ?
+Before we review the different ANN models and the history of ANN, we need to know a minuscule of the biological neuron. For a more comprehensive introduction it is referred to section \ref{secTheBiologicalNeuralSystem}.
+
+The biological neural system is comprised of nodes, the neuron, and connections between the nodes, the synapse.
+A neuron has a state that gives the value of the neuron. 
+For a simplified model of the neuron the value often refers to the ``depolarization'' of the neuron. % ELLER Bare "The value often refers to .." (uten det om simplified vertion..
+In this text, ``the value'' refers to the depolarization whenever we speak about the biological neuron.
+
+%The ``output'' of a neuron in the following paragraph refers to an action potential of the neuron.
+If the neuron fires an action potential, all of the neurons output synapses will transmit. 
+This transmission is given by the synaptic connection of the synapse.
+
+The value therefore does not give the size of transmission for the neuron, it does however give the time of transmission.
+%An action potential is only initialized when the value of the neuron goes to suprathreshold levels.
+When the value reaches the firing threshold, an action potential is initialized, causing transmission at all the neuron's output synapses.
+The synapses can be excitatory or inhibitory, causing an increase of decrease of the postsynaptic neuron's value.
+
+More information about the mechanisms of the neural system can be found in chapter \ref{chapNeuroscience}. 
+Relevant background information about the neuron and synaptic transmission is presented in section \ref{ssecTheNeuron} and section \ref{ssecTheSynapse}. 
+The action potential is introduced in section \ref{ssecTheActionPotential}.
+
+%TODO Skriv en overgang. Fra det over, til ANN-historie.
+
+\section{A Review of the History of ANN}
 The pragmatic use of simulations of networks of neurons started with the McCulloch--Pitts neuron in 1943. 
 Warren McCulloch, an early neuroscientist and matematician Walter Pitts first began a formalized discussion of the mechanisms of the neuron.
-The result was the first artificial neural network, consisting of logical gates. These modelled the neuron as boolean devises (off--on response)\ref{MccullochPittsHistorie}. % TODO Vær heilt sikker på at dette står i denne artikkelen.
+The result was the first artificial neural network, consisting of logical gates. These modelled the neuron as boolean devises (off--on response)\cite{MccullochPittsHistorie}. % TODO Vær heilt sikker på at dette står i denne artikkelen.
 What is later referred to as the first generation ANN is based on the McCulloch--Pitts neuron\cite{Maass97networksof}.
 One of these models is Rosenblatt's Perceptron\cite{HaykinANNbok}.%TODO Finn sitering!
 %Neural networks based on the McCulloch--Pitts neurons are also referred to as Perceptron or threshold gates.
+%TODO Skriv, her eller under neste avnitt, kvifor dette er dårligere representasjon enn 2.gen ANN. Kvifor er det bolske ouput til perceptron dårlig?
 
 The next generation of ANNs have computational units with a continous activation function. 
-One common activation function is the \emph{sigmoid function} $\sigma(y)=\frac{1}{1+e^{-y}}$.
-As we discover in section \ref{ssecTheNeuron} and \ref{sssecTheActionPotential}, the biological neuron has a boolean carracteristic, in the form of having an on--off output to its synapses % TODO KAnskje skrive ref{secBiol.sys} isteden?
+One common activation function is the \emph{sigmoid function} $\sigma(y)=\frac{1}{1+e^{-y}}$ \cite{HaykinANNbok}.
+As we discover in section \ref{ssecTheNeuron} and \ref{ssecTheActionPotential}, the biological neuron has a boolean carracteristic, in the form of having an on--off output to its synapses % TODO KAnskje skrive ref{secBiol.sys} isteden?
 	, where the transmission is a function of the size of the synaptic connection (the synaptic weight). %TODO Ta vekk det med synapsene? XXX Isåfall: Innfør begrepet "synaptic weight" annen plass.
-%In the synapses the transmission is dependent on the synaptic connection to the next neuron\ref{sssecTheActionPotential}.
+%In the synapses the transmission is dependent on the synaptic connection to the next neuron\ref{ssecTheActionPotential}.
 %The biological interpretation of a floating point number propagating through the network can therefore be viewed as ``firing rate interpretations'.
-Neural nets of the second generation can threrfore be viewed as ``firing rate interpretations'' of biological neural networks\cite{Maass97networksof}.
+Neural nets of the second generation can therefore be viewed as ``firing rate interpretations'' of biological neural networks\cite{Maass97networksof}.
+Simulation of a neural network by a 2. generation ANN will then be in the frequency domain, and have no information about the timing of the node's spikes. %TODO Sjekk om "spike" er innført tidligere.
+In this case, the second generation ANN gives a better simulation of neural systems. 
 
+%XXX 2.gen er bedre enn første, fordi begge er "state less". For tidsdomenet blir dette heilt feil. For frekvensdomenet blir det mindre feil. (Heilt rett dersom du ser bort fra syn.p. og modulatory neurotransmitters.
+
+%TODO Fokuser meir på prosessering av SN-signal fremfor læring. Læring er jo en del av oppgaveteksten, og bør spares.
+% Skriv om mekanismer og fart på prosessering, som impliserer at neuron ikkje har tid til å vente på frekvenssammenligning. Frekvent må samples først, noke som tar litt tid. Farta i neurale systemer indikerer at dette ikkje er tilfelle
+% 	i biologiske system. I tillegg har vi inferior colliculus (trur eg) som bruker tidspunkt på spikes til å finne ut kor lyd kommer fra (Barn owl).
+
+
+Recently, the third generation of ANN has emerged. In this model, each node is simulated with respect to aspects thought important for signal processing.
+The most used model of the neuron is the ``Leaky--Integrate and Fire''(LIF) neuron. %TODO Referer til section {secTheEquilibriumPotential}, og xxx Hugs å skrive om LIF, der.
+
+In the LIF neuron model, the node's value is computed as a leaky integration, an intregration that is leaky with respect to time.
+The node's value is a result of the immediate excitatory and inhibitory input, as well as the local history for the node.
+% Skriv at dette er en vanlig modell for neuronet.
+%In the LIF neuron model, the node's value is calculated as a combination of the nodes excitatory and inhibitory input and the 
+
+%skrive først kva som gjøres. LIF
+%så skrive at dette kalles for SANN.
+When a node goes above the firing threshold, an action potential or ``spike'' is generated in the node. 
+When this spike reaches a synapse, we get synaptic transmission at the synapse.
+We can see that this is a better simulation of neural systems than that of the first two generations of ANN, based on the information presented in section \ref{secTheBiologicalNeuralSystem}.
+%In chapter \ref{chapNeuroscience}, important aspects of the biological neural system like the action potential and synaptic transmission is introduced. %Skriv om! XXX
+
+In the third generation ANN it is the spikes, or action potentials that is in the focus.
+This ANN model is therefore often referred to as ``Spiking Artificial Neural Network''(SANN). % xxx Er ikkje denne forkortelsen introdusert tidligere?
+%TODO skrive at siden det er en simulering av neurale sys., er det kanskje eit poeng å først beskrive det originale systemet.
+% 		Forbered leser / gjør leser nøgd med at eg har ei kapittel om det bioloiske systemet.
+
+
+% TODO Skriv litt om bakgrunnen for at man starta med SANN:
+% 		- Temporal coding : sjå "networks of spiking neurons: the third generation of neural network models"
+% 		- STDP. Skriv minimalt om dette (forbered leser ved å såvidt nevne det). Dette skal skrives heir om i SANN-section.
+
+%KLADD:
+%Recently, there have been a strong focus on the timing of spikes. There are two reasons behind this.
+%The first is connected to synaptic plasticity. 
+%In 1987, Gustavsen et. al. found that synaptic plasticity could vary as a function of the postsyn
+%Synaptic plasticity can be divided in two groups, Long Term Potentiation (LTP) causing an a lasting increase in the synaptic weight and Long Term Depression (LTD) causing a lasting decrease in the synaptic weight.
+%Gustavsen et. al found in 1987 that the synaptic plasticity vas a function of the postsynaptic depolarization at the time of transmission. 
+%The synaptic plasticity varied from a strong LTP to a strong LTD as a result from a single transmission\cite{Gustafsson03011987}.
+%%Dette ble også overført til ANN
+
+%We can say that, statistically there is a correlation between the presynaptic depolarization after a synaptic transmission, and the relative timing of the postsynaptic action potential. %ELLER NOKE: RYDD OPP XXX XXX
+%If we view this statistically, we can say that the timing of the presynaptic action potential (``firing'') in relation to the postsynaptic firing is a direct consequence of the postsynaptic potential at the time of transmission.
+%Based on this analysis alone, we can say that the relative timing of the pre-- and post-- synaptic firing is fundamental for the size and direction of the synaptic plasticity.
+%% XXX KVIFOR tidavhengig? XXX : There are also hypothesis about a retrograde signalling mechanism in the neuron that gives the same effect
+%This recieved the name ``Spike Time Dependent Plasticity''(STDP).
+
+
+%XXX XXX XXX XXX X   XXX XXX XXX HER HER XXX HER XXX HER XXX HER XXX HER XXX HER XXX HER XXX HER XXX HER XXX HER XXX HER XXX HER XXX HER XXX HER XXX HER XXX HER XXX HER XXX 
+%her er eg.
+
+
+
+
+%TODO NEVN action potential i innledning! XXX VIKTIG!
+
+
+
+
+
+
+
+
+% XXX The McCulloch--Pitts neuron has similarities with what is later reffered to the third generation ANN, Spiking Artificial neural networks.
+
+
+
+
+%xxx Skrive at forskjellen mellom de ulike generasjonene er på noden: kva gjør noden? Kva er input, activation function og output?
+
+%TODO TODO TODO Ikkje summarize! Eg innfører nye evalueringer! 1. og 2. gen. ANN er stateless. 3. gen. har state!
+To summarize the introduction to this chapter, we have three ``generations'' of artificial neural networks, each with its own set of computational units.
+What propagates through the network, the activation function and synaptic plasticity differs between them. 
+
+Later, when we review the biological system (sec. \ref{secTheBiologicalNeuralSystem}), it is possible to note that for each new generation of ANN get closer to the biological neural networks.
+%TODO Skriv kvifor det er bedre med stateless noder for frekvensdomenet enn for noder i tidsdomenet.
+% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+%FORTSETT HER!
+% Skriv at:
+% 	- 1. gen. ANN er stateless, men overfører boolst signal. (det er i tidsdomenet)
+%  	- 2. gen. ANN er stateless, men i frekvensdomenet. Dette er rettere.
+% 	- 3. gen. ANN er med state. Dette er også i tidsdomenet, så får med temporale effekter.
+% TENKING: KANN er med med state, og tidsdomenet. 
+% 	For KANN varierer output med input også, og kan sees på som en mealey variant av SANN. 
+% 	Dersom vi definerer 3.gen. ANN som eit ANN der output ikkje varierer med input, vil ikkje KANN tilhøre 3.gen. ANN.
+% 		- Det er mulig å hente ut informasjon om tid, dersom ønskelig (til f.eks. syn.p.), men ikkje naudsynt.
+% 		- Trenger ikkje beregne neuralnettet som eit SANN. Dette har vore gjordt i denne rapporten, men trengs ikkje.
+% 		- Skrive i denne sammenhengen (kanskje i resultat?) at i løpet av denne oppgaven har hovedfokus vore på sammenligninig. 
+% 		- Siden modellen ikkje var ferdig før prosjektet, gjorde dette at implementasjonen ble spesialisert for sammenligning (brukte spiking variantav synaptisk transmissjon). Dette er antaglig ikkje optimalt.
+The first two generations of ANNs were stateless, in the form that each node's output were a direct consequence of its input. 
+%Kanskje lage tabell, eller begin{itemize} her, under:
+
+The first generation of artificial neurons were so--called threshold gates, with a boolean output that were one if the summed input were above some threshold.
+%with output of zero unless the input summed to some value above threshold, causing the output to become one.
+The second generation ANNs were in some respects closer to biological neural networks.% than the first.
+%It does not have discrete ``states'' for the input, but have a continous ``activation function'' giving output as a function of the node's immediate input.
+It does not classify the input to discrete ``states'' giving the output of the node. 
+Instead in has a continous ``activation function'', giving output as a function of the node's immediate input.
+%
+In the second generation ANN, the spatially summed input (summed over all the input synapses) is not classified between two states, but gives an output based on the continous nonlinear activation function.
+If the transmissions between nodes is viewed as the firing frequency of the neuron, we can say that the continous output value represents the output frequency as a function of the input frequency over the time step in the simulation.
+																									%the firing frequency of the node is a function of the spatially and temporally summed input input to the node, 
+																										%or the sum of the transmissions in all the node's input synapses.
+In this case, the second generation ANN is closer to the biological neural network, than the ``threshold gates'' of the first generation. % ANN. 
+% Eller 								is a better simulation of a biological neural system than the ``threshold gates'' of the first generation.
+%Kanskje heller skrive at:             
+%One could state that this is closer to the biological neuron, in respect to the biological neurons output frequency being a function of the frequency of the node's input.
+
+The nodes of the third generation ANN became even more similar to the biological neuron, as the output of a node depend solely on the state of the node.
+In biology, the ``state'' of the neuron is represented by the neurons depolarization.
+When this value reaches the threshold, we get an action potential in the neuron.
+This is the same principles that is the foundation of the nodes of SANN. Spiking Nodes (SN) can thus be said to be a direct simulation of the biological neuron.
+%If we view this as the output value of the neuron as a whole, we can say that the output of a neuron is given by the temporally summed input to the neuron.
+%The output of the neuron (an action potential in the neuron) will further activate synaptic transmission in each of the node's output synapses, causing a increase or decrease of the postsynaptic node's value.
+The mechanisms of the biological neuron, the action potential and synaptic transmission will be reviewed in chapter \ref{secTheBiologicalNeuralSystem}.
+%The action potential and synaptic transmission for the biological system is reviewed in section \ref{secTheBiologicalNeuralSystem}.
+
+The output value of a node as a whole is thus given by the input from the node's past and immediate past, in the form of the neurons depolarization.
+%, not the immediate input to the node.
+First when the node is excited above threshold, we get an output signal throught the node's output connections.
+The reason for the node firing is not the input in itself, but the state of the neuron going to suprathreshold levels as a consequence of the sum of all excitatory and inhibitory input.
+If we model each node as a ``leaky--integrate and fire neuron'' (LIF neuron), introduced in section \ref{secTheEquilibriumPotential}, we get a leaky temporal integration of the effect of all synaptic input at each time step.
+%TODO SKRIV om setninga over. Blir for mykje informasjon. Blir krøkete! (kanskje?)
+%
+% TODO: Skriv at dette er slik det blir gjordt, eller at dette vil gi en god simulering av det modellerte neuronet ("rettheten" er no gitt av modelleringa).
+
+
+
+%Over skal stå om: Kva er forskjellene mellom ulike modellers noder? Kva blir propagert gjennom nettet? Kva er aktivitets-funksjonen?
+
+% ref_asdf2143@ANN
+%TODO : Når eg begynner å skrive om KANN: Kan skrive om at eg innfører at output til kvar node igjen varierer som en funksjon av input. Tidspunkt for fyring er gitt av nodens state, og input vektoren.
+% 	Dersom eg gir output kvar gang nodens input endres, blir output gitt av nodens state+input. Dette gir en Mealy automata av state maschine til enkeltnodane.
+% 		Kan skrive at man kan også lett kjøre output til en node av de tidligere generasjonane ANN, ved å transformere aktivitetsvariabelen Kappa over til frekvens eller estimert fyringstid. (FETT!)
+
+
+
+
+
+\section{Synaptic Plasticity for artificital neural networks}
+%TODO Skriv om synaptisk plastisitet (sjå oppgave 1 (fokuser spesiellt på forhold som kan knyttes til stabilitet under læring og/eller tilbakekobling("recurrent ANN").)
+%Simple variants of ``Hebbian learning'' only give an increase in the synaptic weight, and is clearly exponentially unstable. Different variations of the naive model of synaptic 
+%Because Hebb's postulate only considered poitive weight change, STDP has later been %omtalt som stable hebbian learning.
+%As we will see later, a simple formulation based on ``Hebbian learning'' is unstable, because it only states a positive weight change. % As this varies with the activation  XXX Skriv at det er exponentially-ustabilt.
+%and many variations has been devised to stabilize synaptic plasticity, many of them biologically unplausible.
+
+
+OGSÅ: NEVN: STDP.
 %In neuroscience, learning is |||xxx Skriv at synaptisk plasticity er samme som læring. (innføring til det neste, og mulighet til å innføre begrepet "synaptisk weight".
 In 1949 Donal O. Hebb proposed a famous postulate, later known as Hebb's postulate:
 \begin{quote}
@@ -117,46 +296,35 @@ This has been referred to as ``Hebbian learning''\cite{HaykinANNbok}.
 %``Hebbian learning'' is still used in some forms for neural networks. % TODO Skriv HEILT spesifikkt / finn referanser.
 
 
-Synaptic plasticity can be divided in two groups, Long Term Potentiation (LTP) causing an a lasting increase in the synaptic weight and Long Term Depression (LTD) causing a lasting decrease in the synaptic weight.
-Gustavsen et. al found in 1987 that the synaptic plasticity vas a function of the postsynaptic depolarization at the time of transmission. 
-The synaptic plasticity varied from a strong LTP to a strong LTD as a result from a single transmission\cite{Gustafsson03011987}.
-%Dette ble også overført til ANN
-
-We can say that, statistically there is a correlation between the presynaptic depolarization after a synaptic transmission, and the relative timing of the postsynaptic action potential. %ELLER NOKE: RYDD OPP XXX XXX
-If we view this statistically, we can say that the timing of the presynaptic action potential (``firing'') in relation to the postsynaptic firing is a direct consequence of the postsynaptic potential at the time of transmission.
-Based on this analysis alone, we can say that the relative timing of the pre-- and post-- synaptic firing is fundamental for the size and direction of the synaptic plasticity.
-% XXX KVIFOR tidavhengig? XXX : There are also hypothesis about a retrograde signalling mechanism in the neuron that gives the same effect
-This recieved the name ``Spike Time Dependent Plasticity''(STDP).
-
-
-%XXX XXX XXX XXX X   XXX XXX XXX HER HER XXX HER XXX HER XXX HER XXX HER XXX HER XXX HER XXX HER XXX HER XXX HER XXX HER XXX HER XXX HER XXX HER XXX HER XXX HER XXX HER XXX 
-%her er eg.
-
-
-%Because Hebb's postulate only considered poitive weight change, STDP has later been %omtalt som stable hebbian learning.
-%As we will see later, a simple formulation based on ``Hebbian learning'' is unstable, because it only states a positive weight change. % As this varies with the activation  XXX Skriv at det er exponentially-ustabilt.
-%and many variations has been devised to stabilize synaptic plasticity, many of them biologically unplausible.
-After the discovery of STDP, the timing of the action potential recieved an increased focus also in ANN models. 
-
-
-%TODO NEVN action potential i innledning! XXX VIKTIG!
-
-%Simple variants of ``Hebbian learning'' only give an increase in the synaptic weight, and is clearly exponentially unstable. Different variations of the naive model of synaptic 
+%Heilt på slutten av Syn. P.: få overgang til neste kapittel: SANN :		Blandt andre ting, After the discovery of STDP, the timing of the action potential recieved an increased focus also in ANN models. 
 
 
 
 
 
 
-
-The McCulloch--Pitts neuron has similarities with what is later reffered to the third generation ANN, Spiking Artificial neural networks.
-
-This started what later is called the first generation ANN\ref{Kunkle02pulsedneural}. %todo REFERER Pulsed NN and their application
-
-%dette førte til utvikling av perceptron. osv. Skriv om 1.gen ANN. gå over på Hebb:
-
-
-%xxx Skrive at forskjellen mellom de ulike generasjonene er på noden: kva gjør noden? Kva er input, activation function og output?
+%fra disposisjonene på toppen:
+% 		\section{ Third generation ANNs }
+% 			- Oppdagelsen av STDP satte fokus på relativ spike timing for pre- og post- synapsisk neuron.
+% 			- Skrive om SANN. Bedre simulering av nodene (neuron). Sender ikkje signal vidare kvar tidsiterasjon, men bare når depol er over terskel. Basert på modell presented in Hodkin/Huxley, 1952 artikkel.
+% 				"Thus, one of the fundamental questions of neuroscience is to determine if neurons communicated by a rate code or by a pulse code.[1]" 
+% 					[1]: (Wulfram Gerstner (2001). "Spiking Neurons". In Wolfgang Maass and Christopher M. Bishop. Pulsed Neural Networks. MIT Press. ISBN 0262632217.)
+% 			 	- Dette kan eg skrive masse om i forhold til modelle min: Aktivitet er koda med aktivitet ("frekvens"), mens syn.plast. er avhengig av timing på spikes. (?)
+% 			- Pga. meir realistiske egenskaper og bedre simulering av neuronet, kan SANN også brukes for simuleringer til neuroscience.
+% 				("They have proved useful in neuroscience, but (not yet) in engineering. " (fra wiki))
+% 				 "To date, there have been no large scale spiking neural networks that solve computational tasks of the order and complexity of rate coded (second generation) neural networks." (Fra linja under på wiki)
+% 			
+% 			- SANN 	-  Korleis er dette for SANN?  Skriv at dette er en simulering av enkeltnodene i neurale nett, og at dette skjer i presens (input fører til auka verdi, over terskel fører til output, osv)
+% 				- Skjer i presens, planlegger ikkje lenger enn kva som skal gjøres neste tidssteg (kø). Moore automata (basert bare på tilstand for enkeltnodene (depol.verdi)).
+% 			- KANN  -  Korleis er dette for KANN?  Skriv at dette er en høgare ordens simulering av ligningene som er resultat av prosessane i enkeltnodene i neurale nett.
+% 				- Dette skjer i presens, men planlegger også framtida: er framsynt. Mealy automata (basert på state + inputs).
+% 			- Kanskje: Skriv om forskjellane mellom Moore og Mealy automata.
+% 		\section{ KANN. }
+% 			. Skrive at: dersom målet er å lage eit pragmatisk nyttig ANN med tidspunkt-info for spikes, bør SANN skrives helt om. Skriv om at SANN bruker mykje ressurser på å opprettholde en stabil tilstand i nettet.
+% 			- Siden beregning kreves bare når verdiane endres (i biologiske NN), bør dette være fokus for ANN. SANN bruker mye ressurser på å opprettholde en stabil tilstand (dersom det ikkje er endring i nettet).
+% 			- Det beste hadde vore å utvikla eit ANN som bare krever ressurser ved endring av input til nodene. Skrive litt fram og tilbake om dette. Ende opp med at vi trenger en Mealey automata? (dersom dette stemmer)
+% 			-
+\section{SANN -- ``the third generation ANN''}
 
 
 
@@ -167,6 +335,11 @@ This started what later is called the first generation ANN\ref{Kunkle02pulsedneu
 
 
 
+
+
+
+
+%----------------------------------------------- gammelt .------------------------------------------------------
 \section{Bakgrunn: ANN}
 	\subsection{årsak for bruk av ANN / historie}
 	
@@ -225,6 +398,8 @@ This has later been known as Spike Timing Dependent Plasticity (STDP). Se \cite{
 %\end{figure}
 
 \subsection{Spiking Artificial Neural Network}
+% 	"Thus, one of the fundamental questions of neuroscience is to determine if neurons communicated by a rate code or by a pulse code.[1]" 
+% 	[1]: (Wulfram Gerstner (2001). "Spiking Neurons". In Wolfgang Maass and Christopher M. Bishop. Pulsed Neural Networks. MIT Press. ISBN 0262632217.)
 The importance of the relative spike timing of the presynaptic vs. the postsynaptic neuron for synaptic plasticity led to development of Spiking Artificial Neural Network (SANN). 
 
 SANN is a simulation of a network of neurons in the time domain. Activity of each node is represented as the neurons depolarization. For this simulation of biological neurons, it is important to calculate the leakage of value each iteration. 
@@ -253,8 +428,10 @@ Finn ut når timing ble så viktig, og skriv litt meir om dette. Skriv at SANN h
 
 
 
+
 %Skriv tilslutt at simulering av kvart neuron virker lite effektivt. Det leda meg inn på tanken om KANN. Så skriv om KANN.
-\subsection{The reason for developing a new model -- $\kappa$ANN}
+\subsection{The motivation for developing a new model -- $\kappa$ANN}
+%\section{$\kappa$ANN --- The next generation?} %DETTE blri for mykje! ikkje gjør det eksplisitt! (la det ligge og ulme i leserens hode!
 As a computational system, a neural system is fundamentally different from the processor in a computer. 
 The neural system is based on a vast amount of computationally weak, massively parralell indivitual ``processors'' ---the neuron. 
 The computational unit of a computer, the processor, is funtamentally different. It is one or a few, computationally strong, serial processor(s). 
@@ -262,7 +439,6 @@ The computational unit of a computer, the processor, is funtamentally different.
 In neural systems the neurons are directly connected, such that the output of one node is the input of another. In computers, the result of a computation is saved somewhere in memory and that can be accessed by (one of) the processor(s).
 
 With this fundamental difference betwee  \emph{XXX} SKRIV MEIR HER.
-
 
 
 \newpage
@@ -276,7 +452,7 @@ With this fundamental difference betwee  \emph{XXX} SKRIV MEIR HER.
 		Kanskje eg skal her skrive om kva eg  reagerte på med SANN? (ikkje vent å sjå på resultatet, skriv uansett. Tolk heller at dette var feilt..)
 
 \section{Artificial Neural Network Architecture}
-Kan eg skrive ontrengt som section over, bare for arkitekturen til ANN. Ende opp med recurrent ANN!
+Kan eg skrive omtrengt som section over, bare for arkitekturen til ANN. Ende opp med recurrent ANN!
 Legg ved fig. 5.13 i boka "Recurrent neural networks for prediction" s. 84
 
 
