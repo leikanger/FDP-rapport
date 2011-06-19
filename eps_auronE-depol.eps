@@ -1,0 +1,3430 @@
+%!PS-Adobe-2.0 EPSF-2.0
+%%Title: ./eps/eps_auronE-depol.eps
+%%Creator: gnuplot 4.4 patchlevel 2
+%%CreationDate: Wed Jun 15 20:09:30 2011
+%%DocumentFonts: (atend)
+%%BoundingBox: 50 50 625 481
+%%EndComments
+%%BeginProlog
+/gnudict 256 dict def
+gnudict begin
+%
+% The following true/false flags may be edited by hand if desired.
+% The unit line width and grayscale image gamma correction may also be changed.
+%
+/Color false def
+/Blacktext false def
+/Solid false def
+/Dashlength 1 def
+/Landscape false def
+/Level1 false def
+/Rounded false def
+/ClipToBoundingBox false def
+/TransparentPatterns false def
+/gnulinewidth 5.000 def
+/userlinewidth gnulinewidth def
+/Gamma 1.0 def
+%
+/vshift -46 def
+/dl1 {
+  10.0 Dashlength mul mul
+  Rounded { currentlinewidth 0.75 mul sub dup 0 le { pop 0.01 } if } if
+} def
+/dl2 {
+  10.0 Dashlength mul mul
+  Rounded { currentlinewidth 0.75 mul add } if
+} def
+/hpt_ 31.5 def
+/vpt_ 31.5 def
+/hpt hpt_ def
+/vpt vpt_ def
+Level1 {} {
+/SDict 10 dict def
+systemdict /pdfmark known not {
+  userdict /pdfmark systemdict /cleartomark get put
+} if
+SDict begin [
+  /Title (./eps/eps_auronE-depol.eps)
+  /Subject (gnuplot plot)
+  /Creator (gnuplot 4.4 patchlevel 2)
+  /Author (leik)
+%  /Producer (gnuplot)
+%  /Keywords ()
+  /CreationDate (Wed Jun 15 20:09:30 2011)
+  /DOCINFO pdfmark
+end
+} ifelse
+/doclip {
+  ClipToBoundingBox {
+    newpath 50 50 moveto 625 50 lineto 625 481 lineto 50 481 lineto closepath
+    clip
+  } if
+} def
+%
+% Gnuplot Prolog Version 4.4 (August 2010)
+%
+%/SuppressPDFMark true def
+%
+/M {moveto} bind def
+/L {lineto} bind def
+/R {rmoveto} bind def
+/V {rlineto} bind def
+/N {newpath moveto} bind def
+/Z {closepath} bind def
+/C {setrgbcolor} bind def
+/f {rlineto fill} bind def
+/g {setgray} bind def
+/Gshow {show} def   % May be redefined later in the file to support UTF-8
+/vpt2 vpt 2 mul def
+/hpt2 hpt 2 mul def
+/Lshow {currentpoint stroke M 0 vshift R 
+	Blacktext {gsave 0 setgray show grestore} {show} ifelse} def
+/Rshow {currentpoint stroke M dup stringwidth pop neg vshift R
+	Blacktext {gsave 0 setgray show grestore} {show} ifelse} def
+/Cshow {currentpoint stroke M dup stringwidth pop -2 div vshift R 
+	Blacktext {gsave 0 setgray show grestore} {show} ifelse} def
+/UP {dup vpt_ mul /vpt exch def hpt_ mul /hpt exch def
+  /hpt2 hpt 2 mul def /vpt2 vpt 2 mul def} def
+/DL {Color {setrgbcolor Solid {pop []} if 0 setdash}
+ {pop pop pop 0 setgray Solid {pop []} if 0 setdash} ifelse} def
+/BL {stroke userlinewidth 2 mul setlinewidth
+	Rounded {1 setlinejoin 1 setlinecap} if} def
+/AL {stroke userlinewidth 2 div setlinewidth
+	Rounded {1 setlinejoin 1 setlinecap} if} def
+/UL {dup gnulinewidth mul /userlinewidth exch def
+	dup 1 lt {pop 1} if 10 mul /udl exch def} def
+/PL {stroke userlinewidth setlinewidth
+	Rounded {1 setlinejoin 1 setlinecap} if} def
+3.8 setmiterlimit
+% Default Line colors
+/LCw {1 1 1} def
+/LCb {0 0 0} def
+/LCa {0 0 0} def
+/LC0 {1 0 0} def
+/LC1 {0 1 0} def
+/LC2 {0 0 1} def
+/LC3 {1 0 1} def
+/LC4 {0 1 1} def
+/LC5 {1 1 0} def
+/LC6 {0 0 0} def
+/LC7 {1 0.3 0} def
+/LC8 {0.5 0.5 0.5} def
+% Default Line Types
+/LTw {PL [] 1 setgray} def
+/LTb {BL [] LCb DL} def
+/LTa {AL [1 udl mul 2 udl mul] 0 setdash LCa setrgbcolor} def
+/LT0 {PL [] LC0 DL} def
+/LT1 {PL [4 dl1 2 dl2] LC1 DL} def
+/LT2 {PL [2 dl1 3 dl2] LC2 DL} def
+/LT3 {PL [1 dl1 1.5 dl2] LC3 DL} def
+/LT4 {PL [6 dl1 2 dl2 1 dl1 2 dl2] LC4 DL} def
+/LT5 {PL [3 dl1 3 dl2 1 dl1 3 dl2] LC5 DL} def
+/LT6 {PL [2 dl1 2 dl2 2 dl1 6 dl2] LC6 DL} def
+/LT7 {PL [1 dl1 2 dl2 6 dl1 2 dl2 1 dl1 2 dl2] LC7 DL} def
+/LT8 {PL [2 dl1 2 dl2 2 dl1 2 dl2 2 dl1 2 dl2 2 dl1 4 dl2] LC8 DL} def
+/Pnt {stroke [] 0 setdash gsave 1 setlinecap M 0 0 V stroke grestore} def
+/Dia {stroke [] 0 setdash 2 copy vpt add M
+  hpt neg vpt neg V hpt vpt neg V
+  hpt vpt V hpt neg vpt V closepath stroke
+  Pnt} def
+/Pls {stroke [] 0 setdash vpt sub M 0 vpt2 V
+  currentpoint stroke M
+  hpt neg vpt neg R hpt2 0 V stroke
+ } def
+/Box {stroke [] 0 setdash 2 copy exch hpt sub exch vpt add M
+  0 vpt2 neg V hpt2 0 V 0 vpt2 V
+  hpt2 neg 0 V closepath stroke
+  Pnt} def
+/Crs {stroke [] 0 setdash exch hpt sub exch vpt add M
+  hpt2 vpt2 neg V currentpoint stroke M
+  hpt2 neg 0 R hpt2 vpt2 V stroke} def
+/TriU {stroke [] 0 setdash 2 copy vpt 1.12 mul add M
+  hpt neg vpt -1.62 mul V
+  hpt 2 mul 0 V
+  hpt neg vpt 1.62 mul V closepath stroke
+  Pnt} def
+/Star {2 copy Pls Crs} def
+/BoxF {stroke [] 0 setdash exch hpt sub exch vpt add M
+  0 vpt2 neg V hpt2 0 V 0 vpt2 V
+  hpt2 neg 0 V closepath fill} def
+/TriUF {stroke [] 0 setdash vpt 1.12 mul add M
+  hpt neg vpt -1.62 mul V
+  hpt 2 mul 0 V
+  hpt neg vpt 1.62 mul V closepath fill} def
+/TriD {stroke [] 0 setdash 2 copy vpt 1.12 mul sub M
+  hpt neg vpt 1.62 mul V
+  hpt 2 mul 0 V
+  hpt neg vpt -1.62 mul V closepath stroke
+  Pnt} def
+/TriDF {stroke [] 0 setdash vpt 1.12 mul sub M
+  hpt neg vpt 1.62 mul V
+  hpt 2 mul 0 V
+  hpt neg vpt -1.62 mul V closepath fill} def
+/DiaF {stroke [] 0 setdash vpt add M
+  hpt neg vpt neg V hpt vpt neg V
+  hpt vpt V hpt neg vpt V closepath fill} def
+/Pent {stroke [] 0 setdash 2 copy gsave
+  translate 0 hpt M 4 {72 rotate 0 hpt L} repeat
+  closepath stroke grestore Pnt} def
+/PentF {stroke [] 0 setdash gsave
+  translate 0 hpt M 4 {72 rotate 0 hpt L} repeat
+  closepath fill grestore} def
+/Circle {stroke [] 0 setdash 2 copy
+  hpt 0 360 arc stroke Pnt} def
+/CircleF {stroke [] 0 setdash hpt 0 360 arc fill} def
+/C0 {BL [] 0 setdash 2 copy moveto vpt 90 450 arc} bind def
+/C1 {BL [] 0 setdash 2 copy moveto
+	2 copy vpt 0 90 arc closepath fill
+	vpt 0 360 arc closepath} bind def
+/C2 {BL [] 0 setdash 2 copy moveto
+	2 copy vpt 90 180 arc closepath fill
+	vpt 0 360 arc closepath} bind def
+/C3 {BL [] 0 setdash 2 copy moveto
+	2 copy vpt 0 180 arc closepath fill
+	vpt 0 360 arc closepath} bind def
+/C4 {BL [] 0 setdash 2 copy moveto
+	2 copy vpt 180 270 arc closepath fill
+	vpt 0 360 arc closepath} bind def
+/C5 {BL [] 0 setdash 2 copy moveto
+	2 copy vpt 0 90 arc
+	2 copy moveto
+	2 copy vpt 180 270 arc closepath fill
+	vpt 0 360 arc} bind def
+/C6 {BL [] 0 setdash 2 copy moveto
+	2 copy vpt 90 270 arc closepath fill
+	vpt 0 360 arc closepath} bind def
+/C7 {BL [] 0 setdash 2 copy moveto
+	2 copy vpt 0 270 arc closepath fill
+	vpt 0 360 arc closepath} bind def
+/C8 {BL [] 0 setdash 2 copy moveto
+	2 copy vpt 270 360 arc closepath fill
+	vpt 0 360 arc closepath} bind def
+/C9 {BL [] 0 setdash 2 copy moveto
+	2 copy vpt 270 450 arc closepath fill
+	vpt 0 360 arc closepath} bind def
+/C10 {BL [] 0 setdash 2 copy 2 copy moveto vpt 270 360 arc closepath fill
+	2 copy moveto
+	2 copy vpt 90 180 arc closepath fill
+	vpt 0 360 arc closepath} bind def
+/C11 {BL [] 0 setdash 2 copy moveto
+	2 copy vpt 0 180 arc closepath fill
+	2 copy moveto
+	2 copy vpt 270 360 arc closepath fill
+	vpt 0 360 arc closepath} bind def
+/C12 {BL [] 0 setdash 2 copy moveto
+	2 copy vpt 180 360 arc closepath fill
+	vpt 0 360 arc closepath} bind def
+/C13 {BL [] 0 setdash 2 copy moveto
+	2 copy vpt 0 90 arc closepath fill
+	2 copy moveto
+	2 copy vpt 180 360 arc closepath fill
+	vpt 0 360 arc closepath} bind def
+/C14 {BL [] 0 setdash 2 copy moveto
+	2 copy vpt 90 360 arc closepath fill
+	vpt 0 360 arc} bind def
+/C15 {BL [] 0 setdash 2 copy vpt 0 360 arc closepath fill
+	vpt 0 360 arc closepath} bind def
+/Rec {newpath 4 2 roll moveto 1 index 0 rlineto 0 exch rlineto
+	neg 0 rlineto closepath} bind def
+/Square {dup Rec} bind def
+/Bsquare {vpt sub exch vpt sub exch vpt2 Square} bind def
+/S0 {BL [] 0 setdash 2 copy moveto 0 vpt rlineto BL Bsquare} bind def
+/S1 {BL [] 0 setdash 2 copy vpt Square fill Bsquare} bind def
+/S2 {BL [] 0 setdash 2 copy exch vpt sub exch vpt Square fill Bsquare} bind def
+/S3 {BL [] 0 setdash 2 copy exch vpt sub exch vpt2 vpt Rec fill Bsquare} bind def
+/S4 {BL [] 0 setdash 2 copy exch vpt sub exch vpt sub vpt Square fill Bsquare} bind def
+/S5 {BL [] 0 setdash 2 copy 2 copy vpt Square fill
+	exch vpt sub exch vpt sub vpt Square fill Bsquare} bind def
+/S6 {BL [] 0 setdash 2 copy exch vpt sub exch vpt sub vpt vpt2 Rec fill Bsquare} bind def
+/S7 {BL [] 0 setdash 2 copy exch vpt sub exch vpt sub vpt vpt2 Rec fill
+	2 copy vpt Square fill Bsquare} bind def
+/S8 {BL [] 0 setdash 2 copy vpt sub vpt Square fill Bsquare} bind def
+/S9 {BL [] 0 setdash 2 copy vpt sub vpt vpt2 Rec fill Bsquare} bind def
+/S10 {BL [] 0 setdash 2 copy vpt sub vpt Square fill 2 copy exch vpt sub exch vpt Square fill
+	Bsquare} bind def
+/S11 {BL [] 0 setdash 2 copy vpt sub vpt Square fill 2 copy exch vpt sub exch vpt2 vpt Rec fill
+	Bsquare} bind def
+/S12 {BL [] 0 setdash 2 copy exch vpt sub exch vpt sub vpt2 vpt Rec fill Bsquare} bind def
+/S13 {BL [] 0 setdash 2 copy exch vpt sub exch vpt sub vpt2 vpt Rec fill
+	2 copy vpt Square fill Bsquare} bind def
+/S14 {BL [] 0 setdash 2 copy exch vpt sub exch vpt sub vpt2 vpt Rec fill
+	2 copy exch vpt sub exch vpt Square fill Bsquare} bind def
+/S15 {BL [] 0 setdash 2 copy Bsquare fill Bsquare} bind def
+/D0 {gsave translate 45 rotate 0 0 S0 stroke grestore} bind def
+/D1 {gsave translate 45 rotate 0 0 S1 stroke grestore} bind def
+/D2 {gsave translate 45 rotate 0 0 S2 stroke grestore} bind def
+/D3 {gsave translate 45 rotate 0 0 S3 stroke grestore} bind def
+/D4 {gsave translate 45 rotate 0 0 S4 stroke grestore} bind def
+/D5 {gsave translate 45 rotate 0 0 S5 stroke grestore} bind def
+/D6 {gsave translate 45 rotate 0 0 S6 stroke grestore} bind def
+/D7 {gsave translate 45 rotate 0 0 S7 stroke grestore} bind def
+/D8 {gsave translate 45 rotate 0 0 S8 stroke grestore} bind def
+/D9 {gsave translate 45 rotate 0 0 S9 stroke grestore} bind def
+/D10 {gsave translate 45 rotate 0 0 S10 stroke grestore} bind def
+/D11 {gsave translate 45 rotate 0 0 S11 stroke grestore} bind def
+/D12 {gsave translate 45 rotate 0 0 S12 stroke grestore} bind def
+/D13 {gsave translate 45 rotate 0 0 S13 stroke grestore} bind def
+/D14 {gsave translate 45 rotate 0 0 S14 stroke grestore} bind def
+/D15 {gsave translate 45 rotate 0 0 S15 stroke grestore} bind def
+/DiaE {stroke [] 0 setdash vpt add M
+  hpt neg vpt neg V hpt vpt neg V
+  hpt vpt V hpt neg vpt V closepath stroke} def
+/BoxE {stroke [] 0 setdash exch hpt sub exch vpt add M
+  0 vpt2 neg V hpt2 0 V 0 vpt2 V
+  hpt2 neg 0 V closepath stroke} def
+/TriUE {stroke [] 0 setdash vpt 1.12 mul add M
+  hpt neg vpt -1.62 mul V
+  hpt 2 mul 0 V
+  hpt neg vpt 1.62 mul V closepath stroke} def
+/TriDE {stroke [] 0 setdash vpt 1.12 mul sub M
+  hpt neg vpt 1.62 mul V
+  hpt 2 mul 0 V
+  hpt neg vpt -1.62 mul V closepath stroke} def
+/PentE {stroke [] 0 setdash gsave
+  translate 0 hpt M 4 {72 rotate 0 hpt L} repeat
+  closepath stroke grestore} def
+/CircE {stroke [] 0 setdash 
+  hpt 0 360 arc stroke} def
+/Opaque {gsave closepath 1 setgray fill grestore 0 setgray closepath} def
+/DiaW {stroke [] 0 setdash vpt add M
+  hpt neg vpt neg V hpt vpt neg V
+  hpt vpt V hpt neg vpt V Opaque stroke} def
+/BoxW {stroke [] 0 setdash exch hpt sub exch vpt add M
+  0 vpt2 neg V hpt2 0 V 0 vpt2 V
+  hpt2 neg 0 V Opaque stroke} def
+/TriUW {stroke [] 0 setdash vpt 1.12 mul add M
+  hpt neg vpt -1.62 mul V
+  hpt 2 mul 0 V
+  hpt neg vpt 1.62 mul V Opaque stroke} def
+/TriDW {stroke [] 0 setdash vpt 1.12 mul sub M
+  hpt neg vpt 1.62 mul V
+  hpt 2 mul 0 V
+  hpt neg vpt -1.62 mul V Opaque stroke} def
+/PentW {stroke [] 0 setdash gsave
+  translate 0 hpt M 4 {72 rotate 0 hpt L} repeat
+  Opaque stroke grestore} def
+/CircW {stroke [] 0 setdash 
+  hpt 0 360 arc Opaque stroke} def
+/BoxFill {gsave Rec 1 setgray fill grestore} def
+/Density {
+  /Fillden exch def
+  currentrgbcolor
+  /ColB exch def /ColG exch def /ColR exch def
+  /ColR ColR Fillden mul Fillden sub 1 add def
+  /ColG ColG Fillden mul Fillden sub 1 add def
+  /ColB ColB Fillden mul Fillden sub 1 add def
+  ColR ColG ColB setrgbcolor} def
+/BoxColFill {gsave Rec PolyFill} def
+/PolyFill {gsave Density fill grestore grestore} def
+/h {rlineto rlineto rlineto gsave closepath fill grestore} bind def
+%
+% PostScript Level 1 Pattern Fill routine for rectangles
+% Usage: x y w h s a XX PatternFill
+%	x,y = lower left corner of box to be filled
+%	w,h = width and height of box
+%	  a = angle in degrees between lines and x-axis
+%	 XX = 0/1 for no/yes cross-hatch
+%
+/PatternFill {gsave /PFa [ 9 2 roll ] def
+  PFa 0 get PFa 2 get 2 div add PFa 1 get PFa 3 get 2 div add translate
+  PFa 2 get -2 div PFa 3 get -2 div PFa 2 get PFa 3 get Rec
+  gsave 1 setgray fill grestore clip
+  currentlinewidth 0.5 mul setlinewidth
+  /PFs PFa 2 get dup mul PFa 3 get dup mul add sqrt def
+  0 0 M PFa 5 get rotate PFs -2 div dup translate
+  0 1 PFs PFa 4 get div 1 add floor cvi
+	{PFa 4 get mul 0 M 0 PFs V} for
+  0 PFa 6 get ne {
+	0 1 PFs PFa 4 get div 1 add floor cvi
+	{PFa 4 get mul 0 2 1 roll M PFs 0 V} for
+ } if
+  stroke grestore} def
+%
+/languagelevel where
+ {pop languagelevel} {1} ifelse
+ 2 lt
+	{/InterpretLevel1 true def}
+	{/InterpretLevel1 Level1 def}
+ ifelse
+%
+% PostScript level 2 pattern fill definitions
+%
+/Level2PatternFill {
+/Tile8x8 {/PaintType 2 /PatternType 1 /TilingType 1 /BBox [0 0 8 8] /XStep 8 /YStep 8}
+	bind def
+/KeepColor {currentrgbcolor [/Pattern /DeviceRGB] setcolorspace} bind def
+<< Tile8x8
+ /PaintProc {0.5 setlinewidth pop 0 0 M 8 8 L 0 8 M 8 0 L stroke} 
+>> matrix makepattern
+/Pat1 exch def
+<< Tile8x8
+ /PaintProc {0.5 setlinewidth pop 0 0 M 8 8 L 0 8 M 8 0 L stroke
+	0 4 M 4 8 L 8 4 L 4 0 L 0 4 L stroke}
+>> matrix makepattern
+/Pat2 exch def
+<< Tile8x8
+ /PaintProc {0.5 setlinewidth pop 0 0 M 0 8 L
+	8 8 L 8 0 L 0 0 L fill}
+>> matrix makepattern
+/Pat3 exch def
+<< Tile8x8
+ /PaintProc {0.5 setlinewidth pop -4 8 M 8 -4 L
+	0 12 M 12 0 L stroke}
+>> matrix makepattern
+/Pat4 exch def
+<< Tile8x8
+ /PaintProc {0.5 setlinewidth pop -4 0 M 8 12 L
+	0 -4 M 12 8 L stroke}
+>> matrix makepattern
+/Pat5 exch def
+<< Tile8x8
+ /PaintProc {0.5 setlinewidth pop -2 8 M 4 -4 L
+	0 12 M 8 -4 L 4 12 M 10 0 L stroke}
+>> matrix makepattern
+/Pat6 exch def
+<< Tile8x8
+ /PaintProc {0.5 setlinewidth pop -2 0 M 4 12 L
+	0 -4 M 8 12 L 4 -4 M 10 8 L stroke}
+>> matrix makepattern
+/Pat7 exch def
+<< Tile8x8
+ /PaintProc {0.5 setlinewidth pop 8 -2 M -4 4 L
+	12 0 M -4 8 L 12 4 M 0 10 L stroke}
+>> matrix makepattern
+/Pat8 exch def
+<< Tile8x8
+ /PaintProc {0.5 setlinewidth pop 0 -2 M 12 4 L
+	-4 0 M 12 8 L -4 4 M 8 10 L stroke}
+>> matrix makepattern
+/Pat9 exch def
+/Pattern1 {PatternBgnd KeepColor Pat1 setpattern} bind def
+/Pattern2 {PatternBgnd KeepColor Pat2 setpattern} bind def
+/Pattern3 {PatternBgnd KeepColor Pat3 setpattern} bind def
+/Pattern4 {PatternBgnd KeepColor Landscape {Pat5} {Pat4} ifelse setpattern} bind def
+/Pattern5 {PatternBgnd KeepColor Landscape {Pat4} {Pat5} ifelse setpattern} bind def
+/Pattern6 {PatternBgnd KeepColor Landscape {Pat9} {Pat6} ifelse setpattern} bind def
+/Pattern7 {PatternBgnd KeepColor Landscape {Pat8} {Pat7} ifelse setpattern} bind def
+} def
+%
+%
+%End of PostScript Level 2 code
+%
+/PatternBgnd {
+  TransparentPatterns {} {gsave 1 setgray fill grestore} ifelse
+} def
+%
+% Substitute for Level 2 pattern fill codes with
+% grayscale if Level 2 support is not selected.
+%
+/Level1PatternFill {
+/Pattern1 {0.250 Density} bind def
+/Pattern2 {0.500 Density} bind def
+/Pattern3 {0.750 Density} bind def
+/Pattern4 {0.125 Density} bind def
+/Pattern5 {0.375 Density} bind def
+/Pattern6 {0.625 Density} bind def
+/Pattern7 {0.875 Density} bind def
+} def
+%
+% Now test for support of Level 2 code
+%
+Level1 {Level1PatternFill} {Level2PatternFill} ifelse
+%
+/Symbol-Oblique /Symbol findfont [1 0 .167 1 0 0] makefont
+dup length dict begin {1 index /FID eq {pop pop} {def} ifelse} forall
+currentdict end definefont pop
+/MFshow {
+   { dup 5 get 3 ge
+     { 5 get 3 eq {gsave} {grestore} ifelse }
+     {dup dup 0 get findfont exch 1 get scalefont setfont
+     [ currentpoint ] exch dup 2 get 0 exch R dup 5 get 2 ne {dup dup 6
+     get exch 4 get {Gshow} {stringwidth pop 0 R} ifelse }if dup 5 get 0 eq
+     {dup 3 get {2 get neg 0 exch R pop} {pop aload pop M} ifelse} {dup 5
+     get 1 eq {dup 2 get exch dup 3 get exch 6 get stringwidth pop -2 div
+     dup 0 R} {dup 6 get stringwidth pop -2 div 0 R 6 get
+     show 2 index {aload pop M neg 3 -1 roll neg R pop pop} {pop pop pop
+     pop aload pop M} ifelse }ifelse }ifelse }
+     ifelse }
+   forall} def
+/Gswidth {dup type /stringtype eq {stringwidth} {pop (n) stringwidth} ifelse} def
+/MFwidth {0 exch { dup 5 get 3 ge { 5 get 3 eq { 0 } { pop } ifelse }
+ {dup 3 get{dup dup 0 get findfont exch 1 get scalefont setfont
+     6 get Gswidth pop add} {pop} ifelse} ifelse} forall} def
+/MLshow { currentpoint stroke M
+  0 exch R
+  Blacktext {gsave 0 setgray MFshow grestore} {MFshow} ifelse } bind def
+/MRshow { currentpoint stroke M
+  exch dup MFwidth neg 3 -1 roll R
+  Blacktext {gsave 0 setgray MFshow grestore} {MFshow} ifelse } bind def
+/MCshow { currentpoint stroke M
+  exch dup MFwidth -2 div 3 -1 roll R
+  Blacktext {gsave 0 setgray MFshow grestore} {MFshow} ifelse } bind def
+/XYsave    { [( ) 1 2 true false 3 ()] } bind def
+/XYrestore { [( ) 1 2 true false 4 ()] } bind def
+end
+%%EndProlog
+gnudict begin
+gsave
+doclip
+50 50 translate
+0.050 0.050 scale
+0 setgray
+newpath
+(Helvetica) findfont 140 scalefont setfont
+gsave % colour palette begin
+/maxcolors 64 def
+/HSV2RGB {  exch dup 0.0 eq {pop exch pop dup dup} % achromatic gray
+  { /HSVs exch def /HSVv exch def 6.0 mul dup floor dup 3 1 roll sub
+     /HSVf exch def /HSVi exch cvi def /HSVp HSVv 1.0 HSVs sub mul def
+	 /HSVq HSVv 1.0 HSVs HSVf mul sub mul def 
+	 /HSVt HSVv 1.0 HSVs 1.0 HSVf sub mul sub mul def
+	 /HSVi HSVi 6 mod def 0 HSVi eq {HSVv HSVt HSVp}
+	 {1 HSVi eq {HSVq HSVv HSVp}{2 HSVi eq {HSVp HSVv HSVt}
+	 {3 HSVi eq {HSVp HSVq HSVv}{4 HSVi eq {HSVt HSVp HSVv}
+	 {HSVv HSVp HSVq} ifelse} ifelse} ifelse} ifelse} ifelse
+  } ifelse} def
+/Constrain {
+  dup 0 lt {0 exch pop}{dup 1 gt {1 exch pop} if} ifelse} def
+/YIQ2RGB {
+  3 copy -1.702 mul exch -1.105 mul add add Constrain 4 1 roll
+  3 copy -0.647 mul exch -0.272 mul add add Constrain 5 1 roll
+  0.621 mul exch -0.956 mul add add Constrain 3 1 roll } def
+/CMY2RGB {  1 exch sub exch 1 exch sub 3 2 roll 1 exch sub 3 1 roll exch } def
+/XYZ2RGB {  3 copy -0.9017 mul exch -0.1187 mul add exch 0.0585 mul exch add
+  Constrain 4 1 roll 3 copy -0.0279 mul exch 1.999 mul add exch
+  -0.9844 mul add Constrain 5 1 roll -0.2891 mul exch -0.5338 mul add
+  exch 1.91 mul exch add Constrain 3 1 roll} def
+/SelectSpace {ColorSpace (HSV) eq {HSV2RGB}{ColorSpace (XYZ) eq {
+  XYZ2RGB}{ColorSpace (CMY) eq {CMY2RGB}{ColorSpace (YIQ) eq {YIQ2RGB}
+  if} ifelse} ifelse} ifelse} def
+/InterpolatedColor true def
+/grayindex {/gidx 0 def
+  {GrayA gidx get grayv ge {exit} if /gidx gidx 1 add def} loop} def
+/dgdx {grayv GrayA gidx get sub GrayA gidx 1 sub get
+  GrayA gidx get sub div} def 
+/redvalue {RedA gidx get RedA gidx 1 sub get
+  RedA gidx get sub dgdxval mul add} def
+/greenvalue {GreenA gidx get GreenA gidx 1 sub get
+  GreenA gidx get sub dgdxval mul add} def
+/bluevalue {BlueA gidx get BlueA gidx 1 sub get
+  BlueA gidx get sub dgdxval mul add} def
+/interpolate {
+  grayindex grayv GrayA gidx get sub abs 1e-5 le
+    {RedA gidx get GreenA gidx get BlueA gidx get}
+    {/dgdxval dgdx def redvalue greenvalue bluevalue} ifelse} def
+/GrayA [0 .0159 .0317 .0476 .0635 .0794 .0952 .1111 .127 .1429 .1587 .1746 
+  .1905 .2063 .2222 .2381 .254 .2698 .2857 .3016 .3175 .3333 .3492 .3651 
+  .381 .3968 .4127 .4286 .4444 .4603 .4762 .4921 .5079 .5238 .5397 .5556 
+  .5714 .5873 .6032 .619 .6349 .6508 .6667 .6825 .6984 .7143 .7302 .746 
+  .7619 .7778 .7937 .8095 .8254 .8413 .8571 .873 .8889 .9048 .9206 .9365 
+  .9524 .9683 .9841 1 ] def
+/RedA [.057 .0642 .0715 .0787 .086 .0932 .1004 .1077 .1187 .1559 .1932 
+  .2305 .2677 .305 .3423 .3795 .4168 .4541 .4914 .5286 .5659 .6032 .6404 
+  .6777 .7054 .7172 .7289 .7406 .7524 .7641 .7759 .7876 .7994 .8111 .8229 
+  .8346 .8464 .8581 .8698 .8816 .8627 .8254 .7882 .7509 .7136 .6764 .6391 
+  .6018 .5645 .5273 .49 .4527 .4155 .3782 .3409 .3037 .2824 .2634 .2444 
+  .2254 .2065 .1875 .1685 .1495 ] def
+/GreenA [.057 .0642 .0715 .0787 .086 .0932 .1004 .1077 .1187 .1559 .1932 
+  .2305 .2677 .305 .3423 .3795 .4168 .4541 .4914 .5286 .5659 .6032 .6404 
+  .6777 .7054 .7172 .7289 .7406 .7524 .7641 .7759 .7876 .7994 .8111 .8229 
+  .8346 .8464 .8581 .8698 .8816 .8627 .8254 .7882 .7509 .7136 .6764 .6391 
+  .6018 .5645 .5273 .49 .4527 .4155 .3782 .3409 .3037 .2824 .2634 .2444 
+  .2254 .2065 .1875 .1685 .1495 ] def
+/BlueA [.057 .0642 .0715 .0787 .086 .0932 .1004 .1077 .1187 .1559 .1932 
+  .2305 .2677 .305 .3423 .3795 .4168 .4541 .4914 .5286 .5659 .6032 .6404 
+  .6777 .7054 .7172 .7289 .7406 .7524 .7641 .7759 .7876 .7994 .8111 .8229 
+  .8346 .8464 .8581 .8698 .8816 .8627 .8254 .7882 .7509 .7136 .6764 .6391 
+  .6018 .5645 .5273 .49 .4527 .4155 .3782 .3409 .3037 .2824 .2634 .2444 
+  .2254 .2065 .1875 .1685 .1495 ] def
+/pm3dround {maxcolors 0 gt {dup 1 ge
+	{pop 1} {maxcolors mul floor maxcolors 1 sub div} ifelse} if} def
+/pm3dGamma 1.0 1.5 Gamma mul div def
+/ColorSpace (RGB) def
+Color InterpolatedColor or { % COLOUR vs. GRAY map
+  InterpolatedColor { %% Interpolation vs. RGB-Formula
+    /g {stroke pm3dround /grayv exch def interpolate
+        SelectSpace setrgbcolor} bind def
+  }{
+  /g {stroke pm3dround dup cF7 Constrain exch dup cF5 Constrain exch cF15 Constrain 
+       SelectSpace setrgbcolor} bind def
+  } ifelse
+}{
+  /g {stroke pm3dround pm3dGamma exp setgray} bind def
+} ifelse
+0.500 UL
+LTb
+1475 928 M
+88 0 V
+8833 0 R
+-88 0 V
+stroke
+1391 928 M
+[ [(Helvetica) 120.0 0.0 true true 0 (0)]
+] -40.0 MRshow
+0.500 UL
+LTb
+1475 2100 M
+88 0 V
+8833 0 R
+-88 0 V
+stroke
+1391 2100 M
+[ [(Helvetica) 120.0 0.0 true true 0 (200)]
+] -40.0 MRshow
+0.500 UL
+LTb
+1475 3273 M
+88 0 V
+8833 0 R
+-88 0 V
+stroke
+1391 3273 M
+[ [(Helvetica) 120.0 0.0 true true 0 (400)]
+] -40.0 MRshow
+0.500 UL
+LTb
+1475 4445 M
+88 0 V
+8833 0 R
+-88 0 V
+stroke
+1391 4445 M
+[ [(Helvetica) 120.0 0.0 true true 0 (600)]
+] -40.0 MRshow
+0.500 UL
+LTb
+1475 5617 M
+88 0 V
+8833 0 R
+-88 0 V
+stroke
+1391 5617 M
+[ [(Helvetica) 120.0 0.0 true true 0 (800)]
+] -40.0 MRshow
+0.500 UL
+LTb
+1475 6790 M
+88 0 V
+8833 0 R
+-88 0 V
+stroke
+1391 6790 M
+[ [(Helvetica) 120.0 0.0 true true 0 (1000)]
+] -40.0 MRshow
+0.500 UL
+LTb
+1475 7962 M
+88 0 V
+8833 0 R
+-88 0 V
+stroke
+1391 7962 M
+[ [(Helvetica) 120.0 0.0 true true 0 (1200)]
+] -40.0 MRshow
+0.500 UL
+LTb
+1475 928 M
+0 88 V
+0 6946 R
+0 -88 V
+stroke
+1475 788 M
+[ [(Helvetica) 120.0 0.0 true true 0 (0)]
+] -40.0 MCshow
+0.500 UL
+LTb
+3259 928 M
+0 88 V
+0 6946 R
+0 -88 V
+stroke
+3259 788 M
+[ [(Helvetica) 120.0 0.0 true true 0 (200)]
+] -40.0 MCshow
+0.500 UL
+LTb
+5043 928 M
+0 88 V
+0 6946 R
+0 -88 V
+stroke
+5043 788 M
+[ [(Helvetica) 120.0 0.0 true true 0 (400)]
+] -40.0 MCshow
+0.500 UL
+LTb
+6828 928 M
+0 88 V
+0 6946 R
+0 -88 V
+stroke
+6828 788 M
+[ [(Helvetica) 120.0 0.0 true true 0 (600)]
+] -40.0 MCshow
+0.500 UL
+LTb
+8612 928 M
+0 88 V
+0 6946 R
+0 -88 V
+stroke
+8612 788 M
+[ [(Helvetica) 120.0 0.0 true true 0 (800)]
+] -40.0 MCshow
+0.500 UL
+LTb
+10396 928 M
+0 88 V
+0 6946 R
+0 -88 V
+stroke
+10396 788 M
+[ [(Helvetica) 120.0 0.0 true true 0 (1000)]
+] -40.0 MCshow
+0.500 UL
+LTb
+0.500 UL
+LTb
+1475 7962 N
+0 -7034 V
+8921 0 V
+0 7034 V
+-8921 0 V
+Z stroke
+LCb setrgbcolor
+901 4445 M
+currentpoint gsave translate 90 rotate 0 0 moveto
+[ [(Helvetica) 120.0 0.0 true true 0 (Activity variable)]
+] -40.0 MCshow
+grestore
+LTb
+LCb setrgbcolor
+5935 578 M
+[ [(Helvetica) 120.0 0.0 true true 0 (Time)]
+] -40.0 MCshow
+LTb
+5935 8172 M
+[ [(Helvetica) 120.0 0.0 true true 0 (Depolarization for auron E)]
+] -40.0 MCshow
+1.000 UP
+0.500 UL
+LTb
+% Begin plot #1
+1.000 UP
+0.500 UL
+LT0
+LCb setrgbcolor
+9745 7829 M
+[ [(Helvetica) 120.0 0.0 true true 0 (Depolarization)]
+] -40.0 MRshow
+LT0
+1502 1028 Pnt
+1529 1126 Pnt
+1555 1223 Pnt
+1582 1320 Pnt
+1609 1414 Pnt
+1636 1508 Pnt
+1689 1594 Pnt
+1716 1686 Pnt
+1743 1776 Pnt
+1769 1866 Pnt
+1796 1954 Pnt
+1823 2042 Pnt
+1850 2128 Pnt
+1876 2213 Pnt
+1930 2283 Pnt
+1957 2366 Pnt
+1983 2448 Pnt
+2010 2530 Pnt
+2037 2610 Pnt
+2064 2690 Pnt
+2091 2769 Pnt
+2117 2846 Pnt
+2171 2900 Pnt
+2198 2976 Pnt
+2224 3052 Pnt
+2251 3126 Pnt
+2278 3199 Pnt
+2305 3272 Pnt
+2331 3343 Pnt
+2358 3414 Pnt
+2412 3455 Pnt
+2438 3524 Pnt
+2465 3593 Pnt
+2492 3661 Pnt
+2519 3728 Pnt
+2546 3794 Pnt
+2572 3859 Pnt
+2599 3924 Pnt
+2653 3952 Pnt
+2679 4016 Pnt
+2706 4078 Pnt
+2733 4140 Pnt
+2760 4202 Pnt
+2786 4262 Pnt
+2813 4322 Pnt
+2840 4381 Pnt
+2893 4399 Pnt
+2920 4457 Pnt
+2947 4514 Pnt
+2974 4571 Pnt
+3000 4627 Pnt
+3027 4683 Pnt
+3054 4737 Pnt
+3081 4792 Pnt
+3134 4799 Pnt
+3161 4853 Pnt
+3188 4905 Pnt
+3215 4958 Pnt
+3241 5009 Pnt
+3268 5060 Pnt
+3295 5110 Pnt
+3322 5160 Pnt
+3375 5159 Pnt
+3402 5208 Pnt
+3429 5257 Pnt
+3455 5304 Pnt
+3482 5352 Pnt
+3509 5399 Pnt
+3536 5445 Pnt
+3563 5490 Pnt
+3616 5482 Pnt
+3643 5527 Pnt
+3670 5572 Pnt
+3696 5616 Pnt
+3723 5659 Pnt
+3750 5702 Pnt
+3777 5745 Pnt
+3803 5787 Pnt
+3857 5771 Pnt
+3884 5813 Pnt
+3910 5854 Pnt
+3937 5895 Pnt
+3964 5935 Pnt
+3991 5975 Pnt
+4017 6015 Pnt
+4044 6053 Pnt
+4098 6031 Pnt
+4125 6070 Pnt
+4151 6108 Pnt
+4178 6146 Pnt
+4205 6183 Pnt
+4232 6220 Pnt
+4258 6256 Pnt
+4285 6292 Pnt
+4339 6264 Pnt
+4365 6300 Pnt
+4392 6336 Pnt
+4419 6371 Pnt
+4446 6405 Pnt
+4472 6440 Pnt
+4499 6473 Pnt
+4526 6507 Pnt
+4580 6474 Pnt
+4606 6507 Pnt
+4633 6540 Pnt
+4660 6573 Pnt
+4687 6605 Pnt
+4713 6637 Pnt
+4740 6668 Pnt
+4767 6699 Pnt
+4820 6662 Pnt
+4847 6693 Pnt
+4874 6724 Pnt
+4901 6754 Pnt
+4927 6784 Pnt
+4954 6814 Pnt
+4963 928 Pnt
+4963 934 Pnt
+4963 940 Pnt
+4963 946 Pnt
+4963 951 Pnt
+4963 957 Pnt
+4963 963 Pnt
+4963 969 Pnt
+4963 975 Pnt
+4963 981 Pnt
+4963 987 Pnt
+4963 992 Pnt
+4963 998 Pnt
+4963 1004 Pnt
+4963 1010 Pnt
+4963 1016 Pnt
+4963 1022 Pnt
+4963 1028 Pnt
+4963 1034 Pnt
+4963 1039 Pnt
+4963 1045 Pnt
+4963 1051 Pnt
+4963 1057 Pnt
+4963 1063 Pnt
+4963 1069 Pnt
+4963 1075 Pnt
+4963 1080 Pnt
+4963 1086 Pnt
+4963 1092 Pnt
+4963 1098 Pnt
+4963 1104 Pnt
+4963 1110 Pnt
+4963 1116 Pnt
+4963 1121 Pnt
+4963 1127 Pnt
+4963 1133 Pnt
+4963 1139 Pnt
+4963 1145 Pnt
+4963 1151 Pnt
+4963 1157 Pnt
+4963 1162 Pnt
+4963 1168 Pnt
+4963 1174 Pnt
+4963 1180 Pnt
+4963 1186 Pnt
+4963 1192 Pnt
+4963 1198 Pnt
+4963 1203 Pnt
+4963 1209 Pnt
+4963 1215 Pnt
+4963 1221 Pnt
+4963 1227 Pnt
+4963 1233 Pnt
+4963 1239 Pnt
+4963 1245 Pnt
+4963 1250 Pnt
+4963 1256 Pnt
+4963 1262 Pnt
+4963 1268 Pnt
+4963 1274 Pnt
+4963 1280 Pnt
+4963 1286 Pnt
+4963 1291 Pnt
+4963 1297 Pnt
+4963 1303 Pnt
+4963 1309 Pnt
+4963 1315 Pnt
+4963 1321 Pnt
+4963 1327 Pnt
+4963 1332 Pnt
+4963 1338 Pnt
+4963 1344 Pnt
+4963 1350 Pnt
+4963 1356 Pnt
+4963 1362 Pnt
+4963 1368 Pnt
+4963 1373 Pnt
+4963 1379 Pnt
+4963 1385 Pnt
+4963 1391 Pnt
+4963 1397 Pnt
+4963 1403 Pnt
+4963 1409 Pnt
+4963 1415 Pnt
+4963 1420 Pnt
+4963 1426 Pnt
+4963 1432 Pnt
+4963 1438 Pnt
+4963 1444 Pnt
+4963 1450 Pnt
+4963 1456 Pnt
+4963 1461 Pnt
+4963 1467 Pnt
+4963 1473 Pnt
+4963 1479 Pnt
+4963 1485 Pnt
+4963 1491 Pnt
+4963 1497 Pnt
+4963 1502 Pnt
+4963 1508 Pnt
+4963 1514 Pnt
+4963 1520 Pnt
+4963 1526 Pnt
+4963 1532 Pnt
+4963 1538 Pnt
+4963 1543 Pnt
+4963 1549 Pnt
+4963 1555 Pnt
+4963 1561 Pnt
+4963 1567 Pnt
+4963 1573 Pnt
+4963 1579 Pnt
+4963 1585 Pnt
+4963 1590 Pnt
+4963 1596 Pnt
+4963 1602 Pnt
+4963 1608 Pnt
+4963 1614 Pnt
+4963 1620 Pnt
+4963 1626 Pnt
+4963 1631 Pnt
+4963 1637 Pnt
+4963 1643 Pnt
+4963 1649 Pnt
+4963 1655 Pnt
+4963 1661 Pnt
+4963 1667 Pnt
+4963 1672 Pnt
+4963 1678 Pnt
+4963 1684 Pnt
+4963 1690 Pnt
+4963 1696 Pnt
+4963 1702 Pnt
+4963 1708 Pnt
+4963 1713 Pnt
+4963 1719 Pnt
+4963 1725 Pnt
+4963 1731 Pnt
+4963 1737 Pnt
+4963 1743 Pnt
+4963 1749 Pnt
+4963 1754 Pnt
+4963 1760 Pnt
+4963 1766 Pnt
+4963 1772 Pnt
+4963 1778 Pnt
+4963 1784 Pnt
+4963 1790 Pnt
+4963 1796 Pnt
+4963 1801 Pnt
+4963 1807 Pnt
+4963 1813 Pnt
+4963 1819 Pnt
+4963 1825 Pnt
+4963 1831 Pnt
+4963 1837 Pnt
+4963 1842 Pnt
+4963 1848 Pnt
+4963 1854 Pnt
+4963 1860 Pnt
+4963 1866 Pnt
+4963 1872 Pnt
+4963 1878 Pnt
+4963 1883 Pnt
+4963 1889 Pnt
+4963 1895 Pnt
+4963 1901 Pnt
+4963 1907 Pnt
+4963 1913 Pnt
+4963 1919 Pnt
+4963 1924 Pnt
+4963 1930 Pnt
+4963 1936 Pnt
+4963 1942 Pnt
+4963 1948 Pnt
+4963 1954 Pnt
+4963 1960 Pnt
+4963 1966 Pnt
+4963 1971 Pnt
+4963 1977 Pnt
+4963 1983 Pnt
+4963 1989 Pnt
+4963 1995 Pnt
+4963 2001 Pnt
+4963 2007 Pnt
+4963 2012 Pnt
+4963 2018 Pnt
+4963 2024 Pnt
+4963 2030 Pnt
+4963 2036 Pnt
+4963 2042 Pnt
+4963 2048 Pnt
+4963 2053 Pnt
+4963 2059 Pnt
+4963 2065 Pnt
+4963 2071 Pnt
+4963 2077 Pnt
+4963 2083 Pnt
+4963 2089 Pnt
+4963 2094 Pnt
+4963 2100 Pnt
+4963 2106 Pnt
+4963 2112 Pnt
+4963 2118 Pnt
+4963 2124 Pnt
+4963 2130 Pnt
+4963 2136 Pnt
+4963 2141 Pnt
+4963 2147 Pnt
+4963 2153 Pnt
+4963 2159 Pnt
+4963 2165 Pnt
+4963 2171 Pnt
+4963 2177 Pnt
+4963 2182 Pnt
+4963 2188 Pnt
+4963 2194 Pnt
+4963 2200 Pnt
+4963 2206 Pnt
+4963 2212 Pnt
+4963 2218 Pnt
+4963 2223 Pnt
+4963 2229 Pnt
+4963 2235 Pnt
+4963 2241 Pnt
+4963 2247 Pnt
+4963 2253 Pnt
+4963 2259 Pnt
+4963 2264 Pnt
+4963 2270 Pnt
+4963 2276 Pnt
+4963 2282 Pnt
+4963 2288 Pnt
+4963 2294 Pnt
+4963 2300 Pnt
+4963 2305 Pnt
+4963 2311 Pnt
+4963 2317 Pnt
+4963 2323 Pnt
+4963 2329 Pnt
+4963 2335 Pnt
+4963 2341 Pnt
+4963 2347 Pnt
+4963 2352 Pnt
+4963 2358 Pnt
+4963 2364 Pnt
+4963 2370 Pnt
+4963 2376 Pnt
+4963 2382 Pnt
+4963 2388 Pnt
+4963 2393 Pnt
+4963 2399 Pnt
+4963 2405 Pnt
+4963 2411 Pnt
+4963 2417 Pnt
+4963 2423 Pnt
+4963 2429 Pnt
+4963 2434 Pnt
+4963 2440 Pnt
+4963 2446 Pnt
+4963 2452 Pnt
+4963 2458 Pnt
+4963 2464 Pnt
+4963 2470 Pnt
+4963 2475 Pnt
+4963 2481 Pnt
+4963 2487 Pnt
+4963 2493 Pnt
+4963 2499 Pnt
+4963 2505 Pnt
+4963 2511 Pnt
+4963 2517 Pnt
+4963 2522 Pnt
+4963 2528 Pnt
+4963 2534 Pnt
+4963 2540 Pnt
+4963 2546 Pnt
+4963 2552 Pnt
+4963 2558 Pnt
+4963 2563 Pnt
+4963 2569 Pnt
+4963 2575 Pnt
+4963 2581 Pnt
+4963 2587 Pnt
+4963 2593 Pnt
+4963 2599 Pnt
+4963 2604 Pnt
+4963 2610 Pnt
+4963 2616 Pnt
+4963 2622 Pnt
+4963 2628 Pnt
+4963 2634 Pnt
+4963 2640 Pnt
+4963 2645 Pnt
+4963 2651 Pnt
+4963 2657 Pnt
+4963 2663 Pnt
+4963 2669 Pnt
+4963 2675 Pnt
+4963 2681 Pnt
+4963 2687 Pnt
+4963 2692 Pnt
+4963 2698 Pnt
+4963 2704 Pnt
+4963 2710 Pnt
+4963 2716 Pnt
+4963 2722 Pnt
+4963 2728 Pnt
+4963 2733 Pnt
+4963 2739 Pnt
+4963 2745 Pnt
+4963 2751 Pnt
+4963 2757 Pnt
+4963 2763 Pnt
+4963 2769 Pnt
+4963 2774 Pnt
+4963 2780 Pnt
+4963 2786 Pnt
+4963 2792 Pnt
+4963 2798 Pnt
+4963 2804 Pnt
+4963 2810 Pnt
+4963 2815 Pnt
+4963 2821 Pnt
+4963 2827 Pnt
+4963 2833 Pnt
+4963 2839 Pnt
+4963 2845 Pnt
+4963 2851 Pnt
+4963 2856 Pnt
+4963 2862 Pnt
+4963 2868 Pnt
+4963 2874 Pnt
+4963 2880 Pnt
+4963 2886 Pnt
+4963 2892 Pnt
+4963 2898 Pnt
+4963 2903 Pnt
+4963 2909 Pnt
+4963 2915 Pnt
+4963 2921 Pnt
+4963 2927 Pnt
+4963 2933 Pnt
+4963 2939 Pnt
+4963 2944 Pnt
+4963 2950 Pnt
+4963 2956 Pnt
+4963 2962 Pnt
+4963 2968 Pnt
+4963 2974 Pnt
+4963 2980 Pnt
+4963 2985 Pnt
+4963 2991 Pnt
+4963 2997 Pnt
+4963 3003 Pnt
+4963 3009 Pnt
+4963 3015 Pnt
+4963 3021 Pnt
+4963 3026 Pnt
+4963 3032 Pnt
+4963 3038 Pnt
+4963 3044 Pnt
+4963 3050 Pnt
+4963 3056 Pnt
+4963 3062 Pnt
+4963 3068 Pnt
+4963 3073 Pnt
+4963 3079 Pnt
+4963 3085 Pnt
+4963 3091 Pnt
+4963 3097 Pnt
+4963 3103 Pnt
+4963 3109 Pnt
+4963 3114 Pnt
+4963 3120 Pnt
+4963 3126 Pnt
+4963 3132 Pnt
+4963 3138 Pnt
+4963 3144 Pnt
+4963 3150 Pnt
+4963 3155 Pnt
+4963 3161 Pnt
+4963 3167 Pnt
+4963 3173 Pnt
+4963 3179 Pnt
+4963 3185 Pnt
+4963 3191 Pnt
+4963 3196 Pnt
+4963 3202 Pnt
+4963 3208 Pnt
+4963 3214 Pnt
+4963 3220 Pnt
+4963 3226 Pnt
+4963 3232 Pnt
+4963 3237 Pnt
+4963 3243 Pnt
+4963 3249 Pnt
+4963 3255 Pnt
+4963 3261 Pnt
+4963 3267 Pnt
+4963 3273 Pnt
+4963 3279 Pnt
+4963 3284 Pnt
+4963 3290 Pnt
+4963 3296 Pnt
+4963 3302 Pnt
+4963 3308 Pnt
+4963 3314 Pnt
+4963 3320 Pnt
+4963 3325 Pnt
+4963 3331 Pnt
+4963 3337 Pnt
+4963 3343 Pnt
+4963 3349 Pnt
+4963 3355 Pnt
+4963 3361 Pnt
+4963 3366 Pnt
+4963 3372 Pnt
+4963 3378 Pnt
+4963 3384 Pnt
+4963 3390 Pnt
+4963 3396 Pnt
+4963 3402 Pnt
+4963 3407 Pnt
+4963 3413 Pnt
+4963 3419 Pnt
+4963 3425 Pnt
+4963 3431 Pnt
+4963 3437 Pnt
+4963 3443 Pnt
+4963 3449 Pnt
+4963 3454 Pnt
+4963 3460 Pnt
+4963 3466 Pnt
+4963 3472 Pnt
+4963 3478 Pnt
+4963 3484 Pnt
+4963 3490 Pnt
+4963 3495 Pnt
+4963 3501 Pnt
+4963 3507 Pnt
+4963 3513 Pnt
+4963 3519 Pnt
+4963 3525 Pnt
+4963 3531 Pnt
+4963 3536 Pnt
+4963 3542 Pnt
+4963 3548 Pnt
+4963 3554 Pnt
+4963 3560 Pnt
+4963 3566 Pnt
+4963 3572 Pnt
+4963 3577 Pnt
+4963 3583 Pnt
+4963 3589 Pnt
+4963 3595 Pnt
+4963 3601 Pnt
+4963 3607 Pnt
+4963 3613 Pnt
+4963 3618 Pnt
+4963 3624 Pnt
+4963 3630 Pnt
+4963 3636 Pnt
+4963 3642 Pnt
+4963 3648 Pnt
+4963 3654 Pnt
+4963 3660 Pnt
+4963 3665 Pnt
+4963 3671 Pnt
+4963 3677 Pnt
+4963 3683 Pnt
+4963 3689 Pnt
+4963 3695 Pnt
+4963 3701 Pnt
+4963 3706 Pnt
+4963 3712 Pnt
+4963 3718 Pnt
+4963 3724 Pnt
+4963 3730 Pnt
+4963 3736 Pnt
+4963 3742 Pnt
+4963 3747 Pnt
+4963 3753 Pnt
+4963 3759 Pnt
+4963 3765 Pnt
+4963 3771 Pnt
+4963 3777 Pnt
+4963 3783 Pnt
+4963 3788 Pnt
+4963 3794 Pnt
+4963 3800 Pnt
+4963 3806 Pnt
+4963 3812 Pnt
+4963 3818 Pnt
+4963 3824 Pnt
+4963 3830 Pnt
+4963 3835 Pnt
+4963 3841 Pnt
+4963 3847 Pnt
+4963 3853 Pnt
+4963 3859 Pnt
+4963 3865 Pnt
+4963 3871 Pnt
+4963 3876 Pnt
+4963 3882 Pnt
+4963 3888 Pnt
+4963 3894 Pnt
+4963 3900 Pnt
+4963 3906 Pnt
+4963 3912 Pnt
+4963 3917 Pnt
+4963 3923 Pnt
+4963 3929 Pnt
+4963 3935 Pnt
+4963 3941 Pnt
+4963 3947 Pnt
+4963 3953 Pnt
+4963 3958 Pnt
+4963 3964 Pnt
+4963 3970 Pnt
+4963 3976 Pnt
+4963 3982 Pnt
+4963 3988 Pnt
+4963 3994 Pnt
+4963 3999 Pnt
+4963 4005 Pnt
+4963 4011 Pnt
+4963 4017 Pnt
+4963 4023 Pnt
+4963 4029 Pnt
+4963 4035 Pnt
+4963 4041 Pnt
+4963 4046 Pnt
+4963 4052 Pnt
+4963 4058 Pnt
+4963 4064 Pnt
+4963 4070 Pnt
+4963 4076 Pnt
+4963 4082 Pnt
+4963 4087 Pnt
+4963 4093 Pnt
+4963 4099 Pnt
+4963 4105 Pnt
+4963 4111 Pnt
+4963 4117 Pnt
+4963 4123 Pnt
+4963 4128 Pnt
+4963 4134 Pnt
+4963 4140 Pnt
+4963 4146 Pnt
+4963 4152 Pnt
+4963 4158 Pnt
+4963 4164 Pnt
+4963 4169 Pnt
+4963 4175 Pnt
+4963 4181 Pnt
+4963 4187 Pnt
+4963 4193 Pnt
+4963 4199 Pnt
+4963 4205 Pnt
+4963 4211 Pnt
+4963 4216 Pnt
+4963 4222 Pnt
+4963 4228 Pnt
+4963 4234 Pnt
+4963 4240 Pnt
+4963 4246 Pnt
+4963 4252 Pnt
+4963 4257 Pnt
+4963 4263 Pnt
+4963 4269 Pnt
+4963 4275 Pnt
+4963 4281 Pnt
+4963 4287 Pnt
+4963 4293 Pnt
+4963 4298 Pnt
+4963 4304 Pnt
+4963 4310 Pnt
+4963 4316 Pnt
+4963 4322 Pnt
+4963 4328 Pnt
+4963 4334 Pnt
+4963 4339 Pnt
+4963 4345 Pnt
+4963 4351 Pnt
+4963 4357 Pnt
+4963 4363 Pnt
+4963 4369 Pnt
+4963 4375 Pnt
+4963 4380 Pnt
+4963 4386 Pnt
+4963 4392 Pnt
+4963 4398 Pnt
+4963 4404 Pnt
+4963 4410 Pnt
+4963 4416 Pnt
+4963 4422 Pnt
+4963 4427 Pnt
+4963 4433 Pnt
+4963 4439 Pnt
+4963 4445 Pnt
+4963 4451 Pnt
+4963 4457 Pnt
+4963 4463 Pnt
+4963 4468 Pnt
+4963 4474 Pnt
+4963 4480 Pnt
+4963 4486 Pnt
+4963 4492 Pnt
+4963 4498 Pnt
+4963 4504 Pnt
+4963 4509 Pnt
+4963 4515 Pnt
+4963 4521 Pnt
+4963 4527 Pnt
+4963 4533 Pnt
+4963 4539 Pnt
+4963 4545 Pnt
+4963 4550 Pnt
+4963 4556 Pnt
+4963 4562 Pnt
+4963 4568 Pnt
+4963 4574 Pnt
+4963 4580 Pnt
+4963 4586 Pnt
+4963 4592 Pnt
+4963 4597 Pnt
+4963 4603 Pnt
+4963 4609 Pnt
+4963 4615 Pnt
+4963 4621 Pnt
+4963 4627 Pnt
+4963 4633 Pnt
+4963 4638 Pnt
+4963 4644 Pnt
+4963 4650 Pnt
+4963 4656 Pnt
+4963 4662 Pnt
+4963 4668 Pnt
+4963 4674 Pnt
+4963 4679 Pnt
+4963 4685 Pnt
+4963 4691 Pnt
+4963 4697 Pnt
+4963 4703 Pnt
+4963 4709 Pnt
+4963 4715 Pnt
+4963 4720 Pnt
+4963 4726 Pnt
+4963 4732 Pnt
+4963 4738 Pnt
+4963 4744 Pnt
+4963 4750 Pnt
+4963 4756 Pnt
+4963 4762 Pnt
+4963 4767 Pnt
+4963 4773 Pnt
+4963 4779 Pnt
+4963 4785 Pnt
+4963 4791 Pnt
+4963 4797 Pnt
+4963 4803 Pnt
+4963 4808 Pnt
+4963 4814 Pnt
+4963 4820 Pnt
+4963 4826 Pnt
+4963 4832 Pnt
+4963 4838 Pnt
+4963 4844 Pnt
+4963 4849 Pnt
+4963 4855 Pnt
+4963 4861 Pnt
+4963 4867 Pnt
+4963 4873 Pnt
+4963 4879 Pnt
+4963 4885 Pnt
+4963 4890 Pnt
+4963 4896 Pnt
+4963 4902 Pnt
+4963 4908 Pnt
+4963 4914 Pnt
+4963 4920 Pnt
+4963 4926 Pnt
+4963 4931 Pnt
+4963 4937 Pnt
+4963 4943 Pnt
+4963 4949 Pnt
+4963 4955 Pnt
+4963 4961 Pnt
+4963 4967 Pnt
+4963 4973 Pnt
+4963 4978 Pnt
+4963 4984 Pnt
+4963 4990 Pnt
+4963 4996 Pnt
+4963 5002 Pnt
+4963 5008 Pnt
+4963 5014 Pnt
+4963 5019 Pnt
+4963 5025 Pnt
+4963 5031 Pnt
+4963 5037 Pnt
+4963 5043 Pnt
+4963 5049 Pnt
+4963 5055 Pnt
+4963 5060 Pnt
+4963 5066 Pnt
+4963 5072 Pnt
+4963 5078 Pnt
+4963 5084 Pnt
+4963 5090 Pnt
+4963 5096 Pnt
+4963 5101 Pnt
+4963 5107 Pnt
+4963 5113 Pnt
+4963 5119 Pnt
+4963 5125 Pnt
+4963 5131 Pnt
+4963 5137 Pnt
+4963 5143 Pnt
+4963 5148 Pnt
+4963 5154 Pnt
+4963 5160 Pnt
+4963 5166 Pnt
+4963 5172 Pnt
+4963 5178 Pnt
+4963 5184 Pnt
+4963 5189 Pnt
+4963 5195 Pnt
+4963 5201 Pnt
+4963 5207 Pnt
+4963 5213 Pnt
+4963 5219 Pnt
+4963 5225 Pnt
+4963 5230 Pnt
+4963 5236 Pnt
+4963 5242 Pnt
+4963 5248 Pnt
+4963 5254 Pnt
+4963 5260 Pnt
+4963 5266 Pnt
+4963 5271 Pnt
+4963 5277 Pnt
+4963 5283 Pnt
+4963 5289 Pnt
+4963 5295 Pnt
+4963 5301 Pnt
+4963 5307 Pnt
+4963 5312 Pnt
+4963 5318 Pnt
+4963 5324 Pnt
+4963 5330 Pnt
+4963 5336 Pnt
+4963 5342 Pnt
+4963 5348 Pnt
+4963 5354 Pnt
+4963 5359 Pnt
+4963 5365 Pnt
+4963 5371 Pnt
+4963 5377 Pnt
+4963 5383 Pnt
+4963 5389 Pnt
+4963 5395 Pnt
+4963 5400 Pnt
+4963 5406 Pnt
+4963 5412 Pnt
+4963 5418 Pnt
+4963 5424 Pnt
+4963 5430 Pnt
+4963 5436 Pnt
+4963 5441 Pnt
+4963 5447 Pnt
+4963 5453 Pnt
+4963 5459 Pnt
+4963 5465 Pnt
+4963 5471 Pnt
+4963 5477 Pnt
+4963 5482 Pnt
+4963 5488 Pnt
+4963 5494 Pnt
+4963 5500 Pnt
+4963 5506 Pnt
+4963 5512 Pnt
+4963 5518 Pnt
+4963 5524 Pnt
+4963 5529 Pnt
+4963 5535 Pnt
+4963 5541 Pnt
+4963 5547 Pnt
+4963 5553 Pnt
+4963 5559 Pnt
+4963 5565 Pnt
+4963 5570 Pnt
+4963 5576 Pnt
+4963 5582 Pnt
+4963 5588 Pnt
+4963 5594 Pnt
+4963 5600 Pnt
+4963 5606 Pnt
+4963 5611 Pnt
+4963 5617 Pnt
+4963 5623 Pnt
+4963 5629 Pnt
+4963 5635 Pnt
+4963 5641 Pnt
+4963 5647 Pnt
+4963 5652 Pnt
+4963 5658 Pnt
+4963 5664 Pnt
+4963 5670 Pnt
+4963 5676 Pnt
+4963 5682 Pnt
+4963 5688 Pnt
+4963 5693 Pnt
+4963 5699 Pnt
+4963 5705 Pnt
+4963 5711 Pnt
+4963 5717 Pnt
+4963 5723 Pnt
+4963 5729 Pnt
+4963 5735 Pnt
+4963 5740 Pnt
+4963 5746 Pnt
+4963 5752 Pnt
+4963 5758 Pnt
+4963 5764 Pnt
+4963 5770 Pnt
+4963 5776 Pnt
+4963 5781 Pnt
+4963 5787 Pnt
+4963 5793 Pnt
+4963 5799 Pnt
+4963 5805 Pnt
+4963 5811 Pnt
+4963 5817 Pnt
+4963 5822 Pnt
+4963 5828 Pnt
+4963 5834 Pnt
+4963 5840 Pnt
+4963 5846 Pnt
+4963 5852 Pnt
+4963 5858 Pnt
+4963 5863 Pnt
+4963 5869 Pnt
+4963 5875 Pnt
+4963 5881 Pnt
+4963 5887 Pnt
+4963 5893 Pnt
+4963 5899 Pnt
+4963 5905 Pnt
+4963 5910 Pnt
+4963 5916 Pnt
+4963 5922 Pnt
+4963 5928 Pnt
+4963 5934 Pnt
+4963 5940 Pnt
+4963 5946 Pnt
+4963 5951 Pnt
+4963 5957 Pnt
+4963 5963 Pnt
+4963 5969 Pnt
+4963 5975 Pnt
+4963 5981 Pnt
+4963 5987 Pnt
+4963 5992 Pnt
+4963 5998 Pnt
+4963 6004 Pnt
+4963 6010 Pnt
+4963 6016 Pnt
+4963 6022 Pnt
+4963 6028 Pnt
+4963 6033 Pnt
+4963 6039 Pnt
+4963 6045 Pnt
+4963 6051 Pnt
+4963 6057 Pnt
+4963 6063 Pnt
+4963 6069 Pnt
+4963 6074 Pnt
+4963 6080 Pnt
+4963 6086 Pnt
+4963 6092 Pnt
+4963 6098 Pnt
+4963 6104 Pnt
+4963 6110 Pnt
+4963 6116 Pnt
+4963 6121 Pnt
+4963 6127 Pnt
+4963 6133 Pnt
+4963 6139 Pnt
+4963 6145 Pnt
+4963 6151 Pnt
+4963 6157 Pnt
+4963 6162 Pnt
+4963 6168 Pnt
+4963 6174 Pnt
+4963 6180 Pnt
+4963 6186 Pnt
+4963 6192 Pnt
+4963 6198 Pnt
+4963 6203 Pnt
+4963 6209 Pnt
+4963 6215 Pnt
+4963 6221 Pnt
+4963 6227 Pnt
+4963 6233 Pnt
+4963 6239 Pnt
+4963 6244 Pnt
+4963 6250 Pnt
+4963 6256 Pnt
+4963 6262 Pnt
+4963 6268 Pnt
+4963 6274 Pnt
+4963 6280 Pnt
+4963 6286 Pnt
+4963 6291 Pnt
+4963 6297 Pnt
+4963 6303 Pnt
+4963 6309 Pnt
+4963 6315 Pnt
+4963 6321 Pnt
+4963 6327 Pnt
+4963 6332 Pnt
+4963 6338 Pnt
+4963 6344 Pnt
+4963 6350 Pnt
+4963 6356 Pnt
+4963 6362 Pnt
+4963 6368 Pnt
+4963 6373 Pnt
+4963 6379 Pnt
+4963 6385 Pnt
+4963 6391 Pnt
+4963 6397 Pnt
+4963 6403 Pnt
+4963 6409 Pnt
+4963 6414 Pnt
+4963 6420 Pnt
+4963 6426 Pnt
+4963 6432 Pnt
+4963 6438 Pnt
+4963 6444 Pnt
+4963 6450 Pnt
+4963 6455 Pnt
+4963 6461 Pnt
+4963 6467 Pnt
+4963 6473 Pnt
+4963 6479 Pnt
+4963 6485 Pnt
+4963 6491 Pnt
+4963 6497 Pnt
+4963 6502 Pnt
+4963 6508 Pnt
+4963 6514 Pnt
+4963 6520 Pnt
+4963 6526 Pnt
+4963 6532 Pnt
+4963 6538 Pnt
+4963 6543 Pnt
+4963 6549 Pnt
+4963 6555 Pnt
+4963 6561 Pnt
+4963 6567 Pnt
+4963 6573 Pnt
+4963 6579 Pnt
+4963 6584 Pnt
+4963 6590 Pnt
+4963 6596 Pnt
+4963 6602 Pnt
+4963 6608 Pnt
+4963 6614 Pnt
+4963 6620 Pnt
+4963 6625 Pnt
+4963 6631 Pnt
+4963 6637 Pnt
+4963 6643 Pnt
+4963 6649 Pnt
+4963 6655 Pnt
+4963 6661 Pnt
+4963 6667 Pnt
+4963 6672 Pnt
+4963 6678 Pnt
+4963 6684 Pnt
+4963 6690 Pnt
+4963 6696 Pnt
+4963 6702 Pnt
+4963 6708 Pnt
+4963 6713 Pnt
+4963 6719 Pnt
+4963 6725 Pnt
+4963 6731 Pnt
+4963 6737 Pnt
+4963 6743 Pnt
+4963 6749 Pnt
+4963 6754 Pnt
+4963 6760 Pnt
+4963 6766 Pnt
+4963 6772 Pnt
+4963 6778 Pnt
+4963 6784 Pnt
+4963 6790 Pnt
+4963 6795 Pnt
+4963 6801 Pnt
+4963 6807 Pnt
+4963 6813 Pnt
+4963 6819 Pnt
+4963 6825 Pnt
+4963 6831 Pnt
+4963 6837 Pnt
+4963 6842 Pnt
+4963 6848 Pnt
+4963 6854 Pnt
+4963 6860 Pnt
+4963 6866 Pnt
+4963 6872 Pnt
+4963 6878 Pnt
+4963 6883 Pnt
+4963 6889 Pnt
+4963 6895 Pnt
+4963 6901 Pnt
+4963 6907 Pnt
+4963 6913 Pnt
+4963 6919 Pnt
+4963 6924 Pnt
+4963 6930 Pnt
+4963 6936 Pnt
+4963 6942 Pnt
+4963 6948 Pnt
+4963 6954 Pnt
+4963 6960 Pnt
+4963 6965 Pnt
+4963 6971 Pnt
+4963 6977 Pnt
+4963 6983 Pnt
+4963 6989 Pnt
+4963 6995 Pnt
+4963 7001 Pnt
+4963 7006 Pnt
+4963 7012 Pnt
+4963 7018 Pnt
+4963 7024 Pnt
+4963 7030 Pnt
+4963 7036 Pnt
+4963 7042 Pnt
+4963 7048 Pnt
+4963 7053 Pnt
+4963 7059 Pnt
+4963 7065 Pnt
+4963 7071 Pnt
+4963 7077 Pnt
+4963 7083 Pnt
+4963 7089 Pnt
+4963 7094 Pnt
+4963 7100 Pnt
+4963 7106 Pnt
+4963 7112 Pnt
+4963 7118 Pnt
+4963 7124 Pnt
+4963 7130 Pnt
+4963 7135 Pnt
+4963 7141 Pnt
+4963 7147 Pnt
+4963 7153 Pnt
+4963 7159 Pnt
+4963 7165 Pnt
+4963 7171 Pnt
+4963 7176 Pnt
+4963 7182 Pnt
+4963 7188 Pnt
+4963 7194 Pnt
+4963 7200 Pnt
+4963 7206 Pnt
+4963 7212 Pnt
+4963 7218 Pnt
+4963 7223 Pnt
+4963 7229 Pnt
+4963 7235 Pnt
+4963 7241 Pnt
+4963 7247 Pnt
+4963 7253 Pnt
+4963 7259 Pnt
+4963 7264 Pnt
+4963 7270 Pnt
+4963 7276 Pnt
+4963 7282 Pnt
+4963 7288 Pnt
+4963 7294 Pnt
+4963 7300 Pnt
+4963 7305 Pnt
+4963 7311 Pnt
+4963 7317 Pnt
+4963 7323 Pnt
+4963 7329 Pnt
+4963 7335 Pnt
+4963 7341 Pnt
+4963 7347 Pnt
+4963 7352 Pnt
+4963 7358 Pnt
+4963 7364 Pnt
+4963 7370 Pnt
+4963 7376 Pnt
+4963 7382 Pnt
+4963 7388 Pnt
+4963 7393 Pnt
+4963 7399 Pnt
+4963 7405 Pnt
+4963 7411 Pnt
+4963 7417 Pnt
+4963 7423 Pnt
+4963 7429 Pnt
+4963 7434 Pnt
+4963 7440 Pnt
+4963 7446 Pnt
+4963 7452 Pnt
+4963 7458 Pnt
+4963 7464 Pnt
+4963 7470 Pnt
+4963 7475 Pnt
+4963 7481 Pnt
+4963 7487 Pnt
+4963 7493 Pnt
+4963 7499 Pnt
+4963 7505 Pnt
+4963 7511 Pnt
+4963 7517 Pnt
+4963 7522 Pnt
+4963 7528 Pnt
+4963 7534 Pnt
+4963 7540 Pnt
+4963 7546 Pnt
+4963 7552 Pnt
+4963 7558 Pnt
+4963 7563 Pnt
+4963 7569 Pnt
+4963 7575 Pnt
+4963 7581 Pnt
+4963 7587 Pnt
+4963 7593 Pnt
+4963 7599 Pnt
+4963 7604 Pnt
+4963 7610 Pnt
+4963 7616 Pnt
+4963 7622 Pnt
+4963 7628 Pnt
+4963 7634 Pnt
+4963 7640 Pnt
+4963 7645 Pnt
+4963 7651 Pnt
+4963 7657 Pnt
+4963 7663 Pnt
+4963 7669 Pnt
+4963 7675 Pnt
+4963 7681 Pnt
+4963 7687 Pnt
+4963 7692 Pnt
+4963 7698 Pnt
+4963 7704 Pnt
+4963 7710 Pnt
+4963 7716 Pnt
+4963 7722 Pnt
+4963 7728 Pnt
+4963 7733 Pnt
+4963 7739 Pnt
+4963 7745 Pnt
+4963 7751 Pnt
+4963 7757 Pnt
+4963 7763 Pnt
+4963 7769 Pnt
+4963 7774 Pnt
+4963 7780 Pnt
+4963 7786 Pnt
+4963 7792 Pnt
+4963 7798 Pnt
+4963 7804 Pnt
+4963 7810 Pnt
+4963 7815 Pnt
+4963 7821 Pnt
+4963 7827 Pnt
+4963 7833 Pnt
+4963 7839 Pnt
+4963 7845 Pnt
+4963 7851 Pnt
+4963 7856 Pnt
+4963 7862 Pnt
+4963 7868 Pnt
+4963 7874 Pnt
+4963 7880 Pnt
+4963 7886 Pnt
+4963 7892 Pnt
+4963 7898 Pnt
+4963 7903 Pnt
+4963 7909 Pnt
+4963 7915 Pnt
+4963 7921 Pnt
+4963 7927 Pnt
+4963 7933 Pnt
+4963 7939 Pnt
+4963 7944 Pnt
+4963 7950 Pnt
+4963 7956 Pnt
+4972 928 Pnt
+4981 1028 Pnt
+5008 1126 Pnt
+5061 1221 Pnt
+5088 1317 Pnt
+5115 1412 Pnt
+5142 1506 Pnt
+5168 1599 Pnt
+5195 1690 Pnt
+5222 1781 Pnt
+5249 1870 Pnt
+5302 1948 Pnt
+5329 2035 Pnt
+5356 2122 Pnt
+5382 2207 Pnt
+5409 2291 Pnt
+5436 2375 Pnt
+5463 2457 Pnt
+5489 2538 Pnt
+5543 2600 Pnt
+5570 2679 Pnt
+5597 2758 Pnt
+5623 2836 Pnt
+5650 2913 Pnt
+5677 2989 Pnt
+5704 3064 Pnt
+5730 3138 Pnt
+5784 3185 Pnt
+5811 3258 Pnt
+5837 3329 Pnt
+5864 3400 Pnt
+5891 3470 Pnt
+5918 3540 Pnt
+5944 3608 Pnt
+5971 3676 Pnt
+6025 3710 Pnt
+6051 3777 Pnt
+6078 3842 Pnt
+6105 3907 Pnt
+6132 3971 Pnt
+6159 4034 Pnt
+6185 4097 Pnt
+6212 4159 Pnt
+6266 4181 Pnt
+6292 4242 Pnt
+6319 4302 Pnt
+6346 4362 Pnt
+6373 4420 Pnt
+6399 4478 Pnt
+6426 4535 Pnt
+6453 4592 Pnt
+6506 4604 Pnt
+6533 4660 Pnt
+6560 4715 Pnt
+6587 4770 Pnt
+6613 4823 Pnt
+6640 4876 Pnt
+6667 4929 Pnt
+6694 4981 Pnt
+6747 4984 Pnt
+6774 5035 Pnt
+6801 5086 Pnt
+6828 5136 Pnt
+6854 5185 Pnt
+6881 5234 Pnt
+6908 5282 Pnt
+6935 5330 Pnt
+6988 5325 Pnt
+7015 5372 Pnt
+7042 5418 Pnt
+7068 5464 Pnt
+7095 5510 Pnt
+7122 5555 Pnt
+7149 5599 Pnt
+7176 5643 Pnt
+7229 5630 Pnt
+7256 5674 Pnt
+7283 5717 Pnt
+7309 5759 Pnt
+7336 5801 Pnt
+7363 5843 Pnt
+7390 5883 Pnt
+7416 5924 Pnt
+7470 5905 Pnt
+7497 5945 Pnt
+7523 5985 Pnt
+7550 6024 Pnt
+7577 6063 Pnt
+7604 6101 Pnt
+7630 6139 Pnt
+7657 6176 Pnt
+7711 6151 Pnt
+7738 6188 Pnt
+7764 6225 Pnt
+7791 6261 Pnt
+7818 6297 Pnt
+7845 6333 Pnt
+7871 6368 Pnt
+7898 6402 Pnt
+7952 6372 Pnt
+7978 6407 Pnt
+8005 6441 Pnt
+8032 6474 Pnt
+8059 6508 Pnt
+8085 6541 Pnt
+8112 6573 Pnt
+8139 6606 Pnt
+8193 6570 Pnt
+8219 6602 Pnt
+8246 6634 Pnt
+8273 6666 Pnt
+8300 6697 Pnt
+8326 6728 Pnt
+8353 6758 Pnt
+8380 6788 Pnt
+8433 6748 Pnt
+8460 6778 Pnt
+8487 6808 Pnt
+8496 928 Pnt
+8496 934 Pnt
+8496 940 Pnt
+8496 946 Pnt
+8496 951 Pnt
+8496 957 Pnt
+8496 963 Pnt
+8496 969 Pnt
+8496 975 Pnt
+8496 981 Pnt
+8496 987 Pnt
+8496 992 Pnt
+8496 998 Pnt
+8496 1004 Pnt
+8496 1010 Pnt
+8496 1016 Pnt
+8496 1022 Pnt
+8496 1028 Pnt
+8496 1034 Pnt
+8496 1039 Pnt
+8496 1045 Pnt
+8496 1051 Pnt
+8496 1057 Pnt
+8496 1063 Pnt
+8496 1069 Pnt
+8496 1075 Pnt
+8496 1080 Pnt
+8496 1086 Pnt
+8496 1092 Pnt
+8496 1098 Pnt
+8496 1104 Pnt
+8496 1110 Pnt
+8496 1116 Pnt
+8496 1121 Pnt
+8496 1127 Pnt
+8496 1133 Pnt
+8496 1139 Pnt
+8496 1145 Pnt
+8496 1151 Pnt
+8496 1157 Pnt
+8496 1162 Pnt
+8496 1168 Pnt
+8496 1174 Pnt
+8496 1180 Pnt
+8496 1186 Pnt
+8496 1192 Pnt
+8496 1198 Pnt
+8496 1203 Pnt
+8496 1209 Pnt
+8496 1215 Pnt
+8496 1221 Pnt
+8496 1227 Pnt
+8496 1233 Pnt
+8496 1239 Pnt
+8496 1245 Pnt
+8496 1250 Pnt
+8496 1256 Pnt
+8496 1262 Pnt
+8496 1268 Pnt
+8496 1274 Pnt
+8496 1280 Pnt
+8496 1286 Pnt
+8496 1291 Pnt
+8496 1297 Pnt
+8496 1303 Pnt
+8496 1309 Pnt
+8496 1315 Pnt
+8496 1321 Pnt
+8496 1327 Pnt
+8496 1332 Pnt
+8496 1338 Pnt
+8496 1344 Pnt
+8496 1350 Pnt
+8496 1356 Pnt
+8496 1362 Pnt
+8496 1368 Pnt
+8496 1373 Pnt
+8496 1379 Pnt
+8496 1385 Pnt
+8496 1391 Pnt
+8496 1397 Pnt
+8496 1403 Pnt
+8496 1409 Pnt
+8496 1415 Pnt
+8496 1420 Pnt
+8496 1426 Pnt
+8496 1432 Pnt
+8496 1438 Pnt
+8496 1444 Pnt
+8496 1450 Pnt
+8496 1456 Pnt
+8496 1461 Pnt
+8496 1467 Pnt
+8496 1473 Pnt
+8496 1479 Pnt
+8496 1485 Pnt
+8496 1491 Pnt
+8496 1497 Pnt
+8496 1502 Pnt
+8496 1508 Pnt
+8496 1514 Pnt
+8496 1520 Pnt
+8496 1526 Pnt
+8496 1532 Pnt
+8496 1538 Pnt
+8496 1543 Pnt
+8496 1549 Pnt
+8496 1555 Pnt
+8496 1561 Pnt
+8496 1567 Pnt
+8496 1573 Pnt
+8496 1579 Pnt
+8496 1585 Pnt
+8496 1590 Pnt
+8496 1596 Pnt
+8496 1602 Pnt
+8496 1608 Pnt
+8496 1614 Pnt
+8496 1620 Pnt
+8496 1626 Pnt
+8496 1631 Pnt
+8496 1637 Pnt
+8496 1643 Pnt
+8496 1649 Pnt
+8496 1655 Pnt
+8496 1661 Pnt
+8496 1667 Pnt
+8496 1672 Pnt
+8496 1678 Pnt
+8496 1684 Pnt
+8496 1690 Pnt
+8496 1696 Pnt
+8496 1702 Pnt
+8496 1708 Pnt
+8496 1713 Pnt
+8496 1719 Pnt
+8496 1725 Pnt
+8496 1731 Pnt
+8496 1737 Pnt
+8496 1743 Pnt
+8496 1749 Pnt
+8496 1754 Pnt
+8496 1760 Pnt
+8496 1766 Pnt
+8496 1772 Pnt
+8496 1778 Pnt
+8496 1784 Pnt
+8496 1790 Pnt
+8496 1796 Pnt
+8496 1801 Pnt
+8496 1807 Pnt
+8496 1813 Pnt
+8496 1819 Pnt
+8496 1825 Pnt
+8496 1831 Pnt
+8496 1837 Pnt
+8496 1842 Pnt
+8496 1848 Pnt
+8496 1854 Pnt
+8496 1860 Pnt
+8496 1866 Pnt
+8496 1872 Pnt
+8496 1878 Pnt
+8496 1883 Pnt
+8496 1889 Pnt
+8496 1895 Pnt
+8496 1901 Pnt
+8496 1907 Pnt
+8496 1913 Pnt
+8496 1919 Pnt
+8496 1924 Pnt
+8496 1930 Pnt
+8496 1936 Pnt
+8496 1942 Pnt
+8496 1948 Pnt
+8496 1954 Pnt
+8496 1960 Pnt
+8496 1966 Pnt
+8496 1971 Pnt
+8496 1977 Pnt
+8496 1983 Pnt
+8496 1989 Pnt
+8496 1995 Pnt
+8496 2001 Pnt
+8496 2007 Pnt
+8496 2012 Pnt
+8496 2018 Pnt
+8496 2024 Pnt
+8496 2030 Pnt
+8496 2036 Pnt
+8496 2042 Pnt
+8496 2048 Pnt
+8496 2053 Pnt
+8496 2059 Pnt
+8496 2065 Pnt
+8496 2071 Pnt
+8496 2077 Pnt
+8496 2083 Pnt
+8496 2089 Pnt
+8496 2094 Pnt
+8496 2100 Pnt
+8496 2106 Pnt
+8496 2112 Pnt
+8496 2118 Pnt
+8496 2124 Pnt
+8496 2130 Pnt
+8496 2136 Pnt
+8496 2141 Pnt
+8496 2147 Pnt
+8496 2153 Pnt
+8496 2159 Pnt
+8496 2165 Pnt
+8496 2171 Pnt
+8496 2177 Pnt
+8496 2182 Pnt
+8496 2188 Pnt
+8496 2194 Pnt
+8496 2200 Pnt
+8496 2206 Pnt
+8496 2212 Pnt
+8496 2218 Pnt
+8496 2223 Pnt
+8496 2229 Pnt
+8496 2235 Pnt
+8496 2241 Pnt
+8496 2247 Pnt
+8496 2253 Pnt
+8496 2259 Pnt
+8496 2264 Pnt
+8496 2270 Pnt
+8496 2276 Pnt
+8496 2282 Pnt
+8496 2288 Pnt
+8496 2294 Pnt
+8496 2300 Pnt
+8496 2305 Pnt
+8496 2311 Pnt
+8496 2317 Pnt
+8496 2323 Pnt
+8496 2329 Pnt
+8496 2335 Pnt
+8496 2341 Pnt
+8496 2347 Pnt
+8496 2352 Pnt
+8496 2358 Pnt
+8496 2364 Pnt
+8496 2370 Pnt
+8496 2376 Pnt
+8496 2382 Pnt
+8496 2388 Pnt
+8496 2393 Pnt
+8496 2399 Pnt
+8496 2405 Pnt
+8496 2411 Pnt
+8496 2417 Pnt
+8496 2423 Pnt
+8496 2429 Pnt
+8496 2434 Pnt
+8496 2440 Pnt
+8496 2446 Pnt
+8496 2452 Pnt
+8496 2458 Pnt
+8496 2464 Pnt
+8496 2470 Pnt
+8496 2475 Pnt
+8496 2481 Pnt
+8496 2487 Pnt
+8496 2493 Pnt
+8496 2499 Pnt
+8496 2505 Pnt
+8496 2511 Pnt
+8496 2517 Pnt
+8496 2522 Pnt
+8496 2528 Pnt
+8496 2534 Pnt
+8496 2540 Pnt
+8496 2546 Pnt
+8496 2552 Pnt
+8496 2558 Pnt
+8496 2563 Pnt
+8496 2569 Pnt
+8496 2575 Pnt
+8496 2581 Pnt
+8496 2587 Pnt
+8496 2593 Pnt
+8496 2599 Pnt
+8496 2604 Pnt
+8496 2610 Pnt
+8496 2616 Pnt
+8496 2622 Pnt
+8496 2628 Pnt
+8496 2634 Pnt
+8496 2640 Pnt
+8496 2645 Pnt
+8496 2651 Pnt
+8496 2657 Pnt
+8496 2663 Pnt
+8496 2669 Pnt
+8496 2675 Pnt
+8496 2681 Pnt
+8496 2687 Pnt
+8496 2692 Pnt
+8496 2698 Pnt
+8496 2704 Pnt
+8496 2710 Pnt
+8496 2716 Pnt
+8496 2722 Pnt
+8496 2728 Pnt
+8496 2733 Pnt
+8496 2739 Pnt
+8496 2745 Pnt
+8496 2751 Pnt
+8496 2757 Pnt
+8496 2763 Pnt
+8496 2769 Pnt
+8496 2774 Pnt
+8496 2780 Pnt
+8496 2786 Pnt
+8496 2792 Pnt
+8496 2798 Pnt
+8496 2804 Pnt
+8496 2810 Pnt
+8496 2815 Pnt
+8496 2821 Pnt
+8496 2827 Pnt
+8496 2833 Pnt
+8496 2839 Pnt
+8496 2845 Pnt
+8496 2851 Pnt
+8496 2856 Pnt
+8496 2862 Pnt
+8496 2868 Pnt
+8496 2874 Pnt
+8496 2880 Pnt
+8496 2886 Pnt
+8496 2892 Pnt
+8496 2898 Pnt
+8496 2903 Pnt
+8496 2909 Pnt
+8496 2915 Pnt
+8496 2921 Pnt
+8496 2927 Pnt
+8496 2933 Pnt
+8496 2939 Pnt
+8496 2944 Pnt
+8496 2950 Pnt
+8496 2956 Pnt
+8496 2962 Pnt
+8496 2968 Pnt
+8496 2974 Pnt
+8496 2980 Pnt
+8496 2985 Pnt
+8496 2991 Pnt
+8496 2997 Pnt
+8496 3003 Pnt
+8496 3009 Pnt
+8496 3015 Pnt
+8496 3021 Pnt
+8496 3026 Pnt
+8496 3032 Pnt
+8496 3038 Pnt
+8496 3044 Pnt
+8496 3050 Pnt
+8496 3056 Pnt
+8496 3062 Pnt
+8496 3068 Pnt
+8496 3073 Pnt
+8496 3079 Pnt
+8496 3085 Pnt
+8496 3091 Pnt
+8496 3097 Pnt
+8496 3103 Pnt
+8496 3109 Pnt
+8496 3114 Pnt
+8496 3120 Pnt
+8496 3126 Pnt
+8496 3132 Pnt
+8496 3138 Pnt
+8496 3144 Pnt
+8496 3150 Pnt
+8496 3155 Pnt
+8496 3161 Pnt
+8496 3167 Pnt
+8496 3173 Pnt
+8496 3179 Pnt
+8496 3185 Pnt
+8496 3191 Pnt
+8496 3196 Pnt
+8496 3202 Pnt
+8496 3208 Pnt
+8496 3214 Pnt
+8496 3220 Pnt
+8496 3226 Pnt
+8496 3232 Pnt
+8496 3237 Pnt
+8496 3243 Pnt
+8496 3249 Pnt
+8496 3255 Pnt
+8496 3261 Pnt
+8496 3267 Pnt
+8496 3273 Pnt
+8496 3279 Pnt
+8496 3284 Pnt
+8496 3290 Pnt
+8496 3296 Pnt
+8496 3302 Pnt
+8496 3308 Pnt
+8496 3314 Pnt
+8496 3320 Pnt
+8496 3325 Pnt
+8496 3331 Pnt
+8496 3337 Pnt
+8496 3343 Pnt
+8496 3349 Pnt
+8496 3355 Pnt
+8496 3361 Pnt
+8496 3366 Pnt
+8496 3372 Pnt
+8496 3378 Pnt
+8496 3384 Pnt
+8496 3390 Pnt
+8496 3396 Pnt
+8496 3402 Pnt
+8496 3407 Pnt
+8496 3413 Pnt
+8496 3419 Pnt
+8496 3425 Pnt
+8496 3431 Pnt
+8496 3437 Pnt
+8496 3443 Pnt
+8496 3449 Pnt
+8496 3454 Pnt
+8496 3460 Pnt
+8496 3466 Pnt
+8496 3472 Pnt
+8496 3478 Pnt
+8496 3484 Pnt
+8496 3490 Pnt
+8496 3495 Pnt
+8496 3501 Pnt
+8496 3507 Pnt
+8496 3513 Pnt
+8496 3519 Pnt
+8496 3525 Pnt
+8496 3531 Pnt
+8496 3536 Pnt
+8496 3542 Pnt
+8496 3548 Pnt
+8496 3554 Pnt
+8496 3560 Pnt
+8496 3566 Pnt
+8496 3572 Pnt
+8496 3577 Pnt
+8496 3583 Pnt
+8496 3589 Pnt
+8496 3595 Pnt
+8496 3601 Pnt
+8496 3607 Pnt
+8496 3613 Pnt
+8496 3618 Pnt
+8496 3624 Pnt
+8496 3630 Pnt
+8496 3636 Pnt
+8496 3642 Pnt
+8496 3648 Pnt
+8496 3654 Pnt
+8496 3660 Pnt
+8496 3665 Pnt
+8496 3671 Pnt
+8496 3677 Pnt
+8496 3683 Pnt
+8496 3689 Pnt
+8496 3695 Pnt
+8496 3701 Pnt
+8496 3706 Pnt
+8496 3712 Pnt
+8496 3718 Pnt
+8496 3724 Pnt
+8496 3730 Pnt
+8496 3736 Pnt
+8496 3742 Pnt
+8496 3747 Pnt
+8496 3753 Pnt
+8496 3759 Pnt
+8496 3765 Pnt
+8496 3771 Pnt
+8496 3777 Pnt
+8496 3783 Pnt
+8496 3788 Pnt
+8496 3794 Pnt
+8496 3800 Pnt
+8496 3806 Pnt
+8496 3812 Pnt
+8496 3818 Pnt
+8496 3824 Pnt
+8496 3830 Pnt
+8496 3835 Pnt
+8496 3841 Pnt
+8496 3847 Pnt
+8496 3853 Pnt
+8496 3859 Pnt
+8496 3865 Pnt
+8496 3871 Pnt
+8496 3876 Pnt
+8496 3882 Pnt
+8496 3888 Pnt
+8496 3894 Pnt
+8496 3900 Pnt
+8496 3906 Pnt
+8496 3912 Pnt
+8496 3917 Pnt
+8496 3923 Pnt
+8496 3929 Pnt
+8496 3935 Pnt
+8496 3941 Pnt
+8496 3947 Pnt
+8496 3953 Pnt
+8496 3958 Pnt
+8496 3964 Pnt
+8496 3970 Pnt
+8496 3976 Pnt
+8496 3982 Pnt
+8496 3988 Pnt
+8496 3994 Pnt
+8496 3999 Pnt
+8496 4005 Pnt
+8496 4011 Pnt
+8496 4017 Pnt
+8496 4023 Pnt
+8496 4029 Pnt
+8496 4035 Pnt
+8496 4041 Pnt
+8496 4046 Pnt
+8496 4052 Pnt
+8496 4058 Pnt
+8496 4064 Pnt
+8496 4070 Pnt
+8496 4076 Pnt
+8496 4082 Pnt
+8496 4087 Pnt
+8496 4093 Pnt
+8496 4099 Pnt
+8496 4105 Pnt
+8496 4111 Pnt
+8496 4117 Pnt
+8496 4123 Pnt
+8496 4128 Pnt
+8496 4134 Pnt
+8496 4140 Pnt
+8496 4146 Pnt
+8496 4152 Pnt
+8496 4158 Pnt
+8496 4164 Pnt
+8496 4169 Pnt
+8496 4175 Pnt
+8496 4181 Pnt
+8496 4187 Pnt
+8496 4193 Pnt
+8496 4199 Pnt
+8496 4205 Pnt
+8496 4211 Pnt
+8496 4216 Pnt
+8496 4222 Pnt
+8496 4228 Pnt
+8496 4234 Pnt
+8496 4240 Pnt
+8496 4246 Pnt
+8496 4252 Pnt
+8496 4257 Pnt
+8496 4263 Pnt
+8496 4269 Pnt
+8496 4275 Pnt
+8496 4281 Pnt
+8496 4287 Pnt
+8496 4293 Pnt
+8496 4298 Pnt
+8496 4304 Pnt
+8496 4310 Pnt
+8496 4316 Pnt
+8496 4322 Pnt
+8496 4328 Pnt
+8496 4334 Pnt
+8496 4339 Pnt
+8496 4345 Pnt
+8496 4351 Pnt
+8496 4357 Pnt
+8496 4363 Pnt
+8496 4369 Pnt
+8496 4375 Pnt
+8496 4380 Pnt
+8496 4386 Pnt
+8496 4392 Pnt
+8496 4398 Pnt
+8496 4404 Pnt
+8496 4410 Pnt
+8496 4416 Pnt
+8496 4422 Pnt
+8496 4427 Pnt
+8496 4433 Pnt
+8496 4439 Pnt
+8496 4445 Pnt
+8496 4451 Pnt
+8496 4457 Pnt
+8496 4463 Pnt
+8496 4468 Pnt
+8496 4474 Pnt
+8496 4480 Pnt
+8496 4486 Pnt
+8496 4492 Pnt
+8496 4498 Pnt
+8496 4504 Pnt
+8496 4509 Pnt
+8496 4515 Pnt
+8496 4521 Pnt
+8496 4527 Pnt
+8496 4533 Pnt
+8496 4539 Pnt
+8496 4545 Pnt
+8496 4550 Pnt
+8496 4556 Pnt
+8496 4562 Pnt
+8496 4568 Pnt
+8496 4574 Pnt
+8496 4580 Pnt
+8496 4586 Pnt
+8496 4592 Pnt
+8496 4597 Pnt
+8496 4603 Pnt
+8496 4609 Pnt
+8496 4615 Pnt
+8496 4621 Pnt
+8496 4627 Pnt
+8496 4633 Pnt
+8496 4638 Pnt
+8496 4644 Pnt
+8496 4650 Pnt
+8496 4656 Pnt
+8496 4662 Pnt
+8496 4668 Pnt
+8496 4674 Pnt
+8496 4679 Pnt
+8496 4685 Pnt
+8496 4691 Pnt
+8496 4697 Pnt
+8496 4703 Pnt
+8496 4709 Pnt
+8496 4715 Pnt
+8496 4720 Pnt
+8496 4726 Pnt
+8496 4732 Pnt
+8496 4738 Pnt
+8496 4744 Pnt
+8496 4750 Pnt
+8496 4756 Pnt
+8496 4762 Pnt
+8496 4767 Pnt
+8496 4773 Pnt
+8496 4779 Pnt
+8496 4785 Pnt
+8496 4791 Pnt
+8496 4797 Pnt
+8496 4803 Pnt
+8496 4808 Pnt
+8496 4814 Pnt
+8496 4820 Pnt
+8496 4826 Pnt
+8496 4832 Pnt
+8496 4838 Pnt
+8496 4844 Pnt
+8496 4849 Pnt
+8496 4855 Pnt
+8496 4861 Pnt
+8496 4867 Pnt
+8496 4873 Pnt
+8496 4879 Pnt
+8496 4885 Pnt
+8496 4890 Pnt
+8496 4896 Pnt
+8496 4902 Pnt
+8496 4908 Pnt
+8496 4914 Pnt
+8496 4920 Pnt
+8496 4926 Pnt
+8496 4931 Pnt
+8496 4937 Pnt
+8496 4943 Pnt
+8496 4949 Pnt
+8496 4955 Pnt
+8496 4961 Pnt
+8496 4967 Pnt
+8496 4973 Pnt
+8496 4978 Pnt
+8496 4984 Pnt
+8496 4990 Pnt
+8496 4996 Pnt
+8496 5002 Pnt
+8496 5008 Pnt
+8496 5014 Pnt
+8496 5019 Pnt
+8496 5025 Pnt
+8496 5031 Pnt
+8496 5037 Pnt
+8496 5043 Pnt
+8496 5049 Pnt
+8496 5055 Pnt
+8496 5060 Pnt
+8496 5066 Pnt
+8496 5072 Pnt
+8496 5078 Pnt
+8496 5084 Pnt
+8496 5090 Pnt
+8496 5096 Pnt
+8496 5101 Pnt
+8496 5107 Pnt
+8496 5113 Pnt
+8496 5119 Pnt
+8496 5125 Pnt
+8496 5131 Pnt
+8496 5137 Pnt
+8496 5143 Pnt
+8496 5148 Pnt
+8496 5154 Pnt
+8496 5160 Pnt
+8496 5166 Pnt
+8496 5172 Pnt
+8496 5178 Pnt
+8496 5184 Pnt
+8496 5189 Pnt
+8496 5195 Pnt
+8496 5201 Pnt
+8496 5207 Pnt
+8496 5213 Pnt
+8496 5219 Pnt
+8496 5225 Pnt
+8496 5230 Pnt
+8496 5236 Pnt
+8496 5242 Pnt
+8496 5248 Pnt
+8496 5254 Pnt
+8496 5260 Pnt
+8496 5266 Pnt
+8496 5271 Pnt
+8496 5277 Pnt
+8496 5283 Pnt
+8496 5289 Pnt
+8496 5295 Pnt
+8496 5301 Pnt
+8496 5307 Pnt
+8496 5312 Pnt
+8496 5318 Pnt
+8496 5324 Pnt
+8496 5330 Pnt
+8496 5336 Pnt
+8496 5342 Pnt
+8496 5348 Pnt
+8496 5354 Pnt
+8496 5359 Pnt
+8496 5365 Pnt
+8496 5371 Pnt
+8496 5377 Pnt
+8496 5383 Pnt
+8496 5389 Pnt
+8496 5395 Pnt
+8496 5400 Pnt
+8496 5406 Pnt
+8496 5412 Pnt
+8496 5418 Pnt
+8496 5424 Pnt
+8496 5430 Pnt
+8496 5436 Pnt
+8496 5441 Pnt
+8496 5447 Pnt
+8496 5453 Pnt
+8496 5459 Pnt
+8496 5465 Pnt
+8496 5471 Pnt
+8496 5477 Pnt
+8496 5482 Pnt
+8496 5488 Pnt
+8496 5494 Pnt
+8496 5500 Pnt
+8496 5506 Pnt
+8496 5512 Pnt
+8496 5518 Pnt
+8496 5524 Pnt
+8496 5529 Pnt
+8496 5535 Pnt
+8496 5541 Pnt
+8496 5547 Pnt
+8496 5553 Pnt
+8496 5559 Pnt
+8496 5565 Pnt
+8496 5570 Pnt
+8496 5576 Pnt
+8496 5582 Pnt
+8496 5588 Pnt
+8496 5594 Pnt
+8496 5600 Pnt
+8496 5606 Pnt
+8496 5611 Pnt
+8496 5617 Pnt
+8496 5623 Pnt
+8496 5629 Pnt
+8496 5635 Pnt
+8496 5641 Pnt
+8496 5647 Pnt
+8496 5652 Pnt
+8496 5658 Pnt
+8496 5664 Pnt
+8496 5670 Pnt
+8496 5676 Pnt
+8496 5682 Pnt
+8496 5688 Pnt
+8496 5693 Pnt
+8496 5699 Pnt
+8496 5705 Pnt
+8496 5711 Pnt
+8496 5717 Pnt
+8496 5723 Pnt
+8496 5729 Pnt
+8496 5735 Pnt
+8496 5740 Pnt
+8496 5746 Pnt
+8496 5752 Pnt
+8496 5758 Pnt
+8496 5764 Pnt
+8496 5770 Pnt
+8496 5776 Pnt
+8496 5781 Pnt
+8496 5787 Pnt
+8496 5793 Pnt
+8496 5799 Pnt
+8496 5805 Pnt
+8496 5811 Pnt
+8496 5817 Pnt
+8496 5822 Pnt
+8496 5828 Pnt
+8496 5834 Pnt
+8496 5840 Pnt
+8496 5846 Pnt
+8496 5852 Pnt
+8496 5858 Pnt
+8496 5863 Pnt
+8496 5869 Pnt
+8496 5875 Pnt
+8496 5881 Pnt
+8496 5887 Pnt
+8496 5893 Pnt
+8496 5899 Pnt
+8496 5905 Pnt
+8496 5910 Pnt
+8496 5916 Pnt
+8496 5922 Pnt
+8496 5928 Pnt
+8496 5934 Pnt
+8496 5940 Pnt
+8496 5946 Pnt
+8496 5951 Pnt
+8496 5957 Pnt
+8496 5963 Pnt
+8496 5969 Pnt
+8496 5975 Pnt
+8496 5981 Pnt
+8496 5987 Pnt
+8496 5992 Pnt
+8496 5998 Pnt
+8496 6004 Pnt
+8496 6010 Pnt
+8496 6016 Pnt
+8496 6022 Pnt
+8496 6028 Pnt
+8496 6033 Pnt
+8496 6039 Pnt
+8496 6045 Pnt
+8496 6051 Pnt
+8496 6057 Pnt
+8496 6063 Pnt
+8496 6069 Pnt
+8496 6074 Pnt
+8496 6080 Pnt
+8496 6086 Pnt
+8496 6092 Pnt
+8496 6098 Pnt
+8496 6104 Pnt
+8496 6110 Pnt
+8496 6116 Pnt
+8496 6121 Pnt
+8496 6127 Pnt
+8496 6133 Pnt
+8496 6139 Pnt
+8496 6145 Pnt
+8496 6151 Pnt
+8496 6157 Pnt
+8496 6162 Pnt
+8496 6168 Pnt
+8496 6174 Pnt
+8496 6180 Pnt
+8496 6186 Pnt
+8496 6192 Pnt
+8496 6198 Pnt
+8496 6203 Pnt
+8496 6209 Pnt
+8496 6215 Pnt
+8496 6221 Pnt
+8496 6227 Pnt
+8496 6233 Pnt
+8496 6239 Pnt
+8496 6244 Pnt
+8496 6250 Pnt
+8496 6256 Pnt
+8496 6262 Pnt
+8496 6268 Pnt
+8496 6274 Pnt
+8496 6280 Pnt
+8496 6286 Pnt
+8496 6291 Pnt
+8496 6297 Pnt
+8496 6303 Pnt
+8496 6309 Pnt
+8496 6315 Pnt
+8496 6321 Pnt
+8496 6327 Pnt
+8496 6332 Pnt
+8496 6338 Pnt
+8496 6344 Pnt
+8496 6350 Pnt
+8496 6356 Pnt
+8496 6362 Pnt
+8496 6368 Pnt
+8496 6373 Pnt
+8496 6379 Pnt
+8496 6385 Pnt
+8496 6391 Pnt
+8496 6397 Pnt
+8496 6403 Pnt
+8496 6409 Pnt
+8496 6414 Pnt
+8496 6420 Pnt
+8496 6426 Pnt
+8496 6432 Pnt
+8496 6438 Pnt
+8496 6444 Pnt
+8496 6450 Pnt
+8496 6455 Pnt
+8496 6461 Pnt
+8496 6467 Pnt
+8496 6473 Pnt
+8496 6479 Pnt
+8496 6485 Pnt
+8496 6491 Pnt
+8496 6497 Pnt
+8496 6502 Pnt
+8496 6508 Pnt
+8496 6514 Pnt
+8496 6520 Pnt
+8496 6526 Pnt
+8496 6532 Pnt
+8496 6538 Pnt
+8496 6543 Pnt
+8496 6549 Pnt
+8496 6555 Pnt
+8496 6561 Pnt
+8496 6567 Pnt
+8496 6573 Pnt
+8496 6579 Pnt
+8496 6584 Pnt
+8496 6590 Pnt
+8496 6596 Pnt
+8496 6602 Pnt
+8496 6608 Pnt
+8496 6614 Pnt
+8496 6620 Pnt
+8496 6625 Pnt
+8496 6631 Pnt
+8496 6637 Pnt
+8496 6643 Pnt
+8496 6649 Pnt
+8496 6655 Pnt
+8496 6661 Pnt
+8496 6667 Pnt
+8496 6672 Pnt
+8496 6678 Pnt
+8496 6684 Pnt
+8496 6690 Pnt
+8496 6696 Pnt
+8496 6702 Pnt
+8496 6708 Pnt
+8496 6713 Pnt
+8496 6719 Pnt
+8496 6725 Pnt
+8496 6731 Pnt
+8496 6737 Pnt
+8496 6743 Pnt
+8496 6749 Pnt
+8496 6754 Pnt
+8496 6760 Pnt
+8496 6766 Pnt
+8496 6772 Pnt
+8496 6778 Pnt
+8496 6784 Pnt
+8496 6790 Pnt
+8496 6795 Pnt
+8496 6801 Pnt
+8496 6807 Pnt
+8496 6813 Pnt
+8496 6819 Pnt
+8496 6825 Pnt
+8496 6831 Pnt
+8496 6837 Pnt
+8496 6842 Pnt
+8496 6848 Pnt
+8496 6854 Pnt
+8496 6860 Pnt
+8496 6866 Pnt
+8496 6872 Pnt
+8496 6878 Pnt
+8496 6883 Pnt
+8496 6889 Pnt
+8496 6895 Pnt
+8496 6901 Pnt
+8496 6907 Pnt
+8496 6913 Pnt
+8496 6919 Pnt
+8496 6924 Pnt
+8496 6930 Pnt
+8496 6936 Pnt
+8496 6942 Pnt
+8496 6948 Pnt
+8496 6954 Pnt
+8496 6960 Pnt
+8496 6965 Pnt
+8496 6971 Pnt
+8496 6977 Pnt
+8496 6983 Pnt
+8496 6989 Pnt
+8496 6995 Pnt
+8496 7001 Pnt
+8496 7006 Pnt
+8496 7012 Pnt
+8496 7018 Pnt
+8496 7024 Pnt
+8496 7030 Pnt
+8496 7036 Pnt
+8496 7042 Pnt
+8496 7048 Pnt
+8496 7053 Pnt
+8496 7059 Pnt
+8496 7065 Pnt
+8496 7071 Pnt
+8496 7077 Pnt
+8496 7083 Pnt
+8496 7089 Pnt
+8496 7094 Pnt
+8496 7100 Pnt
+8496 7106 Pnt
+8496 7112 Pnt
+8496 7118 Pnt
+8496 7124 Pnt
+8496 7130 Pnt
+8496 7135 Pnt
+8496 7141 Pnt
+8496 7147 Pnt
+8496 7153 Pnt
+8496 7159 Pnt
+8496 7165 Pnt
+8496 7171 Pnt
+8496 7176 Pnt
+8496 7182 Pnt
+8496 7188 Pnt
+8496 7194 Pnt
+8496 7200 Pnt
+8496 7206 Pnt
+8496 7212 Pnt
+8496 7218 Pnt
+8496 7223 Pnt
+8496 7229 Pnt
+8496 7235 Pnt
+8496 7241 Pnt
+8496 7247 Pnt
+8496 7253 Pnt
+8496 7259 Pnt
+8496 7264 Pnt
+8496 7270 Pnt
+8496 7276 Pnt
+8496 7282 Pnt
+8496 7288 Pnt
+8496 7294 Pnt
+8496 7300 Pnt
+8496 7305 Pnt
+8496 7311 Pnt
+8496 7317 Pnt
+8496 7323 Pnt
+8496 7329 Pnt
+8496 7335 Pnt
+8496 7341 Pnt
+8496 7347 Pnt
+8496 7352 Pnt
+8496 7358 Pnt
+8496 7364 Pnt
+8496 7370 Pnt
+8496 7376 Pnt
+8496 7382 Pnt
+8496 7388 Pnt
+8496 7393 Pnt
+8496 7399 Pnt
+8496 7405 Pnt
+8496 7411 Pnt
+8496 7417 Pnt
+8496 7423 Pnt
+8496 7429 Pnt
+8496 7434 Pnt
+8496 7440 Pnt
+8496 7446 Pnt
+8496 7452 Pnt
+8496 7458 Pnt
+8496 7464 Pnt
+8496 7470 Pnt
+8496 7475 Pnt
+8496 7481 Pnt
+8496 7487 Pnt
+8496 7493 Pnt
+8496 7499 Pnt
+8496 7505 Pnt
+8496 7511 Pnt
+8496 7517 Pnt
+8496 7522 Pnt
+8496 7528 Pnt
+8496 7534 Pnt
+8496 7540 Pnt
+8496 7546 Pnt
+8496 7552 Pnt
+8496 7558 Pnt
+8496 7563 Pnt
+8496 7569 Pnt
+8496 7575 Pnt
+8496 7581 Pnt
+8496 7587 Pnt
+8496 7593 Pnt
+8496 7599 Pnt
+8496 7604 Pnt
+8496 7610 Pnt
+8496 7616 Pnt
+8496 7622 Pnt
+8496 7628 Pnt
+8496 7634 Pnt
+8496 7640 Pnt
+8496 7645 Pnt
+8496 7651 Pnt
+8496 7657 Pnt
+8496 7663 Pnt
+8496 7669 Pnt
+8496 7675 Pnt
+8496 7681 Pnt
+8496 7687 Pnt
+8496 7692 Pnt
+8496 7698 Pnt
+8496 7704 Pnt
+8496 7710 Pnt
+8496 7716 Pnt
+8496 7722 Pnt
+8496 7728 Pnt
+8496 7733 Pnt
+8496 7739 Pnt
+8496 7745 Pnt
+8496 7751 Pnt
+8496 7757 Pnt
+8496 7763 Pnt
+8496 7769 Pnt
+8496 7774 Pnt
+8496 7780 Pnt
+8496 7786 Pnt
+8496 7792 Pnt
+8496 7798 Pnt
+8496 7804 Pnt
+8496 7810 Pnt
+8496 7815 Pnt
+8496 7821 Pnt
+8496 7827 Pnt
+8496 7833 Pnt
+8496 7839 Pnt
+8496 7845 Pnt
+8496 7851 Pnt
+8496 7856 Pnt
+8496 7862 Pnt
+8496 7868 Pnt
+8496 7874 Pnt
+8496 7880 Pnt
+8496 7886 Pnt
+8496 7892 Pnt
+8496 7898 Pnt
+8496 7903 Pnt
+8496 7909 Pnt
+8496 7915 Pnt
+8496 7921 Pnt
+8496 7927 Pnt
+8496 7933 Pnt
+8496 7939 Pnt
+8496 7944 Pnt
+8496 7950 Pnt
+8496 7956 Pnt
+8505 928 Pnt
+8514 1028 Pnt
+8540 1126 Pnt
+8567 1223 Pnt
+8594 1320 Pnt
+8621 1414 Pnt
+8674 1503 Pnt
+8701 1595 Pnt
+8728 1687 Pnt
+8755 1778 Pnt
+8781 1867 Pnt
+8808 1956 Pnt
+8835 2043 Pnt
+8862 2129 Pnt
+8915 2200 Pnt
+8942 2285 Pnt
+8969 2368 Pnt
+8995 2451 Pnt
+9022 2532 Pnt
+9049 2613 Pnt
+9076 2692 Pnt
+9102 2771 Pnt
+9156 2826 Pnt
+9183 2903 Pnt
+9210 2979 Pnt
+9236 3055 Pnt
+9263 3129 Pnt
+9290 3202 Pnt
+9317 3275 Pnt
+9343 3346 Pnt
+9397 3388 Pnt
+9424 3459 Pnt
+9450 3528 Pnt
+9477 3597 Pnt
+9504 3664 Pnt
+9531 3731 Pnt
+9557 3797 Pnt
+9584 3863 Pnt
+9638 3893 Pnt
+9664 3957 Pnt
+9691 4020 Pnt
+9718 4083 Pnt
+9745 4145 Pnt
+9772 4206 Pnt
+9798 4267 Pnt
+9825 4326 Pnt
+9879 4345 Pnt
+9905 4404 Pnt
+9932 4462 Pnt
+9959 4520 Pnt
+9986 4576 Pnt
+10012 4632 Pnt
+10039 4688 Pnt
+10066 4743 Pnt
+10119 4752 Pnt
+10146 4805 Pnt
+10173 4859 Pnt
+10200 4911 Pnt
+10227 4963 Pnt
+10253 5015 Pnt
+10280 5066 Pnt
+10307 5116 Pnt
+10360 5116 Pnt
+10387 5166 Pnt
+10028 7829 Pnt
+% End plot #1
+1.000 UP
+0.500 UL
+LTb
+grestore % colour palette end
+stroke
+grestore
+end
+showpage
+%%Trailer
+%%DocumentFonts: Helvetica

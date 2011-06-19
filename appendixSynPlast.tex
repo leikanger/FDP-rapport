@@ -1,0 +1,199 @@
+
+%Seier fra til tex at resten (eller neste) skal være nummerert som appendix (i referanser og i index):
+\appendix
+\chapter{Synaptic Transmission and Plasticity in the Biological Neuron} %xxx Eller biologisk neurale sys. (er vel strengt tatt ikkje i nevronet, ELLER er det det?)
+
+
+%fra NEVR3001 rapport om synPlast : (Kraftig omskrevet)
+
+%\section{Introduction}
+\label{appendixSynPlast}
+
+The background of memory and learning is an important topic in the field of neuroscience. 
+It has recieved much attention lately, and the knowledge about synaptic plasticity and synaptic transmission has progressed significantly the last decades.
+In this appendix the different mechanisms behind synaptic transmission and plasticity will be in focus.
+We will see that the the ion $Ca^{2+}$ has a crusial role in both presynaptic transmission mechanisms and in postsynaptic mechanisms involved in synaptic plasticity.
+
+% todo Ta vekk (Skreiv det bare inn for å forklare en kybb-leser. Trur syn.p. er kjendt etter rapporten min).
+%First some expressions will have to be defined. Synaptic plasticity referst to change in the size of each of the synapse's transmissions.
+%Synaptic plasticity may be short--term, lasting from milliseconds to minites %TODO finn ut kva noken seier, og referer dette (Bear, purves, kandel)
+% 	, or long--term, giving us ``memories'' that might last from hours to a lifetime.
+
+Synaptic transmission in chemical synapses is dependent on a multitude of different mechanisms situated in the presynaptic axon terminal, the postsynaptic membrane or in glial cells surrounding the synapse.
+%Synaptic transmission in chemical synapses is based on many mechanisms both in the presynaptic axon terminal, the postsynaptic neuron, and in glial cell surrounding the synapse.
+Some of these mechanisms involved in synaptic transmission will be discussed in this appendix.
+We will also look at some elements involved in synaptic plasticity, or change in the size of the synaptic transmission. %TODO Skriv kvifor? FÅ RELEVANS!
+% TODO Skriv noke slikt som: Because the ultimate goal of this appendix is to discuss the reason behind going on from
+% XXX 	og end opp på at eg må beskrive syn.p. også.
+% xxx  	Kan kanskje bare skrive at desse er tett sammenknytta. Nei, eg må forklare kvifor eg vil beskrive STDP.
+%In this essay, some of the mechanisms involved in synaptic transmission will be described. 
+%This is nessecary in order to say something of what changes the same mechanisms.
+
+\section{The presynaptic part of synaptic transmission}
+The propagation of the action potential along the axon, happens as a combination of passive and active transmission.
+The electrical potential is transmitted passively along the axon. On the axon we have voltage--gated $Na^+$ and $K^+$ channels.
+These will open when the electrical membrane potential supasses a threshold, and will further increase the value of the potential. 
+After a while the channels will close in a sequence that resets the potential to the base potential (with a small overshoot) \cite{PrinciplesOfNeuralScience4edKAP09}. 
+%and will not activate reamplification before it encounters special voltage--gated $Na^+$ and $K^+$ channels.
+%The axon is insulated by a special glia cell, to increase the speed of action potential propagation.
+%These are situated in gaps in the insulation, or glia
+This will reamplify the signal  so that is may continue passively down the axon to the next voltage gated channels.
+%In an action potential, electrical potential is first transmitted passively down the axon of a neuron. On the axon we have voltage--gated $Na^+$ and $K^+$ channels 
+%	that open when the electrical potential over the membrane surpasses a threshold\cite{PrinciplesOfNeuralScience4edKAP09}. 
+%This will enhance the signal so that it can continue passively to the next voltage gated channels.
+
+In the nervous system we have specialized insulative cells, called myelin.
+In myelinated neurons, the voltage--gated channels are located in gaps in the myelin, These gaps are called ``nodes of Ranvier''.
+%skriv også om situasjonen for umyeliniserte axon? Nei.
+The voltage--gated channels will restore the action potential, and constitutes the active element of signal tranmission along the axon \cite{PrinciplesOfNeuralScience4edKAP09}.
+%In myelinated neurons these voltage--gated channels are located in gaps in the myelin, called ``nodes of Ranvier'', in unmyelinated neurons the channels are located continously along the axon membrane. The channels will restore the signal, and constitutes the active part of current transduction along the axon\cite{PrinciplesOfNeuralScience4edKAP09}.
+
+
+%*********************** OK så langt. ***********************
+
+When the action potential reaches the axon terminal, the end of the axon down the signal path, it will open voltage gated $Ca^{2+}$ channels at the active zones of the terminal. 
+This causes $Ca^{2+}$ to enter the cytosol of the axon terminal of the presynaptic neuron\cite{PrinciplesOfNeuralScience4edKAP10}.
+
+$Ca^{2+}$ causes synaptic vesicles to fuse with the membrane and release the contained neurotransmitters into the synaptic cleft.%\cite{PrinciplesOfNeuralScience4edKAP10}. 
+There is a linear relationship between the amount of $Ca^{2+}$ entering the cytosol and the amount of synaptic vesicles fusing with the membrane (exocytosis).%\cite{PrinciplesOfNeuralScience4edKAP10}. 
+Ecocytosis of a synaptic vesicle will release the neurotransmitters stored in it into the synaptic cleft \cite{PrinciplesOfNeuralScience4edKAP10}. 
+The amount of neurotransmitters released into the synaptic cleft therefore have a linear relationship with the amount of $Ca^{2+}$ entering the presynaptic axon terminal.
+% TODO Ta med, eller ta vekk?      , given a constant amount of neurotransmitters stored in each synaptic vesicle.
+%Exocytosis releases the content of the synaptic vesicle to the synaptic cleft\cite{PrinciplesOfNeuralScience4edKAP10}.
+
+%XXX Viktig, men utafor scope av teksten:
+%%%%%%The linear relation between the amount of $Ca^{2+}$ entering the axon terminal and the amount of synaptic vesicles undergoing excytosis was first proposed by Katz and Miledi, and later shown by Rodolfo Llinàs and colleges\cite{PrinciplesOfNeuralScience4edKAP14}. 
+%KANSKJE:
+% Dette gir at vi kan ha presynaptisk short--term syn.p., noke som er viktig argument for å innføre axo-axonic synapses (temporal synaptic modulatory system)
+%Rodolfo Llinàs and colleges first showed the mechanisms of a linear relationship between the amount of $Ca^{2+}$ entering the cytosol of the presynaptic cytosol.
+%They also found that the $Ca^{2+}$ channels are graded by the potential over the axon terminal membrane. 
+%This further gives a graded responce of neurotransmitter release based on the preysnaptic membrane potential \cite{PrinciplesOfNeuralScience4edKAP14}.
+%xxx kan ikkje ta vekk, lett. Bruker dette resultatet seinere.. ELLER?
+
+% TODO Flytt alle \cite{} til slutten av avsnittet (dersom de påstandene på slutten også står her..)
+There is a steady influx of $Ca^{2+}$ at axon terminals, through the L-type $Ca^{2+}$ channel\cite{PrinciplesOfNeuralScience4edKAP14}. 
+This influx of calcium is graded by the potential over the presynaptic membrane, and thus causes the effect of axo-axonic synapses in regulating the amount of neurotransmitter release at the next transmissions\cite{PrinciplesOfNeuralScience4edKAP14}.%LENGER syn.p. kan komme av langtidsvirkning av at denne kanalen slepp gjennom meir Ca^2+
+The axo-axonic synapses will not influence the firing of a neuron, only the membrane potential of the an axon terminal. %XXX KVA ER axo--axonic synapses? Inled dette for leser!
+% and thus the amount of neurotransmittors released by the following action potential\cite{PrinciplesOfNeuralScience4edKAP12}.
+This gives a mechanism for controling the postsynaptic exitatory postsynaptic potential between other neurons following an action potential.
+
+%TODO TA vekk?
+%When two action potentials reaches the axon terminal in fast succession it will cause the synapse to be stronger (give a larger postsynaptic response) for many minutes. 
+%This is called \emph{potentiation}, and is thought to be partially because of the increase in presynaptic cytosol $Ca^{2+}$ levels\cite{PrinciplesOfNeuralScience4edKAP14}. In the mossy fiber pathway of the hippocampus, presynaptic $Ca^{2+}$ influx is an important mechanism for synaptic plasticity \cite{PrinciplesOfNeuralScience4edKAP63}. %XXX Sjekk! (mest viktige, eller bare viktig?)
+
+%XXX TA VEKK? 
+%A decrease in the number of synaptic vesicles undergoing exocytocis has been observed in sensory neurons of the \emph{Aplysia Californica} following LTD. %, by quantal analysis 
+%The mechanisms for decrease in synaptic vesicle exocytosis is not known\cite{PrinciplesOfNeuralScience4edKAP63}.
+
+% dette er kanskje interresant: Det kan også være en basis for STDP.. 
+% Sjå om det skal takast vekk, dagen før innlevering.
+An increase in the extracellular level of glutamate has been observed after LTP in CA3 neurons. 
+The mechanisms behind this is debated, but evidense has been presented of \emph{retrograde messangers} from the postsynaptic neuron that will 
+	give feedback to the presynaptic neuron after transmission \cite{PrinciplesOfNeuralScience4edKAP63}. 
+This enables a  presynaptic component of \emph{long--term} synaptic plasticity.
+
+
+
+
+
+
+
+
+\section{Postsynaptic mechnisms of synaptic plasticity}
+%There are tree groups of receptors in the postsynaptic membrane of a synapse. AMPA, .......NMDA, kainate, ....
+Because neuroscience mainly have focused on excitatory glutamate synapses, the discussion about postsynaptic mechnisms behind synaptic plasticity will focus on glutamate transmission.
+
+There are two groups of glutamate receptors: NMDA and non-NMDA receptors. 
+The non-NMDA receptors consists of the AMPA and the kainate receptors. 
+Most non-NMDA receptors are only permeable to $K^+$ and $Na^+$, while the NMDA receptor is permeaple to $Ca^{2+}$ in addition to $K^+$ and ${Na}^+$ \cite{PrinciplesOfNeuralScience4edKAP12}. 
+
+
+The NMDA--receptor is an ion channel that is both voltage gated and ligand gated: 
+	It requires both that the glutamate neurotransmitter is present in the extracellular fluid and a strong depolarization over the membrane to open \cite{PrinciplesOfNeuralScience4edKAP12}. 
+When we get a transmission when the postsynaptic neuron is strongly depolarized, we therefore get an influx of calcium at the postsynaptic neuron.
+$Ca^{2+}$ will activate calcium dependent enzymes and also protein kinases that leads to long--term synaptic plasticity\cite{PrinciplesOfNeuralScience4edKAP12}.
+This is done as a result of the calcium dependent enzymes initiating synthesis of new AMPA receptors \cite{AMPARtrafficingArtikkel}. 
+More receptors causes a larger probability of the glutamate neurotransmittor having an effect, and thus increases the effectivity of the synapse (the synaptic weight).
+
+To conclude this section we will compare the statistical relationship between the postsynaptic neuron having a large depolarization at the time of transmission and the relative timing of the transmission, 
+	in relation to the postsynaptic action potential. 
+If the postsynaptic neuron is strongly depolarized at the time of transmission, this implies that the postsynaptic neuron will fire soon after.
+This might be one of the basis of what has been known by the name Spike Time Dependent Plasticity (STDP).
+% OMGJODT TIL HIT:  XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX 
+% TODO KAnskje ta vekk resten (med unntak av Summary?)
+
+%XXX XXX XXX XXX 
+%If two transmissions happens in rapid succession, you will get a strong (lokal) depolarization around the postsynaptic receptors. This will cause the NMDA--channels to open at the second transmission, and admit $Ca^{2+}$ into the postsynaptic neuron. 
+%TODO Skriv heller om at depolarisasjonen har mykje å seie. NEI, dette står allerede. Skriv korleis tid kan ha noke å seie (begrunn STDP med bakgrunn i teoien her). XXX Gjør eit poeng ut av kvifor eg har tatt med dette i appendixet.
+% 			Dette kan helst gjøres etter neste setning.
+
+%Also in the postsynaptic neuron, calcium has an important role in synaptic plasticity. 
+%$Ca^{2+}$ will activate calcium dependent enzymes and also protein kinases that leads to long--term synaptic plasticity\cite{PrinciplesOfNeuralScience4edKAP12}.
+%%Second messangers can also be activated by metabotropic receptors in addition to $Ca^{2+}$ and the same protein kinases are activated. 
+
+% IKKJE RELEVANT:
+%The calcium is thought to be important in both short-term potentiation by enhancing the response of AMPA receptors to glutamate\cite{PrinciplesOfNeuralScience4edKAP63}, 
+% 	and also elicit ``permanent'' synaptic changes by receptor synthesis\cite{AMPARtrafficingArtikkel}. %Dette ER relevant, men skrevet over.
+%This is thought to enhance the response of AMPA receptors to glutamate\cite{PrinciplesOfNeuralScience4edKAP63}, but also elicit longer lasting (``permanenet'') synaptic plasticity.
+
+\section{Receptor synthesis}
+The rise in calsium levels in the postsynaptic cytosol activates postsynaptic plasticity\cite{AMPARtrafficingArtikkel}. 
+One of the possible mechanisms behind postsynaptic LTP or LTD is the increase or decrease in postsynaptic receptors. There has been increased focus on receptor trafficing in the recent years, especially on the AMPA receptor. 
+
+\begin{quote}
+At early stages of development, synapses containing only NMDA type receptors are particularly common\cite{PrinciplesOfNeuralScience4edKAP12}.
+\end{quote}
+Synapses containing only the NMDA receptor is called ``silent synapses'' because they do not change the postsynaptic potential (PSP) unless the postsynaptic membrane is sufficiently depolarized. 
+This makes them silent at normal resting membrane potential\cite{AMPARtrafficingArtikkel}. 
+It has been observed that these ``silent synapses'' is converted into normal exitatory synapses by the insertion AMPA receptors into the postsynaptic membrane\cite{AMPARtrafficingArtikkel}. 
+
+It has been shown that when synapses undergo LTD, the amount of AMPA receptors in the postsynaptic membrane decreases\cite{AMPARtrafficingArtikkel}. 
+This is believed to be because of endocytosis of the receptors. If the dynamin-dependent endocytosis is blocked, LTD is also blocked in the samle\cite{AMPARtrafficingArtikkel}.
+
+\section{Glial modulation of synaptic transmission}
+One way for asterocytes to modulate synaptic transmission is to release ATP, which is converted to adenosine extracellularly. 
+Adenosine inhibits the $Ca^{2+}$ channels in the presynaptic axon terminal membrane\cite{signallingBetweenGlialAndNeuronsInSynPlast}. 
+This results in less exocytosis of synaptic vesicles in the presynaptic membrane, which gives less neurotransmitters in the synaptic cleft as a consequence\cite{signallingBetweenGlialAndNeuronsInSynPlast}.
+%This also affects neighboring synapses\cite{signallingBetweenGlialAndNeuronsInSynPlast}. %men det er uklart om dette er pga slett andre plasser også, eller diffusjon.
+
+For the NMDA receptor channels to open, three conditions has to be met:
+\begin{enumerate}
+	\item Glutamate needs to be present in the synaptic cleft.
+	\item The postsynaptic membrane needs to be sufficiently depolarized.
+	\item D-serine needs to be present in the synaptic cleft\cite{signallingBetweenGlialAndNeuronsInSynPlast}.
+\end{enumerate}
+The point about D-serine is interresting, since D-serine is absent in neurons. It is present in asterocytes.
+One possible explanation it therefore that asterocytes release the D-serine required for the NMDA-R to open\cite{signallingBetweenGlialAndNeuronsInSynPlast}.  % D-Serine bindes til glycine-binding site.
+This indicates that the asterocytes are important in modulating the synaptic plasticity induced by NMDA-R opening.
+
+Glial cells are also important for synaptic transmission by being permeable to $K^+$ from the extracellular fluid of the synaptic cleft\cite{PrinciplesOfNeuralScience4edKAP07}, 
+and by being in control of the reuptake of certain neurotransmittors (eg. glutamate)\cite{PrinciplesOfNeuralScience4edKAP15}. %kap 15 kandell, 
+%This gives possible astrocyte mechanisms for modulating synaptic transmission.
+
+
+
+\section{summary}
+%TODO Skriv kvifor eg har skevet alt dette. Få relevans. (STDP, som er viktig argument for SANN)
+The subject about synaptic plasticity is important for the understanding of neural systems. 
+We have presynaptic and postsynaptic elements of synaptic transmission, both subject to continous change. This gives two possible elements of synaptic plasticity. 
+
+The presynaptic part of synaptic transmission can be regulated by changing the presynaptic voltage gated $Ca^{2+}$ channels. One way this is done is by axo-axonic synapses that depolarises the axon terminal before the action potential, and thus enhance/inhibit or prolong/shorten the influx of calcium. 
+This results in a change in the amount of neurotransmittors released into the synaptic cleft.
+
+The postsynaptic part of synaptic plasticity consists of short term changes, by changing the effect of AMPA-R with calcium, or long lasting changes involving protein synthesis and the insertion of new AMPA-R in the postsynaptic membrane. Both are dependent on calcium. Changing the postsynaptic influx of calcium is therefore an other plausible mechanism for synaptic plasticity.
+
+The asterocytes maintains the environment for the synaptic transmission by maintaining the ion consentrations in the extracellular fluid in the synaptic cleft. 
+Modulation of this will change the environment for synaptic transmission and be a way of changing the effect of synaptic transmission. 
+
+The asterocytes are also responsible for removing some neurotransmittors from the synaptic cleft. 
+This makes them in control of the time the neurotransmittor is in the synaptic cleft, and thereby the time it will be effective on the postsynaptic receptors.
+This desides the postsynaptic effect of the transmission. Change of this is yet an other mechanism for synaptic plasticity.
+%This opens for yet an other mechanism for the asterocytes to control the postsynaptic response of a transmission.
+
+
+%\begin{figure}[!htbp]
+%	\centering
+%	\includegraphics[width=0.8\textwidth]{figurSTDP.jpeg}
+%	\caption{Spike timing-dependent plasticity. a, Synapses are potentiated if the synaptic event precedes the postsynaptic spike. Synapses are depressed if the synaptic event follows the postsynaptic spike. b, The time window for synaptic modification. The relative amount of synaptic change is plotted versus the time difference between synaptic event and the postsynaptic spike. The amount of change falls off exponentially as the time difference increases. In addition, the amount of potentiation decreases for stronger synapses, whereas the relative amount of depression is independent of synaptic size.}
+%\end{figure}
+

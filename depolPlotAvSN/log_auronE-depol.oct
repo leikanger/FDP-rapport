@@ -1,0 +1,2707 @@
+data=[3	17; 	 #Depolarization
+6	33.7968; 	 #Depolarization
+9	50.3929; 	 #Depolarization
+12	66.7906; 	 #Depolarization
+15	82.9923; 	 #Depolarization
+18	99.0004; 	 #Depolarization
+24	113.648; 	 #Depolarization
+27	129.29; 	 #Depolarization
+30	144.744; 	 #Depolarization
+33	160.014; 	 #Depolarization
+36	175.102; 	 #Depolarization
+39	190.009; 	 #Depolarization
+42	204.738; 	 #Depolarization
+45	219.291; 	 #Depolarization
+51	231.08; 	 #Depolarization
+54	245.318; 	 #Depolarization
+57	259.386; 	 #Depolarization
+60	273.286; 	 #Depolarization
+63	287.02; 	 #Depolarization
+66	300.589; 	 #Depolarization
+69	313.997; 	 #Depolarization
+72	327.244; 	 #Depolarization
+78	336.468; 	 #Depolarization
+81	349.447; 	 #Depolarization
+84	362.27; 	 #Depolarization
+87	374.94; 	 #Depolarization
+90	387.459; 	 #Depolarization
+93	399.828; 	 #Depolarization
+96	412.049; 	 #Depolarization
+99	424.124; 	 #Depolarization
+105	431.047; 	 #Depolarization
+108	442.895; 	 #Depolarization
+111	454.601; 	 #Depolarization
+114	466.168; 	 #Depolarization
+117	477.596; 	 #Depolarization
+120	488.888; 	 #Depolarization
+123	500.045; 	 #Depolarization
+126	511.068; 	 #Depolarization
+132	515.924; 	 #Depolarization
+135	526.758; 	 #Depolarization
+138	537.462; 	 #Depolarization
+141	548.038; 	 #Depolarization
+144	558.488; 	 #Depolarization
+147	568.813; 	 #Depolarization
+150	579.015; 	 #Depolarization
+153	589.094; 	 #Depolarization
+159	592.097; 	 #Depolarization
+162	602.02; 	 #Depolarization
+165	611.824; 	 #Depolarization
+168	621.512; 	 #Depolarization
+171	631.084; 	 #Depolarization
+174	640.541; 	 #Depolarization
+177	649.885; 	 #Depolarization
+180	659.118; 	 #Depolarization
+186	660.456; 	 #Depolarization
+189	669.562; 	 #Depolarization
+192	678.56; 	 #Depolarization
+195	687.449; 	 #Depolarization
+198	696.233; 	 #Depolarization
+201	704.912; 	 #Depolarization
+204	713.486; 	 #Depolarization
+207	721.959; 	 #Depolarization
+213	721.804; 	 #Depolarization
+216	730.177; 	 #Depolarization
+219	738.45; 	 #Depolarization
+222	746.624; 	 #Depolarization
+225	754.7; 	 #Depolarization
+228	762.68; 	 #Depolarization
+231	770.564; 	 #Depolarization
+234	778.355; 	 #Depolarization
+240	776.86; 	 #Depolarization
+243	784.575; 	 #Depolarization
+246	792.197; 	 #Depolarization
+249	799.729; 	 #Depolarization
+252	807.171; 	 #Depolarization
+255	814.523; 	 #Depolarization
+258	821.788; 	 #Depolarization
+261	828.966; 	 #Depolarization
+267	826.269; 	 #Depolarization
+270	833.393; 	 #Depolarization
+273	840.432; 	 #Depolarization
+276	847.387; 	 #Depolarization
+279	854.259; 	 #Depolarization
+282	861.049; 	 #Depolarization
+285	867.758; 	 #Depolarization
+288	874.386; 	 #Depolarization
+294	870.61; 	 #Depolarization
+297	877.204; 	 #Depolarization
+300	883.72; 	 #Depolarization
+303	890.158; 	 #Depolarization
+306	896.518; 	 #Depolarization
+309	902.803; 	 #Depolarization
+312	909.013; 	 #Depolarization
+315	915.148; 	 #Depolarization
+321	910.403; 	 #Depolarization
+324	916.522; 	 #Depolarization
+327	922.568; 	 #Depolarization
+330	928.541; 	 #Depolarization
+333	934.443; 	 #Depolarization
+336	940.275; 	 #Depolarization
+339	946.036; 	 #Depolarization
+342	951.729; 	 #Depolarization
+348	946.115; 	 #Depolarization
+351	951.807; 	 #Depolarization
+354	957.431; 	 #Depolarization
+357	962.988; 	 #Depolarization
+360	968.478; 	 #Depolarization
+363	973.903; 	 #Depolarization
+366	979.262; 	 #Depolarization
+369	984.558; 	 #Depolarization
+375	978.164; 	 #Depolarization
+378	983.473; 	 #Depolarization
+381	988.718; 	 #Depolarization
+384	993.901; 	 #Depolarization
+387	999.022; 	 #Depolarization
+390	1004.08; 	 #Depolarization
+391	0; 	 #Action potential
+391	1; 	 #Action potential
+391	2; 	 #Action potential
+391	3; 	 #Action potential
+391	4; 	 #Action potential
+391	5; 	 #Action potential
+391	6; 	 #Action potential
+391	7; 	 #Action potential
+391	8; 	 #Action potential
+391	9; 	 #Action potential
+391	10; 	 #Action potential
+391	11; 	 #Action potential
+391	12; 	 #Action potential
+391	13; 	 #Action potential
+391	14; 	 #Action potential
+391	15; 	 #Action potential
+391	16; 	 #Action potential
+391	17; 	 #Action potential
+391	18; 	 #Action potential
+391	19; 	 #Action potential
+391	20; 	 #Action potential
+391	21; 	 #Action potential
+391	22; 	 #Action potential
+391	23; 	 #Action potential
+391	24; 	 #Action potential
+391	25; 	 #Action potential
+391	26; 	 #Action potential
+391	27; 	 #Action potential
+391	28; 	 #Action potential
+391	29; 	 #Action potential
+391	30; 	 #Action potential
+391	31; 	 #Action potential
+391	32; 	 #Action potential
+391	33; 	 #Action potential
+391	34; 	 #Action potential
+391	35; 	 #Action potential
+391	36; 	 #Action potential
+391	37; 	 #Action potential
+391	38; 	 #Action potential
+391	39; 	 #Action potential
+391	40; 	 #Action potential
+391	41; 	 #Action potential
+391	42; 	 #Action potential
+391	43; 	 #Action potential
+391	44; 	 #Action potential
+391	45; 	 #Action potential
+391	46; 	 #Action potential
+391	47; 	 #Action potential
+391	48; 	 #Action potential
+391	49; 	 #Action potential
+391	50; 	 #Action potential
+391	51; 	 #Action potential
+391	52; 	 #Action potential
+391	53; 	 #Action potential
+391	54; 	 #Action potential
+391	55; 	 #Action potential
+391	56; 	 #Action potential
+391	57; 	 #Action potential
+391	58; 	 #Action potential
+391	59; 	 #Action potential
+391	60; 	 #Action potential
+391	61; 	 #Action potential
+391	62; 	 #Action potential
+391	62.9999; 	 #Action potential
+391	64; 	 #Action potential
+391	65; 	 #Action potential
+391	66; 	 #Action potential
+391	67; 	 #Action potential
+391	68; 	 #Action potential
+391	69; 	 #Action potential
+391	70; 	 #Action potential
+391	71; 	 #Action potential
+391	72; 	 #Action potential
+391	73; 	 #Action potential
+391	74; 	 #Action potential
+391	75; 	 #Action potential
+391	76; 	 #Action potential
+391	77; 	 #Action potential
+391	78; 	 #Action potential
+391	79; 	 #Action potential
+391	80; 	 #Action potential
+391	81; 	 #Action potential
+391	82; 	 #Action potential
+391	83; 	 #Action potential
+391	84; 	 #Action potential
+391	85; 	 #Action potential
+391	86; 	 #Action potential
+391	87; 	 #Action potential
+391	88; 	 #Action potential
+391	89; 	 #Action potential
+391	90; 	 #Action potential
+391	91; 	 #Action potential
+391	92; 	 #Action potential
+391	93; 	 #Action potential
+391	94; 	 #Action potential
+391	95; 	 #Action potential
+391	96; 	 #Action potential
+391	97; 	 #Action potential
+391	98; 	 #Action potential
+391	99; 	 #Action potential
+391	100; 	 #Action potential
+391	101; 	 #Action potential
+391	102; 	 #Action potential
+391	103; 	 #Action potential
+391	104; 	 #Action potential
+391	105; 	 #Action potential
+391	106; 	 #Action potential
+391	107; 	 #Action potential
+391	108; 	 #Action potential
+391	109; 	 #Action potential
+391	110; 	 #Action potential
+391	111; 	 #Action potential
+391	112; 	 #Action potential
+391	113; 	 #Action potential
+391	114; 	 #Action potential
+391	115; 	 #Action potential
+391	116; 	 #Action potential
+391	117; 	 #Action potential
+391	118; 	 #Action potential
+391	119; 	 #Action potential
+391	120; 	 #Action potential
+391	121; 	 #Action potential
+391	122; 	 #Action potential
+391	123; 	 #Action potential
+391	124; 	 #Action potential
+391	125; 	 #Action potential
+391	126; 	 #Action potential
+391	127; 	 #Action potential
+391	128; 	 #Action potential
+391	129; 	 #Action potential
+391	130; 	 #Action potential
+391	131; 	 #Action potential
+391	132; 	 #Action potential
+391	133; 	 #Action potential
+391	134; 	 #Action potential
+391	135; 	 #Action potential
+391	136; 	 #Action potential
+391	137; 	 #Action potential
+391	138; 	 #Action potential
+391	139; 	 #Action potential
+391	140; 	 #Action potential
+391	141; 	 #Action potential
+391	142; 	 #Action potential
+391	143; 	 #Action potential
+391	144; 	 #Action potential
+391	145; 	 #Action potential
+391	146; 	 #Action potential
+391	147; 	 #Action potential
+391	148; 	 #Action potential
+391	149; 	 #Action potential
+391	150; 	 #Action potential
+391	151; 	 #Action potential
+391	152; 	 #Action potential
+391	153; 	 #Action potential
+391	154; 	 #Action potential
+391	155; 	 #Action potential
+391	156; 	 #Action potential
+391	157; 	 #Action potential
+391	158; 	 #Action potential
+391	159; 	 #Action potential
+391	160; 	 #Action potential
+391	161; 	 #Action potential
+391	162; 	 #Action potential
+391	163; 	 #Action potential
+391	164; 	 #Action potential
+391	165; 	 #Action potential
+391	166; 	 #Action potential
+391	167; 	 #Action potential
+391	168; 	 #Action potential
+391	169; 	 #Action potential
+391	170; 	 #Action potential
+391	171; 	 #Action potential
+391	172; 	 #Action potential
+391	173; 	 #Action potential
+391	174; 	 #Action potential
+391	175; 	 #Action potential
+391	176; 	 #Action potential
+391	177; 	 #Action potential
+391	178; 	 #Action potential
+391	179; 	 #Action potential
+391	180; 	 #Action potential
+391	181; 	 #Action potential
+391	182; 	 #Action potential
+391	183; 	 #Action potential
+391	184; 	 #Action potential
+391	185; 	 #Action potential
+391	186; 	 #Action potential
+391	187; 	 #Action potential
+391	188; 	 #Action potential
+391	189; 	 #Action potential
+391	190; 	 #Action potential
+391	191; 	 #Action potential
+391	192; 	 #Action potential
+391	193; 	 #Action potential
+391	194; 	 #Action potential
+391	195; 	 #Action potential
+391	196; 	 #Action potential
+391	197; 	 #Action potential
+391	198; 	 #Action potential
+391	199; 	 #Action potential
+391	200; 	 #Action potential
+391	201; 	 #Action potential
+391	202; 	 #Action potential
+391	203; 	 #Action potential
+391	204; 	 #Action potential
+391	205; 	 #Action potential
+391	206; 	 #Action potential
+391	207; 	 #Action potential
+391	208; 	 #Action potential
+391	209; 	 #Action potential
+391	210; 	 #Action potential
+391	211; 	 #Action potential
+391	212; 	 #Action potential
+391	213; 	 #Action potential
+391	214; 	 #Action potential
+391	215; 	 #Action potential
+391	216; 	 #Action potential
+391	217; 	 #Action potential
+391	218; 	 #Action potential
+391	219; 	 #Action potential
+391	220; 	 #Action potential
+391	221; 	 #Action potential
+391	222; 	 #Action potential
+391	223; 	 #Action potential
+391	224; 	 #Action potential
+391	225; 	 #Action potential
+391	226; 	 #Action potential
+391	227; 	 #Action potential
+391	228; 	 #Action potential
+391	229; 	 #Action potential
+391	230; 	 #Action potential
+391	231; 	 #Action potential
+391	232; 	 #Action potential
+391	233; 	 #Action potential
+391	234; 	 #Action potential
+391	235; 	 #Action potential
+391	236; 	 #Action potential
+391	237; 	 #Action potential
+391	238; 	 #Action potential
+391	239; 	 #Action potential
+391	240; 	 #Action potential
+391	241; 	 #Action potential
+391	242; 	 #Action potential
+391	243; 	 #Action potential
+391	244; 	 #Action potential
+391	245; 	 #Action potential
+391	246; 	 #Action potential
+391	247; 	 #Action potential
+391	248; 	 #Action potential
+391	249; 	 #Action potential
+391	250; 	 #Action potential
+391	251; 	 #Action potential
+391	252; 	 #Action potential
+391	253; 	 #Action potential
+391	254; 	 #Action potential
+391	255; 	 #Action potential
+391	256; 	 #Action potential
+391	257; 	 #Action potential
+391	258; 	 #Action potential
+391	259; 	 #Action potential
+391	260; 	 #Action potential
+391	261; 	 #Action potential
+391	262; 	 #Action potential
+391	263; 	 #Action potential
+391	264; 	 #Action potential
+391	265; 	 #Action potential
+391	266; 	 #Action potential
+391	267; 	 #Action potential
+391	268; 	 #Action potential
+391	269; 	 #Action potential
+391	270; 	 #Action potential
+391	271; 	 #Action potential
+391	272; 	 #Action potential
+391	273; 	 #Action potential
+391	274; 	 #Action potential
+391	275; 	 #Action potential
+391	276; 	 #Action potential
+391	277; 	 #Action potential
+391	278; 	 #Action potential
+391	279; 	 #Action potential
+391	280; 	 #Action potential
+391	281; 	 #Action potential
+391	282; 	 #Action potential
+391	283; 	 #Action potential
+391	284; 	 #Action potential
+391	285; 	 #Action potential
+391	286; 	 #Action potential
+391	287; 	 #Action potential
+391	288; 	 #Action potential
+391	289; 	 #Action potential
+391	290; 	 #Action potential
+391	291; 	 #Action potential
+391	292; 	 #Action potential
+391	293; 	 #Action potential
+391	294; 	 #Action potential
+391	295; 	 #Action potential
+391	296; 	 #Action potential
+391	297; 	 #Action potential
+391	298; 	 #Action potential
+391	299; 	 #Action potential
+391	300; 	 #Action potential
+391	301; 	 #Action potential
+391	302; 	 #Action potential
+391	303; 	 #Action potential
+391	304; 	 #Action potential
+391	305; 	 #Action potential
+391	306; 	 #Action potential
+391	307; 	 #Action potential
+391	308; 	 #Action potential
+391	309; 	 #Action potential
+391	310; 	 #Action potential
+391	311; 	 #Action potential
+391	312; 	 #Action potential
+391	313; 	 #Action potential
+391	314; 	 #Action potential
+391	314.999; 	 #Action potential
+391	315.999; 	 #Action potential
+391	316.999; 	 #Action potential
+391	317.999; 	 #Action potential
+391	318.999; 	 #Action potential
+391	319.999; 	 #Action potential
+391	320.999; 	 #Action potential
+391	321.999; 	 #Action potential
+391	322.999; 	 #Action potential
+391	323.999; 	 #Action potential
+391	324.999; 	 #Action potential
+391	325.999; 	 #Action potential
+391	326.999; 	 #Action potential
+391	327.999; 	 #Action potential
+391	328.999; 	 #Action potential
+391	329.999; 	 #Action potential
+391	330.999; 	 #Action potential
+391	331.999; 	 #Action potential
+391	332.999; 	 #Action potential
+391	333.999; 	 #Action potential
+391	334.999; 	 #Action potential
+391	335.999; 	 #Action potential
+391	336.999; 	 #Action potential
+391	337.999; 	 #Action potential
+391	338.999; 	 #Action potential
+391	339.999; 	 #Action potential
+391	340.999; 	 #Action potential
+391	341.999; 	 #Action potential
+391	342.999; 	 #Action potential
+391	343.999; 	 #Action potential
+391	344.999; 	 #Action potential
+391	345.999; 	 #Action potential
+391	346.999; 	 #Action potential
+391	347.999; 	 #Action potential
+391	348.999; 	 #Action potential
+391	349.999; 	 #Action potential
+391	350.999; 	 #Action potential
+391	351.999; 	 #Action potential
+391	352.999; 	 #Action potential
+391	353.999; 	 #Action potential
+391	354.999; 	 #Action potential
+391	355.999; 	 #Action potential
+391	356.999; 	 #Action potential
+391	357.999; 	 #Action potential
+391	358.999; 	 #Action potential
+391	359.999; 	 #Action potential
+391	360.999; 	 #Action potential
+391	361.999; 	 #Action potential
+391	362.999; 	 #Action potential
+391	363.999; 	 #Action potential
+391	364.999; 	 #Action potential
+391	365.999; 	 #Action potential
+391	366.999; 	 #Action potential
+391	367.999; 	 #Action potential
+391	368.999; 	 #Action potential
+391	369.999; 	 #Action potential
+391	370.999; 	 #Action potential
+391	371.999; 	 #Action potential
+391	372.999; 	 #Action potential
+391	373.999; 	 #Action potential
+391	374.999; 	 #Action potential
+391	375.999; 	 #Action potential
+391	376.999; 	 #Action potential
+391	377.999; 	 #Action potential
+391	378.999; 	 #Action potential
+391	379.999; 	 #Action potential
+391	380.999; 	 #Action potential
+391	381.999; 	 #Action potential
+391	382.999; 	 #Action potential
+391	383.999; 	 #Action potential
+391	384.999; 	 #Action potential
+391	385.999; 	 #Action potential
+391	386.999; 	 #Action potential
+391	387.999; 	 #Action potential
+391	388.999; 	 #Action potential
+391	389.999; 	 #Action potential
+391	390.999; 	 #Action potential
+391	391.998; 	 #Action potential
+391	392.998; 	 #Action potential
+391	393.998; 	 #Action potential
+391	394.998; 	 #Action potential
+391	395.998; 	 #Action potential
+391	396.998; 	 #Action potential
+391	397.998; 	 #Action potential
+391	398.998; 	 #Action potential
+391	399.998; 	 #Action potential
+391	400.998; 	 #Action potential
+391	401.998; 	 #Action potential
+391	402.998; 	 #Action potential
+391	403.998; 	 #Action potential
+391	404.998; 	 #Action potential
+391	405.998; 	 #Action potential
+391	406.998; 	 #Action potential
+391	407.998; 	 #Action potential
+391	408.998; 	 #Action potential
+391	409.998; 	 #Action potential
+391	410.998; 	 #Action potential
+391	411.998; 	 #Action potential
+391	412.998; 	 #Action potential
+391	413.998; 	 #Action potential
+391	414.998; 	 #Action potential
+391	415.998; 	 #Action potential
+391	416.998; 	 #Action potential
+391	417.998; 	 #Action potential
+391	418.998; 	 #Action potential
+391	419.998; 	 #Action potential
+391	420.998; 	 #Action potential
+391	421.998; 	 #Action potential
+391	422.998; 	 #Action potential
+391	423.998; 	 #Action potential
+391	424.998; 	 #Action potential
+391	425.998; 	 #Action potential
+391	426.998; 	 #Action potential
+391	427.998; 	 #Action potential
+391	428.998; 	 #Action potential
+391	429.998; 	 #Action potential
+391	430.998; 	 #Action potential
+391	431.998; 	 #Action potential
+391	432.998; 	 #Action potential
+391	433.998; 	 #Action potential
+391	434.998; 	 #Action potential
+391	435.998; 	 #Action potential
+391	436.998; 	 #Action potential
+391	437.998; 	 #Action potential
+391	438.998; 	 #Action potential
+391	439.998; 	 #Action potential
+391	440.998; 	 #Action potential
+391	441.998; 	 #Action potential
+391	442.998; 	 #Action potential
+391	443.998; 	 #Action potential
+391	444.998; 	 #Action potential
+391	445.998; 	 #Action potential
+391	446.998; 	 #Action potential
+391	447.998; 	 #Action potential
+391	448.998; 	 #Action potential
+391	449.998; 	 #Action potential
+391	450.998; 	 #Action potential
+391	451.998; 	 #Action potential
+391	452.998; 	 #Action potential
+391	453.998; 	 #Action potential
+391	454.998; 	 #Action potential
+391	455.998; 	 #Action potential
+391	456.998; 	 #Action potential
+391	457.998; 	 #Action potential
+391	458.998; 	 #Action potential
+391	459.998; 	 #Action potential
+391	460.998; 	 #Action potential
+391	461.998; 	 #Action potential
+391	462.998; 	 #Action potential
+391	463.998; 	 #Action potential
+391	464.998; 	 #Action potential
+391	465.998; 	 #Action potential
+391	466.998; 	 #Action potential
+391	467.998; 	 #Action potential
+391	468.998; 	 #Action potential
+391	469.997; 	 #Action potential
+391	470.997; 	 #Action potential
+391	471.997; 	 #Action potential
+391	472.997; 	 #Action potential
+391	473.997; 	 #Action potential
+391	474.997; 	 #Action potential
+391	475.997; 	 #Action potential
+391	476.997; 	 #Action potential
+391	477.997; 	 #Action potential
+391	478.997; 	 #Action potential
+391	479.997; 	 #Action potential
+391	480.997; 	 #Action potential
+391	481.997; 	 #Action potential
+391	482.997; 	 #Action potential
+391	483.997; 	 #Action potential
+391	484.997; 	 #Action potential
+391	485.997; 	 #Action potential
+391	486.997; 	 #Action potential
+391	487.997; 	 #Action potential
+391	488.997; 	 #Action potential
+391	489.997; 	 #Action potential
+391	490.997; 	 #Action potential
+391	491.997; 	 #Action potential
+391	492.997; 	 #Action potential
+391	493.997; 	 #Action potential
+391	494.997; 	 #Action potential
+391	495.997; 	 #Action potential
+391	496.997; 	 #Action potential
+391	497.997; 	 #Action potential
+391	498.997; 	 #Action potential
+391	499.997; 	 #Action potential
+391	500.997; 	 #Action potential
+391	501.997; 	 #Action potential
+391	502.997; 	 #Action potential
+391	503.997; 	 #Action potential
+391	504.997; 	 #Action potential
+391	505.997; 	 #Action potential
+391	506.997; 	 #Action potential
+391	507.997; 	 #Action potential
+391	508.997; 	 #Action potential
+391	509.997; 	 #Action potential
+391	510.997; 	 #Action potential
+391	511.997; 	 #Action potential
+391	512.997; 	 #Action potential
+391	513.997; 	 #Action potential
+391	514.997; 	 #Action potential
+391	515.997; 	 #Action potential
+391	516.997; 	 #Action potential
+391	517.997; 	 #Action potential
+391	518.997; 	 #Action potential
+391	519.997; 	 #Action potential
+391	520.997; 	 #Action potential
+391	521.997; 	 #Action potential
+391	522.997; 	 #Action potential
+391	523.997; 	 #Action potential
+391	524.997; 	 #Action potential
+391	525.997; 	 #Action potential
+391	526.997; 	 #Action potential
+391	527.997; 	 #Action potential
+391	528.997; 	 #Action potential
+391	529.997; 	 #Action potential
+391	530.997; 	 #Action potential
+391	531.997; 	 #Action potential
+391	532.997; 	 #Action potential
+391	533.997; 	 #Action potential
+391	534.997; 	 #Action potential
+391	535.997; 	 #Action potential
+391	536.997; 	 #Action potential
+391	537.997; 	 #Action potential
+391	538.997; 	 #Action potential
+391	539.997; 	 #Action potential
+391	540.997; 	 #Action potential
+391	541.997; 	 #Action potential
+391	542.997; 	 #Action potential
+391	543.997; 	 #Action potential
+391	544.997; 	 #Action potential
+391	545.997; 	 #Action potential
+391	546.997; 	 #Action potential
+391	547.997; 	 #Action potential
+391	548.997; 	 #Action potential
+391	549.996; 	 #Action potential
+391	550.996; 	 #Action potential
+391	551.996; 	 #Action potential
+391	552.996; 	 #Action potential
+391	553.996; 	 #Action potential
+391	554.996; 	 #Action potential
+391	555.996; 	 #Action potential
+391	556.996; 	 #Action potential
+391	557.996; 	 #Action potential
+391	558.996; 	 #Action potential
+391	559.996; 	 #Action potential
+391	560.996; 	 #Action potential
+391	561.996; 	 #Action potential
+391	562.996; 	 #Action potential
+391	563.996; 	 #Action potential
+391	564.996; 	 #Action potential
+391	565.996; 	 #Action potential
+391	566.996; 	 #Action potential
+391	567.996; 	 #Action potential
+391	568.996; 	 #Action potential
+391	569.996; 	 #Action potential
+391	570.996; 	 #Action potential
+391	571.996; 	 #Action potential
+391	572.996; 	 #Action potential
+391	573.996; 	 #Action potential
+391	574.996; 	 #Action potential
+391	575.996; 	 #Action potential
+391	576.996; 	 #Action potential
+391	577.996; 	 #Action potential
+391	578.996; 	 #Action potential
+391	579.996; 	 #Action potential
+391	580.996; 	 #Action potential
+391	581.996; 	 #Action potential
+391	582.996; 	 #Action potential
+391	583.996; 	 #Action potential
+391	584.996; 	 #Action potential
+391	585.996; 	 #Action potential
+391	586.996; 	 #Action potential
+391	587.996; 	 #Action potential
+391	588.996; 	 #Action potential
+391	589.996; 	 #Action potential
+391	590.996; 	 #Action potential
+391	591.996; 	 #Action potential
+391	592.996; 	 #Action potential
+391	593.996; 	 #Action potential
+391	594.996; 	 #Action potential
+391	595.996; 	 #Action potential
+391	596.996; 	 #Action potential
+391	597.996; 	 #Action potential
+391	598.996; 	 #Action potential
+391	599.996; 	 #Action potential
+391	600.996; 	 #Action potential
+391	601.996; 	 #Action potential
+391	602.996; 	 #Action potential
+391	603.996; 	 #Action potential
+391	604.996; 	 #Action potential
+391	605.996; 	 #Action potential
+391	606.996; 	 #Action potential
+391	607.996; 	 #Action potential
+391	608.996; 	 #Action potential
+391	609.996; 	 #Action potential
+391	610.996; 	 #Action potential
+391	611.996; 	 #Action potential
+391	612.996; 	 #Action potential
+391	613.996; 	 #Action potential
+391	614.996; 	 #Action potential
+391	615.996; 	 #Action potential
+391	616.996; 	 #Action potential
+391	617.996; 	 #Action potential
+391	618.996; 	 #Action potential
+391	619.996; 	 #Action potential
+391	620.996; 	 #Action potential
+391	621.996; 	 #Action potential
+391	622.996; 	 #Action potential
+391	623.996; 	 #Action potential
+391	624.996; 	 #Action potential
+391	625.996; 	 #Action potential
+391	626.996; 	 #Action potential
+391	627.995; 	 #Action potential
+391	628.995; 	 #Action potential
+391	629.995; 	 #Action potential
+391	630.995; 	 #Action potential
+391	631.995; 	 #Action potential
+391	632.995; 	 #Action potential
+391	633.995; 	 #Action potential
+391	634.995; 	 #Action potential
+391	635.995; 	 #Action potential
+391	636.995; 	 #Action potential
+391	637.995; 	 #Action potential
+391	638.995; 	 #Action potential
+391	639.995; 	 #Action potential
+391	640.995; 	 #Action potential
+391	641.995; 	 #Action potential
+391	642.995; 	 #Action potential
+391	643.995; 	 #Action potential
+391	644.995; 	 #Action potential
+391	645.995; 	 #Action potential
+391	646.995; 	 #Action potential
+391	647.995; 	 #Action potential
+391	648.995; 	 #Action potential
+391	649.995; 	 #Action potential
+391	650.995; 	 #Action potential
+391	651.995; 	 #Action potential
+391	652.995; 	 #Action potential
+391	653.995; 	 #Action potential
+391	654.995; 	 #Action potential
+391	655.995; 	 #Action potential
+391	656.995; 	 #Action potential
+391	657.995; 	 #Action potential
+391	658.995; 	 #Action potential
+391	659.995; 	 #Action potential
+391	660.995; 	 #Action potential
+391	661.995; 	 #Action potential
+391	662.995; 	 #Action potential
+391	663.995; 	 #Action potential
+391	664.995; 	 #Action potential
+391	665.995; 	 #Action potential
+391	666.995; 	 #Action potential
+391	667.995; 	 #Action potential
+391	668.995; 	 #Action potential
+391	669.995; 	 #Action potential
+391	670.995; 	 #Action potential
+391	671.995; 	 #Action potential
+391	672.995; 	 #Action potential
+391	673.995; 	 #Action potential
+391	674.995; 	 #Action potential
+391	675.995; 	 #Action potential
+391	676.995; 	 #Action potential
+391	677.995; 	 #Action potential
+391	678.995; 	 #Action potential
+391	679.995; 	 #Action potential
+391	680.995; 	 #Action potential
+391	681.995; 	 #Action potential
+391	682.995; 	 #Action potential
+391	683.995; 	 #Action potential
+391	684.995; 	 #Action potential
+391	685.995; 	 #Action potential
+391	686.995; 	 #Action potential
+391	687.995; 	 #Action potential
+391	688.995; 	 #Action potential
+391	689.995; 	 #Action potential
+391	690.995; 	 #Action potential
+391	691.995; 	 #Action potential
+391	692.995; 	 #Action potential
+391	693.995; 	 #Action potential
+391	694.995; 	 #Action potential
+391	695.995; 	 #Action potential
+391	696.995; 	 #Action potential
+391	697.995; 	 #Action potential
+391	698.995; 	 #Action potential
+391	699.995; 	 #Action potential
+391	700.995; 	 #Action potential
+391	701.995; 	 #Action potential
+391	702.995; 	 #Action potential
+391	703.995; 	 #Action potential
+391	704.994; 	 #Action potential
+391	705.994; 	 #Action potential
+391	706.994; 	 #Action potential
+391	707.994; 	 #Action potential
+391	708.994; 	 #Action potential
+391	709.994; 	 #Action potential
+391	710.994; 	 #Action potential
+391	711.994; 	 #Action potential
+391	712.994; 	 #Action potential
+391	713.994; 	 #Action potential
+391	714.994; 	 #Action potential
+391	715.994; 	 #Action potential
+391	716.994; 	 #Action potential
+391	717.994; 	 #Action potential
+391	718.994; 	 #Action potential
+391	719.994; 	 #Action potential
+391	720.994; 	 #Action potential
+391	721.994; 	 #Action potential
+391	722.994; 	 #Action potential
+391	723.994; 	 #Action potential
+391	724.994; 	 #Action potential
+391	725.994; 	 #Action potential
+391	726.994; 	 #Action potential
+391	727.994; 	 #Action potential
+391	728.994; 	 #Action potential
+391	729.994; 	 #Action potential
+391	730.994; 	 #Action potential
+391	731.994; 	 #Action potential
+391	732.994; 	 #Action potential
+391	733.994; 	 #Action potential
+391	734.994; 	 #Action potential
+391	735.994; 	 #Action potential
+391	736.994; 	 #Action potential
+391	737.994; 	 #Action potential
+391	738.994; 	 #Action potential
+391	739.994; 	 #Action potential
+391	740.994; 	 #Action potential
+391	741.994; 	 #Action potential
+391	742.994; 	 #Action potential
+391	743.994; 	 #Action potential
+391	744.994; 	 #Action potential
+391	745.994; 	 #Action potential
+391	746.994; 	 #Action potential
+391	747.994; 	 #Action potential
+391	748.994; 	 #Action potential
+391	749.994; 	 #Action potential
+391	750.994; 	 #Action potential
+391	751.994; 	 #Action potential
+391	752.994; 	 #Action potential
+391	753.994; 	 #Action potential
+391	754.994; 	 #Action potential
+391	755.994; 	 #Action potential
+391	756.994; 	 #Action potential
+391	757.994; 	 #Action potential
+391	758.994; 	 #Action potential
+391	759.994; 	 #Action potential
+391	760.994; 	 #Action potential
+391	761.994; 	 #Action potential
+391	762.994; 	 #Action potential
+391	763.994; 	 #Action potential
+391	764.994; 	 #Action potential
+391	765.994; 	 #Action potential
+391	766.994; 	 #Action potential
+391	767.994; 	 #Action potential
+391	768.994; 	 #Action potential
+391	769.994; 	 #Action potential
+391	770.994; 	 #Action potential
+391	771.994; 	 #Action potential
+391	772.994; 	 #Action potential
+391	773.994; 	 #Action potential
+391	774.994; 	 #Action potential
+391	775.994; 	 #Action potential
+391	776.994; 	 #Action potential
+391	777.994; 	 #Action potential
+391	778.994; 	 #Action potential
+391	779.994; 	 #Action potential
+391	780.994; 	 #Action potential
+391	781.994; 	 #Action potential
+391	782.993; 	 #Action potential
+391	783.993; 	 #Action potential
+391	784.993; 	 #Action potential
+391	785.993; 	 #Action potential
+391	786.993; 	 #Action potential
+391	787.993; 	 #Action potential
+391	788.993; 	 #Action potential
+391	789.993; 	 #Action potential
+391	790.993; 	 #Action potential
+391	791.993; 	 #Action potential
+391	792.993; 	 #Action potential
+391	793.993; 	 #Action potential
+391	794.993; 	 #Action potential
+391	795.993; 	 #Action potential
+391	796.993; 	 #Action potential
+391	797.993; 	 #Action potential
+391	798.993; 	 #Action potential
+391	799.993; 	 #Action potential
+391	800.993; 	 #Action potential
+391	801.993; 	 #Action potential
+391	802.993; 	 #Action potential
+391	803.993; 	 #Action potential
+391	804.993; 	 #Action potential
+391	805.993; 	 #Action potential
+391	806.993; 	 #Action potential
+391	807.993; 	 #Action potential
+391	808.993; 	 #Action potential
+391	809.993; 	 #Action potential
+391	810.993; 	 #Action potential
+391	811.993; 	 #Action potential
+391	812.993; 	 #Action potential
+391	813.993; 	 #Action potential
+391	814.993; 	 #Action potential
+391	815.993; 	 #Action potential
+391	816.993; 	 #Action potential
+391	817.993; 	 #Action potential
+391	818.993; 	 #Action potential
+391	819.993; 	 #Action potential
+391	820.993; 	 #Action potential
+391	821.993; 	 #Action potential
+391	822.993; 	 #Action potential
+391	823.993; 	 #Action potential
+391	824.993; 	 #Action potential
+391	825.993; 	 #Action potential
+391	826.993; 	 #Action potential
+391	827.993; 	 #Action potential
+391	828.993; 	 #Action potential
+391	829.993; 	 #Action potential
+391	830.993; 	 #Action potential
+391	831.993; 	 #Action potential
+391	832.993; 	 #Action potential
+391	833.993; 	 #Action potential
+391	834.993; 	 #Action potential
+391	835.993; 	 #Action potential
+391	836.993; 	 #Action potential
+391	837.993; 	 #Action potential
+391	838.993; 	 #Action potential
+391	839.993; 	 #Action potential
+391	840.993; 	 #Action potential
+391	841.993; 	 #Action potential
+391	842.993; 	 #Action potential
+391	843.993; 	 #Action potential
+391	844.993; 	 #Action potential
+391	845.993; 	 #Action potential
+391	846.993; 	 #Action potential
+391	847.993; 	 #Action potential
+391	848.993; 	 #Action potential
+391	849.993; 	 #Action potential
+391	850.993; 	 #Action potential
+391	851.993; 	 #Action potential
+391	852.993; 	 #Action potential
+391	853.993; 	 #Action potential
+391	854.993; 	 #Action potential
+391	855.993; 	 #Action potential
+391	856.993; 	 #Action potential
+391	857.993; 	 #Action potential
+391	858.993; 	 #Action potential
+391	859.993; 	 #Action potential
+391	860.992; 	 #Action potential
+391	861.992; 	 #Action potential
+391	862.992; 	 #Action potential
+391	863.992; 	 #Action potential
+391	864.992; 	 #Action potential
+391	865.992; 	 #Action potential
+391	866.992; 	 #Action potential
+391	867.992; 	 #Action potential
+391	868.992; 	 #Action potential
+391	869.992; 	 #Action potential
+391	870.992; 	 #Action potential
+391	871.992; 	 #Action potential
+391	872.992; 	 #Action potential
+391	873.992; 	 #Action potential
+391	874.992; 	 #Action potential
+391	875.992; 	 #Action potential
+391	876.992; 	 #Action potential
+391	877.992; 	 #Action potential
+391	878.992; 	 #Action potential
+391	879.992; 	 #Action potential
+391	880.992; 	 #Action potential
+391	881.992; 	 #Action potential
+391	882.992; 	 #Action potential
+391	883.992; 	 #Action potential
+391	884.992; 	 #Action potential
+391	885.992; 	 #Action potential
+391	886.992; 	 #Action potential
+391	887.992; 	 #Action potential
+391	888.992; 	 #Action potential
+391	889.992; 	 #Action potential
+391	890.992; 	 #Action potential
+391	891.992; 	 #Action potential
+391	892.992; 	 #Action potential
+391	893.992; 	 #Action potential
+391	894.992; 	 #Action potential
+391	895.992; 	 #Action potential
+391	896.992; 	 #Action potential
+391	897.992; 	 #Action potential
+391	898.992; 	 #Action potential
+391	899.992; 	 #Action potential
+391	900.992; 	 #Action potential
+391	901.992; 	 #Action potential
+391	902.992; 	 #Action potential
+391	903.992; 	 #Action potential
+391	904.992; 	 #Action potential
+391	905.992; 	 #Action potential
+391	906.992; 	 #Action potential
+391	907.992; 	 #Action potential
+391	908.992; 	 #Action potential
+391	909.992; 	 #Action potential
+391	910.992; 	 #Action potential
+391	911.992; 	 #Action potential
+391	912.992; 	 #Action potential
+391	913.992; 	 #Action potential
+391	914.992; 	 #Action potential
+391	915.992; 	 #Action potential
+391	916.992; 	 #Action potential
+391	917.992; 	 #Action potential
+391	918.992; 	 #Action potential
+391	919.992; 	 #Action potential
+391	920.992; 	 #Action potential
+391	921.992; 	 #Action potential
+391	922.992; 	 #Action potential
+391	923.992; 	 #Action potential
+391	924.992; 	 #Action potential
+391	925.992; 	 #Action potential
+391	926.992; 	 #Action potential
+391	927.992; 	 #Action potential
+391	928.992; 	 #Action potential
+391	929.992; 	 #Action potential
+391	930.992; 	 #Action potential
+391	931.992; 	 #Action potential
+391	932.992; 	 #Action potential
+391	933.992; 	 #Action potential
+391	934.992; 	 #Action potential
+391	935.992; 	 #Action potential
+391	936.992; 	 #Action potential
+391	937.991; 	 #Action potential
+391	938.991; 	 #Action potential
+391	939.991; 	 #Action potential
+391	940.991; 	 #Action potential
+391	941.991; 	 #Action potential
+391	942.991; 	 #Action potential
+391	943.991; 	 #Action potential
+391	944.991; 	 #Action potential
+391	945.991; 	 #Action potential
+391	946.991; 	 #Action potential
+391	947.991; 	 #Action potential
+391	948.991; 	 #Action potential
+391	949.991; 	 #Action potential
+391	950.991; 	 #Action potential
+391	951.991; 	 #Action potential
+391	952.991; 	 #Action potential
+391	953.991; 	 #Action potential
+391	954.991; 	 #Action potential
+391	955.991; 	 #Action potential
+391	956.991; 	 #Action potential
+391	957.991; 	 #Action potential
+391	958.991; 	 #Action potential
+391	959.991; 	 #Action potential
+391	960.991; 	 #Action potential
+391	961.991; 	 #Action potential
+391	962.991; 	 #Action potential
+391	963.991; 	 #Action potential
+391	964.991; 	 #Action potential
+391	965.991; 	 #Action potential
+391	966.991; 	 #Action potential
+391	967.991; 	 #Action potential
+391	968.991; 	 #Action potential
+391	969.991; 	 #Action potential
+391	970.991; 	 #Action potential
+391	971.991; 	 #Action potential
+391	972.991; 	 #Action potential
+391	973.991; 	 #Action potential
+391	974.991; 	 #Action potential
+391	975.991; 	 #Action potential
+391	976.991; 	 #Action potential
+391	977.991; 	 #Action potential
+391	978.991; 	 #Action potential
+391	979.991; 	 #Action potential
+391	980.991; 	 #Action potential
+391	981.991; 	 #Action potential
+391	982.991; 	 #Action potential
+391	983.991; 	 #Action potential
+391	984.991; 	 #Action potential
+391	985.991; 	 #Action potential
+391	986.991; 	 #Action potential
+391	987.991; 	 #Action potential
+391	988.991; 	 #Action potential
+391	989.991; 	 #Action potential
+391	990.991; 	 #Action potential
+391	991.991; 	 #Action potential
+391	992.991; 	 #Action potential
+391	993.991; 	 #Action potential
+391	994.991; 	 #Action potential
+391	995.991; 	 #Action potential
+391	996.991; 	 #Action potential
+391	997.991; 	 #Action potential
+391	998.991; 	 #Action potential
+391	999.991; 	 #Action potential
+391	1000.99; 	 #Action potential
+391	1001.99; 	 #Action potential
+391	1002.99; 	 #Action potential
+391	1003.99; 	 #Action potential
+391	1004.99; 	 #Action potential
+391	1005.99; 	 #Action potential
+391	1006.99; 	 #Action potential
+391	1007.99; 	 #Action potential
+391	1008.99; 	 #Action potential
+391	1009.99; 	 #Action potential
+391	1010.99; 	 #Action potential
+391	1011.99; 	 #Action potential
+391	1012.99; 	 #Action potential
+391	1013.99; 	 #Action potential
+391	1014.99; 	 #Action potential
+391	1015.99; 	 #Action potential
+391	1016.99; 	 #Action potential
+391	1017.99; 	 #Action potential
+391	1018.99; 	 #Action potential
+391	1019.99; 	 #Action potential
+391	1020.99; 	 #Action potential
+391	1021.99; 	 #Action potential
+391	1022.99; 	 #Action potential
+391	1023.99; 	 #Action potential
+391	1024.99; 	 #Action potential
+391	1025.99; 	 #Action potential
+391	1026.99; 	 #Action potential
+391	1027.99; 	 #Action potential
+391	1028.99; 	 #Action potential
+391	1029.99; 	 #Action potential
+391	1030.99; 	 #Action potential
+391	1031.99; 	 #Action potential
+391	1032.99; 	 #Action potential
+391	1033.99; 	 #Action potential
+391	1034.99; 	 #Action potential
+391	1035.99; 	 #Action potential
+391	1036.99; 	 #Action potential
+391	1037.99; 	 #Action potential
+391	1038.99; 	 #Action potential
+391	1039.99; 	 #Action potential
+391	1040.99; 	 #Action potential
+391	1041.99; 	 #Action potential
+391	1042.99; 	 #Action potential
+391	1043.99; 	 #Action potential
+391	1044.99; 	 #Action potential
+391	1045.99; 	 #Action potential
+391	1046.99; 	 #Action potential
+391	1047.99; 	 #Action potential
+391	1048.99; 	 #Action potential
+391	1049.99; 	 #Action potential
+391	1050.99; 	 #Action potential
+391	1051.99; 	 #Action potential
+391	1052.99; 	 #Action potential
+391	1053.99; 	 #Action potential
+391	1054.99; 	 #Action potential
+391	1055.99; 	 #Action potential
+391	1056.99; 	 #Action potential
+391	1057.99; 	 #Action potential
+391	1058.99; 	 #Action potential
+391	1059.99; 	 #Action potential
+391	1060.99; 	 #Action potential
+391	1061.99; 	 #Action potential
+391	1062.99; 	 #Action potential
+391	1063.99; 	 #Action potential
+391	1064.99; 	 #Action potential
+391	1065.99; 	 #Action potential
+391	1066.99; 	 #Action potential
+391	1067.99; 	 #Action potential
+391	1068.99; 	 #Action potential
+391	1069.99; 	 #Action potential
+391	1070.99; 	 #Action potential
+391	1071.99; 	 #Action potential
+391	1072.99; 	 #Action potential
+391	1073.99; 	 #Action potential
+391	1074.99; 	 #Action potential
+391	1075.99; 	 #Action potential
+391	1076.99; 	 #Action potential
+391	1077.99; 	 #Action potential
+391	1078.99; 	 #Action potential
+391	1079.99; 	 #Action potential
+391	1080.99; 	 #Action potential
+391	1081.99; 	 #Action potential
+391	1082.99; 	 #Action potential
+391	1083.99; 	 #Action potential
+391	1084.99; 	 #Action potential
+391	1085.99; 	 #Action potential
+391	1086.99; 	 #Action potential
+391	1087.99; 	 #Action potential
+391	1088.99; 	 #Action potential
+391	1089.99; 	 #Action potential
+391	1090.99; 	 #Action potential
+391	1092; 	 #Action potential
+391	1093; 	 #Action potential
+391	1094; 	 #Action potential
+391	1095; 	 #Action potential
+391	1096; 	 #Action potential
+391	1097; 	 #Action potential
+391	1098; 	 #Action potential
+391	1099; 	 #Action potential
+391	1100; 	 #Action potential
+391	1101; 	 #Action potential
+391	1102; 	 #Action potential
+391	1103; 	 #Action potential
+391	1104; 	 #Action potential
+391	1105; 	 #Action potential
+391	1106; 	 #Action potential
+391	1107; 	 #Action potential
+391	1108; 	 #Action potential
+391	1109; 	 #Action potential
+391	1110; 	 #Action potential
+391	1111; 	 #Action potential
+391	1112; 	 #Action potential
+391	1113; 	 #Action potential
+391	1114; 	 #Action potential
+391	1115; 	 #Action potential
+391	1116; 	 #Action potential
+391	1117; 	 #Action potential
+391	1118; 	 #Action potential
+391	1119; 	 #Action potential
+391	1120; 	 #Action potential
+391	1121; 	 #Action potential
+391	1122; 	 #Action potential
+391	1123; 	 #Action potential
+391	1124; 	 #Action potential
+391	1125; 	 #Action potential
+391	1126; 	 #Action potential
+391	1127; 	 #Action potential
+391	1128; 	 #Action potential
+391	1129; 	 #Action potential
+391	1130; 	 #Action potential
+391	1131; 	 #Action potential
+391	1132; 	 #Action potential
+391	1133; 	 #Action potential
+391	1134; 	 #Action potential
+391	1135; 	 #Action potential
+391	1136; 	 #Action potential
+391	1137; 	 #Action potential
+391	1138; 	 #Action potential
+391	1139; 	 #Action potential
+391	1140; 	 #Action potential
+391	1141; 	 #Action potential
+391	1142; 	 #Action potential
+391	1143; 	 #Action potential
+391	1144; 	 #Action potential
+391	1145; 	 #Action potential
+391	1146; 	 #Action potential
+391	1147; 	 #Action potential
+391	1148; 	 #Action potential
+391	1149; 	 #Action potential
+391	1150; 	 #Action potential
+391	1151; 	 #Action potential
+391	1152; 	 #Action potential
+391	1153; 	 #Action potential
+391	1154; 	 #Action potential
+391	1155; 	 #Action potential
+391	1156; 	 #Action potential
+391	1157; 	 #Action potential
+391	1158; 	 #Action potential
+391	1159; 	 #Action potential
+391	1160; 	 #Action potential
+391	1161; 	 #Action potential
+391	1162; 	 #Action potential
+391	1163; 	 #Action potential
+391	1164; 	 #Action potential
+391	1165; 	 #Action potential
+391	1166; 	 #Action potential
+391	1167; 	 #Action potential
+391	1168; 	 #Action potential
+391	1169; 	 #Action potential
+391	1170; 	 #Action potential
+391	1171; 	 #Action potential
+391	1172; 	 #Action potential
+391	1173; 	 #Action potential
+391	1174; 	 #Action potential
+391	1175; 	 #Action potential
+391	1176; 	 #Action potential
+391	1177; 	 #Action potential
+391	1178; 	 #Action potential
+391	1179; 	 #Action potential
+391	1180; 	 #Action potential
+391	1181; 	 #Action potential
+391	1182; 	 #Action potential
+391	1183; 	 #Action potential
+391	1184; 	 #Action potential
+391	1185; 	 #Action potential
+391	1186; 	 #Action potential
+391	1187; 	 #Action potential
+391	1188; 	 #Action potential
+391	1189; 	 #Action potential
+391	1190; 	 #Action potential
+391	1191; 	 #Action potential
+391	1192; 	 #Action potential
+391	1193; 	 #Action potential
+391	1194; 	 #Action potential
+391	1195; 	 #Action potential
+391	1196; 	 #Action potential
+391	1197; 	 #Action potential
+391	1198; 	 #Action potential
+391	1199; 	 #Action potential
+392	0; 	 #Depol
+393	17; 	 #Depolarization
+396	33.7968; 	 #Depolarization
+402	49.9938; 	 #Depolarization
+405	66.3962; 	 #Depolarization
+408	82.6027; 	 #Depolarization
+411	98.6154; 	 #Depolarization
+414	114.437; 	 #Depolarization
+417	130.069; 	 #Depolarization
+420	145.514; 	 #Depolarization
+423	160.775; 	 #Depolarization
+429	173.955; 	 #Depolarization
+432	188.876; 	 #Depolarization
+435	203.618; 	 #Depolarization
+438	218.185; 	 #Depolarization
+441	232.577; 	 #Depolarization
+444	246.797; 	 #Depolarization
+447	260.847; 	 #Depolarization
+450	274.73; 	 #Depolarization
+456	285.202; 	 #Depolarization
+459	298.793; 	 #Depolarization
+462	312.222; 	 #Depolarization
+465	325.49; 	 #Depolarization
+468	338.6; 	 #Depolarization
+471	351.553; 	 #Depolarization
+474	364.351; 	 #Depolarization
+477	376.996; 	 #Depolarization
+483	385.039; 	 #Depolarization
+486	397.437; 	 #Depolarization
+489	409.686; 	 #Depolarization
+492	421.79; 	 #Depolarization
+495	433.748; 	 #Depolarization
+498	445.564; 	 #Depolarization
+501	457.239; 	 #Depolarization
+504	468.774; 	 #Depolarization
+510	474.635; 	 #Depolarization
+513	485.962; 	 #Depolarization
+516	497.154; 	 #Depolarization
+519	508.212; 	 #Depolarization
+522	519.138; 	 #Depolarization
+525	529.933; 	 #Depolarization
+528	540.599; 	 #Depolarization
+531	551.138; 	 #Depolarization
+537	555.042; 	 #Depolarization
+540	565.408; 	 #Depolarization
+543	575.651; 	 #Depolarization
+546	585.77; 	 #Depolarization
+549	595.769; 	 #Depolarization
+552	605.649; 	 #Depolarization
+555	615.41; 	 #Depolarization
+558	625.054; 	 #Depolarization
+564	627.202; 	 #Depolarization
+567	636.706; 	 #Depolarization
+570	646.096; 	 #Depolarization
+573	655.374; 	 #Depolarization
+576	664.541; 	 #Depolarization
+579	673.598; 	 #Depolarization
+582	682.547; 	 #Depolarization
+585	691.389; 	 #Depolarization
+591	691.961; 	 #Depolarization
+594	700.691; 	 #Depolarization
+597	709.316; 	 #Depolarization
+600	717.838; 	 #Depolarization
+603	726.259; 	 #Depolarization
+606	734.578; 	 #Depolarization
+609	742.799; 	 #Depolarization
+612	750.921; 	 #Depolarization
+618	750.078; 	 #Depolarization
+621	758.113; 	 #Depolarization
+624	766.052; 	 #Depolarization
+627	773.896; 	 #Depolarization
+630	781.646; 	 #Depolarization
+633	789.304; 	 #Depolarization
+636	796.87; 	 #Depolarization
+639	804.346; 	 #Depolarization
+645	802.234; 	 #Depolarization
+648	809.645; 	 #Depolarization
+651	816.968; 	 #Depolarization
+654	824.204; 	 #Depolarization
+657	831.353; 	 #Depolarization
+660	838.417; 	 #Depolarization
+663	845.396; 	 #Depolarization
+666	852.292; 	 #Depolarization
+672	849.04; 	 #Depolarization
+675	855.892; 	 #Depolarization
+678	862.663; 	 #Depolarization
+681	869.352; 	 #Depolarization
+684	875.961; 	 #Depolarization
+687	882.492; 	 #Depolarization
+690	888.944; 	 #Depolarization
+693	895.32; 	 #Depolarization
+699	891.046; 	 #Depolarization
+702	897.396; 	 #Depolarization
+705	903.67; 	 #Depolarization
+708	909.869; 	 #Depolarization
+711	915.994; 	 #Depolarization
+714	922.046; 	 #Depolarization
+717	928.026; 	 #Depolarization
+720	933.934; 	 #Depolarization
+726	928.743; 	 #Depolarization
+729	934.642; 	 #Depolarization
+732	940.471; 	 #Depolarization
+735	946.231; 	 #Depolarization
+738	951.922; 	 #Depolarization
+741	957.544; 	 #Depolarization
+744	963.099; 	 #Depolarization
+747	968.588; 	 #Depolarization
+753	962.574; 	 #Depolarization
+756	968.069; 	 #Depolarization
+759	973.498; 	 #Depolarization
+762	978.863; 	 #Depolarization
+765	984.164; 	 #Depolarization
+768	989.401; 	 #Depolarization
+771	994.575; 	 #Depolarization
+774	999.688; 	 #Depolarization
+780	992.934; 	 #Depolarization
+783	998.067; 	 #Depolarization
+786	1003.14; 	 #Depolarization
+787	0; 	 #Action potential
+787	1; 	 #Action potential
+787	2; 	 #Action potential
+787	3; 	 #Action potential
+787	4; 	 #Action potential
+787	5; 	 #Action potential
+787	6; 	 #Action potential
+787	7; 	 #Action potential
+787	8; 	 #Action potential
+787	9; 	 #Action potential
+787	10; 	 #Action potential
+787	11; 	 #Action potential
+787	12; 	 #Action potential
+787	13; 	 #Action potential
+787	14; 	 #Action potential
+787	15; 	 #Action potential
+787	16; 	 #Action potential
+787	17; 	 #Action potential
+787	18; 	 #Action potential
+787	19; 	 #Action potential
+787	20; 	 #Action potential
+787	21; 	 #Action potential
+787	22; 	 #Action potential
+787	23; 	 #Action potential
+787	24; 	 #Action potential
+787	25; 	 #Action potential
+787	26; 	 #Action potential
+787	27; 	 #Action potential
+787	28; 	 #Action potential
+787	29; 	 #Action potential
+787	30; 	 #Action potential
+787	31; 	 #Action potential
+787	32; 	 #Action potential
+787	33; 	 #Action potential
+787	34; 	 #Action potential
+787	35; 	 #Action potential
+787	36; 	 #Action potential
+787	37; 	 #Action potential
+787	38; 	 #Action potential
+787	39; 	 #Action potential
+787	40; 	 #Action potential
+787	41; 	 #Action potential
+787	42; 	 #Action potential
+787	43; 	 #Action potential
+787	44; 	 #Action potential
+787	45; 	 #Action potential
+787	46; 	 #Action potential
+787	47; 	 #Action potential
+787	48; 	 #Action potential
+787	49; 	 #Action potential
+787	50; 	 #Action potential
+787	51; 	 #Action potential
+787	52; 	 #Action potential
+787	53; 	 #Action potential
+787	54; 	 #Action potential
+787	55; 	 #Action potential
+787	56; 	 #Action potential
+787	57; 	 #Action potential
+787	58; 	 #Action potential
+787	59; 	 #Action potential
+787	60; 	 #Action potential
+787	61; 	 #Action potential
+787	62; 	 #Action potential
+787	62.9999; 	 #Action potential
+787	64; 	 #Action potential
+787	65; 	 #Action potential
+787	66; 	 #Action potential
+787	67; 	 #Action potential
+787	68; 	 #Action potential
+787	69; 	 #Action potential
+787	70; 	 #Action potential
+787	71; 	 #Action potential
+787	72; 	 #Action potential
+787	73; 	 #Action potential
+787	74; 	 #Action potential
+787	75; 	 #Action potential
+787	76; 	 #Action potential
+787	77; 	 #Action potential
+787	78; 	 #Action potential
+787	79; 	 #Action potential
+787	80; 	 #Action potential
+787	81; 	 #Action potential
+787	82; 	 #Action potential
+787	83; 	 #Action potential
+787	84; 	 #Action potential
+787	85; 	 #Action potential
+787	86; 	 #Action potential
+787	87; 	 #Action potential
+787	88; 	 #Action potential
+787	89; 	 #Action potential
+787	90; 	 #Action potential
+787	91; 	 #Action potential
+787	92; 	 #Action potential
+787	93; 	 #Action potential
+787	94; 	 #Action potential
+787	95; 	 #Action potential
+787	96; 	 #Action potential
+787	97; 	 #Action potential
+787	98; 	 #Action potential
+787	99; 	 #Action potential
+787	100; 	 #Action potential
+787	101; 	 #Action potential
+787	102; 	 #Action potential
+787	103; 	 #Action potential
+787	104; 	 #Action potential
+787	105; 	 #Action potential
+787	106; 	 #Action potential
+787	107; 	 #Action potential
+787	108; 	 #Action potential
+787	109; 	 #Action potential
+787	110; 	 #Action potential
+787	111; 	 #Action potential
+787	112; 	 #Action potential
+787	113; 	 #Action potential
+787	114; 	 #Action potential
+787	115; 	 #Action potential
+787	116; 	 #Action potential
+787	117; 	 #Action potential
+787	118; 	 #Action potential
+787	119; 	 #Action potential
+787	120; 	 #Action potential
+787	121; 	 #Action potential
+787	122; 	 #Action potential
+787	123; 	 #Action potential
+787	124; 	 #Action potential
+787	125; 	 #Action potential
+787	126; 	 #Action potential
+787	127; 	 #Action potential
+787	128; 	 #Action potential
+787	129; 	 #Action potential
+787	130; 	 #Action potential
+787	131; 	 #Action potential
+787	132; 	 #Action potential
+787	133; 	 #Action potential
+787	134; 	 #Action potential
+787	135; 	 #Action potential
+787	136; 	 #Action potential
+787	137; 	 #Action potential
+787	138; 	 #Action potential
+787	139; 	 #Action potential
+787	140; 	 #Action potential
+787	141; 	 #Action potential
+787	142; 	 #Action potential
+787	143; 	 #Action potential
+787	144; 	 #Action potential
+787	145; 	 #Action potential
+787	146; 	 #Action potential
+787	147; 	 #Action potential
+787	148; 	 #Action potential
+787	149; 	 #Action potential
+787	150; 	 #Action potential
+787	151; 	 #Action potential
+787	152; 	 #Action potential
+787	153; 	 #Action potential
+787	154; 	 #Action potential
+787	155; 	 #Action potential
+787	156; 	 #Action potential
+787	157; 	 #Action potential
+787	158; 	 #Action potential
+787	159; 	 #Action potential
+787	160; 	 #Action potential
+787	161; 	 #Action potential
+787	162; 	 #Action potential
+787	163; 	 #Action potential
+787	164; 	 #Action potential
+787	165; 	 #Action potential
+787	166; 	 #Action potential
+787	167; 	 #Action potential
+787	168; 	 #Action potential
+787	169; 	 #Action potential
+787	170; 	 #Action potential
+787	171; 	 #Action potential
+787	172; 	 #Action potential
+787	173; 	 #Action potential
+787	174; 	 #Action potential
+787	175; 	 #Action potential
+787	176; 	 #Action potential
+787	177; 	 #Action potential
+787	178; 	 #Action potential
+787	179; 	 #Action potential
+787	180; 	 #Action potential
+787	181; 	 #Action potential
+787	182; 	 #Action potential
+787	183; 	 #Action potential
+787	184; 	 #Action potential
+787	185; 	 #Action potential
+787	186; 	 #Action potential
+787	187; 	 #Action potential
+787	188; 	 #Action potential
+787	189; 	 #Action potential
+787	190; 	 #Action potential
+787	191; 	 #Action potential
+787	192; 	 #Action potential
+787	193; 	 #Action potential
+787	194; 	 #Action potential
+787	195; 	 #Action potential
+787	196; 	 #Action potential
+787	197; 	 #Action potential
+787	198; 	 #Action potential
+787	199; 	 #Action potential
+787	200; 	 #Action potential
+787	201; 	 #Action potential
+787	202; 	 #Action potential
+787	203; 	 #Action potential
+787	204; 	 #Action potential
+787	205; 	 #Action potential
+787	206; 	 #Action potential
+787	207; 	 #Action potential
+787	208; 	 #Action potential
+787	209; 	 #Action potential
+787	210; 	 #Action potential
+787	211; 	 #Action potential
+787	212; 	 #Action potential
+787	213; 	 #Action potential
+787	214; 	 #Action potential
+787	215; 	 #Action potential
+787	216; 	 #Action potential
+787	217; 	 #Action potential
+787	218; 	 #Action potential
+787	219; 	 #Action potential
+787	220; 	 #Action potential
+787	221; 	 #Action potential
+787	222; 	 #Action potential
+787	223; 	 #Action potential
+787	224; 	 #Action potential
+787	225; 	 #Action potential
+787	226; 	 #Action potential
+787	227; 	 #Action potential
+787	228; 	 #Action potential
+787	229; 	 #Action potential
+787	230; 	 #Action potential
+787	231; 	 #Action potential
+787	232; 	 #Action potential
+787	233; 	 #Action potential
+787	234; 	 #Action potential
+787	235; 	 #Action potential
+787	236; 	 #Action potential
+787	237; 	 #Action potential
+787	238; 	 #Action potential
+787	239; 	 #Action potential
+787	240; 	 #Action potential
+787	241; 	 #Action potential
+787	242; 	 #Action potential
+787	243; 	 #Action potential
+787	244; 	 #Action potential
+787	245; 	 #Action potential
+787	246; 	 #Action potential
+787	247; 	 #Action potential
+787	248; 	 #Action potential
+787	249; 	 #Action potential
+787	250; 	 #Action potential
+787	251; 	 #Action potential
+787	252; 	 #Action potential
+787	253; 	 #Action potential
+787	254; 	 #Action potential
+787	255; 	 #Action potential
+787	256; 	 #Action potential
+787	257; 	 #Action potential
+787	258; 	 #Action potential
+787	259; 	 #Action potential
+787	260; 	 #Action potential
+787	261; 	 #Action potential
+787	262; 	 #Action potential
+787	263; 	 #Action potential
+787	264; 	 #Action potential
+787	265; 	 #Action potential
+787	266; 	 #Action potential
+787	267; 	 #Action potential
+787	268; 	 #Action potential
+787	269; 	 #Action potential
+787	270; 	 #Action potential
+787	271; 	 #Action potential
+787	272; 	 #Action potential
+787	273; 	 #Action potential
+787	274; 	 #Action potential
+787	275; 	 #Action potential
+787	276; 	 #Action potential
+787	277; 	 #Action potential
+787	278; 	 #Action potential
+787	279; 	 #Action potential
+787	280; 	 #Action potential
+787	281; 	 #Action potential
+787	282; 	 #Action potential
+787	283; 	 #Action potential
+787	284; 	 #Action potential
+787	285; 	 #Action potential
+787	286; 	 #Action potential
+787	287; 	 #Action potential
+787	288; 	 #Action potential
+787	289; 	 #Action potential
+787	290; 	 #Action potential
+787	291; 	 #Action potential
+787	292; 	 #Action potential
+787	293; 	 #Action potential
+787	294; 	 #Action potential
+787	295; 	 #Action potential
+787	296; 	 #Action potential
+787	297; 	 #Action potential
+787	298; 	 #Action potential
+787	299; 	 #Action potential
+787	300; 	 #Action potential
+787	301; 	 #Action potential
+787	302; 	 #Action potential
+787	303; 	 #Action potential
+787	304; 	 #Action potential
+787	305; 	 #Action potential
+787	306; 	 #Action potential
+787	307; 	 #Action potential
+787	308; 	 #Action potential
+787	309; 	 #Action potential
+787	310; 	 #Action potential
+787	311; 	 #Action potential
+787	312; 	 #Action potential
+787	313; 	 #Action potential
+787	314; 	 #Action potential
+787	314.999; 	 #Action potential
+787	315.999; 	 #Action potential
+787	316.999; 	 #Action potential
+787	317.999; 	 #Action potential
+787	318.999; 	 #Action potential
+787	319.999; 	 #Action potential
+787	320.999; 	 #Action potential
+787	321.999; 	 #Action potential
+787	322.999; 	 #Action potential
+787	323.999; 	 #Action potential
+787	324.999; 	 #Action potential
+787	325.999; 	 #Action potential
+787	326.999; 	 #Action potential
+787	327.999; 	 #Action potential
+787	328.999; 	 #Action potential
+787	329.999; 	 #Action potential
+787	330.999; 	 #Action potential
+787	331.999; 	 #Action potential
+787	332.999; 	 #Action potential
+787	333.999; 	 #Action potential
+787	334.999; 	 #Action potential
+787	335.999; 	 #Action potential
+787	336.999; 	 #Action potential
+787	337.999; 	 #Action potential
+787	338.999; 	 #Action potential
+787	339.999; 	 #Action potential
+787	340.999; 	 #Action potential
+787	341.999; 	 #Action potential
+787	342.999; 	 #Action potential
+787	343.999; 	 #Action potential
+787	344.999; 	 #Action potential
+787	345.999; 	 #Action potential
+787	346.999; 	 #Action potential
+787	347.999; 	 #Action potential
+787	348.999; 	 #Action potential
+787	349.999; 	 #Action potential
+787	350.999; 	 #Action potential
+787	351.999; 	 #Action potential
+787	352.999; 	 #Action potential
+787	353.999; 	 #Action potential
+787	354.999; 	 #Action potential
+787	355.999; 	 #Action potential
+787	356.999; 	 #Action potential
+787	357.999; 	 #Action potential
+787	358.999; 	 #Action potential
+787	359.999; 	 #Action potential
+787	360.999; 	 #Action potential
+787	361.999; 	 #Action potential
+787	362.999; 	 #Action potential
+787	363.999; 	 #Action potential
+787	364.999; 	 #Action potential
+787	365.999; 	 #Action potential
+787	366.999; 	 #Action potential
+787	367.999; 	 #Action potential
+787	368.999; 	 #Action potential
+787	369.999; 	 #Action potential
+787	370.999; 	 #Action potential
+787	371.999; 	 #Action potential
+787	372.999; 	 #Action potential
+787	373.999; 	 #Action potential
+787	374.999; 	 #Action potential
+787	375.999; 	 #Action potential
+787	376.999; 	 #Action potential
+787	377.999; 	 #Action potential
+787	378.999; 	 #Action potential
+787	379.999; 	 #Action potential
+787	380.999; 	 #Action potential
+787	381.999; 	 #Action potential
+787	382.999; 	 #Action potential
+787	383.999; 	 #Action potential
+787	384.999; 	 #Action potential
+787	385.999; 	 #Action potential
+787	386.999; 	 #Action potential
+787	387.999; 	 #Action potential
+787	388.999; 	 #Action potential
+787	389.999; 	 #Action potential
+787	390.999; 	 #Action potential
+787	391.998; 	 #Action potential
+787	392.998; 	 #Action potential
+787	393.998; 	 #Action potential
+787	394.998; 	 #Action potential
+787	395.998; 	 #Action potential
+787	396.998; 	 #Action potential
+787	397.998; 	 #Action potential
+787	398.998; 	 #Action potential
+787	399.998; 	 #Action potential
+787	400.998; 	 #Action potential
+787	401.998; 	 #Action potential
+787	402.998; 	 #Action potential
+787	403.998; 	 #Action potential
+787	404.998; 	 #Action potential
+787	405.998; 	 #Action potential
+787	406.998; 	 #Action potential
+787	407.998; 	 #Action potential
+787	408.998; 	 #Action potential
+787	409.998; 	 #Action potential
+787	410.998; 	 #Action potential
+787	411.998; 	 #Action potential
+787	412.998; 	 #Action potential
+787	413.998; 	 #Action potential
+787	414.998; 	 #Action potential
+787	415.998; 	 #Action potential
+787	416.998; 	 #Action potential
+787	417.998; 	 #Action potential
+787	418.998; 	 #Action potential
+787	419.998; 	 #Action potential
+787	420.998; 	 #Action potential
+787	421.998; 	 #Action potential
+787	422.998; 	 #Action potential
+787	423.998; 	 #Action potential
+787	424.998; 	 #Action potential
+787	425.998; 	 #Action potential
+787	426.998; 	 #Action potential
+787	427.998; 	 #Action potential
+787	428.998; 	 #Action potential
+787	429.998; 	 #Action potential
+787	430.998; 	 #Action potential
+787	431.998; 	 #Action potential
+787	432.998; 	 #Action potential
+787	433.998; 	 #Action potential
+787	434.998; 	 #Action potential
+787	435.998; 	 #Action potential
+787	436.998; 	 #Action potential
+787	437.998; 	 #Action potential
+787	438.998; 	 #Action potential
+787	439.998; 	 #Action potential
+787	440.998; 	 #Action potential
+787	441.998; 	 #Action potential
+787	442.998; 	 #Action potential
+787	443.998; 	 #Action potential
+787	444.998; 	 #Action potential
+787	445.998; 	 #Action potential
+787	446.998; 	 #Action potential
+787	447.998; 	 #Action potential
+787	448.998; 	 #Action potential
+787	449.998; 	 #Action potential
+787	450.998; 	 #Action potential
+787	451.998; 	 #Action potential
+787	452.998; 	 #Action potential
+787	453.998; 	 #Action potential
+787	454.998; 	 #Action potential
+787	455.998; 	 #Action potential
+787	456.998; 	 #Action potential
+787	457.998; 	 #Action potential
+787	458.998; 	 #Action potential
+787	459.998; 	 #Action potential
+787	460.998; 	 #Action potential
+787	461.998; 	 #Action potential
+787	462.998; 	 #Action potential
+787	463.998; 	 #Action potential
+787	464.998; 	 #Action potential
+787	465.998; 	 #Action potential
+787	466.998; 	 #Action potential
+787	467.998; 	 #Action potential
+787	468.998; 	 #Action potential
+787	469.997; 	 #Action potential
+787	470.997; 	 #Action potential
+787	471.997; 	 #Action potential
+787	472.997; 	 #Action potential
+787	473.997; 	 #Action potential
+787	474.997; 	 #Action potential
+787	475.997; 	 #Action potential
+787	476.997; 	 #Action potential
+787	477.997; 	 #Action potential
+787	478.997; 	 #Action potential
+787	479.997; 	 #Action potential
+787	480.997; 	 #Action potential
+787	481.997; 	 #Action potential
+787	482.997; 	 #Action potential
+787	483.997; 	 #Action potential
+787	484.997; 	 #Action potential
+787	485.997; 	 #Action potential
+787	486.997; 	 #Action potential
+787	487.997; 	 #Action potential
+787	488.997; 	 #Action potential
+787	489.997; 	 #Action potential
+787	490.997; 	 #Action potential
+787	491.997; 	 #Action potential
+787	492.997; 	 #Action potential
+787	493.997; 	 #Action potential
+787	494.997; 	 #Action potential
+787	495.997; 	 #Action potential
+787	496.997; 	 #Action potential
+787	497.997; 	 #Action potential
+787	498.997; 	 #Action potential
+787	499.997; 	 #Action potential
+787	500.997; 	 #Action potential
+787	501.997; 	 #Action potential
+787	502.997; 	 #Action potential
+787	503.997; 	 #Action potential
+787	504.997; 	 #Action potential
+787	505.997; 	 #Action potential
+787	506.997; 	 #Action potential
+787	507.997; 	 #Action potential
+787	508.997; 	 #Action potential
+787	509.997; 	 #Action potential
+787	510.997; 	 #Action potential
+787	511.997; 	 #Action potential
+787	512.997; 	 #Action potential
+787	513.997; 	 #Action potential
+787	514.997; 	 #Action potential
+787	515.997; 	 #Action potential
+787	516.997; 	 #Action potential
+787	517.997; 	 #Action potential
+787	518.997; 	 #Action potential
+787	519.997; 	 #Action potential
+787	520.997; 	 #Action potential
+787	521.997; 	 #Action potential
+787	522.997; 	 #Action potential
+787	523.997; 	 #Action potential
+787	524.997; 	 #Action potential
+787	525.997; 	 #Action potential
+787	526.997; 	 #Action potential
+787	527.997; 	 #Action potential
+787	528.997; 	 #Action potential
+787	529.997; 	 #Action potential
+787	530.997; 	 #Action potential
+787	531.997; 	 #Action potential
+787	532.997; 	 #Action potential
+787	533.997; 	 #Action potential
+787	534.997; 	 #Action potential
+787	535.997; 	 #Action potential
+787	536.997; 	 #Action potential
+787	537.997; 	 #Action potential
+787	538.997; 	 #Action potential
+787	539.997; 	 #Action potential
+787	540.997; 	 #Action potential
+787	541.997; 	 #Action potential
+787	542.997; 	 #Action potential
+787	543.997; 	 #Action potential
+787	544.997; 	 #Action potential
+787	545.997; 	 #Action potential
+787	546.997; 	 #Action potential
+787	547.997; 	 #Action potential
+787	548.997; 	 #Action potential
+787	549.996; 	 #Action potential
+787	550.996; 	 #Action potential
+787	551.996; 	 #Action potential
+787	552.996; 	 #Action potential
+787	553.996; 	 #Action potential
+787	554.996; 	 #Action potential
+787	555.996; 	 #Action potential
+787	556.996; 	 #Action potential
+787	557.996; 	 #Action potential
+787	558.996; 	 #Action potential
+787	559.996; 	 #Action potential
+787	560.996; 	 #Action potential
+787	561.996; 	 #Action potential
+787	562.996; 	 #Action potential
+787	563.996; 	 #Action potential
+787	564.996; 	 #Action potential
+787	565.996; 	 #Action potential
+787	566.996; 	 #Action potential
+787	567.996; 	 #Action potential
+787	568.996; 	 #Action potential
+787	569.996; 	 #Action potential
+787	570.996; 	 #Action potential
+787	571.996; 	 #Action potential
+787	572.996; 	 #Action potential
+787	573.996; 	 #Action potential
+787	574.996; 	 #Action potential
+787	575.996; 	 #Action potential
+787	576.996; 	 #Action potential
+787	577.996; 	 #Action potential
+787	578.996; 	 #Action potential
+787	579.996; 	 #Action potential
+787	580.996; 	 #Action potential
+787	581.996; 	 #Action potential
+787	582.996; 	 #Action potential
+787	583.996; 	 #Action potential
+787	584.996; 	 #Action potential
+787	585.996; 	 #Action potential
+787	586.996; 	 #Action potential
+787	587.996; 	 #Action potential
+787	588.996; 	 #Action potential
+787	589.996; 	 #Action potential
+787	590.996; 	 #Action potential
+787	591.996; 	 #Action potential
+787	592.996; 	 #Action potential
+787	593.996; 	 #Action potential
+787	594.996; 	 #Action potential
+787	595.996; 	 #Action potential
+787	596.996; 	 #Action potential
+787	597.996; 	 #Action potential
+787	598.996; 	 #Action potential
+787	599.996; 	 #Action potential
+787	600.996; 	 #Action potential
+787	601.996; 	 #Action potential
+787	602.996; 	 #Action potential
+787	603.996; 	 #Action potential
+787	604.996; 	 #Action potential
+787	605.996; 	 #Action potential
+787	606.996; 	 #Action potential
+787	607.996; 	 #Action potential
+787	608.996; 	 #Action potential
+787	609.996; 	 #Action potential
+787	610.996; 	 #Action potential
+787	611.996; 	 #Action potential
+787	612.996; 	 #Action potential
+787	613.996; 	 #Action potential
+787	614.996; 	 #Action potential
+787	615.996; 	 #Action potential
+787	616.996; 	 #Action potential
+787	617.996; 	 #Action potential
+787	618.996; 	 #Action potential
+787	619.996; 	 #Action potential
+787	620.996; 	 #Action potential
+787	621.996; 	 #Action potential
+787	622.996; 	 #Action potential
+787	623.996; 	 #Action potential
+787	624.996; 	 #Action potential
+787	625.996; 	 #Action potential
+787	626.996; 	 #Action potential
+787	627.995; 	 #Action potential
+787	628.995; 	 #Action potential
+787	629.995; 	 #Action potential
+787	630.995; 	 #Action potential
+787	631.995; 	 #Action potential
+787	632.995; 	 #Action potential
+787	633.995; 	 #Action potential
+787	634.995; 	 #Action potential
+787	635.995; 	 #Action potential
+787	636.995; 	 #Action potential
+787	637.995; 	 #Action potential
+787	638.995; 	 #Action potential
+787	639.995; 	 #Action potential
+787	640.995; 	 #Action potential
+787	641.995; 	 #Action potential
+787	642.995; 	 #Action potential
+787	643.995; 	 #Action potential
+787	644.995; 	 #Action potential
+787	645.995; 	 #Action potential
+787	646.995; 	 #Action potential
+787	647.995; 	 #Action potential
+787	648.995; 	 #Action potential
+787	649.995; 	 #Action potential
+787	650.995; 	 #Action potential
+787	651.995; 	 #Action potential
+787	652.995; 	 #Action potential
+787	653.995; 	 #Action potential
+787	654.995; 	 #Action potential
+787	655.995; 	 #Action potential
+787	656.995; 	 #Action potential
+787	657.995; 	 #Action potential
+787	658.995; 	 #Action potential
+787	659.995; 	 #Action potential
+787	660.995; 	 #Action potential
+787	661.995; 	 #Action potential
+787	662.995; 	 #Action potential
+787	663.995; 	 #Action potential
+787	664.995; 	 #Action potential
+787	665.995; 	 #Action potential
+787	666.995; 	 #Action potential
+787	667.995; 	 #Action potential
+787	668.995; 	 #Action potential
+787	669.995; 	 #Action potential
+787	670.995; 	 #Action potential
+787	671.995; 	 #Action potential
+787	672.995; 	 #Action potential
+787	673.995; 	 #Action potential
+787	674.995; 	 #Action potential
+787	675.995; 	 #Action potential
+787	676.995; 	 #Action potential
+787	677.995; 	 #Action potential
+787	678.995; 	 #Action potential
+787	679.995; 	 #Action potential
+787	680.995; 	 #Action potential
+787	681.995; 	 #Action potential
+787	682.995; 	 #Action potential
+787	683.995; 	 #Action potential
+787	684.995; 	 #Action potential
+787	685.995; 	 #Action potential
+787	686.995; 	 #Action potential
+787	687.995; 	 #Action potential
+787	688.995; 	 #Action potential
+787	689.995; 	 #Action potential
+787	690.995; 	 #Action potential
+787	691.995; 	 #Action potential
+787	692.995; 	 #Action potential
+787	693.995; 	 #Action potential
+787	694.995; 	 #Action potential
+787	695.995; 	 #Action potential
+787	696.995; 	 #Action potential
+787	697.995; 	 #Action potential
+787	698.995; 	 #Action potential
+787	699.995; 	 #Action potential
+787	700.995; 	 #Action potential
+787	701.995; 	 #Action potential
+787	702.995; 	 #Action potential
+787	703.995; 	 #Action potential
+787	704.994; 	 #Action potential
+787	705.994; 	 #Action potential
+787	706.994; 	 #Action potential
+787	707.994; 	 #Action potential
+787	708.994; 	 #Action potential
+787	709.994; 	 #Action potential
+787	710.994; 	 #Action potential
+787	711.994; 	 #Action potential
+787	712.994; 	 #Action potential
+787	713.994; 	 #Action potential
+787	714.994; 	 #Action potential
+787	715.994; 	 #Action potential
+787	716.994; 	 #Action potential
+787	717.994; 	 #Action potential
+787	718.994; 	 #Action potential
+787	719.994; 	 #Action potential
+787	720.994; 	 #Action potential
+787	721.994; 	 #Action potential
+787	722.994; 	 #Action potential
+787	723.994; 	 #Action potential
+787	724.994; 	 #Action potential
+787	725.994; 	 #Action potential
+787	726.994; 	 #Action potential
+787	727.994; 	 #Action potential
+787	728.994; 	 #Action potential
+787	729.994; 	 #Action potential
+787	730.994; 	 #Action potential
+787	731.994; 	 #Action potential
+787	732.994; 	 #Action potential
+787	733.994; 	 #Action potential
+787	734.994; 	 #Action potential
+787	735.994; 	 #Action potential
+787	736.994; 	 #Action potential
+787	737.994; 	 #Action potential
+787	738.994; 	 #Action potential
+787	739.994; 	 #Action potential
+787	740.994; 	 #Action potential
+787	741.994; 	 #Action potential
+787	742.994; 	 #Action potential
+787	743.994; 	 #Action potential
+787	744.994; 	 #Action potential
+787	745.994; 	 #Action potential
+787	746.994; 	 #Action potential
+787	747.994; 	 #Action potential
+787	748.994; 	 #Action potential
+787	749.994; 	 #Action potential
+787	750.994; 	 #Action potential
+787	751.994; 	 #Action potential
+787	752.994; 	 #Action potential
+787	753.994; 	 #Action potential
+787	754.994; 	 #Action potential
+787	755.994; 	 #Action potential
+787	756.994; 	 #Action potential
+787	757.994; 	 #Action potential
+787	758.994; 	 #Action potential
+787	759.994; 	 #Action potential
+787	760.994; 	 #Action potential
+787	761.994; 	 #Action potential
+787	762.994; 	 #Action potential
+787	763.994; 	 #Action potential
+787	764.994; 	 #Action potential
+787	765.994; 	 #Action potential
+787	766.994; 	 #Action potential
+787	767.994; 	 #Action potential
+787	768.994; 	 #Action potential
+787	769.994; 	 #Action potential
+787	770.994; 	 #Action potential
+787	771.994; 	 #Action potential
+787	772.994; 	 #Action potential
+787	773.994; 	 #Action potential
+787	774.994; 	 #Action potential
+787	775.994; 	 #Action potential
+787	776.994; 	 #Action potential
+787	777.994; 	 #Action potential
+787	778.994; 	 #Action potential
+787	779.994; 	 #Action potential
+787	780.994; 	 #Action potential
+787	781.994; 	 #Action potential
+787	782.993; 	 #Action potential
+787	783.993; 	 #Action potential
+787	784.993; 	 #Action potential
+787	785.993; 	 #Action potential
+787	786.993; 	 #Action potential
+787	787.993; 	 #Action potential
+787	788.993; 	 #Action potential
+787	789.993; 	 #Action potential
+787	790.993; 	 #Action potential
+787	791.993; 	 #Action potential
+787	792.993; 	 #Action potential
+787	793.993; 	 #Action potential
+787	794.993; 	 #Action potential
+787	795.993; 	 #Action potential
+787	796.993; 	 #Action potential
+787	797.993; 	 #Action potential
+787	798.993; 	 #Action potential
+787	799.993; 	 #Action potential
+787	800.993; 	 #Action potential
+787	801.993; 	 #Action potential
+787	802.993; 	 #Action potential
+787	803.993; 	 #Action potential
+787	804.993; 	 #Action potential
+787	805.993; 	 #Action potential
+787	806.993; 	 #Action potential
+787	807.993; 	 #Action potential
+787	808.993; 	 #Action potential
+787	809.993; 	 #Action potential
+787	810.993; 	 #Action potential
+787	811.993; 	 #Action potential
+787	812.993; 	 #Action potential
+787	813.993; 	 #Action potential
+787	814.993; 	 #Action potential
+787	815.993; 	 #Action potential
+787	816.993; 	 #Action potential
+787	817.993; 	 #Action potential
+787	818.993; 	 #Action potential
+787	819.993; 	 #Action potential
+787	820.993; 	 #Action potential
+787	821.993; 	 #Action potential
+787	822.993; 	 #Action potential
+787	823.993; 	 #Action potential
+787	824.993; 	 #Action potential
+787	825.993; 	 #Action potential
+787	826.993; 	 #Action potential
+787	827.993; 	 #Action potential
+787	828.993; 	 #Action potential
+787	829.993; 	 #Action potential
+787	830.993; 	 #Action potential
+787	831.993; 	 #Action potential
+787	832.993; 	 #Action potential
+787	833.993; 	 #Action potential
+787	834.993; 	 #Action potential
+787	835.993; 	 #Action potential
+787	836.993; 	 #Action potential
+787	837.993; 	 #Action potential
+787	838.993; 	 #Action potential
+787	839.993; 	 #Action potential
+787	840.993; 	 #Action potential
+787	841.993; 	 #Action potential
+787	842.993; 	 #Action potential
+787	843.993; 	 #Action potential
+787	844.993; 	 #Action potential
+787	845.993; 	 #Action potential
+787	846.993; 	 #Action potential
+787	847.993; 	 #Action potential
+787	848.993; 	 #Action potential
+787	849.993; 	 #Action potential
+787	850.993; 	 #Action potential
+787	851.993; 	 #Action potential
+787	852.993; 	 #Action potential
+787	853.993; 	 #Action potential
+787	854.993; 	 #Action potential
+787	855.993; 	 #Action potential
+787	856.993; 	 #Action potential
+787	857.993; 	 #Action potential
+787	858.993; 	 #Action potential
+787	859.993; 	 #Action potential
+787	860.992; 	 #Action potential
+787	861.992; 	 #Action potential
+787	862.992; 	 #Action potential
+787	863.992; 	 #Action potential
+787	864.992; 	 #Action potential
+787	865.992; 	 #Action potential
+787	866.992; 	 #Action potential
+787	867.992; 	 #Action potential
+787	868.992; 	 #Action potential
+787	869.992; 	 #Action potential
+787	870.992; 	 #Action potential
+787	871.992; 	 #Action potential
+787	872.992; 	 #Action potential
+787	873.992; 	 #Action potential
+787	874.992; 	 #Action potential
+787	875.992; 	 #Action potential
+787	876.992; 	 #Action potential
+787	877.992; 	 #Action potential
+787	878.992; 	 #Action potential
+787	879.992; 	 #Action potential
+787	880.992; 	 #Action potential
+787	881.992; 	 #Action potential
+787	882.992; 	 #Action potential
+787	883.992; 	 #Action potential
+787	884.992; 	 #Action potential
+787	885.992; 	 #Action potential
+787	886.992; 	 #Action potential
+787	887.992; 	 #Action potential
+787	888.992; 	 #Action potential
+787	889.992; 	 #Action potential
+787	890.992; 	 #Action potential
+787	891.992; 	 #Action potential
+787	892.992; 	 #Action potential
+787	893.992; 	 #Action potential
+787	894.992; 	 #Action potential
+787	895.992; 	 #Action potential
+787	896.992; 	 #Action potential
+787	897.992; 	 #Action potential
+787	898.992; 	 #Action potential
+787	899.992; 	 #Action potential
+787	900.992; 	 #Action potential
+787	901.992; 	 #Action potential
+787	902.992; 	 #Action potential
+787	903.992; 	 #Action potential
+787	904.992; 	 #Action potential
+787	905.992; 	 #Action potential
+787	906.992; 	 #Action potential
+787	907.992; 	 #Action potential
+787	908.992; 	 #Action potential
+787	909.992; 	 #Action potential
+787	910.992; 	 #Action potential
+787	911.992; 	 #Action potential
+787	912.992; 	 #Action potential
+787	913.992; 	 #Action potential
+787	914.992; 	 #Action potential
+787	915.992; 	 #Action potential
+787	916.992; 	 #Action potential
+787	917.992; 	 #Action potential
+787	918.992; 	 #Action potential
+787	919.992; 	 #Action potential
+787	920.992; 	 #Action potential
+787	921.992; 	 #Action potential
+787	922.992; 	 #Action potential
+787	923.992; 	 #Action potential
+787	924.992; 	 #Action potential
+787	925.992; 	 #Action potential
+787	926.992; 	 #Action potential
+787	927.992; 	 #Action potential
+787	928.992; 	 #Action potential
+787	929.992; 	 #Action potential
+787	930.992; 	 #Action potential
+787	931.992; 	 #Action potential
+787	932.992; 	 #Action potential
+787	933.992; 	 #Action potential
+787	934.992; 	 #Action potential
+787	935.992; 	 #Action potential
+787	936.992; 	 #Action potential
+787	937.991; 	 #Action potential
+787	938.991; 	 #Action potential
+787	939.991; 	 #Action potential
+787	940.991; 	 #Action potential
+787	941.991; 	 #Action potential
+787	942.991; 	 #Action potential
+787	943.991; 	 #Action potential
+787	944.991; 	 #Action potential
+787	945.991; 	 #Action potential
+787	946.991; 	 #Action potential
+787	947.991; 	 #Action potential
+787	948.991; 	 #Action potential
+787	949.991; 	 #Action potential
+787	950.991; 	 #Action potential
+787	951.991; 	 #Action potential
+787	952.991; 	 #Action potential
+787	953.991; 	 #Action potential
+787	954.991; 	 #Action potential
+787	955.991; 	 #Action potential
+787	956.991; 	 #Action potential
+787	957.991; 	 #Action potential
+787	958.991; 	 #Action potential
+787	959.991; 	 #Action potential
+787	960.991; 	 #Action potential
+787	961.991; 	 #Action potential
+787	962.991; 	 #Action potential
+787	963.991; 	 #Action potential
+787	964.991; 	 #Action potential
+787	965.991; 	 #Action potential
+787	966.991; 	 #Action potential
+787	967.991; 	 #Action potential
+787	968.991; 	 #Action potential
+787	969.991; 	 #Action potential
+787	970.991; 	 #Action potential
+787	971.991; 	 #Action potential
+787	972.991; 	 #Action potential
+787	973.991; 	 #Action potential
+787	974.991; 	 #Action potential
+787	975.991; 	 #Action potential
+787	976.991; 	 #Action potential
+787	977.991; 	 #Action potential
+787	978.991; 	 #Action potential
+787	979.991; 	 #Action potential
+787	980.991; 	 #Action potential
+787	981.991; 	 #Action potential
+787	982.991; 	 #Action potential
+787	983.991; 	 #Action potential
+787	984.991; 	 #Action potential
+787	985.991; 	 #Action potential
+787	986.991; 	 #Action potential
+787	987.991; 	 #Action potential
+787	988.991; 	 #Action potential
+787	989.991; 	 #Action potential
+787	990.991; 	 #Action potential
+787	991.991; 	 #Action potential
+787	992.991; 	 #Action potential
+787	993.991; 	 #Action potential
+787	994.991; 	 #Action potential
+787	995.991; 	 #Action potential
+787	996.991; 	 #Action potential
+787	997.991; 	 #Action potential
+787	998.991; 	 #Action potential
+787	999.991; 	 #Action potential
+787	1000.99; 	 #Action potential
+787	1001.99; 	 #Action potential
+787	1002.99; 	 #Action potential
+787	1003.99; 	 #Action potential
+787	1004.99; 	 #Action potential
+787	1005.99; 	 #Action potential
+787	1006.99; 	 #Action potential
+787	1007.99; 	 #Action potential
+787	1008.99; 	 #Action potential
+787	1009.99; 	 #Action potential
+787	1010.99; 	 #Action potential
+787	1011.99; 	 #Action potential
+787	1012.99; 	 #Action potential
+787	1013.99; 	 #Action potential
+787	1014.99; 	 #Action potential
+787	1015.99; 	 #Action potential
+787	1016.99; 	 #Action potential
+787	1017.99; 	 #Action potential
+787	1018.99; 	 #Action potential
+787	1019.99; 	 #Action potential
+787	1020.99; 	 #Action potential
+787	1021.99; 	 #Action potential
+787	1022.99; 	 #Action potential
+787	1023.99; 	 #Action potential
+787	1024.99; 	 #Action potential
+787	1025.99; 	 #Action potential
+787	1026.99; 	 #Action potential
+787	1027.99; 	 #Action potential
+787	1028.99; 	 #Action potential
+787	1029.99; 	 #Action potential
+787	1030.99; 	 #Action potential
+787	1031.99; 	 #Action potential
+787	1032.99; 	 #Action potential
+787	1033.99; 	 #Action potential
+787	1034.99; 	 #Action potential
+787	1035.99; 	 #Action potential
+787	1036.99; 	 #Action potential
+787	1037.99; 	 #Action potential
+787	1038.99; 	 #Action potential
+787	1039.99; 	 #Action potential
+787	1040.99; 	 #Action potential
+787	1041.99; 	 #Action potential
+787	1042.99; 	 #Action potential
+787	1043.99; 	 #Action potential
+787	1044.99; 	 #Action potential
+787	1045.99; 	 #Action potential
+787	1046.99; 	 #Action potential
+787	1047.99; 	 #Action potential
+787	1048.99; 	 #Action potential
+787	1049.99; 	 #Action potential
+787	1050.99; 	 #Action potential
+787	1051.99; 	 #Action potential
+787	1052.99; 	 #Action potential
+787	1053.99; 	 #Action potential
+787	1054.99; 	 #Action potential
+787	1055.99; 	 #Action potential
+787	1056.99; 	 #Action potential
+787	1057.99; 	 #Action potential
+787	1058.99; 	 #Action potential
+787	1059.99; 	 #Action potential
+787	1060.99; 	 #Action potential
+787	1061.99; 	 #Action potential
+787	1062.99; 	 #Action potential
+787	1063.99; 	 #Action potential
+787	1064.99; 	 #Action potential
+787	1065.99; 	 #Action potential
+787	1066.99; 	 #Action potential
+787	1067.99; 	 #Action potential
+787	1068.99; 	 #Action potential
+787	1069.99; 	 #Action potential
+787	1070.99; 	 #Action potential
+787	1071.99; 	 #Action potential
+787	1072.99; 	 #Action potential
+787	1073.99; 	 #Action potential
+787	1074.99; 	 #Action potential
+787	1075.99; 	 #Action potential
+787	1076.99; 	 #Action potential
+787	1077.99; 	 #Action potential
+787	1078.99; 	 #Action potential
+787	1079.99; 	 #Action potential
+787	1080.99; 	 #Action potential
+787	1081.99; 	 #Action potential
+787	1082.99; 	 #Action potential
+787	1083.99; 	 #Action potential
+787	1084.99; 	 #Action potential
+787	1085.99; 	 #Action potential
+787	1086.99; 	 #Action potential
+787	1087.99; 	 #Action potential
+787	1088.99; 	 #Action potential
+787	1089.99; 	 #Action potential
+787	1090.99; 	 #Action potential
+787	1092; 	 #Action potential
+787	1093; 	 #Action potential
+787	1094; 	 #Action potential
+787	1095; 	 #Action potential
+787	1096; 	 #Action potential
+787	1097; 	 #Action potential
+787	1098; 	 #Action potential
+787	1099; 	 #Action potential
+787	1100; 	 #Action potential
+787	1101; 	 #Action potential
+787	1102; 	 #Action potential
+787	1103; 	 #Action potential
+787	1104; 	 #Action potential
+787	1105; 	 #Action potential
+787	1106; 	 #Action potential
+787	1107; 	 #Action potential
+787	1108; 	 #Action potential
+787	1109; 	 #Action potential
+787	1110; 	 #Action potential
+787	1111; 	 #Action potential
+787	1112; 	 #Action potential
+787	1113; 	 #Action potential
+787	1114; 	 #Action potential
+787	1115; 	 #Action potential
+787	1116; 	 #Action potential
+787	1117; 	 #Action potential
+787	1118; 	 #Action potential
+787	1119; 	 #Action potential
+787	1120; 	 #Action potential
+787	1121; 	 #Action potential
+787	1122; 	 #Action potential
+787	1123; 	 #Action potential
+787	1124; 	 #Action potential
+787	1125; 	 #Action potential
+787	1126; 	 #Action potential
+787	1127; 	 #Action potential
+787	1128; 	 #Action potential
+787	1129; 	 #Action potential
+787	1130; 	 #Action potential
+787	1131; 	 #Action potential
+787	1132; 	 #Action potential
+787	1133; 	 #Action potential
+787	1134; 	 #Action potential
+787	1135; 	 #Action potential
+787	1136; 	 #Action potential
+787	1137; 	 #Action potential
+787	1138; 	 #Action potential
+787	1139; 	 #Action potential
+787	1140; 	 #Action potential
+787	1141; 	 #Action potential
+787	1142; 	 #Action potential
+787	1143; 	 #Action potential
+787	1144; 	 #Action potential
+787	1145; 	 #Action potential
+787	1146; 	 #Action potential
+787	1147; 	 #Action potential
+787	1148; 	 #Action potential
+787	1149; 	 #Action potential
+787	1150; 	 #Action potential
+787	1151; 	 #Action potential
+787	1152; 	 #Action potential
+787	1153; 	 #Action potential
+787	1154; 	 #Action potential
+787	1155; 	 #Action potential
+787	1156; 	 #Action potential
+787	1157; 	 #Action potential
+787	1158; 	 #Action potential
+787	1159; 	 #Action potential
+787	1160; 	 #Action potential
+787	1161; 	 #Action potential
+787	1162; 	 #Action potential
+787	1163; 	 #Action potential
+787	1164; 	 #Action potential
+787	1165; 	 #Action potential
+787	1166; 	 #Action potential
+787	1167; 	 #Action potential
+787	1168; 	 #Action potential
+787	1169; 	 #Action potential
+787	1170; 	 #Action potential
+787	1171; 	 #Action potential
+787	1172; 	 #Action potential
+787	1173; 	 #Action potential
+787	1174; 	 #Action potential
+787	1175; 	 #Action potential
+787	1176; 	 #Action potential
+787	1177; 	 #Action potential
+787	1178; 	 #Action potential
+787	1179; 	 #Action potential
+787	1180; 	 #Action potential
+787	1181; 	 #Action potential
+787	1182; 	 #Action potential
+787	1183; 	 #Action potential
+787	1184; 	 #Action potential
+787	1185; 	 #Action potential
+787	1186; 	 #Action potential
+787	1187; 	 #Action potential
+787	1188; 	 #Action potential
+787	1189; 	 #Action potential
+787	1190; 	 #Action potential
+787	1191; 	 #Action potential
+787	1192; 	 #Action potential
+787	1193; 	 #Action potential
+787	1194; 	 #Action potential
+787	1195; 	 #Action potential
+787	1196; 	 #Action potential
+787	1197; 	 #Action potential
+787	1198; 	 #Action potential
+787	1199; 	 #Action potential
+788	0; 	 #Depol
+789	17; 	 #Depolarization
+792	33.7968; 	 #Depolarization
+795	50.3929; 	 #Depolarization
+798	66.7906; 	 #Depolarization
+801	82.9923; 	 #Depolarization
+807	98.0203; 	 #Depolarization
+810	113.849; 	 #Depolarization
+813	129.488; 	 #Depolarization
+816	144.94; 	 #Depolarization
+819	160.208; 	 #Depolarization
+822	175.293; 	 #Depolarization
+825	190.198; 	 #Depolarization
+828	204.925; 	 #Depolarization
+834	217.056; 	 #Depolarization
+837	231.461; 	 #Depolarization
+840	245.695; 	 #Depolarization
+843	259.758; 	 #Depolarization
+846	273.654; 	 #Depolarization
+849	287.383; 	 #Depolarization
+852	300.948; 	 #Depolarization
+855	314.351; 	 #Depolarization
+861	323.882; 	 #Depolarization
+864	337.011; 	 #Depolarization
+867	349.983; 	 #Depolarization
+870	362.8; 	 #Depolarization
+873	375.464; 	 #Depolarization
+876	387.976; 	 #Depolarization
+879	400.339; 	 #Depolarization
+882	412.554; 	 #Depolarization
+888	419.751; 	 #Depolarization
+891	431.734; 	 #Depolarization
+894	443.574; 	 #Depolarization
+897	455.273; 	 #Depolarization
+900	466.831; 	 #Depolarization
+903	478.251; 	 #Depolarization
+906	489.535; 	 #Depolarization
+909	500.684; 	 #Depolarization
+915	505.788; 	 #Depolarization
+918	516.742; 	 #Depolarization
+921	527.566; 	 #Depolarization
+924	538.261; 	 #Depolarization
+927	548.827; 	 #Depolarization
+930	559.268; 	 #Depolarization
+933	569.583; 	 #Depolarization
+936	579.776; 	 #Depolarization
+942	582.999; 	 #Depolarization
+945	593.031; 	 #Depolarization
+948	602.943; 	 #Depolarization
+951	612.737; 	 #Depolarization
+954	622.414; 	 #Depolarization
+957	631.974; 	 #Depolarization
+960	641.421; 	 #Depolarization
+963	650.755; 	 #Depolarization
+969	652.292; 	 #Depolarization
+972	661.496; 	 #Depolarization
+975	670.589; 	 #Depolarization
+978	679.575; 	 #Depolarization
+981	688.452; 	 #Depolarization
+984	697.224; 	 #Depolarization
+987	705.891; 	 #Depolarization
+990	714.454; 	 #Depolarization
+996	714.477; 	 #Depolarization
+999	722.938; 	 #Depolarization
+];
+
+axis([0, 1001, 0, 1300]);
+plot( data([1:end],1), data([1:end],2), "@r;Depolarization;");
+title "Depolarization for auron E"
+xlabel Time
+ylabel "Activity variable"
+print -deps -color './eps/eps_auronE-depol.eps';
+sleep(3); 

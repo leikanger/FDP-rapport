@@ -376,6 +376,11 @@ Med høg depolarisering, dvs lav spenning overføres meir, og bl.a. $Ca^{2+}$ so
 Glutamatisk overføring har vore veldig mykje i fokus for synaptisk overføring, og det er ikkje rart at STDP har fått så veldig høgt fokus %NEI, FAEN! må ikkje argumentere mot oppgaveteksten!
 
 
+%Ikkje bruk EG. Skriv om:
+I have in this project designed and implemented a working ANN of SANN and a new model ANN.
+The design and implementation of the two models have been compared in respect to [KVA DA?].
+To summarise this comparison, we can say that ....
+
 \section{Notater: Kva burde eg gjordt annaleis?}
 Burde ikkje bygd de to implementasjonane så lik. (?)
 Det er vanskelig å sammenligne de to. For K\_auron kunne eg ivertfall droppa dendrite og kanskje axon.
@@ -404,3 +409,45 @@ Dette burde eg gjordt annerledes, og både implementering og effektivitet ville 
 % Det kan være dette er eit stort bidrag for ANN-verden. Dersom det i tillegg er meir effektivt, så ...
 
 
+%FRA KAPITTEL: \chapter{resultat av sammenligning: SANN vs. $\kappa$ANN}
+	\section{ The transient course of the auron's depolarization }
+	Her skal plott av depolarization legges.
+
+	\section{ Det eg får tida til å sammenligne - implementasjon, effektivitet, ...}
+	Skrive at implementasjon er noe vanskeligere for KANN, da det også har med fremtidsutsikter. Dette kan forventes, siden KANN noder kan sees på som implemenasjon av en Mealy automata og SANN en Moore automata av spiking neuron.
+
+	\section{ Mulige aspekt som er nye i denne oppgava }
+	I likhet med da eg først utvikla SANN, trudde eg at tidsmodellen min var heilt ny. Det at nodene ikkje ble oppdatert kvar iterasjon, men bare ved "events". Dette er feil. "event--driven simulation of SANN".
+	
+	Er rimelig sikker på at KANN--modellen er heilt ny. Har ikkje hørt om denne, har ikkje funnet den, alle de professorene eg har snakket med har ikkje hørt om slikt, osv.
+	
+	Kanskje: Leste at det var vanskelig å estimere fyringstid. Dette blir isåfall løst ved KANN.
+
+	Trur KANN gir muligheten for 'abituary time steps' uten å bruke meir prosessorkraft. I så fall kan dette være stort! Kan gi større oppløsning i forhold til 'spatial resolution' også.
+	Fordi KANN beregner bare ved endring av node input, ikkje for alle tidssteg..
+	(Dette bør også simuleres, slik at eg får data til å støtte meg på)  	Fy faen, dette er fett isåfall!
+
+
+	%ikkje akkurat denne overskrifta, men på en eller anna måte vil eg diskutere kva som er nytt i denne oppgaven
+	\subsection{Possible new elements from this project}
+	Despite an extensive extensive litterature search an asking multiple proffessors on the subject, I have been unable to find ANN coding the activity of the nodes as I have done in this project.
+	In fact, everything I have found indicates that the most used activity variable used both in ANN and in neuroscience is the frequency of the neurons.
+	
+	It is, in other words, entirely possible that the mathemathics developed for this project is entirely new. 
+	In 	this case, I believe that this could be an important contribution to the field of neural networks (espescially the study of biological neural networks).
+
+	I am no expert on neural systems, but in the course of testing the new method for making ANN I have found phasic firing of a node as a consequence of a sinusiodal input %SJÅ datafiles_for_evaluation/filer_til_rapport/
+	, witch is an known phenomoen in neuroscience called Local Field Potential Oscillations (LFPOs).
+	
+	BLA BLA BLA..
+
+	\section{En hovedforskjell: mulighet for rekalkulering av aktivitetsnivå}
+	For simulering fekk vi forskjell i den transiente depol. kurva, mellom de to modellane.
+	Mi tolking var at denne feilen er en integralfeil for SN. Feilen økte for større stigning på depol-kurven, og minka til en negativ feil på synkende kurve.
+	
+	Dersom vi har en kurve som svinger rundt eit arbeidspunkt, så vil feilen for den stigende biten av kurven forsvinne når kurva synker igjen. For en "periode" (dersom det er periodisk, uten sprang) vil feilen integreres opp til å bli 0.
+
+	Dersom vi har eit sprang 
+
+
+	\section{ Konklusjon }
