@@ -9,7 +9,9 @@
 
 
 %*********************** SANN ***************************
-\chapter{Implementasjon: SANN}
+%\chapter{Implementasjon: SANN}
+
+\section{SANN Implementasjon}
 
 
 	%TODO Lag plot:
@@ -20,9 +22,9 @@
 	Her kan det være litt motivasjon, spiking-tid, og at det er lettest å lage dette ved direkte simulering av neuronet.
 	Oppsummere litt det som er skrevet i ANN (sende litt bakover--referanser til ANN kapittel)
 
+	I innledninga: skriv det som står kommentert ut (tittelen). -at dette blir en simulering av mekanismene for enkeltneuron.
 
-
-	\section{Simuating the mechanisms of the neuron}
+	%\section{Simuating the mechanisms of the neuron}
 
 	% Kjør masse sitering eller referering innad i dokumentet for å hente ut meir poeng fra sensor.
 	% Skrive at "Alle SANN" istedenfor "the usual way ..". Det er litt vanskelig å skrive "alle" uten å være påståelig.
@@ -71,7 +73,7 @@
 	%The simulation of the mechanisms of the nodes is 
 	
 
-	\subsection{Input to the nodes of this implementation}
+	\subsection{The Nodes' Input}
 	The transmission through the input synapses of a neuron arrives at the dendrite. 
 	Here the membrane potential is either increased or decreased, depending on whether the synapse is an exitatory og inhibitory synapse.
 
@@ -104,8 +106,10 @@
 	%todo Koble dette avsnittet meir sammen med det forrige.
 	% Evt. lag eit nytt subsection.
 
-	\subsection{The node's leakage}
+	\subsection{The ``Leakage''}
 	\label{secTheLeakageForSANN}
+	%TODO Skriv (intro) om lekkasjen. Skriv om LIF. Internreferer!
+	%TODO TODO TODO TODO TODO TODO
 	For the discrete time system, the next iterations value is computed as the sum of the leakage and any new synaptic input signals.
 	%In the absence of input, 
 	Isolated from the input to the node, the updated value is given by the equation
@@ -141,7 +145,7 @@ inline void s_dendrite::calculateLeakage()
 	The leakage will be calculated every time the value of the node is used or changed.
 	This means that whenever the dendrite gets a new transmission from one of its input synapses, \emph{s\_dendrite::calculateLeakage()} is called.
 
-	\subsection{The action potential in SANN}
+	\subsection{Action Potential in SANN}
 	\label{ssecSANNAP}
 	When the depolarisasjon of the membrane goes above the firing threshold, the s\_auron element of the node is inserted into pWorkTaskQue, causing a small timedelay before calling \emph{s\_auron::doTask()}.
 	In this context, \emph{s\_auron} have the role of the axon hillock, and initiates the action potential by inserting a pointer to the node's s\_axon object into pWorkTaskQue.
@@ -186,7 +190,9 @@ inline void s_synapse::doTask()
 	%The spatial and temoral resolution can be improved by simply adding more input dendrites and axon elements for the node.
 	%Each axon elements then gets the function of a segment of the ``axon proper'' in the biological neuron. %TODO Skriv kva "axon proper" er i BiologiskeSystemet.tex, og referer dit!
 
-	\subsection{The response of the SN}
+%TODO FLytt dette til resultat-kapittel. Kan referere dit, men bare med ei/eit par   setninger.
+%XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX 
+\subsection{The response of the SN}
 	In the previous sections, the design of each node for the SANN was introduced.
 	The activity variable for the SN corresponds to the level of depolarization of the membrane potential for the biological neuron.
 	Excitatofy synaptic input to a node will increase the value of the node and inhibitory synaptic input will decrease the node's value.

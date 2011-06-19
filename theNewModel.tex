@@ -8,7 +8,7 @@
 % 	TODO Lag frampeik om at "dette kan brukes til ANN", eller tilsvarende.
 %
 
-\chapter{Mathematical modelling of the biological neuron} 
+\section{Mathematical modelling of the biological neuron} 
 \label{secMatematiskModelleringAvBioNeuron}
 
 %Når eg skriver om:
@@ -49,10 +49,10 @@ From this we can later talk about the differential equation of the nodes value.
 
 
 
-\section{The equilibrium potential}
+\subsection{The equilibrium potential}
 % TODO TODO Skriv også om lekkasje! Fra ANN.tex refererer eg hit når eg snakker om lekkasje. XXX Hugs å skrive om lekkasje her!
 % Sjå ANN.tex: Snakker om LIF-neuron. Skriv om LIF-neuron når eg skriver om lekkasjen!
-\label{secTheEquilibriumPotential}
+\label{ssecTheEquilibriumPotential}
 %TODO Er det her eg skal skrive om LIF-neuron (leaky integration)?
 In the biological neuron, the reversal potential for the different ions is can be calculated by the Nernst equation. 
 The reversal potential is the electrical potential where the respective ion flow will be revesed (flow the oposite direction) if an ion channel is opened.
@@ -179,7 +179,7 @@ For my implementations the external driving force on the membrane potential will
 %In the case of neural networks, this is called a 'leaky integrate-and-fire' (LIF) model.
 
 %TODO Poengter at dette er mitt arbeid:
-\subsection{The differential equation for neurons depolarization}
+\subsection{The differential equation for neurons depolarization} % (gjør om chap til sec. ,no. Skal denne bli subsubsection?
 The equation for the potential can be stated as a first order differential equation:
 \begin{equation}
 	\dot{v}(t) = \dot{v}_{in}(t) - \dot{v}_{out}(t) %, \qquad i = \text{ neural input } %% XXX Endra \dot{v}_{in}(I) til  \dot{v}_{in}(t). XXX
@@ -275,11 +275,10 @@ In this way $t$ represents the time since the start of the current period.
 \subsection{The Action Potential}
 The action potential, a ``spike'', and the period between action potentials, the interspike period, is the basis of the computational capabilities of the neuron.
 When the value of the neuron excedes the firing threshold an action potential is initialized.
-This causes transmission at all the output synapses of the neuron, and resetting the value of the neuron to $V_r$.
+This causes transmission at all the output synapses of the neuron, and resetting the value of the neuron to $V_r$. % = 0. Skrive at det er lik null. Gjør likningene under rett..
 
 We get that the neuron fires at time $t^*$:
 \begin{equation}
-	\label{eqTidTilFyringVedEndraKappa}
 	\begin{split}
 			v(t^*) 					 							&= \tau \qquad 										\\	%,\qquad\qquad\tau = \text{firing threshold} 	\\
 			\kappa (1-e^{-\alpha t^*}) + v_0 e^{-\alpha t})		&= \tau 											\\
@@ -287,21 +286,36 @@ We get that the neuron fires at time $t^*$:
 			\ln \left(e^{-\alpha t^*}\right) 					&= \frac{\kappa - \tau}{\kappa - v_0} 					\\
 			t^*													&= -\alpha^{-1} \, \ln \left( \frac{\kappa - \tau}{\kappa - v_0} \right) 					
 	\end{split}
+	\label{eqTidTilFyringVedEndraKappa}
 \end{equation}
 
 Where $\tau$ is the firing threshold of the neuron. 
 %XXX TODO Neste linjene er litt feil. Dette beskrive oppladninga av depol., m.a.o. ikkje heile p_isi(K). Bare p_charge,isi(K). Skriv dette. 
 % ( Skriv at i tillegg får vi den såkalla "refraction time" errer eit AP. Dette må legges til for å få heile perioden.
-If we define $p_d(\kappa)$ as the depolarizing phase of the inter--spike interval, for constant inter--spike $\kappa$ we get $v_0 = 0$ and the period given by
+If we define $p_d(\kappa)$ as the depolarizing phase of the inter--spike interval, for constant inter--spike $\kappa$ we get $v_0 = 0$, and the depolarization phase of the period is given by
 \begin{equation}
-	\label{eqPeriodeligningForKonstIntraPeriodKAPPA}
 	p_d(\kappa) = -\alpha^{-1} \, \ln(\frac{\kappa - \tau}{\kappa})
+	\label{eqPeriodeligningForKonstIntraPeriodKAPPA}
 \end{equation}
 
-It is impotant to remember that equation \eqref{eqPeriodeligningForKonstIntraPeriodKAPPA} is based on a constant $\kappa$ during the whole period. 
+Equation \eqref{eqTidTilFyringVedEndraKappa} can also be used to calculate the time until firing for a given $\kappa$ and start value $v_0$
+\begin{equation}
+%	\begin{split}
+	p_{r}(\kappa, v_0) 	\;= t^* + t_r 
+						\quad= -\alpha^{-1} \, \ln \left( \frac{\kappa - \tau}{\kappa - v_0} \right) + t_r
+%	\end{split}
+	\label{eqRemainderOfPeriod}
+\end{equation}
+Here $p_r(\kappa, v_0)$ represents the remainder of the current inter--spike period and $t_r$ the absolute refraction period. % TODO XXX Skrive om dette? :  To see the refration time as a constant is a simplification.
+The refraction period is more complex than so, but for our simple model we use this model of the refraction period.
+
+It is impotant to remember that equation \eqref{eqPeriodeligningForKonstIntraPeriodKAPPA} and \eqref{eqRemainderOfPeriod} is based on a constant $\kappa$ during the whole period. 
+% Det er meir komplisert enn det som står på neste linje. (gjør det litt større).
 If $\kappa$ varies during the interspike period, the firing time will also change. %More on this in the next section.
 
 %If $\kappa$ varies during the interspike period, $t^*$ from equation \eqref{eqTidTilFyringVedEndraKappa} is an estimate of the remainting time until firing. This estimate is updated every time $\kappa$ is.
+
+%TODO Lag ei ligning for heile perioden også? Dette er bra å referere til!
 
 
 
@@ -316,14 +330,15 @@ Equation \eqref{eqPeriodeligningForKonstIntraPeriodKAPPA} is based on a constant
 
 If we allow the activation level of the node to change during the inter--spike period of the neuron, we cannot use \eqref{eqVerdiligninga} and \eqref{eqTidTilFyringVedEndraKappa} directly.
 																			%the equations from the previous section.
-To solve this problem, the concept of ``a time window'' is introduced. A time window is defined as the longest time interval where the activation level of the node is constant.
-Within each time window both \eqref{eqVerdiligninga} and \eqref{eqTidTilFyringVedEndraKappa} is therefore valid. % .. kan bli brukt.
+To solve this problem, the concept of a ``time window'' is introduced. A time window is defined as the smallest of [a time interval where the activation level of the node is constant] or [the remainder of the interspike period].
+%Within each time window both \eqref{eqVerdiligninga} and \eqref{eqRemainderOfPeriod} is therefore valid. % .. kan bli brukt.
+Both equation \eqref{eqVerdiligninga} and \eqref{eqRemainderOfPeriod} is therefore valid within a time window.
 
 \begin{figure}[hbt!p]
-	\label{figVerdifunksjonen}
 	\centering
 	\includegraphics[width=0.95\textwidth]{demonstrasjonAvUlikeKappaforVerdifunksjonen.eps}
 	\caption{$v(t)$ for changing $\kappa$. $\kappa_0=0.7$. At time $t_p=100$ $\kappa$ changes to $\kappa_1=0.5$. At time $t_p=150$ the neurons imput increases, and $\kappa$ becomes $\kappa_2=1$. See eq.\eqref{eqVerdiligninga}.}
+	\label{figVerdifunksjonen}
 \end{figure}
 
 When $\kappa$ is changed, the initial value of the next time window, $v_0$, can be calculated from \eqref{eqVerdiligninga}. 
@@ -356,7 +371,7 @@ If $\kappa$ is changed before the estimated firing time, the firing time will be
 % This value is equal to the value $v(t)$ at the time of change of $\kappa$ from the previous time window(se fig. \ref{figVerdifunksjonen}).
 % This is equal to the value of the neuron at the time of variation of $\kappa$ (the value at the end of the previous time window).
 
-In fig. \ref{figVerdifunskjonen}, $v(t)$ is simulated for three different time windows. At time $t_p=100$, $\kappa$ changes from $\kappa_0=0.7$ to $\kappa_1=0.5$. At time $t_p=150$, $\kappa$ becomes $\kappa_2=1$. 
+In fig. \ref{figVerdifunksjonen}, $v(t)$ is simulated for three different time windows. At time $t_p=100$, $\kappa$ changes from $\kappa_0=0.7$ to $\kappa_1=0.5$. At time $t_p=150$, $\kappa$ becomes $\kappa_2=1$. 
 The simulation implies that the value function is a continous function that converges toward the neurons final value, $\kappa$, also when $\kappa$ varies.
 
 
@@ -370,7 +385,7 @@ If this is updated each time $\kappa$ varies, we get an estimate of the remainin
 
 
 %TODO Finn eit bedre navn på denne subsubsection.
-\subsection{Values for the depolarization equation}
+\subsection{The constants in the depolarization equation}
 %\subsection{Redying the equation for use in ANN}
 %TODO Skriv at denne ligninga kan brukes direkte for å lage en heilt ny modell for "spiking ANN" (ANN med information om 'spike-time').
 % 	Om dette skal gjøres, må modellen tilpasses. Blabla, dette gjøres her. Eller noke.. Kanskje ikkje.
@@ -442,7 +457,7 @@ For $\kappa$ANN this can be implemented more effective by incrementing the estim
 
 
 %TODO Skriv om høgare syn på systemet. Kva betyr Kappa (=ett slags mål på input/lekkasje), output gjennom utsynapser er en funksjon som avhenger av [syn.weight]/[isi_intervall].
-% 		- får dermed en { alpha*w_ij / ln(1-(T/K)) } relasjon mellom neuronets aktivering (K) og neste neurons input. Bør kanskje lese deg opp på "log-summering som multiplikasjon"-artikkelen, og referere!
+% 		- får dermed en { alpha*w_{ij} / ln(1-(T/K)) } relasjon mellom neuronets aktivering (K) og neste neurons input. Bør kanskje lese deg opp på "log-summering som multiplikasjon"-artikkelen, og referere!
 
 
 

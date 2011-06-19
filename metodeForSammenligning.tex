@@ -53,7 +53,7 @@ Kva var originalt planlagt, men viste seg å bli for mykje arbeid?
 
 
 
-\subsection{Comparison between the transient time course of the depolarization of the K auron and s auron ,   Vettafaen kor det skal ligge}
+\section{Comparison between the transient time course of the depolarization of the K auron and s auron ,   Vettafaen kor det skal ligge}
 To compare %the implementation of (?)
 			the two models, we will start with comparing the depolarization of a single node from each model.
 The same input to the two nodes should optimally give the same transient time course of the depolarization.
@@ -147,7 +147,11 @@ For the SN this might become a problem, and could be the basis of the difference
 % TODO TODO TODO Skriv også at denne "truncation error" er tatt hand om i KANN, og bude vore minimal. For SANN er ikkje dette mulig (Ingen mulighet å rekalulere verdien).
 %  					XXX Dette er veldig viktig poeng for seinere analyse av KANN vs. SANN!
 
-\subsubsection{Trunctation error of the SN} %Kanskje skrive "Spiking Node". Hugs at overskrifta blir også oppført i "index".
+
+
+
+	\subsection{Trunctation error of the SN} %Kanskje skrive "Spiking Node". Hugs at overskrifta blir også oppført i "index".
+	\label{ssecTruncationErrorOfSN}
 In SANN each node is modelled as a leaky-integrate-and-fire neuron.
 When the depolarization of the SN is updated, the leak of the neuron calculated as the previous value times the leak constant.
 The updated value then becomes %todo Skriv om denne setninga.
@@ -188,7 +192,11 @@ The result is presented in fig. \ref{figComparisonBetweenSsensorAndKsensorDepolC
 If the previous analysis of the problem is sound, the SN should have a depolarization that is higher than is should be.
 This implies than the depolarization curve for the SN would be ``before'' that of the $\kappa$N, which is the opposite of the situation of fig. \ref{figComparisonBetweenSsensorAndKsensorDepolCurveCONStActivityLevel}.
 
-\subsubsection{Rounding errors}
+
+
+
+
+	\subsection{Rounding errors}
 %TODO Skriv om: Ikkje røp løysing først. La det være litt spenning!
 After a more thorough analysis of the error, it seems that the difference is an effect of a rounding error.
 
@@ -239,18 +247,14 @@ This deviation is substantially smaller that the deviation originating from the 
 % Eg har også vurdert om det er feil fra implemenasjonen: at de har ulik refraction time, MEN eg trur ikkje dette: 
 % 		En slik feil ville vore mindre (eit-to tidssteg per fyring) => ikkje synlig på eit plott over fleire tusen iter's.
 
-
-% MEN PROBLEMET ER FEIL VEI! JEje. Drit i det!
-
-
-
-
 % Den lille forskjellen mellom s_sensor_auron og K_sensor_auron er noko eg kan skrive mykje om i 'discussion'.
 % Eg har tanker om at det er pga. at eg bruker integer (tid) i ligningene, og vi får dermed avrundingsfeil. Litt overraska over at feilen er så liten..
 % 	Det er også mulig at den lille forskjellen kommer av forskellane i korleis sensor-funksjonen blir oversatt til depol.
 % 		- K_sensor_auron oversetter sensorFunk direkte til aktivitetsVariabel Kappa, mens
 % 		- s_sensor_auron sender gir eit enkelt input per tidsiterasjon gitt av ligninga (W_ij / [time constant]), eller  ALPHA * W_ij
 %   XXX Dette trenger grundigare analyser!
+
+% Svaret var: avrundingsfeil av casting fra float til unsigned (fra estimering av tidssteg til Tidssteg). Dette ble alltid runda ned. Løste ved å +0.5 før casting. Funker drita bra!
 
 
 
@@ -260,6 +264,23 @@ This deviation is substantially smaller that the deviation originating from the 
 %Because a network of connected neurons have a large degree of complexity, it is best to start with comparing the depolarization of single nodes.
 %For comparison of the two models, we will first compare the depolarization of a single neuron of each model.
 %Because a system comprised of a network of neurons have 
+
+%IKKJE TA MED. Er ikkje heilt sikker på kvifor det er slik. Dersom eg skal ha det med, kan eg jobbe med dette når rapporten er ferdig!
+%\section{Synaptic Transmission}
+%Få heilt klar for deg koleis sammenehenen er mellom K syn.t. og s syn.t. er før dette skrives.
+%
+%When the comparison between the postsynaptisk depolarization began, it could seem like the equations for synaptic trantmission were wrong. 
+%The postsynaptic node of a s\_synapse had a larger value that that of the postsynaptic $\kappa$N in a corresponding $\kappa$ANN circuit.
+%After analyzing the result, it was found that the error followed the same principles that were discussed in section \ref{ssecTruncationErrorOfSN}.
+%
+%The initial testing of the different ANN models use few nodes with a strong connection between them.
+%The synaptic connections had a synaptic weight that could make the postsynaptic node go to suprathreshold levels in less then ten transmissions.
+%In biological networks and in useful artificial networks, a connection of this size would make the system %XXX XXX DÅRLIG (skriv dette på bedre måte..)
+%
+%The result of this was that the initial transmission of a SN would cause a jump to this level, and the 
+% % TODO dersom eg skal skrive denne secion, så må eg legge ved plot:  ../FDP_ANN/datafiles_for_evaluation/sammenligningEtterSynapseMedKonstantPresynSensorFunk.eps !
+%When the circuits were initially
+
 
 
 \section{Resultat for effektivitetssammenligning}
@@ -398,6 +419,41 @@ Kalkulering av lekkasje: Kvar gang det kommer nytt input, framfor å gjøre det 
 Skriv at fokuset mitt i denne implementeringa var å sammenligne de to modellene. Dette gjorde at eg satt opp auronet på eg spesiell, og ikkje-optimal måte.
 (Både for effektivitet, men også for implementasjon. Det var kanskje vanskeligere å implementere modellen på måten eg gjorde det, enn nødvendig. Kann trenger bare eit auron, med synapser ut.)
 Dette burde eg gjordt annerledes, og både implementering og effektivitet ville vunnet på dette.
+
+
+\section{Feiler og mangler}
+Skriv om feiler og mangler, forenklinger, ting eg ser bort ifra, ting eg går ut fra, osv.
+
+%Forenklinger:
+%	- Synapsen ser bort fra tidsfenomener (f.eks. potentiation). Skriv at dette er det få som har med.
+%
+% Skriv også om ting er har med, som ofte er forenkla vekk:
+% 	- Tidsdelay i synapse, dendrite, axon.
+% 	- Mulighet for å utvide axon og dendrite dersom eg ønsker bedre spatial resolution.
+% 	- samme for temporal resolution.
+% 	- Implementert det-derre-prinsippet (Dale's(?)) . Neir ikkje heilt. Har ikkje gjort dette for heile neuron, men enkeltsynapsene er enten E eller I. Dette er vanlig å ikkje ha med.
+% 	- I fremtidig arbeid: Tenker å lage ulike synaptisk plastisitetsregler. Muligheten for dette er open..
+% 	-
+%
+
+\section{Kva gjenstår / TODO / For further research}
+Eit element eg ønsker sterkt å gjennomføre er å sammenligne effektiviteten til den nye modellen til andre modeller. Eg føler modellen har store muligheter for effektivitet, spesiellt for neuralkretser med der nodenes $\kappa$ er konstant.
+Dette vil ikkje innebære nevneverdig computational load for nettet.
+
+Synaptisk plasticitet. Ønsker å se på synaptisk plastisitet for neuralnettet.
+Ønsker også å utvikle nye modeller for dette. (basert på K(1-exp(-at) ligning)
+Tilsvarende for refraction period..
+
+Transferfunk. ANN?
+
+
+
+
+
+
+
+
+
 
 
 

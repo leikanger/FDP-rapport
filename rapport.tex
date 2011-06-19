@@ -1,3 +1,28 @@
+
+
+
+% Trenger "Table of abbrevations"
+% 	- LTP, LTD, STDP
+% 	- "spike" ? (at det betyr Action potential)?
+% 	- SANN  - spiking ANN
+% 	- SN 	- Spiking Node, a node in SANN.
+% 	- KANN, KN.
+% 	- LIF neuron: 	Leaky--Integrate and Fire  neuron
+
+
+
+
+% Eller kanskje eg treng stikkordsregister: Trenger:
+% 	- Det over og:
+% 	- axo-axonic synapses
+%
+%
+
+
+
+
+
+
 \documentclass[a4paper,11 pt]{report}
 
 
@@ -122,13 +147,6 @@ Sammenligne tematisk? Skrive at eine er Moore, andre Mealy auromata?
 
 \tableofcontents
 
-% Trenger "Table of abbrevations"
-% 	- LTP, LTD, STDP
-% 	- "spike" ? (at det betyr Action potential)?
-% 	- SANN  - spiking ANN
-% 	- SN 	- Spiking Node, a node in SANN.
-% 	- KANN, KN.
-% 	- LIF neuron: 	Leaky--Integrate and Fire  neuron
 
 
 %Oppgava sei:
@@ -139,21 +157,27 @@ Sammenligne tematisk? Skrive at eine er Moore, andre Mealy auromata?
 
 
 %Intro: utvida innholdsfortegnelse
+\chapter{Introduction}  			%XXX KAPITTEL
 \input{introduksjon}
 
 %ANN: Gjennomgang av ANN, før eg begrunner SANN (3.gen. ANN).
 % 	Legge vekt på at kvart generasjonsskifte så har ANN utvikla seg mot biologien. Skrive at ANN er 'bionics' for å gjøre assosiative oppgaver og læring. 
 % 	Det originale systemet virker som eit bra system, siden jo meir vi tilnærmer oss BioSys, jo bedre blir resultatet.
 % 		- skrive at SANN tar steget videre for SANN, i henhold til 'bionics'.
+\chapter{Background information} 	%XXX KAPITTEL
 \include{ANN}
 
 % Det biologiske systemet. Skrive i forhold til å lage en kunstig versjon av dette (ANN).
 \include{detBiologiskeSystemet}
 
+
 % Før vi kan lage en kunstig variant av neurale system, er det best å modellere det, og bruke matematiske rammer for simuleringa.
 % Dette er også for å formalisere det som tidligere er skrevet i "detBiologiskeSystemet". Gjøre mekanismene eksplisitt, matematisk.
+\chapter{The Model} 				%XXX KAPITTEL
+%TODO Her må er skrive meir om kva modell som er i grunn for SANN, og for den nye modellen. Intro til kapittel.
 \include{theNewModel}
 
+\chapter{Implementation and Design} %XXX KAPITTEL
 % Generell design av implementasjon.
 \include{design}
 
@@ -172,17 +196,22 @@ Sammenligne tematisk? Skrive at eine er Moore, andre Mealy auromata?
 %Referer en del til kapittel \ref{chapNeuroscience}.
 %Her skal eg legge inn tekst som impliserer at eg er reflektert. Skrive alle feil og mangler som ligger i mine modeller, og implementasjon-design.
 
+\chapter{Comparison and results} 	%XXX KAPITTEL 			TODO TODO Finn en bra tittel. Dette kapittel skal inneholde resultat, sammenligning, diskurs, konklusjon.
 
 % SAMMENLIGNING:
 % 	- korleis blir oppgavene tolket?
 % 	- sammenligning av ulike aspekter ved simuleringene.
 \include{metodeForSammenligning}
+%legg meir?
 
-\include{resultat}
 
+
+%\appendix %Unødvendig å skrive. Bare for å gjøre det synlig.. (makroen er kalla i appendixSynPlast.tex)
+% XXX XXX XXX XXX XXX XXX
+% 		APPENDIX 
+% XXX XXX XXX XXX XXX XXX 
 %Kanskje eg skal ha med "table of abbrevations" i appendix, eller først.
-
-\appendix
+%TODO include{appendixTableOfAbbrevations} , eller ha det før innledning..
 \include{appendixSynPlast}
 
 \bibliography{bibliografi}

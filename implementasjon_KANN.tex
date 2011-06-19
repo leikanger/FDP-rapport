@@ -10,7 +10,10 @@
 % 	Sjå [ ref_asdf2143@ANN ] i ANN.tex.
 
 %*********************** KANN ***************************
-\chapter{implementasjon: KANN}
+\section{implementasjon: KANN}
+	
+	%KANSKJE NESTE subsection er INNLEDNING til section? ELLER kanskej eg heller skal skrive motivatorisk? (SKrive om mine håp for modellen..)
+
 	Skriv først innledning, med mål om å sette meg og leser på samme utgangsnivå.
 	Skrive litt om kvifor eg tenker det er lurt å gå videre fra SANN.
 	Modellere det, og bruke formalisert matematikk fremfor å ha ei naiv direkte simulering av mekanismene i enkeltneuronet.
@@ -22,43 +25,103 @@
 	%XXX Dette er vel heller analyse, forresten. TODO Skriv det over i analyse/comparison kapittel.
 	% MEN kanskje også her?
 
+ 		\subsection{The Activity Variable} %TODO I Implementasjon:SANN er det viktig at eg skriver at aktivitetsvariabelen er brukt til depol til noden. (da blir teksten under rett)
+	When the neuron is model used is the LIF model, the depolarization of the node will behave much like a condencator. 
+	The depolarization value of a biological neuron will go towards some value $\kappa$ for a constant, continous input.
+	% This value is given by the input and the grade of leakiness.
+	% Ta vekk den over(kommentert ut), eller siste bit av den under.
+
+	As we have seen in section \ref{secMatematiskModelleringAvBioNeuron}, $\kappa$ is given by the input and the grade of leakiness of a node.
+	For changing $\kappa$, we introduced the concept of \emph{time windows}. 
+	A time window is defined as a period of time where $\kappa$ is constant within the current interspike period (see section \ref{ssecVariableInputBetweenSpikes}).
+	By using eq. \eqref{eqVerdiligninga} it is possible to find the depolarization value of the node at any time $t \, \epsilon \, p_{isi}$.
+	In a $\kappa$N, the activity variable can therefore represent $\kappa$ instead of the depolarization of a corrsponding neuron.
+	According to eq. \eqref{eqRemainderOfPeriod}, this also gives us the oppurtunity to estimate the firing time of the node.
 	
-	\section{Updating $\kappa$} %Calculation and recalculation of $\kappa$
-		\subsection{Synaptic transmission}
-			% skrive om korleis synaptic transmission fåregår (generellt (om at $\kappa_{ij} = \frac{W_{ij}}{p_{pre}}$ ).
-			In biology, a synaptic transmission happens every time a presynaptic action potential is fired.
-			The size of this transmission is given by the synaptic weight of the synapse.
+	If a suitable scheduler is devised, $\kappa$ could also be used effectively for planning, or estimating, the firing time of the node.
+	Because of time limitations for this project, effectivity analysis have not been conducted. %Litt rart språk! XXX conduct conduct!
 
-			Over some time interval, the total transmisson in a synapse ,$o(\Delta t)$, can be modelled as the synaptic weight times the presynaptic neurons firing frequency times the evaluated time interval.
-			We write the presynaptic firing frequency as $f_{pre} = \frac{1}{p_{pre}} = \frac{1}{p(\kappa_{pre})}$ and get:
-			\begin{equation}
-				\label{eqSynapticTransmission}
-				o(\Delta t) = \frac{ W_{ij} }{ p(\kappa_{pre})} * \Delta t 
-			\end{equation}
+	
+	%\subsection{Updating $\kappa$} %Calculation and recalculation of $\kappa$
+	\subsection{Synaptic transmission}
+		%TODO Skriv om, med kontinuerlig tanke på kappaANN. F.eks. : in biology, AND IN SANN, a synaptic ...
 
-			In discrete--time systems, we can define every synaptic transmission to last for one time iteration (if the time step is large enough).  % MED ELLER IKKJE: "(if the time step is large enough)" ??? XXX
-			This causes $\Delta t$ to become constant. We can incoorporate this constant into $W_{ij}$.
+		% skrive om korleis synaptic transmission fåregår (generellt (om at $\kappa_{ij} = \frac{W_{ij}}{p_{pre}}$ ).
+		In biology and in the SANN model, a synaptic transmission has the role of changing the value of the postsynaptic node.
+		Because we do not use the depolarization value as the activity variable in a $\kappa$N, this form of synaptic transmission is no longer possible. %TODO TODO SKriv om! XXX
 
-			For an ANN based on the activity variable $\kappa$, as previously introduced in chapter \ref{secMatematiskModelleringAvBioNeuron} %TODO Sjekk denne  referansen bedre / skriv bedre (?).
-			eq. \eqref{eqSynapticTransmission} is highly relevant.  % highly relevant skurrer litt. Det er veldig relevant. Finn synonym..
-			If we define $\Delta t$ to be some constant, and incoorporate this constant into $W_{ij}$, we get the equation for the synaptic transmission of the activity variable.
-			We call the size of this transmission $\kappa_{ij}$.
+		For second generation ANNs, synaptic transmission is defined as the synaptic weight times the number of incoming spikes per time step.
+		This can be formalized as
+		\begin{equation}
+			u_{ij}(t) \, = f_{j} * w_{ij}
+			\label{eqSynapticTransmissionFor2genANN}
+		\end{equation}
+		Where $u_{ij}(t)$ is the control signal from node $j$ to node $i$, $w_{ij}$ is the size of the synaptic weight between node $j$ and node $i$ and $f_j$ is the presynaptic node's firing frequency.
+		Because $\kappa$ANN contains elements from both the second and third generation ANN, % eller :  {ANN and from SANN} %Litt dristig å sammenligne meg med 3.gen som en anna modell? (men det er jo sant..)
+																							 we can not ute either of these transmisson rules.
 
-			\begin{equation}
-				\label{eqSynapticTransmissionForKANN}
-				\kappa_{ij} = \frac{ W_{ij} }{ p(\kappa_{pre})}
-			\end{equation}
+		%Eq. \eqref{eqSynapticTransmissionFor2genANN} states that the contribution from node $j$ to node $i$'s activity variable is a function of the frequency of the presynaptic neuron.
+		Inspired by \eqref{eqSynapticTransmissionFor2genANN}, we could define synaptic transmisson in $\kappa$ANN as the synaptic weight times the activity variable's corresponding frequency.
+		By combining eq. \eqref{eqPeriodeligningForKonstIntraPeriodKAPPA} and \eqref{eqSynapticTransmissionFor2genANN} and using that $f_j = \frac{1}{p(\kappa_j)}$ we get
+		\begin{equation}
+			u_{ij}(\Delta t) = \frac{ w_{ij} }{ p(\kappa_j)} * \Delta t 
+			\label{eqSynapticTransmission}
+		\end{equation}
 
-			For nodes with multiple input synapses, the activity variable $\kappa$ is the sum of all the contributions from different synapses. %VERIFISER DETTE! Vær heilt heilt sikker på at K=sum(K_ij)
-			We can write this mathematically as 
-			\begin{equation}
-				\label{eqSumOfKij}
-				\kappa_i = \sum_j{\kappa_{ij}}
-			\end{equation}
+		% XXX Bare ta med når du finner ut HEILT kva som er effekta av det motastte XXX :  If the time step large enough, we can define that each synaptic transmission lasts for one time step.
+		For simulations with constant time steps, $\Delta t$ is constant and can be incoorporated into the synaptic weight $w_{ij}$.
+		If we define the transmission of the synapse between node $j$ and node $i$ as $\kappa_{ij}$ we get the equation for synaptic transmission:
+		\begin{equation}
+			\label{eqSynapticTransmissionForKANN}
+			\kappa_{ij} = \frac{ w_{ij} }{ p(\kappa_j)}
+		\end{equation}
 
-			In this way the synaptic transmission of the individual synapses can be decoupled from the postsynaptic activity variable, $\kappa_i$.
-			
-		\subsection{Synaptic input to a node}
+		This equation is a simplification of the biological synapse,
+			as it does not take into account short--term synaptic plasticity as a consequence of rapid transmissions (see appendix \ref{appendixSecPresynapticSynapticPartOfTransmission}).
+
+		%TODO TODO TODO TODO ENTEN : skriv først at for ei synapse-neuron så er K_i lik K_ij
+		%TODO TODO TODO TODO ELLER : Skriv direkte at K_i er summen av input (bruk ord som lineær karrakteristikk, superposisjon, osv.)
+		The typical neuron has numerous input synapses synapses. 
+		How does \eqref{eqSynapticTransmissionForKANN} expand to multiple synapses?
+		
+		%TODO Skriv om: No er det for sein, og eg tenker ikkje beint.
+		As for temporally separated input, the synapses' total effect of multiple transmissions is modelled as a linear carracteristic.
+		%This gives that the postsynaptic potential is the sum over all the input nodes' transmission.
+		% %Just as the input of many ``simultaneous'' transmissions has a linear carracteristic, the input through multiple synapses be 
+		%
+		%This model of synaptic transmission does not take into account 
+		For nodes with multiple input edges, the activity variable $\kappa_i$ is the sum of the contribution from each of its input synapses.
+		%jeje Skriv om det på slutten, setninga over. Kanskje  					 is the sum of all the contributions from different input synapses. (?) XXX XXX
+		\begin{equation}
+			\kappa_i = \sum_j{\kappa_{ij}}
+			\label{eqSumOfKij}
+		\end{equation}
+
+		The effect of each synaptic transmission can therefore be decoupled from the rest in the calculation of the postsynaptic node's activity variable, $\kappa_i$.
+
+\emph{\bf\large{{----------------------------- fiksa til hit ----------------------------}}}
+% _____________________ fiksa til hit __________________________________________________________________________________________________________________________________________________________________________________
+
+
+		%In discrete--time systems, we can define every synaptic transmission to last for one time iteration (if the time step is large enough).  % MED ELLER IKKJE: "(if the time step is large enough)" ??? XXX
+		%This causes $\Delta t$ to become constant. We can incoorporate this constant into $W_{ij}$.
+
+%		For an ANN based on the activity variable $\kappa$, as previously introduced in chapter \ref{secMatematiskModelleringAvBioNeuron} %TODO Sjekk denne  referansen bedre / skriv bedre (?).
+%		eq. \eqref{eqSynapticTransmission} is highly relevant.  % highly relevant skurrer litt. Det er veldig relevant. Finn synonym..
+%		If we define $\Delta t$ to be some constant, and incoorporate this constant into $W_{ij}$, we get the equation for the synaptic transmission of the activity variable.
+%		We call the size of this transmission for $\kappa_{ij}$.
+
+
+		For nodes with multiple input synapses, the activity variable $\kappa$ is the sum of all the contributions from different synapses. %VERIFISER DETTE! Vær heilt heilt sikker på at K=sum(K_ij)
+		We can write this mathematically as 
+		\begin{equation}
+			\label{eqSumOfKij}
+			\kappa_i = \sum_j{\kappa_{ij}}
+		\end{equation}
+
+		In this way the synaptic transmission of the individual synapses can be decoupled from the postsynaptic activity variable, $\kappa_i$.
+		
+	\subsection{Synaptic input to a node}
 			\label{ssecSynInputToANode}
 			In $\kappa$ANN we call the nodes for a K\_auron.
 			The synaptic input for the activity variable of a K\_auron is defined by \eqref{eqSumOfKij}.
@@ -259,7 +322,9 @@ static std::list<timeInterface*> pCalculateTaskQue;
 
 
 
-	\section{Estimation of firing time}
+	\subsection{Estimation of firing time}
+	% Skriv kvifor eg kaller det "Estimation" og ikkje calculation.
+	%TODO dette var en del av section{KANN} tidligere. Fokuset i teksten er det. Skriv om slik at det gjelder generelt, men med spesiellt fokus på KANN.
 	For KANN, synaptic transmission can be defined as transmission of change in the postsynaptic node's input level.
 	The input of a node, in terms of $\kappa$, is propotional to the synaptic weight and inversly propotional with the presynaptic inter--spike period.
 
@@ -296,12 +361,46 @@ static std::list<timeInterface*> pCalculateTaskQue;
 
 
 	When the firing time is estimated, it is fundamental that we have a mechanism for executing these elements at the right time. 
-	In the following sections i propose two different solutions for this. 
-	In section \ref{ssChoiceOfTimeEstimationForThisImplementation} the choice for this implementation will be presented, and different pros and cons with each method will be discussed.
+	In the section \ref{secPlannedEvents} two different solutions has been proposed for this. 
+	The section is concluded by presenting a discussion behind the choice for this implementation.
+	%XXX BLÆ! skriv om linja over!
+	%In section \ref{ssChoiceOfTimeEstimationForThisImplementation} the choice for this implementation will be presented, and different pros and cons with each method will be discussed.
 
 
 
-	
+	\subsection{When do $\kappa$ propagate?}
+	In the start of this project, $\kappa$ANN were implemented as a varian of a network with spiking nodes.
+	Here the information is transmitted by the synapses following an action potential. 
+	Because the SANN model was the basis of this implementation, the information were originally transmitted at the time of the node spiking.
+%XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX 	
+%FORTSETT HER
+	ARGUMENTER for at den propagerer heile tida.
+Stavdal meiner at det er tull å propagere heile tida (kvar gang K oppdateres i presyn). 
+Eg har laga plot for å sei imot dette: når kappa venter med å propagere til første fyring får man eit tidsdelay for depol til KN tilsvarende tida det tar til første fyring. (dette er veldig tydlig ved sprang i presyn K).
+
+Når Kappa propagerer kvar gang presyn endres, fjærnes dette problemet. Propagerer som det er gjordt før, med at axon legges til i pWorkTaskQue. Alle postsyn. noder får dermed input tidligst neste iterasjon.
+
+Dette har med synapstisk transmissjon å gjøre, og eg må gjøre dette ferdig før eg skrive meir om dette..
+
+NEI faen! no er feilen der igjen. Sjekka kode, og fann at den propagerete, men bare om K>T, så det over er TULL.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	\section{Planned Events}
+	\label{secPlannedEvents}
 	\subsection{pEstimatedTaskTime}
 	$\kappa$ANN is based on calculating the firing time, given the present level of input. 
 	Because the input level of an ANN node varies constantly, the calculated firing time is but an estimation of the nodes firing time. 
@@ -474,6 +573,7 @@ pEstimatedTaskTime.pop_front();
 	
 
 	%\subsection{Checking a member variable of timeInterface--derived elements}
+	%TODO Finn bedre tittel for dette!
 	\subsection{Checking estimated task time directly from time\_class::doTask()}
 	A more direct approach is to check the elements estimated firing time directly from time\_class::doTask(). 
 	Every class derived from timeInterface contains a variable called ulEstimatedTaskTime where the elements estimated task time is written every time this is updated.
@@ -489,7 +589,7 @@ pEstimatedTaskTime.pop_front();
 	When it finds an element scheduled for the next iteration, the pointer to the element is imnserted into pWorkTaskQue.
 
 
-	\subsection{Choice for this implementation}
+	\subsection{The Choice for this Implementation}
 	\ref{ssChoiceOfTimeEstimationForThisImplementation}
 	% XXX TODO BEGRUNN GODT KVIFOR EG HAR SKREVET SÅ MYKJE OM pEstimatedTaskTime! Det holder ikkje at eg har gjordt det.
 	% 	Skriv at det er godt mulig dette er den mest effektive algoritmen når antall noder auker kraftig!
@@ -521,23 +621,12 @@ pEstimatedTaskTime.pop_front();
 
 
 
-\subsection{When do $\kappa$ propagate?}
-Stavdal meiner at det er tull å propagere heile tida (kvar gang K oppdateres i presyn). 
-Eg har laga plot for å sei imot dette: når kappa venter med å propagere til første fyring får man eit tidsdelay for depol til KN tilsvarende tida det tar til første fyring. (dette er veldig tydlig ved sprang i presyn K).
-
-Når Kappa propagerer kvar gang presyn endres, fjærnes dette problemet. Propagerer som det er gjordt før, med at axon legges til i pWorkTaskQue. Alle postsyn. noder får dermed input tidligst neste iterasjon.
-
-Dette har med synapstisk transmissjon å gjøre, og eg må gjøre dette ferdig før eg skrive meir om dette..
-
-NEI faen! no er feilen der igjen. Sjekka kode, og fann at den propagerete, men bare om K>T, så det over er TULL.
-
-
-
 
 
 
 %	\subsection{Anna fra tidligare:}
 %	-- kanskje skrive om vanskene med log() ? Returnerer samme som argumentet, difor må vi typekonvertere til (float) eller (double) før man tar log() av det. Dette skapte hodebry, siden eg bare fekk resultatet 0.
+% TODO Skrive om dette i konslusjon. Dette er (veldig små) eksempel på vanskene med KANN. Kan nevnes såvidt (som i ei halv setning, f.eks.)
 % 		Ganga med FAKTOR, og fekk 0. Når eg typekonverterte argumenta til log() om til float gjekk fekk eg bra output..
 
 %	Skriv også om at istedenfor å skrive $t_{estimert} = - \frac{1}{\alpha} \ln(\frac{\kappa-\tau}{\kappa-v_0})$ kan eg skrive $t_{estimert} = \frac{1}{\alpha} \ln(\frac{\kappa-v_0}{\kappa-\tau})$
@@ -545,9 +634,6 @@ NEI faen! no er feilen der igjen. Sjekka kode, og fann at den propagerete, men b
 
 %	\subsection{simulering vha. ligning \eqref{eqVerdiligninga} fra section \ref{secMatematiskModelleringAvBioNeuron}}
 %	\subsection{Osv.}
-
-
-
 
 
 

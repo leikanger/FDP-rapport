@@ -78,7 +78,7 @@
 %
 %
 %
-\chapter{Artificial neural networks: background}
+\section{Artificial neural networks: background}
 
 % TODO Skrive at oppgaveteksten ber meg om å finne eksisterende modeller som representerer BÅDE fyringsrate og -frekvens. Dette finnes ikkje.
 % Tenkte difor å heller gå gjennom historien for ANN, for at leser skal ha eit innblikk i kva som eksisterer av frekvens-ANN og etterkvart fyringstid-ANN.
@@ -111,13 +111,13 @@ The value therefore does not give the size of transmission for the neuron, it do
 When the value reaches the firing threshold, an action potential is initialized, causing transmission at all the neuron's output synapses.
 The synapses can be excitatory or inhibitory, causing an increase of decrease of the postsynaptic neuron's value.
 
-More information about the mechanisms of the neural system can be found in chapter \ref{chapNeuroscience}. 
+More information about the mechanisms of the neural system can be found in chapter \ref{secTheBiologicalNeuralSystem}. 
 Relevant background information about the neuron and synaptic transmission is presented in section \ref{ssecTheNeuron} and section \ref{ssecTheSynapse}. 
 The action potential is introduced in section \ref{ssecTheActionPotential}.
 
 %TODO Skriv en overgang. Fra det over, til ANN-historie.
 
-\section{Review of the History of ANN}
+\subsection{Review of the History of ANN}
 The pragmatic use of simulations of networks of neurons started with the McCulloch--Pitts neuron in 1943. 
 Warren McCulloch, an early neuroscientist and matematician Walter Pitts first began a formalized discussion of the mechanisms of the neuron.
 The result was the first artificial neural network, consisting of logical gates. These modelled the neuron as boolean devises (off--on response)\cite{MccullochPittsHistorie}. % TODO Vær heilt sikker på at dette står i denne artikkelen.
@@ -144,7 +144,7 @@ In this case, the second generation ANN gives a better simulation of neural syst
 
 
 Recently, the third generation of ANN has emerged. In this model, each node is simulated with respect to aspects thought important for signal processing.
-The most used model of the neuron is the ``Leaky--Integrate and Fire''(LIF) neuron. %TODO Referer til section {secTheEquilibriumPotential}, og xxx Hugs å skrive om LIF, der.
+The most used model of the neuron is the ``Leaky--Integrate and Fire''(LIF) neuron. %TODO Referer til section {ssecTheEquilibriumPotential}, og xxx Hugs å skrive om LIF, der.
 
 In the LIF neuron model, the node's value is computed as a leaky integration, an intregration that is leaky with respect to time.
 The node's value is a result of the immediate excitatory and inhibitory input, as well as the local history for the node.
@@ -156,7 +156,7 @@ The node's value is a result of the immediate excitatory and inhibitory input, a
 When a node goes above the firing threshold, an action potential or ``spike'' is generated in the node. 
 When this spike reaches a synapse, we get synaptic transmission at the synapse.
 We can see that this is a better simulation of neural systems than that of the first two generations of ANN, based on the information presented in section \ref{secTheBiologicalNeuralSystem}.
-%In chapter \ref{chapNeuroscience}, important aspects of the biological neural system like the action potential and synaptic transmission is introduced. %Skriv om! XXX
+%In chapter \ref{chapNeuroscience} IKKJE LENGER KAPITTEL , important aspects of the biological neural system like the action potential and synaptic transmission is introduced. %Skriv om! XXX
 
 In the third generation ANN it is the spikes, or action potentials that is in the focus.
 This ANN model is therefore often referred to as ``Spiking Artificial Neural Network''(SANN). % xxx Er ikkje denne forkortelsen introdusert tidligere?
@@ -257,7 +257,7 @@ The output value of a node as a whole is thus given by the input from the node's
 %, not the immediate input to the node.
 First when the node is excited above threshold, we get an output signal throught the node's output connections.
 The reason for the node firing is not the input in itself, but the state of the neuron going to suprathreshold levels as a consequence of the sum of all excitatory and inhibitory input.
-If we model each node as a ``leaky--integrate and fire neuron'' (LIF neuron), introduced in section \ref{secTheEquilibriumPotential}, we get a leaky temporal integration of the effect of all synaptic input at each time step.
+If we model each node as a ``leaky--integrate and fire neuron'' (LIF neuron), introduced in section \ref{ssecTheEquilibriumPotential}, we get a leaky temporal integration of the effect of all synaptic input at each time step.
 %TODO SKRIV om setninga over. Blir for mykje informasjon. Blir krøkete! (kanskje?)
 %
 % TODO: Skriv at dette er slik det blir gjordt, eller at dette vil gi en god simulering av det modellerte neuronet ("rettheten" er no gitt av modelleringa).
@@ -275,7 +275,7 @@ If we model each node as a ``leaky--integrate and fire neuron'' (LIF neuron), in
 
 
 
-\section{Synaptic Plasticity for artificital neural networks}
+\subsection{Synaptic Plasticity for artificital neural networks}
 %TODO Skriv om synaptisk plastisitet (sjå oppgave 1 (fokuser spesiellt på forhold som kan knyttes til stabilitet under læring og/eller tilbakekobling("recurrent ANN").)
 %Simple variants of ``Hebbian learning'' only give an increase in the synaptic weight, and is clearly exponentially unstable. Different variations of the naive model of synaptic 
 %Because Hebb's postulate only considered poitive weight change, STDP has later been %omtalt som stable hebbian learning.
@@ -324,7 +324,7 @@ This has been referred to as ``Hebbian learning''\cite{HaykinANNbok}.
 % 			- Siden beregning kreves bare når verdiane endres (i biologiske NN), bør dette være fokus for ANN. SANN bruker mye ressurser på å opprettholde en stabil tilstand (dersom det ikkje er endring i nettet).
 % 			- Det beste hadde vore å utvikla eit ANN som bare krever ressurser ved endring av input til nodene. Skrive litt fram og tilbake om dette. Ende opp med at vi trenger en Mealey automata? (dersom dette stemmer)
 % 			-
-\section{SANN -- ``the third generation ANN''}
+\subsection{SANN -- ``the third generation ANN''}
 
 
 
@@ -340,9 +340,10 @@ This has been referred to as ``Hebbian learning''\cite{HaykinANNbok}.
 
 
 %----------------------------------------------- gammelt .------------------------------------------------------
-\section{Bakgrunn: ANN}
+\section{gammelt ANN-bakgrunn}
+section{Bakgrunn: ANN}
 	\subsection{årsak for bruk av ANN / historie}
-	
+
 	\subsection{The traditional ANN}
 Early ANNs used float values as the value that propagates through the network. According to sec. \ref{secTheBiologicalNeuralSystem} this is not so in the biological neuron.
 The biological neuron have a boolean (``all--or--none'') transfer of value. A ``true'' value propagating through a neuron is called an action potential or a ``spike''.
@@ -451,9 +452,9 @@ With this fundamental difference betwee  \emph{XXX} SKRIV MEIR HER.
 	\subsection{Grunn til å gå vidare fra SANN til $\kappa$ANN. Ide for $\kappa$ANN}
 		Kanskje eg skal her skrive om kva eg  reagerte på med SANN? (ikkje vent å sjå på resultatet, skriv uansett. Tolk heller at dette var feilt..)
 
-\section{Artificial Neural Network Architecture}
-Kan eg skrive omtrengt som section over, bare for arkitekturen til ANN. Ende opp med recurrent ANN!
-Legg ved fig. 5.13 i boka "Recurrent neural networks for prediction" s. 84
+%\section{Artificial Neural Network Architecture}
+%Kan eg skrive omtrengt som section over, bare for arkitekturen til ANN. Ende opp med recurrent ANN!
+%Legg ved fig. 5.13 i boka "Recurrent neural networks for prediction" s. 84
 
 
 
