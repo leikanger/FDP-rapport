@@ -1,4 +1,9 @@
 % Sammenligning:
+% Oppgave 3) Compare the new concept with competing methods. The evaluation may be based on a number of specific scenarios (with respect to input data etc.).
+% 	Skriv at konkurerende metoder må tolkes til SANN, siden det blir for mykje å sammenligne med fANN også. Dette er en av styrkene til KANN: Kan snakke med alle!
+% 	Skriv at for å kunne sammenligne med SANN, så har eg implementert begge. Dette gjør at eg kan meir grundig sammenligne implementering av de to. 
+% 		Eg blir også bedre kjendt med implementasjonen så lettere å seinere gjennomføre en vilkensomhelst test (ikkje med rammer som er satt av implementasjonen).
+%
 % 	- Sammenligning om implementasjon OG kjøring om: Bra/dårlig ved:
 % 		- kjøring av de to
 % 		- implementasjon av de to
@@ -10,7 +15,42 @@
 
 %todo : analyser avviket fra KN til SN sine depolrarisasjonskurver. Kvifor finnes dette avviket? Kva er greia? Lag mikroplott for stigende og synkende flanke. osv.
 
-\chapter{Comparison and result} 
+%TODO : Skriv at selv om vi ikkje har fått tid til å kjøre effektivitetssammenligning, så har vi funnet eit viktig resultat. KN kan brukes til å oversette mellom 2.gen og 3.gen ANN.
+% 		TODO Finn ut korleis 1.gen funker, og skriv evt. inn dette også. (sjå % ref_123@i_KANN i implementasjon_KANN.tex) EVT ikkje nevn "each of the other generation ANN" og "first gen. ANN" fra linja "% ref_123@i_KANN" står på.
+
+
+% Videre arbeid:
+% 	- Lage syn. p.
+% 	- Innføre dynamisk teskel (bedre modell for refraction time)
+% 	- Foreta effektivitetsanalyse.
+% 	- Lage transduction mellom KN og SN. Også mellom fN og KN. Kanskje heile veien, mellom alle generasjoner ANN.
+% 	- Utvikle KANN for seg selv. Slik at dette blir så effektivt som mulig..
+%
+%
+%
+
+
+
+% Oppsummering (conclution):
+% 	- Skriv om transduction mellom ANN av ulike generasjoner. Kan bruke KANN til dette! (sjå sec \subsection{The Activity Variable} ).
+% 	- Skriv at eg har gjordt den tidsvariante responsen til en overføring (at overføring skjer/ikkje skjer er avhengig av verdi før overføring. Dette skaper eit system som er avhengig av input-historie og tid(lekkasje).
+% 		Om til: å ikkje lenger være tidsvariant. Kappa er på en måte tatt utafor tid. Kappa som overført variabel er ikkje tidsvariant, ikkje variant med andre variabler.
+% 		=> Den tar vekk ulineariteten innført fra mekanismen: fyring!
+%
+
+
+% Mangler i denne sammenligninga:
+% 	- Har ikkje sett på nettverkseffekta av tidspunkt for propagering av Kappa. Kan bli veldig rart at den propagerer "med en gang" (etter 'current' time iteration).
+% 		%TODO analyser dette i diskurs!
+%
+%
+%
+%
+%
+
+% TODO TODO T0D0:
+% Verifiser all koden som står i teksten.
+
 
 
 
@@ -156,7 +196,7 @@ In SANN each node is modelled as a leaky-integrate-and-fire neuron.
 When the depolarization of the SN is updated, the leak of the neuron calculated as the previous value times the leak constant.
 The updated value then becomes %todo Skriv om denne setninga.
 \begin{equation} %TODO Introduser denne ligninga tidligare i oppgava. Her skal eg bare skrive siste del av den:    v_t = (1-\alpha) * v_{t-1}  XXX HAR EG GJORT DET? TODO SJEKK!
-	v_t =  (1-\alpha) * v_{t-1}  
+	v_t =  (1-\alpha) \cdot v_{t-1}  
 \end{equation}
 %TODO Skriv om: krøtkete måte med/mellom alle komma'ane.
 The discretization of the system introduces a small error, the local truncation error, that varies with the size of the time step and the derived of the value function $\dot{v}(t)$. %"local truncation error"
@@ -446,7 +486,14 @@ Tilsvarende for refraction period..
 
 Transferfunk. ANN?
 
+\subsection{Effektivitetsanalyse: Korleis gjennomføre}
+Kan lage ei while-løkke, som lager eit nytt neuron i kvar iter, og lager synapse til eit E neuron.
 
+Slik kan eg lage eit testneuron med f.eks. 1000 input (kan referere til at dette er estimerte vanlige nivået).
+Kan dermed sammenligne SN og KN med hensyn på effektivitet.
+
+Dersom eg vidare lar sensor funk variere kvar tiande tidssteg for ti prosent, 20. tidssteg for 20 % osv.
+Så har eg noke å skrive om i forhold til testoppsett.
 
 
 
@@ -466,13 +513,11 @@ Transferfunk. ANN?
 
 
 %FRA KAPITTEL: \chapter{resultat av sammenligning: SANN vs. $\kappa$ANN}
-	\section{ The transient course of the auron's depolarization }
-	Her skal plott av depolarization legges.
 
-	\section{ Det eg får tida til å sammenligne - implementasjon, effektivitet, ...}
+	\subsection{ Det eg får tida til å sammenligne - implementasjon, effektivitet, ...}
 	Skrive at implementasjon er noe vanskeligere for KANN, da det også har med fremtidsutsikter. Dette kan forventes, siden KANN noder kan sees på som implemenasjon av en Mealy automata og SANN en Moore automata av spiking neuron.
 
-	\section{ Mulige aspekt som er nye i denne oppgava }
+\section{ Mulige aspekt som er nye i denne oppgava }
 	I likhet med da eg først utvikla SANN, trudde eg at tidsmodellen min var heilt ny. Det at nodene ikkje ble oppdatert kvar iterasjon, men bare ved "events". Dette er feil. "event--driven simulation of SANN".
 	
 	Er rimelig sikker på at KANN--modellen er heilt ny. Har ikkje hørt om denne, har ikkje funnet den, alle de professorene eg har snakket med har ikkje hørt om slikt, osv.

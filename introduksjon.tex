@@ -2,12 +2,108 @@
 % KAPTITTEL : Introduction
 
 
+
+
+
+
+
 %
 % 	- Utvida innholdsfortegnelse.
 % 	- Skrive at eg har, og vise til kor eg har    ->  svart på de ulike aspektene ved oppgaveteksten.
 % 	- Skrive eksplisitt om oppgaveteksten.
 % 	- 
 % 	- 
+
+\newpage
+\section{Oppgavetekst}
+In most artificial neural networks (ANN),  a neuron's output variable can be said to represent the time varying firing rate (i.e. number of action potentials per time unit) of its biological equivalent.\\
+In this domain, there is no representation of firing time and other aspects related to causality and stability that appear to be central to the learning process in a biological neural network.
+ 
+ In this project, you will develop a new concept for ANN that takes into consideration both firing rate and firing time, and compare it with the existing model known as Spiking ANN (SANN).
+ \begin{itemize} 
+  \item[1] Give an overview of existing ANN models that represents both firing rate and firing time. Emphasis should be put on factors that can be related to stability for synaptic plasticity (learning) and/or feedback ("recurrent ANN").
+  \item[2] Describe the new ANN concept, and point out how this differs qualitatively from previous models.
+  \item[3] Compare the new concept with competing methods. The evaluation may be based on a number of specific scenarios (with respect to input data etc.).
+ \end{itemize}
+
+ Supervisor:      Øyvind Stavdahl, Associate Professor, Department of Engineering Cybernetics, NTNU\\
+                  Professor Gaute Einevoll, Department of Mathematical Sciences and Technology, Norwegian University of Life Sciences.
+\newpage
+
+\section{Introduction}
+
+In this text many 
+
+% Skrive at denne teksten er laget som resultat av arbeidet mitt.
+% I mange tilfeller der det ikkje er referanser er dette fordi eg ikkje har basert denne delen av arbeidet på andres arbeid, men utvikla det selv. 
+% 	Dette gjelder spesielt for SANN modellen min, siden eg begynte dette arbeidet før eg i det heile tatt viste at det fantes noko som var kalla SANN. Mangler på referanser er dermed selvfoklart. 
+% 	Eg har i desse tilfeller prøvd å få med store deler av utviklingsprosessen.
+%
+% For KANN har eg enda ikkje funnet andre modeller basert på desse ligningene, og er fortsatt av den tro at dette er nytt arbeid.
+% 	For KANN har eg difor alltid vist utviklignsprosessen for både modellen og impelmentasjonen. Dette ble mye tekst, men dette er eit resultat av mangler på kilder å henvise til.
+%
+% Før eg kan begynne å snakke om SANN modellen eller KANN modellen trenger eg å etablere eit felles utgangspunkt for forfatteren og leseren. 
+% 	Dette er forsøkt gjordt ved å ha en grundig gjennomgang av ANN og det biologiske systemet,tidlig i teksten(i kap. 1). Supplerende informasjon og informasjon som faller utenfor oppgaven er plassert i appendix, og er også egenprodusert.
+% 	
+% Kap. 2 er forbeholdt modellering av neuronet, og for innføring i bakgrunnsmatematikken som ligger bak den nye modellen.
+% 	Det er godt mulig at resultatene fra dette kapittelet også kan være til bruk for neuralscience, da det gjør eit forsøk på å etablere bedre fremgangsmåter for "aktivitetsvariabler" for neuronet. 
+% 	Den gjeldende aktivitetsvariabelen for neuron er basert på fyringsraten til neuronet, noko som ikkje er særlig intuitivt med tanke på "instataneouis firing rate". Den nye modellen opner for umiddelbare aktivitetsvariabler.
+%
+% 	I de to første kapittel er mesteparten av bakgrunnsinformsjonen presentert, så mesteparten av 'citations' vil finnes her. Seinere kapittel vil inneha ferre 'citations', da dette i all hovedsak er basert på eget arbeid.
+% 		XXX Kanskje dette ikkje stemmer for Kap 3? Veit ikkje enda, siden det ikkje er skrevet. Trur ikkje det..
+%
+% Kap. 3 Omhandler design og implementasjon av de ulike modellene. 
+% 	Section {ref:design} handler om den generelle strukturen for implementasjonane. Her beskrives flere metoder for å gjøre implementasjonene mest mulig sammenlignbar for denne oppgaven.
+% 		Resultat presentert i kapittel 1 vil være viktig i dette kapittelet, siden implementasjonene er prøvd å gjøres lik det biologiske systemet. 
+% 		Den modulære oppbyggingen til det kunstige neuronet (auronet) er beskrevet og  vil være gjeldende for begge modellene.
+% 		Element som object design og metoder for effektivisering vil bli presentert.
+% 		I tillegg vil en "to my knowledge" ny modell for tid bli presentert. Denne modellen er viktig for begge modellene, siden den gir oss mulighet for å ha simulert asynkronitet for nodene i neuralnettet.
+% 		Logg. pCalculationTaskQue, pWorkTaskQue?, ...
+% 	Section {ref:SANN-imp} handler om design og implementasjon av SANN
+% 		Dette kapittelet går gjennom mekanismene som ligger bak simulering av mitt SANN. Dette kapittelet lener seg sterkt på element presentert i kapittel 1 og litt fra kap. 2.
+% 		Modellen er egenprodusert, selv om den tidligere har blitt etablert (REFER til når/kor/kven). Dette dobbeltarbeidet er en konsekvens av manglende kunnskap for kildesøk når eg studerte neuro.
+% 		Section {SANN-imp} avaluttes med en utskrift (plot) laget ved en kjøring av SANN simulatoren.
+% 	Section {ref:KANN-imp}
+%  		Dette kap. begynner med å beskrive konsept som må behandles ulikt fra det som er presentert i section {SANN-imp}. 
+% 		Siden modellene er basert på heilt fremgangsmåter for å simulere eit LIF neuron, begynner forskjellene allerede ved aktivitetsvariabelen.
+% 			For SANN er artivitetsvariabelen en etterligning av det biologiske neuronets aktivitetsvariabel, det elektriske potensialet over membranen. 
+% 			For KANN er aktivitetsvariabel basert på resultat fra kap. 2, som er, så vidt eg veit, en heilt ny måte å modellere neuronets aktivitet på./*//{*/
+% 		Dette skaper også ulikheter i korleis aktivitet propagerer gjennom systemet. Mykje av det resterende i section{KANN-imp} er brukt på dette.
+% 		Mot slutten diskuteres metoder for å gjøre KN kompatibel med SN, spesielt i retninga KN->SN. 
+% 		Section{KANN-imp} avsluttes med en diskurs om når Kappa bør propagere videre til neste noder. Dette er eit viktig element og (BØR) dekkes grundig. TODO Dekk grundig!
+% 		%KANSKJE lag eit plott som ligner på plottet i {SANN-imp} og skriv at kapittel avsluttes med samme som {SANN-imp}.
+% Kap 4 er avsatt sammenligning og resultat av prosjektet. TODO Skriv dette etter at eg har skrevet Kap 4 XXX
+%
+%
+%
+%
+% 	Aspekter ved oppgaven / kor er det besvart?
+% 		Sammenligning: skriv at eg desverre ikkje fekk tid å sammenligne effektivitet, så denne tolkningen av oppgaven må vente til senere.
+%
+%
+%
+%
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 % 	- 
 % 	- 
 % OPPSETT:
@@ -45,125 +141,129 @@
 % 	- I denne oppgaven vil eg utlede en ny formalisme for 3.generasjons ANN, samt sammenligne implementasjonen og effektiviteten av de to måtene å implementere SANN på.
 
 
-	Tasks that can be expressed by algorithms of the basic operations of the processing unit (CPU, FPU, etc.) can be solved efficiently by the computer.
-	% referer til turing komplett maskin. Dette gir basisoperasjonane.
-	For performing tasks of a more complex nature, the task needs to be divided into subtasks of these basic operations.
-
-	Some tasks are so complex that it is hard or even impossible to describe them with sentralized mathematics.
-	One example of such tasks is filters involving distibuted calculations over multiple nodes, where the connections themselves are adaptive.
-
-	e.g. networks of neurons.
-
-	In neural networks in biology, the calculation at each node is often modelled as a leaky-integration of input.
-	When the value of one node reaches some predefined threshold, the node will give output to all its output nodes.
-	The size of the output is defined by the strength of the connection between the nodes, the synapse.
-	The biology of the neuron and biological neural systems is introduced in section ?.
-
-	The size of the transmission between neurons is highly adaptive. Based on different learning rules the strength of the connection between the two nodes will either become stronger or weeker.
-	This idaptive nature of the connections between the nodes is an important element in the strong non--linearity of neural networks.
-
-	\subsection{Kvifor gjøre alt dette?}
-	When is it nessecary to use this kind
-	When do we want to use this kind of filtering?
-	The neural networks from biology is far superior to algorithmic calculations when it comes to learning
-	The distributed adaptive filter 
-
-	Why use ANNs? 
-	When 
-
-
-
-	\subsection{SANN brukes ikkje for ``computational tasks'' ?}
-	Pga. effektivitet. Finn dette igjen, og referer. Skriv at dette er en stor motivasjon til å utvikle eit SANN som er meir effektivt i utregning.
-	-- og rettled leser inn på kva som er bra med KANN.
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-% Tidligere råkladd: ***************************************************************************************************************************************************************
-
-In Merrian-Websters online dictionary, Bionics is defined as 
-%\begin{ SITERING }
-"a science concerned with the application of data about the functioning of biological systems to the solution of engineering problems"
-%\end{}
-
-Bionics has been used as a term describing biomimicry for prostesis as well as other bio--inspired methods in technology.
-%One field of technology where bionics has been supprisingly promising is for solving tasks requiring associative facilities.
-One field where bionics has shown suprisingly promising is for associative computations, in the form of Artificial Neural Networks (ANN).
-
-To explain what is ment by associative computations, we first have to review other computation--systems, the computer.
-The computer have one or a few processing units. The main unit of a computer is called the central processing unit (CPU).
-
-In these processing units the computations are done in a strict algorithmic, serial manner.
-Each task can be devided into numerous small subtasks, each of a basic operation for the CPU.
-
-This algorithmic procieding has shown wery efficient for a certain set of taskts, tasks that have a high degree of [A->Så B]. 
-Most calculations can be described by algebra, and can thus be calculated efficiently by the algorithmic computer.
-Some tasks are more complex, and have not been sufficiently developed in mathematics to be calculated directly in the algorithmic computer.
-Espessially tasks that involve adaptation (learning) of the the associated ouput following some input have prooven difficult to solve in this fasion.
-
-When pattern recognition, or other complex adaptive filters are to be solved, bionics has proven especially 
-
-
-
-
-
-
-
-%{Kvifor ANN} %motivational text. Ikkje som i å gire opp leser, men overbevise om at det er relevant.
-%Først innlede med å nemne "bionics" - å etterligne bio. (Les wiki:bionics).\\
-%Kvifor: Fordi live er basert på evolusjon. Dette har laga veldig optimaliserte sytemer.\\
-%Så skrive litt om at biologiske 'computational systems' har andre områder det er bra på enn digitale 'computational systems'. Assosiative oppgaver og læring.
-
-%Når det gjeld læring, så har det nyleg blitt avdekka at relativ spike time for presyn og postsyn neuron vil i enkelte synapser bestemme synaptisk plasticity (læring). 
-
-%På grunn av dette har ANN fått større fokus på spike-timing, og ``third-generation ANN'' (SANN) har blitt utvikla. 
-%Problemet er at for datamaskinen er dette 'computationally demanding' og krever mykje dataressurser eller mykje tid. Dette har så langt gjordt at SANN ikkje har vore benytta for 'pragmatic uses' (technology).
-%% Finn kor dette sto, og referer dette.
-
-% Meir om dette seinare (I ANN.tex).
-
-
-
-%neste section: Denne oppgaven går ut på å utvikle en ny modell for ANN med informasjon om 'spike timing', i tillegg til det generelle aktivitetsnivået til neuronet, 
-% 		med mål om å lage en modell som er meir effektiv enn den som er i bruk i dag.
-
-[Skrive litt om at testingen gjort på effektivitet ikkje er så omfattende i dette prosjektet, delvis siden bare grunn-funksjonaliteten er implementert.
-I eit så komplekst system kan f.eks. synaptisk plasticity få veldig mye å si for effektiviteten til ANN. Skriv litt om lite tid (uten å klage, heller beklage at det desverre ikkje er gjort enda).
-]
-
-\subsection{Skrive om korleis oppgava er lagt opp.}
-Skrive kvifor eg legg så mykje vekt på det biologiske systemet først. Ha litt tilbakepeik til / snakk litt om : "bionics". Vidare sei at eg har gjort eit valg om å gjøre det likt det biologiske systemet av andre grunner (se diskurs).\\
-Anna grunn er at det gjør det lettere for leser å "appreciate" det modelleringa som er gjort til den nye modellen ($\kappa$ANN).
-
-Deretter: modelleringa til $\kappa$ANN.
-
-Så: litt om ANN: historie, ???
-
-Så: Så begynner litt om implementasjon: Først generelle prinsipper for impelmentasjonene, så litt om implementasjonen av SANN og KANN.
-
-Til slutt sammenligning.
-
-
-%\subsection{Kanskje meir i innledning:}
-\emph{Kanskje meir i innledning:}
-
-Skrive om at recurrent ANN gir meir kompleks oppførsel. Men dette gir også mykje fleire muligheter! Uten dette blir det bare eit adaptivt ulineært filter..
-Denne trenger bedre (lokale) regler for synaptisk plasticity. Hebbian learning er uegna pga. ustabilitet. Nye regler opner seg når man har med spike timing for neurona. 
-Denne trenger bedre (lokale) regler for synaptisk plasticity. Hebbian learning er uegna pga. ustabilitet. Nye regler opner seg når man har med spike timing for neurona. 
-
-%\section{ANN}
-%\section{3. generation ANN}
-%\problemer med 3.gen. ANN
-
+%	Tasks that can be expressed by algorithms of the basic operations of the processing unit (CPU, FPU, etc.) can be solved efficiently by the computer.
+%	% referer til turing komplett maskin. Dette gir basisoperasjonane.
+%	For performing tasks of a more complex nature, the task needs to be divided into subtasks of these basic operations.
+%
+%	Some tasks are so complex that it is hard or even impossible to describe them with sentralized mathematics.
+%	One example of such tasks is filters involving distibuted calculations over multiple nodes, where the connections themselves are adaptive.
+%
+%	e.g. networks of neurons.
+%
+%	In neural networks in biology, the calculation at each node is often modelled as a leaky-integration of input.
+%	When the value of one node reaches some predefined threshold, the node will give output to all its output nodes.
+%	The size of the output is defined by the strength of the connection between the nodes, the synapse.
+%	The biology of the neuron and biological neural systems is introduced in section ?.
+%
+%	The size of the transmission between neurons is highly adaptive. Based on different learning rules the strength of the connection between the two nodes will either become stronger or weeker.
+%	This idaptive nature of the connections between the nodes is an important element in the strong non--linearity of neural networks.
+%
+%	\subsection{Kvifor gjøre alt dette?}
+%	When is it nessecary to use this kind
+%	When do we want to use this kind of filtering?
+%	The neural networks from biology is far superior to algorithmic calculations when it comes to learning
+%	The distributed adaptive filter 
+%
+%	Why use ANNs? 
+%	When 
+%
+%
+%
+%	\subsection{SANN brukes ikkje for ``computational tasks'' ?}
+%	Pga. effektivitet. Finn dette igjen, og referer. Skriv at dette er en stor motivasjon til å utvikle eit SANN som er meir effektivt i utregning.
+%	-- og rettled leser inn på kva som er bra med KANN.
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%% Tidligere råkladd: ***************************************************************************************************************************************************************
+%
+%In Merrian-Websters online dictionary, Bionics is defined as 
+%%\begin{ SITERING }
+%"a science concerned with the application of data about the functioning of biological systems to the solution of engineering problems"
+%%\end{}
+%
+%Bionics has been used as a term describing biomimicry for prostesis as well as other bio--inspired methods in technology.
+%%One field of technology where bionics has been supprisingly promising is for solving tasks requiring associative facilities.
+%One field where bionics has shown suprisingly promising is for associative computations, in the form of Artificial Neural Networks (ANN).
+%
+%To explain what is ment by associative computations, we first have to review other computation--systems, the computer.
+%The computer have one or a few processing units. The main unit of a computer is called the central processing unit (CPU).
+%
+%In these processing units the computations are done in a strict algorithmic, serial manner.
+%Each task can be devided into numerous small subtasks, each of a basic operation for the CPU.
+%
+%This algorithmic procieding has shown wery efficient for a certain set of taskts, tasks that have a high degree of [A->Så B]. 
+%Most calculations can be described by algebra, and can thus be calculated efficiently by the algorithmic computer.
+%Some tasks are more complex, and have not been sufficiently developed in mathematics to be calculated directly in the algorithmic computer.
+%Espessially tasks that involve adaptation (learning) of the the associated ouput following some input have prooven difficult to solve in this fasion.
+%
+%When pattern recognition, or other complex adaptive filters are to be solved, bionics has proven especially 
+%
+%
+%
+%
+%
+%
+%
+%%{Kvifor ANN} %motivational text. Ikkje som i å gire opp leser, men overbevise om at det er relevant.
+%%Først innlede med å nemne "bionics" - å etterligne bio. (Les wiki:bionics).\\
+%%Kvifor: Fordi live er basert på evolusjon. Dette har laga veldig optimaliserte sytemer.\\
+%%Så skrive litt om at biologiske 'computational systems' har andre områder det er bra på enn digitale 'computational systems'. Assosiative oppgaver og læring.
+%
+%%Når det gjeld læring, så har det nyleg blitt avdekka at relativ spike time for presyn og postsyn neuron vil i enkelte synapser bestemme synaptisk plasticity (læring). 
+%
+%%På grunn av dette har ANN fått større fokus på spike-timing, og ``third-generation ANN'' (SANN) har blitt utvikla. 
+%%Problemet er at for datamaskinen er dette 'computationally demanding' og krever mykje dataressurser eller mykje tid. Dette har så langt gjordt at SANN ikkje har vore benytta for 'pragmatic uses' (technology).
+%%% Finn kor dette sto, og referer dette.
+%
+%% Meir om dette seinare (I ANN.tex).
+%
+%
+%
+%%neste section: Denne oppgaven går ut på å utvikle en ny modell for ANN med informasjon om 'spike timing', i tillegg til det generelle aktivitetsnivået til neuronet, 
+%% 		med mål om å lage en modell som er meir effektiv enn den som er i bruk i dag.
+%
+%[Skrive litt om at testingen gjort på effektivitet ikkje er så omfattende i dette prosjektet, delvis siden bare grunn-funksjonaliteten er implementert.
+%I eit så komplekst system kan f.eks. synaptisk plasticity få veldig mye å si for effektiviteten til ANN. Skriv litt om lite tid (uten å klage, heller beklage at det desverre ikkje er gjort enda).
+%]
+%
+%\subsection{Skrive om korleis oppgava er lagt opp.}
+%Skrive kvifor eg legg så mykje vekt på det biologiske systemet først. Ha litt tilbakepeik til / snakk litt om : "bionics". Vidare sei at eg har gjort eit valg om å gjøre det likt det biologiske systemet av andre grunner (se diskurs).\\
+%Anna grunn er at det gjør det lettere for leser å "appreciate" det modelleringa som er gjort til den nye modellen ($\kappa$ANN).
+%
+%Deretter: modelleringa til $\kappa$ANN.
+%
+%Så: litt om ANN: historie, ???
+%
+%Så: Så begynner litt om implementasjon: Først generelle prinsipper for impelmentasjonene, så litt om implementasjonen av SANN og KANN.
+%
+%Til slutt sammenligning.
+%
+%
+%%\subsection{Kanskje meir i innledning:}
+%\emph{Kanskje meir i innledning:}
+%
+%Skrive om at recurrent ANN gir meir kompleks oppførsel. Men dette gir også mykje fleire muligheter! Uten dette blir det bare eit adaptivt ulineært filter..
+%Denne trenger bedre (lokale) regler for synaptisk plasticity. Hebbian learning er uegna pga. ustabilitet. Nye regler opner seg når man har med spike timing for neurona. 
+%Denne trenger bedre (lokale) regler for synaptisk plasticity. Hebbian learning er uegna pga. ustabilitet. Nye regler opner seg når man har med spike timing for neurona. 
+%
+%%\section{ANN}
+%%\section{3. generation ANN}
+%%\problemer med 3.gen. ANN
+%

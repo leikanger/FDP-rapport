@@ -18,7 +18,11 @@
 %
 %
 
-
+% TODO TODO T0D0:
+%  	- Verifiser all koden som står i teksten.
+%   - Gjør om alle multiplikasjoner : Fra $a*b$ til $a b$ eller $a \cdot b$ (lager prikk for ganging)
+% 	- Gå gjennom alle word's s-ending. Det er mykje feil i denne teksten! Eg har en tendens til å skrive kategorisk feil.. Words vs word's.
+%
 
 
 
@@ -32,6 +36,8 @@
 % TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO Skriv inn navn på alle refererte enkeltkapittel, i bibliografi.bib TODO
 % TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO Endre rapport i NEVR3003, og legg det inn som appendix. Referert til i "The BiologiskeSystemet" -- kapittelet.
 % 																	TODO Gjør om denne, slik at en kybber kan lese den. Definer uttrykk som LTP, LTD, (AMPA?), ATP,  ...
+% TODO Skriv om sensorauron i design.tex. Brukes i implementasjon_KANN.tex ...
+% TODO Legg ved eit plot av ei synapse loggfil eller auron loggfil.
 
 %%%%%%%% KRISTOFFER sine usepackage (i diplomen)
 %\documentclass[a4paper, english, 12pt]{article}
@@ -74,8 +80,8 @@
 
 
 %%%%%%%% Fra Kristoffer sin master:
-%\lstset{ %
-%basicstyle=\footnotesize,       % the size of the fonts that are used for the code
+\lstset{ %
+basicstyle=\footnotesize,       % the size of the fonts that are used for the code
 %numbers=left,                   % where to put the line-numbers
 %numberstyle=\footnotesize,      % the size of the fonts that are used for the line-numbers
 %stepnumber=1,                   % the step between two line-numbers. If it's 1 each line will be numbered
@@ -83,13 +89,14 @@
 %showspaces=false,               % show spaces adding particular underscores
 %showstringspaces=false,         % underline spaces within strings
 %showtabs=false,                 % show tabs within strings adding particular underscores
-%frame=single,                % adds a frame around the code
-%tabsize=3,                % sets default tabsize to 2 spaces
 %captionpos=b,                   % sets the caption-position to bottom
-%breaklines=true,                % sets automatic line breaking
 %breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
 %escapeinside={\%*}{*)}          % if you want to add a comment within your code
-%}
+%
+frame=single,                % adds a frame around the code
+tabsize=3,                % sets default tabsize to 2 spaces
+%breaklines=true,                % sets automatic line breaking
+}
 
 
 \author{Per R. Leikanger}
@@ -157,7 +164,7 @@ Sammenligne tematisk? Skrive at eine er Moore, andre Mealy auromata?
 
 
 %Intro: utvida innholdsfortegnelse
-\chapter{Introduction}  			%XXX KAPITTEL
+%\chapter{Introduction}  			%XXX KAPITTEL
 \input{introduksjon}
 
 %ANN: Gjennomgang av ANN, før eg begrunner SANN (3.gen. ANN).

@@ -26,20 +26,52 @@
 	% MEN kanskje også her?
 
  		\subsection{The Activity Variable} %TODO I Implementasjon:SANN er det viktig at eg skriver at aktivitetsvariabelen er brukt til depol til noden. (da blir teksten under rett)
-	When the neuron is model used is the LIF model, the depolarization of the node will behave much like a condencator. 
+	When the neuron is modelled as a LIF neuron, the depolarization of the node will behave much like a condencator. 
 	The depolarization value of a biological neuron will go towards some value $\kappa$ for a constant, continous input.
 	% This value is given by the input and the grade of leakiness.
 	% Ta vekk den over(kommentert ut), eller siste bit av den under.
 
-	As we have seen in section \ref{secMatematiskModelleringAvBioNeuron}, $\kappa$ is given by the input and the grade of leakiness of a node.
-	For changing $\kappa$, we introduced the concept of \emph{time windows}. 
+	As seen in section \ref{secMatematiskModelleringAvBioNeuron}, $\kappa$ is given by the input and the grade of leakiness of a node.
+	For changing $\kappa$, we introduced the concept of \emph{time window}. 
 	A time window is defined as a period of time where $\kappa$ is constant within the current interspike period (see section \ref{ssecVariableInputBetweenSpikes}).
 	By using eq. \eqref{eqVerdiligninga} it is possible to find the depolarization value of the node at any time $t \, \epsilon \, p_{isi}$.
-	In a $\kappa$N, the activity variable can therefore represent $\kappa$ instead of the depolarization of a corrsponding neuron.
-	According to eq. \eqref{eqRemainderOfPeriod}, this also gives us the oppurtunity to estimate the firing time of the node.
+	We can therefore use $\kappa$ as the node's activity variable.
+
+	%TODO TODO Skriv på nytt! Skriv også at det er mulig å kalkulere f=p^{-1}. Desse tre elementa gjør det mulig å kommunisere med alle de tre tiligere generasjonene ANN (men ikkje skriv "tidligere")
+	If $\kappa$ is used as the activity variable, more than the depolarization value of the node can be calculated by its activity variable. 
+	In section \ref{secMatematiskModelleringAvBioNeuron} we have seen that both the firing time and the period corresponding to the activity variable can be calculated when we use $\kappa$ as the activity variable.
+	%By using that the frequency is the inverse of the period,  it ...
+	It is therefore possible to use a node based on the mathematics present in section \ref{secMatematiskModelleringAvBioNeuron} as an interface to each of the other generations ANN.
+	% In section \ref{secMatematiskModelleringAvBioNeuron} we have seen that from kappa, both the value of the node (the ``depolartization'') and the estimated firing time can be calculated.
+
+	To interface with a second generation ANN, we can use that the frequency is the inverse of the period. The period is calculated from eq. \eqref{eqHeilePerioden}.
+	The $\kappa$N can as easily be used to get input from as sending output to a node of a second generation ANN.
+
+	% TA VEKK: Interfacing with a node of the first XXX Dersom eg ikkje HEILT forstår 1.gen. noder.
+	For interfacing with a node of the first or third generation ANN, the spike time of the node will be used. % ref_123@i_KANN TODO enten forstå 1.gen HEILT, eller ta bort dette. (her og over("..all other gen. ANN"))
+	As the node ``fires an acion potential'', and sends output thourgh all its output synapses at the time calculated by eq. \eqref{eqRemainderOfPeriod}, the node works as an interface to a node of a third generation ANN. 
+	Here special synapses needs to be devised for the transmission to SANN nodes. 
+	The connections between the $\kappa$N and the SN will use the transmission sceme from SANN, where the synapse transmit its synaptic weight to the postsynaptic node. 
+	Transmissons from the SN to  the $\kappa$N is a little more complex. Here the equivalent $\kappa$ resulting in the level of transmission needs to be calculated, and from this the level of transmission.
+	Development of a transductor node between different generations of ANN will not be procecuted further, as this falls outside the scope of this project.
+
+	% TA VEKK? Blir så veldig svevende.. Fin tekst, men får følelsen av at dette er fiction.
+	%The first generation ANN were stateless, and the ouput only varied with the immediate input. 
+	%This demands a different kind of transduction mechanism, but because the first generation ANN could be said to be obsolete, no more time will be used on this.
+	%The most important 
+	%
+	%In a $\kappa$N, the activity variable can therefore represent $\kappa$ instead of the depolarization of a corrsponding neuron.
 	
-	If a suitable scheduler is devised, $\kappa$ could also be used effectively for planning, or estimating, the firing time of the node.
-	Because of time limitations for this project, effectivity analysis have not been conducted. %Litt rart språk! XXX conduct conduct!
+	If a suitable scheduler is devised $\kappa$ could be used effectively for planning, or ``estimating'' the firing time of the node.
+	The rationale behind the use of the word estimate is that the estimated firing time will change every time the activity variable changes, possibly before the initially calculated firing time. 
+	The firing time is then updated. 
+	The first firing times computed by eq. \eqref{eqRemainderOfPeriod} is therefore but a naive estimate of the firing time of the node.
+	As the time of firing of the node approaches, the estimated firing time becomes more certain.
+	When the present time iteration is the same as the estimated firing time, the estimated firing time is exact; The node's value is now above firing threshold.
+	
+	%The estimated firing time is computed by eq. \eqref{eqRemainderOfPeriod}, and will be firing time of the node given that the present time window last until firing (no change in $\kappa$ for the remainder of the period).
+
+	%Because of time limitations for this project, effectivity analysis have not been conducted. %Litt rart språk! XXX conduct conduct!
 
 	
 	%\subsection{Updating $\kappa$} %Calculation and recalculation of $\kappa$
@@ -47,45 +79,51 @@
 		%TODO Skriv om, med kontinuerlig tanke på kappaANN. F.eks. : in biology, AND IN SANN, a synaptic ...
 
 		% skrive om korleis synaptic transmission fåregår (generellt (om at $\kappa_{ij} = \frac{W_{ij}}{p_{pre}}$ ).
-		In biology and in the SANN model, a synaptic transmission has the role of changing the value of the postsynaptic node.
-		Because we do not use the depolarization value as the activity variable in a $\kappa$N, this form of synaptic transmission is no longer possible. %TODO TODO SKriv om! XXX
+		In biology and in the SANN model, a synaptic transmission change the value of the postsynaptic node.
+		Because we do not use the depolarization value as the activity variable in a $\kappa$N, this form of synaptic transmission makes the model a bleak copy of SANN.   %XXX eller bare " a compy of SANN." Nee. Men bleak er dårlig.
+																							% , this form of synaptic transmission will not work. %TODO TODO SKriv om! XXX
+		A better approach is to develop a separate model for synaptic transmisson in $\kappa$ANN.
 
 		For second generation ANNs, synaptic transmission is defined as the synaptic weight times the number of incoming spikes per time step.
 		This can be formalized as
 		\begin{equation}
-			u_{ij}(t) \, = f_{j} * w_{ij}
+			u_{ij}(t) \, = f_{j} \cdot w_{ij} \cdot \Delta t
 			\label{eqSynapticTransmissionFor2genANN}
 		\end{equation}
-		Where $u_{ij}(t)$ is the control signal from node $j$ to node $i$, $w_{ij}$ is the size of the synaptic weight between node $j$ and node $i$ and $f_j$ is the presynaptic node's firing frequency.
+		Where $u_{ij}(t)$ is the control signal from node $j$ to node $i$, $w_{ij}$ is the size of the synaptic weight %between node $j$ and node $i$ 
+			and $f_j$ is the presynaptic node's firing frequency.
 		Because $\kappa$ANN contains elements from both the second and third generation ANN, % eller :  {ANN and from SANN} %Litt dristig å sammenligne meg med 3.gen som en anna modell? (men det er jo sant..)
 																							 we can not ute either of these transmisson rules.
 
 		%Eq. \eqref{eqSynapticTransmissionFor2genANN} states that the contribution from node $j$ to node $i$'s activity variable is a function of the frequency of the presynaptic neuron.
-		Inspired by \eqref{eqSynapticTransmissionFor2genANN}, we could define synaptic transmisson in $\kappa$ANN as the synaptic weight times the activity variable's corresponding frequency.
-		By combining eq. \eqref{eqPeriodeligningForKonstIntraPeriodKAPPA} and \eqref{eqSynapticTransmissionFor2genANN} and using that $f_j = \frac{1}{p(\kappa_j)}$ we get
+		Inspired by \eqref{eqSynapticTransmissionFor2genANN}, we define synaptic transmisson in $\kappa$ANN as the synaptic weight times the activity variable's corresponding frequency.
+		By combining eq. \eqref{eqHeilePerioden} and \eqref{eqSynapticTransmissionFor2genANN} and using that $f_j = \frac{1}{p(\kappa_j)}$ we get
 		\begin{equation}
-			u_{ij}(\Delta t) = \frac{ w_{ij} }{ p(\kappa_j)} * \Delta t 
-			\label{eqSynapticTransmission}
+			\kappa_{ij}(\Delta t) = \frac{ w_{ij} }{ p_{isi}(\kappa_j)} \cdot \Delta t  %XXX  Verifiser at alt passer inn, no (at var.navn er rett osv)
 		\end{equation}
-
+ 		
+		$\kappa_{ij}$ here defines the synaptic transmission in the connection between node $j$ and node $i$.
 		% XXX Bare ta med når du finner ut HEILT kva som er effekta av det motastte XXX :  If the time step large enough, we can define that each synaptic transmission lasts for one time step.
 		For simulations with constant time steps, $\Delta t$ is constant and can be incoorporated into the synaptic weight $w_{ij}$.
-		If we define the transmission of the synapse between node $j$ and node $i$ as $\kappa_{ij}$ we get the equation for synaptic transmission:
+		We get the equation used for synaptic transmission in $\kappa$ANN.
+		%If we define the transmission of the synapse between node $j$ and node $i$ as $\kappa_{ij}$ we get the equation for synaptic transmission:
 		\begin{equation}
-			\label{eqSynapticTransmissionForKANN}
 			\kappa_{ij} = \frac{ w_{ij} }{ p(\kappa_j)}
+			\label{eqSynapticTransmissionForKANN}
 		\end{equation}
 
-		This equation is a simplification of the biological synapse,
-			as it does not take into account short--term synaptic plasticity as a consequence of rapid transmissions (see appendix \ref{appendixSecPresynapticSynapticPartOfTransmission}).
+		This equation is a simplification of the biological synapse, as it does not take into account the timing of successive transmissons and other time elements of transmisson 
+																							%short--term synaptic plasticity as a consequence of rapid transmissions (see appendix \ref{appendixSecPresynapticSynapticPartOfTransmission}).
+			(see appendix \ref{appendixSecPresynapticSynapticPartOfTransmission} for an introduction to synaptic potentiation). 
+																					%a discussion of time elements in transmission in the biological synapse ).%eller heile appendix A (syn. trans.)
 
 		%TODO TODO TODO TODO ENTEN : skriv først at for ei synapse-neuron så er K_i lik K_ij
 		%TODO TODO TODO TODO ELLER : Skriv direkte at K_i er summen av input (bruk ord som lineær karrakteristikk, superposisjon, osv.)
-		The typical neuron has numerous input synapses synapses. 
-		How does \eqref{eqSynapticTransmissionForKANN} expand to multiple synapses?
-		
+		The typical neuron has numerous input synapses. 
+		%How does \eqref{eqSynapticTransmissionForKANN} expand to multiple synapses?
+		%
 		%TODO Skriv om: No er det for sein, og eg tenker ikkje beint.
-		As for temporally separated input, the synapses' total effect of multiple transmissions is modelled as a linear carracteristic.
+		As for temporally separated input, the synapses' total effect of multiple transmissions is modelled as a linear carracteristic. %TODO TODO Skriv kvifor / begrunn dette valget!
 		%This gives that the postsynaptic potential is the sum over all the input nodes' transmission.
 		% %Just as the input of many ``simultaneous'' transmissions has a linear carracteristic, the input through multiple synapses be 
 		%
@@ -97,134 +135,275 @@
 			\label{eqSumOfKij}
 		\end{equation}
 
-		The effect of each synaptic transmission can therefore be decoupled from the rest in the calculation of the postsynaptic node's activity variable, $\kappa_i$.
+		The effect of each synaptic transmission can therefore be decoupled from the other synaptic transmissions when calculating the postsynaptic effect of a transmisson.
+																				%the rest in the calculation of the postsynaptic node's activity variable, $\kappa_i$.
 
-\emph{\bf\large{{----------------------------- fiksa til hit ----------------------------}}}
-% _____________________ fiksa til hit __________________________________________________________________________________________________________________________________________________________________________________
 
 
 		%In discrete--time systems, we can define every synaptic transmission to last for one time iteration (if the time step is large enough).  % MED ELLER IKKJE: "(if the time step is large enough)" ??? XXX
 		%This causes $\Delta t$ to become constant. We can incoorporate this constant into $W_{ij}$.
 
 %		For an ANN based on the activity variable $\kappa$, as previously introduced in chapter \ref{secMatematiskModelleringAvBioNeuron} %TODO Sjekk denne  referansen bedre / skriv bedre (?).
-%		eq. \eqref{eqSynapticTransmission} is highly relevant.  % highly relevant skurrer litt. Det er veldig relevant. Finn synonym..
+%		eq. \eqref{eq SynapticTransmission} is highly relevant.  % highly relevant skurrer litt. Det er veldig relevant. Finn synonym..
 %		If we define $\Delta t$ to be some constant, and incoorporate this constant into $W_{ij}$, we get the equation for the synaptic transmission of the activity variable.
 %		We call the size of this transmission for $\kappa_{ij}$.
 
 
-		For nodes with multiple input synapses, the activity variable $\kappa$ is the sum of all the contributions from different synapses. %VERIFISER DETTE! Vær heilt heilt sikker på at K=sum(K_ij)
-		We can write this mathematically as 
-		\begin{equation}
-			\label{eqSumOfKij}
-			\kappa_i = \sum_j{\kappa_{ij}}
-		\end{equation}
-
-		In this way the synaptic transmission of the individual synapses can be decoupled from the postsynaptic activity variable, $\kappa_i$.
+		%For nodes with multiple input synapses, the activity variable $\kappa$ is the sum of all the contributions from different synapses. %VERIFISER DETTE! Vær heilt heilt sikker på at K=sum(K_ij)
+		%We can write this mathematically as 
+		%\begin{equation}
+		%	\label{eqSumOfKij}
+		%	\kappa_i = \sum_j{\kappa_{ij}}
+		%\end{equation}
+		%
+		%In this way the synaptic transmission of the individual synapses can be decoupled from the postsynaptic activity variable, $\kappa_i$.
 		
-	\subsection{Synaptic input to a node}
-			\label{ssecSynInputToANode}
-			In $\kappa$ANN we call the nodes for a K\_auron.
-			The synaptic input for the activity variable of a K\_auron is defined by \eqref{eqSumOfKij}.
-			%To avoid having to recalculate $\kappa_i$ from \eqref{eqSumOfKij} every time the transmission of a synapse changes, we can implement synaptic transmission as the transmission of the derived of $\kappa_{ij}$.
-			To avoid recalculation of $\kappa_i$ from all the input synapses when one synapse changes its transmission, this implementation defines edge transmission as the derived of $\kappa_{ij}$.
-			Now the postsynaptic $\kappa_i$ can be calculated without summing all the synapse inputs after changed input at one of its edges.
-			%In this case the postsynaptic $\kappa$ can be recalucated without summing all the synaptic inputs every time one synapse changes its transmission.
 
-			For synapses transmitting the derived of $\kappa_{ij}$ we only have to integrate this change of transmission from all the input synapses with a changed level of transmission, and get
-			\begin{equation}
-				\kappa_i = \sum_k{\kappa_{ik}}
-			\end{equation}
-			Where ${k}$ is a subset of ${j}$ consisting of all the synapses with a changed level of transmission.
-			%In the case of only one synapse changing its transmission
-
-			We can, in other words add the change in synaptic transmission, $\Delta K_{ij}$, to the postsynaptic activity variable to get the updated activity variable, $\kappa_i$.
-			This can be done at the time of each transmission, and without having to consider any of the other synaptic transmissions to the node.
+		\subsection{The Postsynaptic Effect of Synaptic Transmissons}
+			\label{ssecSynInputToANodeKANN}
+			Equation \eqref{eqSumOfKij} defines the postsynaptic effect of transmissions from multiple input synapses.
+			In pragmatic ANNs the effectivity of the implementation is an issue, and an attempt has been made to make the calculation of the node's activity variable more effective.
 			
-			%XX Skal eg skrive dette her:
+			% As we will see, ... (det under) .  		No fremstår det som en ubegrunna påstand. XXX
+			If we define a transmission in the edge as the derived of the corresponding synaptic transmission, we will see that this makes the implementation more effective.
+																												%updating the postsynaptic node's activity variable after a transmission becomes more effective.
+			The synaptic transmission now becomes the integral of all the edge's transmissions, modelled by %eq. \eqref{eqSynapticTransmissionAsSumOfEdgeTransmissions}.      %, and is defined as
+			\begin{equation}
+				\kappa_{ij} = \sum_t{u_{ij}(\kappa_j)}
+				%\kappa_{ij} = \int{u_{ij}(\kappa_j)} \, \mathrm{d}t
+				\label{eqSynapticTransmissionAsSumOfEdgeTransmissions}
+			\end{equation}
+			
+			Where $u_{ij}(\kappa_j)$ is the transmission through the edge.
+			This involves that a new transission updates $\kappa_{ij}$ by adding its value to the current $\kappa_{ij}$.
+			%As the postsynaptic node's activity variable is the sum of all the synaptic transmissions, as defined in \eqref{eqSumOfKij}, transmission through 
+			As the postsynaptic node's activity variable is the sum of all the synaptic transmissions, and each synaptic transmission is the integral of all the transmissions through the edge, 
+				$\kappa_i$ can be updated by simply adding the new edge transmission to $\kappa_i$.
+			%VIKTIG XXX Skriv litt om at Kappa er fullstendig time-invariant. Viktig for modellen, og ikkje heilt selvsagt!
+
+			In the previous paragraph, we used two 		 different expressions for transmission through a connection between two nodes. 
+			%We have in the previous paragraph used two
+			The synaptic transmission $\kappa_{ij}$ is used as the amount $\kappa_j$ transmitted by the connection between node $j$ and node $i$. 
+			The edge transmission $u_{ij}(\kappa_j)$ is used as the transmission from node $j$ to node $u$ in the implementation. 
+			These two transmissions differ if the implementation's solution is different than a direct implementation of eq. \eqref{eqSynapticTransmissionAsSumOfEdgeTransmissions}.
+			%A discussion 
+			% FEIL: The choice for this implementation is presented in the next section (sec. \ref{ssecImplementationOfSynPlastKANN}).
+			For this implementation the edge transmission is previously defined as the change in synaptic transmission. 
+			%The fact that these transmissions differ follows a solution for making the implementation more effetive.
+
+
+			Each edge's transmission is completely decoupled from the others' transmissions.
+			Each synapse's transmissions can therefore be calcutated separately.
+			In an object mode, this is very good for encapsulation as each synapse can update its own $\kappa_{ij}$.
+			%This is completely decoupled from the other transmissions, and each edge transmission can be calculated by the edge at the time of transmission. 
+			%This is wery good for encapsulation in an object oriented programming language.
+
+			After each time iteration, the postsynaptic node's activity variable is updated as the sum of all the synapses with an altered level of transmission.
+																																%  changed         ?
+
+			%For synapses transmitting the derived of $\kappa_{ij}$ we only have to integrate this change of transmission from all the input synapses with a changed level of transmission, and get
+			\begin{equation}
+				\kappa_i = \sum_c{\kappa_{ic}}
+				\label{eqSynapticTransmissionForKANNimplementation}
+			\end{equation}
+			Where $\{c\}$ is a subset of $\{j\}$ consisting of all the presynaptic neurons where the activity variable has been updated.
+
+			% KANSKJE: skrive at kappa er tidsinvariant, og varierer bare med kappa_ij. Dette gjør ting lettere.
+
+			%In the implementation of $\kappa$ANN we call the nodes for K\_auron.
+			%The synaptic input for the activity variable of a K\_auron is defined by \eqref{eqSumOfKij}.
+			% %To avoid having to recalculate $\kappa_i$ from \eqref{eqSumOfKij} every time the transmission of a synapse changes, we can implement synaptic transmission as the transmission of the derived of $\kappa_{ij}$.
+			%To avoid recalculation of $\kappa_i$ from all the input synapses when one synapse changes its transmission, this implementation defines edge transmission as the derived of $\kappa_{ij}$.
+			%Now the postsynaptic $\kappa_i$ can be calculated without summing all the synapse inputs after changed input at one of its edges.
+			% %In this case the postsynaptic $\kappa$ can be recalucated without summing all the synaptic inputs every time one synapse changes its transmission.
+
+			To sum up the analysis in this seciton, edge transmission of the implementation is defines as  $u_{ij}(\kappa_j) = \Delta K_{ij}$.
+			For each edge transmission the synaptic transmission $\kappa_{ij}$ is the integral of all edge transmissions, and is updated by simply adding the new edge transmission.
+			The postsynaptic node's activity variable $\kappa_i$ is the sum of all it's input transmissions, and is updated by the same principle; %var: , and can be updated ..
+				After an edge transmission $u_{ij}(\kappa_j)$, $\kappa_i$ is updated by simply adding $u_{ij}(\kappa_j)$. 
+			%The operation of taking the sum over all the node's input synapses after a change in one input transmission is thus avoided.
+			%The operation of taking the sum over all the node's input synapses, after a change in transmission for a subset of the input synapses is thus avoided.
+			 The operation of taking the sum over all the node's input synapses after a change in one $\kappa_{ij}$ is thus avoided.
+
+			%We can, in other words, add the change in synaptic transmission, $\Delta K_{ij}$, to the postsynaptic activity variable to get the updated activity variable, $\kappa_i$.
+			%The edge transmission in the implementation is defined as $u_{ij}(\kappa_j) = \Delta K_{ij}$, so for each edge transmission the postsynaptic node's activity variable is by simply adding $u_{ij}(\kappa_j)$.
+			%This can be done at the time of each transmission, and without having to consider any of the other synaptic transmissions to the node.
+			
+			%XX Skal eg skrive dette her: XXX Dette står vel i neste avsnitt?
 			%If we wait until after the current time iteration before calculating the effects of the changed kappa, much calculations will be saved.
 
-			\subsubsection{Effects of the new $\kappa$}
-			When $\kappa_i$ changes for a node, we need to recalculate the inverse of the period for this new $\kappa_i$ to get the synaptic transmissions right.
-			Because the time step of one time iteration is defined as the smallest time interval in the simulated system, we can define that the propagation of $\kappa$ will happen at the end of the current time iteration. %after this time interval.
-			%eller "not instantly".
-			Now %If we introduce this as a rule,
-			 we can wait until after the current time iteration before calculating the effects of the changed $\kappa_i$.
-			%The period of the node, and thus the synaptic transmission of its synapses can in this case wait to after the current time iteration before calculating the effect of the new $\kappa_i$.
-			This includes recalculating the estimated firing time, the period inverse and thus the synaptic transmission, and initiate the new time window by calculating the initial depolarization of the neuron and setting 
-				ulStartOfTimeWindow for the next time window.
-
-			If we wait til after the current time iteration before calculating the effect of the changed kappa, the above calculations can be done once per time iteration instead of once for each input to the node.
-																													% Og vil auke effektiviteten stort!
-			This can be wieved as a time delay in the neuron, and is probably  very short compared to what it should be. % TODO: Skriv i Discussion: 
-															%At denne delayen er antaklig alt for liten. Dersom eg hadde tid ville eg utforska kor lang denne delayen burde være.
-															% Veldig vanskelig å vita kva den SKAL være...
 
 
-			To wait with the recalculation of the variabled affected by the change in $\kappa$, is implemented with the concept of pCalculateTaskQue, introduced in section \ref{secCalcultaionTaskQue}.
-			When a nodes $\kappa$ changes value, a pointer to the node is inserted into a specialized que for this use, pCalculateTaskQue.
+
+			\subsection{Implementation of Synaptic Transmission}
+			\label{ssecImplementationOfSynPlastKANN}
+	
+	%		Begynn med å skrive at det er er vankelig å vite når det skal skje. Diskuter litt fram og tilbake som intro til section. %TODO 
+	
+			The synaptic transmission is given by $\kappa_{ij} = w_{ij} \, \cdot \, p_{isi}^{-1}(\kappa_j)$, the synaptic weight multiplied by the inverse of the inter--spike period.
+			%In this implementation, $\kappa$ is used as the activity variable instead of the node's depolarization, and an other transmission scheme needs to be devised.
+			Edge transmission is in this implementation defined as the change in synaptic transmission, or $u_{ij}(\kappa_j) = \Delta \kappa_{ij}$
+			%This itroduces mechanisms that makes it redundant to perform the sum over all the node's input synapses every time one synapse's $\kappa_{ij}$ is updated.
+			This introduces mechanisms that makes computational of the sum over alle the node's input synapses redundant, as more effective methods are used. %TODO skriv om!
+			%TODO finn ut korleis eg skal skrive det over / which of dei to setningene eg skal basere setninga på..
+	
+			%%\subsubsection{Implementation of transmission through a synapse} % Vettafaen om denne skal være med. Gjorde om fra å være en kommentar, no..
+			When implementing synaptic transissions, equation \eqref{eqSynapticTransmissionForKANN} is considered first.
+			This equation is based on the presynaptic inter--spike period and the synaptic weight of the edge, elements that are available from the presynaptic node and the synapse itself.
+			At the time of transmission, the edge transmission is further calculated as the change in $\kappa_{ij}$.
+			
+			When $\kappa$ is changed, a new time window is commenced. 
+			The node's initial depolarization in the new time window is calculated as the value of the node at the end of the previous time window.
+			With the starting value for the node's depolarization, the further depolarization curve and the estimated firing time of the node can be calculated by eq. \eqref{eqVerdiligninga} and \eqref{eqRemainderOfPeriod}.
+
+			A time step is defined as the smallest iteration in time.
+			The first time the effect of a changed $\kappa$ may appear is thus after the current time iteration.
+			As we potentially get multiple edge transmissions each time iteration, many calculations can be saved by calculating the effect of changed $\kappa$ after the current time iteration.
+			For every edge transmission we only add the new transmission to the current $\kappa$.
+
+			Every time a node's $\kappa$ is changed, a pointer to the node is inserted into a list \emph{pCalculateTaskQue}, introduced in section \ref{ssecCalcultaionTaskQue}.
+			This list is a static element of \emph{time\_class}, and only one instance of the list is constructed. 
+			% TODO TODO todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo  SKRIV OM DETTE (pCalculateTaskQue) i design.tex TODO TODO TODO
 \begin{lstlisting}
 static std::list<timeInterface*> pCalculateTaskQue;
 \end{lstlisting}
-			This list is static in the time\_class, that is only one variable is made for time\_class (not one per object).
-			When time\_class::doTask() runs, it first calls time\_class::doCalculations().
-			%First it makes shure that each entry of the list pCalculateTaskQue is unique (it removes any duplicate). 
+			This list is specifically designed to keep an overwiev of \emph{timeInterface} derived classes in need of post--iteration calculations. %todo skriv om!
+%			One example of this is a node after a changed $\kappa$. %in it's activity variable, $\kappa$.
+			Before time is iterated by \emph{time\_classes::doTask()}, \emph{time\_class::doCalculation()} is called.
 
-			The first task of time\_class::doCalculation() is to enshure that each element of pCalculateTaskQue is unique. 
-			This is done by iterating through the list and removing all duplicates of each entry.
-			
-			The next task is to call each of the remaining elements' .doCalculation() function.
-			The function doCalculation() is defined as a pure virtual function in timeInterface, and every class that does not define its own doCalculation() remains an interface class.
-			This makes shure that every object of a timeInterface derived class have defined a doCalculation() function. This function is defined in the class if to make it possible to make an istance of the class.
-			% gitt av kva elementet har behov for å vente med å kalkulere. For K_auron er det effekten av endring av Kappa som er hensiktsmessig å vente med. For s_auron er det kanskje lekkasjen?
+			The first task of \emph{time\_class::doCalculation()} is to make shure that every entry of \emph{pCalculateTaskQue} is unique, by removing every duplicate entries of each element of the list.
+			After this, \emph{time\_class::doCalculation()} calls each entry's doCalculation() function.
+			% TODO Neste to linjene hører heime i design.tex:
+			The \emph{doCalculation()} function is defined as a pure virtual fucion in the \emph{timeInterface} class, assuring that every object of a derived class have defined it own \emph{doCalculation()} function.
+			%meaning that every class inheriting this function have to implement the action of this function for the class.
+			%If it does not, the derived class will inherit the interface aspect of \emph{timeInterface}, and cannot be made an instance of. %TODO Skriv om!
+		
+			In class \emph{K\_auron},  the \emph{doCalculation()} member function is responcible for updating variables dependent on $\kappa$.
+			%The \emph{doCalculation()} member function of class \emph{K\_auron} calculates the effect of a changed $\kappa$.
+			In this way equation \eqref{eqSynapticTransmissionForKANNimplementation} is implemented during each time step, and the calculation of the updated effect of the new $\kappa$ is executed at the end of the time step.
+			The more strenuous task of calculating the initial values of the new time window and the effect of the changed $\kappa$ for the node is thus called at most once for every time iteration.
 
-			For K\_aurons, the inherited virtual function .doCalculation() has the task of calculating every variable that changes as a consequence of a changed activity variable for the auron.
-			% TODO Skriv bedre XXX
+%\begin{lstlisting}
+%static std::list<timeInterface*> pCalculateTaskQue;
+%\end{lstlisting}
+
+
+	
+% Setninger som inneheld aspekt som eg ikkje har dekka:
+		%	When $\kappa_i$ changes for a node, we need to recalculate the inverse of the period for this new $\kappa_i$ to get the synaptic transmissions right.
+		% Synaptisk transmission er resultat av p^-1 Dette er ikkje skrevet over.
+
+		% uvisst kva delay før propagation av kappa skal være.
+
+
+
 
 			\subsection{Analysis of synaptic transmission as the derived}
-			When synaptic transmission is defined as the derived of $\kappa_{ij}$ the gain in efficiency can be noticable. 
-			It also introduces some effects that is important to consider. 
+			To avoid summation of the transmission of all node's input synapses, the edge transmission is defined as the derived.
+			To update the synapse's $\kappa_{ij}$, the edge transmission only has to be added to the previous $\kappa_{ij}$. %ta med?  :   that is the change of the synapse's transmission   før "only"?
+			As a node's activity variable $\kappa_i$ is defined as the sum of all the input transmissions, $\kappa_{ij}$,
+				the postsynaptic activity variable is also updated by summing it with the new edge transmission.
 
-			The most imminent effect is the possibility of an integral error from integrating the derived to get the new $\kappa_i$. 
-			This is important, and a whole section is dedicated consideration of this (se sec. \ref{ssecRecalcKappa}).
+			After each transmission we get the updated $\kappa_i$ as a sum of the current $\kappa_i$ and the edge transmission $u_{ij}(\kappa_j)$
+			\begin{equation}
+				\kappa_i = \kappa_i + u_{ij}(\kappa_j)
+			\end{equation}
+			
+			After at the end of the time iteration, the effect of the updated $\kappa$ is calculated.
+			As the synaptic transmission, and thus the edge tranmission, depend on some of the variables calculated in \emph{K\_auron::doCalculation()}, the updated $\kappa_i$ is first propagated after this function is executed.
+			For an analysis of the time of propagation of $\kappa$ it is referred to section ?. %TODO TODO TODO OTODO OTDO TODO TODO TODOD TODO Skriv in referanse nå er har skrevet om dette i Analyse-kapittelet.
 
+			In fig. \ref{figEdgeTransmissionKaboveT} we can se a plot of the edge transmission of an inhibitory synapse.
+			The presynaptic node's activity variable varies as \mbox{$f(t) = 1.1 \cdot \tau \cdot (1 + sin( 2\pi \cdot \frac{t}{1000})$}.
+	
+\begin{figure}[hb!tp]
+	\centering
+	\includegraphics[width=0.95\textwidth]{./synapticTransmissionPlots/eps_transmissionKappaAboveThreshold.eps} 	
+	\caption{ 	
+			} %TODO skriv om dette tomrommet i teksten under.
+	\label{figEdgeTransmissionKaboveT}
+\end{figure}
 
+			The edge transmission for an inhibitory synapse is the negative of that of an excitatory synapse.
+			From fig. \ref{figEdgeTransmissionKaboveT}, we can therefore see that the synapse is an inhibitory synapse as it shows a plot that resembles $ - 1.1 \cdot cos(x)$, 
+				or the negative of the derived of $\kappa_j$.
+			%From the figure we can se that the synapse is an inhibitory synapse, as the figure shows a scaled version of the negative of the derived of the presynaptic activity variable.
+				%edge transmission is the derived of the presynaptic node's activity variable.
+
+			
+			If we let the presynaptic activity variable ``dip'' below threshold, the synaptic transmission becomes zero.
+			This is because the period becomes infinitive (the node will never fire) for a sub--threshold activity variable. 
+			As the synaptic transission is the synaptic weight times the inverse of the period, the synaptic transission is zero when $\kappa$ is less than $\tau$.
+			For the edge transmission we will therefore se see a non--linearity if the activity variable is less than or equal to the threshold.
+
+	% Feil ref.		In fig. \ref{figEdgeTransmissionKaboveT} we can se a plot of the edge transmission of an inhibitory synapse.
+	% Feil ref.		The presynaptic node's activity variable is presented in fig. \ref{figEdgeTransmission:edge-a}.
 
 \begin{figure}[hb!tp]
 	\centering
 	%
-   	\subfloat[Presynaptic activity variable, {$\kappa_j$}]{\label{figSynTransmission:edge-a} 						\includegraphics[width=0.5\textwidth]{./synapticTransmissionPlots/eps_auronKs2-kappa.eps} 		} 
-   	\subfloat[Synaptic transmission]{\label{figSynTransmission:edge-b} 		\includegraphics[width=0.5\textwidth]{./synapticTransmissionPlots/eps_transmission_Ks2->K1.eps} 	}
+   	\subfloat[Presynaptic activity variable, {$\kappa_j$}]{\label{figEdgeTransmission:edge-a} 						\includegraphics[width=0.95\textwidth]{./synapticTransmissionPlots/eps_auronKs2-kappa.eps} 		}  \\
+   	\subfloat[Synaptic transmission]{\label{figEdgeTransmission:edge-b} 		\includegraphics[width=0.95\textwidth]{./synapticTransmissionPlots/eps_transmission_Ks2->K1.eps} 	}
 	%\caption{Demonstration of the value function for changing kappa}
-	\label{figSynTransmission}
-	\caption{The presynapsic activity variable kappa ( \ref{figSynTransmission:edge-a}  ) and the following synaptic transmission ( \ref{figSynTransmission:edge-b} ). 
-			Notice the nonlinearity of the synaptic transmission when $\kappa_j \leq \tau$.}
+	\caption{ 	( \ref{figEdgeTransmission:edge-a} ) The presynaptic activity variable $\kappa_j$         and   
+				( \ref{figEdgeTransmission:edge-b} ) The corresponding edge transmission to a presynaptic activity variable presented in \ref{figEdgeTransmission:edge-a}. 
+			Notice the gap of the synaptic transmission when $\kappa_j \leq \tau$ = 1000. 
+			} %TODO skriv om dette tomrommet i teksten under.
+	\label{figEdgeTransmission}
 \end{figure}
+			If the presynaptic node is a sensor neuron with a sensor function varying as a sinus that dips below threshold, we get the edge transmission presented in fig. \ref{figEdgeTransmission:edge-b}. 
+			The presynaptic activity variable is presented in fig. \ref{figEdgeTransmission:edge-a}.
+
+			We can see that the edge transmission no longer resembles the derived of the presynaptic activity function. 
+			Now we have a strong non--linearity when $\kappa_j \leq \tau$.
+			In all plots in this report, the firing threshold is set to $1000$
+
+			The plots of synaptic transmission is made by running the octave log--scritps resulting from the execution of the implementation.
+			In the constructor of each synapse object, a file stream is created. 
+			This writes a fully executable octave script. The above plots have been made by executing such scripts.
+
+			%Skriv om at dette er ei inhib. syn. Dette er grunen til at kurva er "opp ned".
+
+	
+			% DÅRLIG: Skriv om, men bruk mindre ord, meir følelser, osv. Skal ikkje være veldig teknisk, men skal innlede lese mot neste section.. XXX TPOD COTO DOTO TODO TODO TODO
+			By defining the edge transmission as the derived where we integrate all the input in the postsynaptic node involves one drawback, the global truncation error.
+			At every step we sum the current value with the new value. If we get a small error in these calculations we get what is called `` truncation error''.
 
 
-			When the presynaptic activity variable, $\kappa_j$ varies as a sin( t ) and is at all times above firing threshold, the synaptic transmission will wary as its derived, the cosine.
-			%LEGG VED PLOT for [kappa alltid over terskel] også?
-			If the presynaptic activity variable as times is equal or below the firing threshold, the plot becomes more interresting.
-			Figure \ref{figSynTransmission} shows the presynaptic activity variable, $\kappa_j$ and the following transmission in the synapse. 
-			The plots are made from the octave log files following one run of the implementation.
+% _____________________ fiksa til hit __________________________________________________________________________________________________________________________________________________________________________________
+| \\ \emph{\bf\large{{----------------------------- fiksa til hit ----------------------------}}}\\
+%\newpage
 
-			When $\kappa_j$ approaches the threshold, the presynaptic period goes toward infinity. This causes a synaptic transmission $\kappa_{ij}$ of size zero.
-			Since the edge transmission in the implementation is the derived of $\kappa_{ij}$, we get the nonlinearity when $\kappa$ goes below the firing threshold of the presynaptic neuron.
-			In the empty interval in the synaptic transmission curve it can be seen that $\kappa_j$ is below the $\tau$, and we do not need to have synaptic transmission.
-			% Skrive at dette er ordna med ei if-setning?
+%			As we allways calculate the next value as a funcion of the previous value and the new input, we will get an integration of the local truncation errors, and possibly get an error of some size.
+%			This effect is often referred to as ``the global truncation error''.
 
-
-		%\subsection{Skrive om implementasjon av dette}
-		%\subsection{Skrive om effekter ved denne metoden}
-		%	\begin{itemize}
-		%		\item At når $\kappa$ nermer seg $\tau$, vil perioden gå mot uendelig veldig raskt. For diskret system vil dette oppfattes som en ulinearitet 
-		%		(peride går fra normal verdi til veldig høg verdi -> overføring går "plutselig" til 0). Dette fører til en høg derivert som sørger for at $W_{ij}=0$. Vis transmission plot.
-		%		\item at når vi velger å integrere opp den deriverte (overføring) for å finne state, vil vi får 'integral--error' for $\kappa_{post}$.
-		%		Dette fører til neste avsnitt: "rekalkulering av Kappa".
-		%	\end{itemize}
+% TODO Hugs å skrive om dette:
+% 		The most imminent effect is the possibility of an integral error from integrating the derived to get the new $\kappa_i$. 
+%		This is important, and a whole section is dedicated consideration of this (se sec. \ref{ssecRecalcKappa}).
+% _____________________ fiksa til hit __________________________________________________________________________________________________________________________________________________________________________________
 
 
 		\subsection{Relcalculating $\kappa$}
 		\label{ssecRecalcKappa}
+		Defining the edge transmissions as the derived has many positive sides when we consider efficiancy of the implementation. The negative sides comes when we consider the ease of implementation and the truncation error.
+		Using the edge transmission as the derived of the synaptic transmission makes it harder to do the implementation. 
+		It also introduces a BLA BLA  global truncation error\footnote{``Integralfeil''}
+		%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+		%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+		%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+		%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+		%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+		%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+		%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+		%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+		%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+		%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+		The positive sides of defininge edge transmission as the derived has been covered. 
+		Defining edge transmission as the derived has been discussed 	
+
+
+
+
 		Because synaptic transmission is implemented as the derived of the $\kappa_{ij}$, and the postsynaptic activity variable $\kappa_i$ as the integral of this kind of synaptic transmission
 		, we have to consider the trunction error of $\kappa_i$. 
 		Every small error in the calculated $\kappa_i$ will for ever be a part of the result, and we can get potential large errors after a relatively short time.
@@ -333,7 +512,7 @@ static std::list<timeInterface*> pCalculateTaskQue;
 	For this reason, the most efficient way of calucating the postsynaptic dendrite's activation level is to let the synapse transmit the derived of the signal (change).
 	%TODO Har skrevet dette tidligare. (to subsections før). Skriv om, og referer/underbygg denne måten.
 
-	If the transmitted varible is the derived of the signal the postsynaptic dendrite can easily calculate the changed postsynaptic $\kappa_i$, as sen in section \ref{ssecSynInputToANode}.
+	If the transmitted varible is the derived of the signal the postsynaptic dendrite can easily calculate the changed postsynaptic $\kappa_i$, as sen in section \ref{ssecSynInputToANodeKANN}.
 	% XXX SAGT FØR: If we define $\kappa_{ij}$ as the contribution on $\kappa_i$ from the synapse between node $j$ and node $i$ , $\kappa_i$ can be calculated as
 	%\begin{equation}
 	%	\kappa_{i} = \sum_j{\kappa_{ij}}

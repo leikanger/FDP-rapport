@@ -246,10 +246,10 @@ And
 % XXX Legg utledning av uttrykk i appendix! 		Her skal bare stå: V(t) = ...  XXX type: bare siste linja i den kompilerte DVI'en
 \begin{equation}
 	\begin{split}
-		\label{eqVerdiligninga}
 		v(t)  	&= 		\mathscr{L}^{-1}\bigg\{ V(s) \bigg\}  									\\
 		 		&=		\frac{I}{\alpha} - \frac{I}{\alpha} e^{-\alpha t} + v_0 e^{-\alpha t} 	\\
 				&= 		\kappa \left( 1 - e^{-\alpha t} \right) + v_0 e^{-\alpha t} 	\quad,\; \kappa = \frac{I}{\alpha} 
+		\label{eqVerdiligninga}
 	\end{split}
 \end{equation}
 
@@ -389,7 +389,11 @@ If this is updated each time $\kappa$ varies, we get an estimate of the remainin
 %\subsection{Redying the equation for use in ANN}
 %TODO Skriv at denne ligninga kan brukes direkte for å lage en heilt ny modell for "spiking ANN" (ANN med information om 'spike-time').
 % 	Om dette skal gjøres, må modellen tilpasses. Blabla, dette gjøres her. Eller noke.. Kanskje ikkje.
-\label{sssecValueOfAlpha}
+\label{ssecValueOfAlpha}
+
+%TODO TODO TODO TODO TODO TODO 
+% Skriv om 'value of alpha'! 	TODO TODO TODO TODO TODO TODO TODO 
+%TODO TODO TODO TODO TODO TODO 
 
 %XXX Veit ikkje om dette er relevant!
 
@@ -400,6 +404,7 @@ Equation \eqref{eqPeriodeligningForKonstIntraPeriodKAPPA} describes the depolari
 The equation for the whole inter--spike interval is given by
 \begin{equation}
 	p_{isi}(\kappa) = p_d(\kappa) + t_r
+	\label{eqHeilePerioden}
 \end{equation}
 
 Where $t_r$ is the absolute refraction period of the neuron. % , and $p_d(\kappa)$ is given in \eqref{eqPeriodeligningForKonstIntraPeriodKAPPA}.

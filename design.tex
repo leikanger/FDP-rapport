@@ -1,6 +1,11 @@
 % Implementation design :
 
 
+
+
+% TODO Skriv om sensor funksjoner!
+
+
 %
 % PLAN implemenasjonskapitteler:
 % 	Allerede skrevet om ANN: årsak, historie, SANN
@@ -51,6 +56,24 @@
 % 		%- Læring (syn. p.) er ikkje implementert siden dette ikkje er en del av oppgaven, og pga. tidsbegrensninger. Det er også lettere å sammenligne effektivitet dersom synaptisk vekt er konstant (tar bort en variabel fra ligningene)
 % 		%	 																																							= "For further research".
 % 		%	- Blir dermed sammenligning av to modeller for å designe `recurrent ANN': "Moore vs. Mealy state maschine".
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% TODO Skriv om sensor funksjoner!
+
 
 
 
@@ -231,7 +254,7 @@ Finally it will append a \emph{self--pointer} to the end of the task list.
 %her, eller under effektivisering, eller under "The two ANN models"
 %Beste er kanskje å nevne det her, med frampeik til f.eks. "The two ANN models"
 
-%TODO KANSKJE HER? Skriv at dersom vi velger timestep til størrelsen av en refraction time (referer til sssecValueOfAlpha) så vil det (statistisk sett) bli rett å vente utsette vidaresending av aktivitet: ett timeStep.
+%TODO KANSKJE HER? Skriv at dersom vi velger timestep til størrelsen av en refraction time (referer til ssecValueOfAlpha) så vil det (statistisk sett) bli rett å vente utsette vidaresending av aktivitet: ett timeStep.
 
 	\subsection{Object design for the artificial neuron} 								%XXX TODO SKRIV BEDRE!!! 																	XXX SKRIV BEDRE
 	The artificial neuron, hereby referred to as ``auron'', consists of the same sub--elements that are described in section \ref{secTheBiologicalNeuralSystem}.
@@ -351,7 +374,7 @@ Finally it will append a \emph{self--pointer} to the end of the task list.
 	
 
 
-	\subsection{The two ANN models}
+	\subsection{Forberede implementasjon for å sammenlikne The two ANN models}
 
 	For comparing the two ANN models, one implementation of each model is created. 
 	For the best result, it is important that the implementations have a balance between being as simular as possible and optimalizing each implementation.
@@ -578,8 +601,12 @@ The leakage in each nodes value is the background of the non--linearity of the e
 
 \large{HER}
 
+%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+%FJÆRN!
+% NEI TODO ENDRE: skal handle om calculation task que (ref{ssecCalcultaionTaskQue})..%
+% TODO Endre navn til pCalculationTaskQue, eller noke..
 \subsection{Om oppsamling av $\kappa$}
-\label{secCalcultaionTaskQue}
+\label{ssecCalcultaionTaskQue}
 % Skriv om lekkasje, slik at lekkasje gjennomføres i s_auron::doCalculation(). Da kan eg skrive om pCalculationTaskQue generelt her, og seinare i implementation_KANN.tex skrive om kappa-oppsamling.
 To do the minimalize the number of times $p(\kappa)$ is calculated, it is best to wait to after the current time iteration before calculating the result of the new $\kappa$ in terms of the nodes period.
 %Skriv heller noke slikt som :  Når kappa er ferdig oppdatert, dvs på slutten av current time iteration.
@@ -675,6 +702,30 @@ This will finalize the log for each auron, and the octave scripts will be execut
     //   from i_auron::pAllAurons.
   }   
 \end{lstlisting}
+
+For comparison and development of synaptic transmission, each synapse also has a log file. This is most relevant for the synapses in $\kappa$ANN.
+When the \emph{K\_synapse} is constructed, a log file is established for each object. This log file is created with a suitable name to separate all the log files after execution of the software.
+
+The following code is from the constructor of \emph{K\_synapse}.
+\begin{lstlisting}
+std::ostringstream tempFilAdr;
+tempFilAdr
+  <<"./datafiles_for_evaluation/log_transmission_K_synapse_" 
+  <<pPresynAuron_arg->sNavn <<"-"  <<pPostsynAuron_arg->sNavn ;
+if(bInhibitoryEffect){ tempFilAdr<<"_inhi"; }
+else{ 			  tempFilAdr<<"_eksi"; }
+tempFilAdr<<".oct";
+\end{lstlisting}
+
+We see that this that it is possible to create two synapse--logs, for two synapses going to the same postsynaptic node, one excitatory and one inhibitory synapse.
+Two synapses of the same kind could give the same result as one larger synapse(depending on the learning rule), but one excitatory and one inhibitory synapse should give an other result when synaptic plasticity is implemented.
+%If future a implementation is made as a simulation of biological neural systems, we could end up differentiation between excitatory and inhibitory synapses when it comes to learning.
+In this case it would be important that different log files are created.
+%This could give different learning rules for excitatory and inhibitory synapses, and different log files might become important in later projects based on this code.
+Se appendix \ref{appendixSecPresynapticSynapticPartOfTransmission} for a motivation for differentiating between excitatory and inhibitory synaptic plasticity and 
+	for a review of synaptic plasticity in biological neural systems.
+%This might be important when synaptic plasticity is implemented, as the excitatory synapses could be designed with an other set of learning rules that the inhibitory synpses.
+
 
 %\begin{figure}[htb!p]
 %	\centering
