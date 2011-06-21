@@ -1,0 +1,9 @@
+
+I log_transmisjon_K_synapse_Ks2-K1_inhi.oct ser vi plott for synaptisk transmissjon for synapse der presynaptisk auron varierer som en sinus OVER tau. Dette er den deriverte av sinus, og skal være lik cos.
+For log_transmisjon_K_synapse_Ks2-K1_inhi__presun_ned_til_T.oct ser vi transmissjon når K går ned til T. Dette er grunnen til unlineariteten (K=T gir periode = Inf., og dermed null overføring av Kappa (deriverte går kraftig ned).
+	Når transmissjon starter igjen, går overføringa tilsvarende kraftig opp.
+
+I log_transmisjon_K_synapse_Ks2-K1_inhi__presyn_K_ned_til_under_T_.oct går presyn. Kappa i perioder under T, og vi får perioder med null-overføring. Før desse periodene får vi samme opplegget som over: 
+	deriverte går kraftig ned, siden funksjonen er ulineær. 
+
+HURRA!
