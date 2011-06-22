@@ -35,93 +35,45 @@ Finally, important aspects of the network that cannot be un derstood from a sing
 %TODO XXX XXX XXX SKRIV neuron inneholder soma,dendritt,axon,(synapser). subsubsection{kvar av desse}
 \subsection{The neuron}
 \label{ssecTheNeuron}
-In mathematical terms from graph theory, a biological version of a neural network can be called a directed syclic graph. 
-In terms from neuroscience this meens that the network og neurons is recurrent (with feedback) and that the synapses (the connections between neurons) are directional (information flows in one direction). More on this later.
+In mathematical terms from graph theory, a biologically realistic artificial neural network can be a directed cyclic graph. 
+In terms from neuroscience this meens that the network og neurons is recurrent (with feedback) and that the synapses (the connections between neurons) are directional (information flows in one direction). 
 
 %The majority of neurons in a biological being are so-called interneurons. This group of neurons have nervous input and give theire output to other neurons. 
 %The biological neuron is special kind of cell with the ability to assess incoming inforamion and transmit information. 
 
+%TODO fortsett på graph-sjargongen!
 The neuron is surrounded by the cell membrane. This membrane has low permeability to ions from the fluid surrounding the neuron to the intracellular fluid of the neuron.
-In addition we have different ionic pumps that pumps different ions from one side of the membrane to the other. This creates an ionic difference over the membrane, also called an electric potential.
+In addition we have different ionic pumps that pumps different ions from one side of the membrane to the other. This creates an ionic difference over the membrane, giving the electric potential over the membrane.
 The membrane potential typically is around $-70mV$ at rest.
 
 %Maintaining this electrical potential is an energy demanding affair, and the brain uses about one fifth of the total $O_2$ use of the body. 
 
-When the neuron is exited (gets a exitatory transmission through one of its synapses), the neuron is said to become \emph{depolarized}. 
+When the neuron is exited (gets a exitatory transmission through one of its synapses), the neuron is said to become \emph{excited}. 
+This is also called being \emph{depolarized} as the potential goes to a less negative value. 
+When the neuron gets a potential more positive than the firing threshold (``going above the firing threshold'') an action potential is initiated.
+This is referred to as ``firing an action potential''.
+The mechanisms behind the action potential is covered in sec. \ref{ssecTheActionPotential}.
 
-When a synaptic transmission arrives at a synapse, neurotransmitters are released from the axon terminal of the presynaptic neuron into the synaptic cleft.
-On the postsynapsic membrane in the synapse are different receptors for different neurotransmitters\cite{PrinciplesOfNeuralScience4edKAP09}. 
+When the action potential reaches the ``axon terminal'', where the presynaptic membrane of the synapse lies, neurotransmitters is released into the synaptic cleft 
+ 	(se appendix \ref{appendixSecPresynapticSynapticPartOfTransmission} for a more complete discussion of the action potential and the presynaptic elements of synaptic transmission).
+The neurotransmitters diffuse passively out in the synaptic cleft, and some come in contact with the postsynaptic receptors.
+%The receptors that are relevant to this project is the ligand--gated receptor group.
+%Describing the different known kinds of receptors will be outside the scope of this report. We will limit the description to one class of receptors, called ``ligand--gated receptors''.
+Directly--gated receptors (also called ``ligand--gated channels'') open a channel when exposed to the right ligand (the right neurotransmittor), causing an increase or decrease in the postsynaptic neurons depolarization\cite{PrinciplesOfNeuralScience4edKAP10}. .
+%Ligand--gated receptors are direcly connected to ion channels in the membrane. Opening of these ion specific channels enables some ions to flow throught (depending on what kind of channel the receptor is connected to). 
+%Depending on which ions are let through, the neuron is either depolarized (towards zero polarization, less than its resting potential) of hyberpolarized (getting a more negative membrane potential) by the transmission.
+Whether the postsynaptic depolarization is increased or decreased by a synaptic transmission gives whether the synapse is an excitatory or inhibitory synapse\cite{PurvesNeuroscienceKAP05}.
+%On the postsynapsic membrane in the synapse are different receptors for different neurotransmitters\cite{PrinciplesOfNeuralScience4edKAP10}. 
 %The receptors are only activated by some neurotransmitters, and the change in postsynaptic postential varies with what ions the receptor channel is permeable to.
-Describing the different known kinds of receptors will be outside the scope of this report. We will limit the description to one class of receptors, called ``ligand--gated receptors''.
 
-Ligand--gated receptors are direcly connected to ion channels in the membrane. Opening of these ion specific channels enables some ions to flow throught (depending on what kind of channel the receptor is connected to). 
-Depending on which ions are let through, the neuron is either depolarized (towards zero polarization, less than its resting potential) of hyberpolarized (getting a more negative membrane potential) by the transmission.
+%TODO skrive litt om graph-teori igjen. Kvifor er den directed?
+% også skriv at nett kan være cyclic.
 
-Then the polarization (also called the value of the neuron) becomes more positive than the firing threshold of the neuron, an action potential is initiated at the axon hillock near the cell body of the cell. 
-This is often referred to as ``firing an action potential''.
+%todo kanskje ta med igjen? :
+%Then the polarization (also called the value of the neuron) becomes more positive than the firing threshold of the neuron, an action potential is initiated at the axon hillock near the cell body of the cell. 
+%This is often referred to as ``firing an action potential''.
 
-Since depolarizing the neuron causes firing, the neurons potential is often referred to as the neurons depolarization in the litterature.
-
-
-
-\subsection{The axon}
-
-In order to give (approximately) the same output to different output sites (axon terminals) along the axon, the action potential %XXX Har eg introduset action potential før? Uttrykket må etableres.
-is a self carrying--signal based on different voltage gated channels along the axon membrane. 
-Since the ion channels are voltage gated, and cause larger depolarization when open, the membrane potential diverges, and the channels are open until some timing mechanism causes them to close. 
-The exact mechanisms are not important in this context, but the boolean carracteristics of the action potential is. 
-
-To summarize the layout of the neuron related to information processing, on one side of the neuron we have the output. Boolean output signal from the neuron is mediated through the axon of the neuron that splits into collaterals along the axon with axon terminals at the end. The axon terminal has mechanisms for releasing neurotransmittors intro the synaptic cleft(the area between the presynaptic membrane and the membrane of the postsynaptic cell). 
-In the membrane on the oposite side of the synaptic cleft are neurotransmittor-receptors that alters the postsynaptic neurons depolarization. %skriv om litt: on the oposite side of the syn.c. til noke anna..
-
-%neste linje: meiner at synapsenes sted er ikkje så vel bestemt.. : Skriv om:
-%XXX The other aspect of information processing, recieving information, is not so defined. 
-Most, but not all input synapses are located in the dendrite, a specialized part of the neuron for recieving information. 
-%Some synapses are also located on the cell body and on the axon terminal.
-At the postsynaptic membrane are receptors. Most of these receptors are ligand-gated receptors, either exitatory (causes more depolarization of the neuron) or inhibitory (hyperpolarizes the neuron). 
-% Skriv om neste linje. 
-The combination of neurotransmitters released from the presynaptic terminal and postsynaptic receptors in one synapse typically makes the synapse either exitatory or inhibitory.
-%In one synapse you typically have a combination of neurotransmitter release and postsynaptic receptors that causes the whole synapse to either be exitatory or inhibitory.
-
-
-% Eller subsubsection? (det var det før eg endra det, uten å tenke mykje på det..)
-\subsection{The action potential}
-\label{ssecTheActionPotential}
-In the membrane of the axon we have voltage--gated channels that open if the level of depolarization is more than some value. This value is called the ``firing threshold of the neuron''.
-These channels will open and further depolarize the membrane. Through passive transmission of the electrical potential, the next site with voltage gated channels will also go beyond the firing threshold.
-This establishes the self carrying signal of the axon.
-%An important result of this is that the presynaptic membrane at the synapses recieves an equal depolarization, independent of its location. The release of neurotransmitters is a result of this depolarization, and the action potential enshures an equal depolarization of the presynaptic membrane, so that the transmission is dependent only on the synaptic weight.
-%
-%This means that sufficient depolarization of the membrane of the axon opens voltage gated ion channels that will further depolarize the membrane. 
-%Through passive transmission of the voltage, the signal is distributed to the next voltage gated channels.
-
-The voltage gated channels will only be open for a small period of time.
-There are at multiple kinds of voltage gated channels. The sodium channel opens
-For the action potential there are two important voltage--gated channels; The sodium channel and the potassium channel.
-
-The $Na^{1+}$ channel opens faster than the $K^+$, and gives the rising phase of the action potential.
-After some time delay, the $K^+$ channel opens, and at about the same time the $Na^{2+}$--channel close.
-We have more $K^+$ ions inside the cell, so increasing the permeability for $K^+$ will decrease the potential over the membrane, or ``depolarize'' the membrane.
-When both channels are closed again we are back at the resting potential of the neuron. %SITER: Bear s:91
-
-These mechanisms take some time to execute and the neuron will be inpossible to excite right after the action potential takes place.
-This is called ``the absolute refraction time'' of the neuron..
-
-
-After firing an action potential, the neuron will have a period where it is impossible to exite the cell, called \emph{the absolute refraction period}. 
-The refraction period of a neuron usually lasts for a few milliseconds.
-%\cite Bear kap. 4  (s.91, nede) og Kandel kap.9 s 157 (nede)
-I have found that the refraction period is important for limiting the firing frequency of the neuron. Se section \ref{ssecValueOfAlpha} for more on this.
-%The signals transmitted in the axon is strictly directional, that is: the signal goes from the axon hillock (close to the neurons soma) to the axon terminals (where the synapses is). 
-
-
-%ODO Skriv mindre, eller i det minstre mindre kraftige utsagn. Følgande er rett, men kanskje urelevant for denne oppgava?
-%It must be said that this is a simplification of the system allready. Neurons, synapses and each transmission varies with a lot of other varables as well. 
-%You also have modulatory synapses at the axon terminal, that does not contribute to the value of the neuron, only the amount of neurotransmitters released following the next incoming action potential. 
-%The modulatory synapse is but an example of the complexity of the simplifications that are neccesary in order to make an artificial neural network.
-%In addition we have different time delay for different synapses along the axon, diffuse modulatory systems it the brain with modulatory neurotransmittors, 
-%different states as the neurons use the oxigene and nutritients available, etc.
-
+%Since depolarizing the neuron causes firing, the neurons potential is often referred to as the neurons depolarization in the litterature.
 
 
 %TODO SKRIV om 'temporal and spatial summation of postsynaptic potentials' XXX Viktig!
@@ -131,15 +83,77 @@ I have found that the refraction period is important for limiting the firing fre
 
 
 
+%\subsection{The axon VEKK MED DEN} XXX Element som kanskej ikkje erm ed i neste section:
+%To summarize the layout of the neuron related to information processing, on one side of the neuron we have the output. Boolean output signal from the neuron is mediated through the axon of the neuron that splits into collaterals along the axon with axon terminals at the end. The axon terminal has mechanisms for releasing neurotransmittors intro the synaptic cleft(the area between the presynaptic membrane and the membrane of the postsynaptic cell). 
+%In the membrane on the oposite side of the synaptic cleft are neurotransmittor-receptors that alters the postsynaptic neurons depolarization. %skriv om litt: on the oposite side of the syn.c. til noke anna..
+%At the postsynaptic membrane are receptors. Most of these receptors are ligand-gated receptors, either exitatory (causes more depolarization of the neuron) or inhibitory (hyperpolarizes the neuron). 
+%The combination of neurotransmitters released from the presynaptic terminal and postsynaptic receptors in one synapse typically makes the synapse either exitatory or inhibitory.
+% eller: %In one synapse you typically have a combination of neurotransmitter release and postsynaptic receptors that causes the whole synapse to either be exitatory or inhibitory.
+
+
+% Eller subsubsection? (det var det før eg endra det, uten å tenke mykje på det..)
+\subsection{The Axon and the Action Potential}
+\label{ssecTheActionPotential}
+In the membrane of the axon we have voltage--gated channels that open if the level of depolarization is more than some value. This value is called the ``firing threshold of the neuron''.
+These channels will open and further depolarize the membrane. Through passive transmission of the electrical potential, the next site with voltage gated channels will also go beyond the firing threshold.
+This establishes the self carrying signal of the axon, and results in a similar depolarization for the different axon terminals\cite{PrinciplesOfNeuralScience4edKAP09}.
+%An important result of this is that the presynaptic membrane at the synapses recieves an equal depolarization, independent of its location. The release of neurotransmitters is a result of this depolarization, and the action potential enshures an equal depolarization of the presynaptic membrane, so that the transmission is dependent only on the synaptic weight.
+%
+%This means that sufficient depolarization of the membrane of the axon opens voltage gated ion channels that will further depolarize the membrane. 
+%Through passive transmission of the voltage, the signal is distributed to the next voltage gated channels.
+
+%todo skriv mot slutten av paragraf:  The voltage gated channels will only be open for a small period of time.
+%There are at multiple kinds of voltage gated channels. The sodium channel opens
+For the action potential there are two important voltage--gated channels; The sodium channel and the potassium channel.
+The $Na^{1+}$ channel opens faster than the $K^+$, and gives the rising phase of the action potential.
+The rising phase of the action potential comes as a consequence of more positively charged $Na^{2+}$ ions outside the neuron causing a strong inward current after opening of the $Na^{2+}$ channels.
+Voltage gated $Na^{2+}$ only stay open for about 1 ms before they close.
+About the same time as the $Na^{2+}$ channels close, the $K^+$ channels open. 
+Because there is a larger concentration of $K^+$ inside the cell, this will cause a more negative potential over the membrane. The neuron is repolarized.
+%After some time delay, the $K^+$ channel opens, and at about the same time the $Na^{2+}$--channel close.
+%We have more $K^+$ ions inside the cell, so increasing the permeability for $K^+$ will decrease the depolarization over the membrane, or ``repolarize'' the membrane.
+%When both channels are closed again we are back at the resting potential of the neuron. %SITER: Bear s:91
+After the action potential the membrane potential is ``reset''\cite{NeuroscienceExploringTheBrain3edKAP4}.
+As the electrical potential spead passively to the next site with voltage--gated channels, this is impotant to hinder the action potential going ``the wrong way''.
+
+To recreate the ionic gradient, the ions are transported back by the sodium--potassiom pump.
+This is the basis for the refraction period of the neuron, a small period of time where action potential cannot be initiated\cite{NeuroscienceExploringTheBrain3edKAP4}.
+
+% TODO TODO TODO TODO SKRIV OM absolute r.p.
+%TODO TODO TODO Bli heilt sikker på kva "absolute refraction period" er, og skriv også om dette:
+%These mechanisms take some time to execute and the neuron will be inpossible to excite right after the action potential takes place.
+%This is called ``the absolute refraction time'' of the neuron..
+After firing an action potential, the neuron will also have a short period where it is impossible to exite the cell, called \emph{the absolute refraction period}\cite{PrinciplesOfNeuralScience4edKAP09}.. 
+%The refraction period of a neuron usually lasts for a few milliseconds\cite{PrinciplesOfNeuralScience4edKAP09}.
+%\cite Bear kap. 4  (s.91, nede) og Kandel kap.9 s 157 (nede)
+In this project the author has formalized that the refraction period is important for limiting the firing frequency of the neuron. The analysis is presented in section \ref{ssecValueOfAlpha}.
+
+The axon is organized as a tree, with one trunk close to the soma of the neuron called the axon hillock, and branches called axon collaterals. 
+The axon ``ends'' in the axon terminal, where the presynaptic part of the synapse is located.
+When the action potential reaches the synapse, a transmission is initialized by the opening of voltage gated $Ca^{2+}$ channels\cite{PrinciplesOfNeuralScience4edKAP10}.
+%The signals transmitted in the axon is strictly directional, that is: the signal goes from the axon hillock (close to the neurons soma) to the axon terminals (where the synapses is). 
+
+%ODO Skriv mindre, eller i det minstre mindre kraftige utsagn. Følgande er rett, men kanskje urelevant for denne oppgava?
+%You also have modulatory synapses at the axon terminal, that does not contribute to the value of the neuron, only the amount of neurotransmitters released following the next incoming action potential. 
+%The modulatory synapse is but an example of the complexity of the simplifications that are neccesary in order to make an artificial neural network.
+%In addition we have different time delay for different synapses along the axon, diffuse modulatory systems it the brain with modulatory neurotransmittors, 
+%different states as the neurons use the oxigene and nutritients available, etc.
+
+
+
+
 
 
 \subsection{The synapse}
 \label{ssecTheSynapse}
 %\subsubsection{Synaptic Plasticity}
-When the action potential reaches the axon terminal, the size of the signal is thought to be the same as when it first was initialized at the axon hillock.
-This enshures that the distance the action potential has to travel does not affect the transmission at the synapses of the different axon terminals. \cite{NeuroscienceExploringTheBrain3edKAP4}.
-
-When an action potential reaches the location of a particular synapse, the membrane potential will cause release of neurotransmittors from the axon terminal (the presynaptic neuron).
+%When the action potential reaches the axon terminal, the size of the signal is thought to be the same as when it first was initialized at the axon hillock.
+%This enshures that the distance the action potential has to travel does not affect the transmission at the synapses of the different axon terminals. \cite{NeuroscienceExploringTheBrain3edKAP4}.
+Following an action potential, voltage gated $Ca^{2+}$ channels are opened and $Ca^{2+}$ enters the axon terminal.
+This causes synaptic vesicles to merge with the presynaptic membrane, causing the content of the synaptic vesicles to be released into the synaptic cleft. %Cite Kandel kap.10
+% Forrige to linjer (passer med siste forrige section) ELLER neste linje:
+%When an action potential reaches the location of a particular synapse, the membrane potential will cause release of neurotransmittors from the axon terminal (the presynaptic neuron).
+%-------------------------------------------------------------------------ordna til hit-------------------------------------------------------------------------------------------------------------------------------------------
 These neurotransmitters diffuse into the synaptic cleft, and if the receptors at the postsynaptic membrane are exposed to these neurotransmitters we get an altered depolarization value for the postsynaptic neuron.
 The transmission is thought to be a funcion of presynaptic and postsynaptic mechanisms.
 
@@ -151,19 +165,15 @@ The transmission is thought to be a funcion of presynaptic and postsynaptic mech
 These two sides of synaptic transmission are important when synaptic plasticity is considered. 
 Patterns of long term synaptic plasticity is what is what is percieved as learning in the field of neuroscience \cite{NeuroscienceExploringTheBrain3edKAP25}.
 A comprehensive study of synaptic plasticity is outside the scope of this text, but it should be mentioned that the ion $Ca^{2+}$ is thought important in both presynaptic and postsynaptic plasticity.
-For the especially interrested, appendix \ref{appendixSynPlast}??%TODO SKRIV APPENDIX. Finn ut korleis eg referer til appendix. Endre rapport fra NEVR3003 slik at den passer inn i appendix, og legg inn denne!
-%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO DET OVER..
-										 	considers presynaptic and postsynaptic mechanisms behind synaptic transmission and synaptic platicity, with a special focus on the role of $Ca^{2+}$.
+For the especially interrested, appendix \ref{appendixSynPlast} considers presynaptic and postsynaptic mechanisms behind synaptic transmission and synaptic platicity, with a special focus on the role of $Ca^{2+}$.
 From the study in relation to appendix ??%TODO
 											it can be concluded that 
 
 
 
-
-
-
 % xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx 
 % Ordne det over, før eg går videre!
+
 
 
 

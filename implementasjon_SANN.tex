@@ -11,7 +11,8 @@
 %*********************** SANN ***************************
 %\chapter{Implementasjon: SANN}
 
-\section{SANN Implementasjon}
+\section{SANN design and implementation}
+\label{secSANN} 
 
 	%TODO Lag plot:
 	% 		- Figur som henger på veggen: auron-E-kretsen. (neural oscillator).
@@ -26,10 +27,17 @@
 
 	I innledninga: skriv det som står kommentert ut (tittelen). -at dette blir en simulering av mekanismene for enkeltneuron.
 
+	Bør nok også skrive at alt dette er mitt arbeid, men har blitt gjordt før.
+	Dette er ikkje eit argument for å gjøre arbeidet mitt større, men begrunne mangelen på 'cite'.
+	Element i denne teksten kan likevel være nye, men siden eg ikkje har oversikt over tilstanden til SANN vil desse fremstega bli skrevet veldig mildt om dersom de skrives i det heile tatt.
+
+	VIKTIG: få med problemer med SANN: forbered å lage eit "bedre" design for å løse desse problema! (Forbered skriving av kvifor eg starta å utvikle KANN, som skal skrives som innledning i \\section\{KANN\} \ref{secKANN}
+
 	%\section{Simuating the mechanisms of the neuron}
 
 	% Kjør masse sitering eller referering innad i dokumentet for å hente ut meir poeng fra sensor.
 	% Skrive at "Alle SANN" istedenfor "the usual way ..". Det er litt vanskelig å skrive "alle" uten å være påståelig.
+	% Ikkje skriv "usual way". Skriv heller at det er implementert som .. ( i dette prosjektet.. ). Skrive så at modellen SANN tilseier at dette er metoden..
 	The usual way to implement spiking artificial neural networks (SANN) is a direct simulation of the mechanisms that generate the behaviour of the neuron.
 	
 	In terminology from graph teory, a neural netwoks is a directed cyclic graph with a dynamic amplification (weights) on its edges.
