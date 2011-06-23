@@ -1,6 +1,6 @@
 % Implementation design :
 
-
+% TODO Denne må skrives heilt om. Sett av to dager til dette. (1 natt+en dag?)
 
 
 % TODO Skriv om sensor funksjoner!
@@ -17,8 +17,8 @@
 % 				- tid 
 % 					object-design --> timeInterface og .doTask() --> Skrive om det spesielle elementet time_class --> pWorkTaskQue --> tolkning av pWorkTaskQue og time_class; alternerende køer.
 %
-% 				- loggføring - sjå "log for comparison".
 % 				- About efficiency (om å optimalisere effektivitet. Kø for beregning. (Variant av) avsnitt er skrevet)
+% 				- loggføring - sjå "log for comparison".
 % 				- synaptisk plastisitet. Har ikkje tid. Skriv at vi i denne oppgava fokuserer på implementasjonsforskjellen mellom KANN og SANN. Dersom effektivitet skulle sammenlignes er det best å fjærne syn.p. fra ligninga (mindre kaos)
 % 				- Skriv om kvalitative forskjeller for SANN og KANN. Forskjellen mellom SANN simulering av neuron og KANN matematisk simulering med estimering til fremtida.
 
@@ -41,23 +41,33 @@
 % 		%	X Forrige kapittel: Korleis er dette for SANN? Skriv at dette er en simulering av enkeltnodene i neurale nett, og at dette skjer i presens (input fører til auka verdi, over terskel fører til output, osv)
 % 		%	X Korleis er dette for KANN? Skriv at dette er en høgare ordens simulering av ligningene som er resultat av prosessane i enkeltnodene i neurale nett.
 %
-% 			Først: Innledning.
+% 			Først: Innledning FOR KAPITTELET.
 %
-% 		%- Skriv at for å gjøre restultata mest sammenlignbar, så propagerer signalet ved "fyring" for begge modellane (KANN og SANN), det er ikkje sikkert om dette er det beste for KANN (nødvendig for SANN).
-% 		%- (Kanskje: finn (og skriv) om at det er vanskelig å estimere fyringstid. Veit ikkje kva dette skal brukes til, men syns å huske at dette sto i en artikkel. Kanskje en eg fekk av Hans Plesser?)
-% 		%- Målet blir heller å utvikle og sammenligne KANN mot SANN, ikkje resultatet av kjøringa av de to (ikkje effektivitet, men andre aspekt..) Dette bør kanskje skrives om.
-% 		%	- bør ha med enkle sammenligninger av kjøretid også. Bare for å bruke / vise bruk av programma.
+% - Skriv at for å gjøre restultata mest sammenlignbar, så tenkte eg initiellt at signalet propagerer ved "fyring" for begge modellane (KANN og SANN). Dette er gjort om.
+% - Nevn forskjellane: SANN ser på tilstanden, mens KANN ser på tilstand+input for å beregne fremtidig fyringstid. Dette fører til behovet for pEstimatedTaskTime. Beskriv behovet. Mulig bruk i SANN også..
+%  		(dette vil bli sett på i section {secSANN} og {secKANN}).
+% - Læring (syn. p.) er ikkje implementert pga. tidsbegrensninger(og  siden dette ikkje er en del av oppgaven).							= "For further research".
+% 		- Blir dermed sammenligning av to modeller for å designe `recurrent ANN': "Moore vs. Mealy state maschine of the biological neuron".
+% - Siden målet er å beskrive forskjellane i implementasjonen, er det viktig å isolere forskjellane mest mulig.
+%  		-> Dette vil bli diskutert i section ? (secSammenligningDesign?)
+% - For sammenligning av enkeltnodene er det best å ta bort så mange variabler som mulig. Difor er eit kaotisk neuralnett som input uakseptabelt.
+%  		Løsninga blei å igjen hente inspirasjon fra biologien, og lage eit spesialisert "sensor neuron". Dette skal bare nevnes her, og TODO skrives eit avnitt av seinare i kap.
+% 		Dette blir designet i section [secSensorNeuronDesign?].
+
+% 	Section: Design.
+% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
 %
-% 		%- Beskriv forskjellane: SANN ser på tilstanden, mens KANN ser på tilstand+input for å beregne fremtidig fyringstid. Dette fører til behovet for pEstimatedTaskTime. Beskriv pEstimatedTaskTime (sjå github: wikien)
+%i subsection "sammenligning" (også noko som må designes..):
+% 		%- Tenkte initiellt å sammenligne effektivitet. Dette blir ikkje tid til.
+% 		% 	Målet blir heller å utvikle og sammenligne KANN mot SANN, ikkje resultatet av kjøringa av de to (ikkje effektivitet, men andre aspekt..) Dette bør kanskje skrives om.
 % 		%- Siden målet er å beskrive forskjellane i implementasjonen, er det viktig å isolere forskjellane mest mulig.
 % 		%	- Lager dermed eit generellt rammeverk som gjelder for begge implementasjonane, og modellane som underelement av elementa:
 % 		%		Underklasser av kvart element i nodene (SANN og KANN) som arver fra felles i_[element] abstrakt klasse. Dette gjør det lettare å isolere forskjellane (mest mulig av det som er likt ligger i i_[element]).
-% 
-% 		%- Læring (syn. p.) er ikkje implementert siden dette ikkje er en del av oppgaven, og pga. tidsbegrensninger. Det er også lettere å sammenligne effektivitet dersom synaptisk vekt er konstant (tar bort en variabel fra ligningene)
-% 		%	 																																							= "For further research".
-% 		%	- Blir dermed sammenligning av to modeller for å designe `recurrent ANN': "Moore vs. Mealy state maschine".
-
-
 
 
 
@@ -165,7 +175,7 @@ Lets say that $b$ does not generate any new tasks and $c$ gives us two new tasks
 
 As the syntax indicates, the element $T$ is a rather unique task. $T$ is a const--instance of the timeIterator--class, responsible for iterating time.
 
-\large{\emph{subsection{} er skrevet dårlig herretter. Skrevet seint på kvelden:}} %XXX XXX
+\large{\bf{------------ FÅVEKK --- subsection{} er skrevet dårlig herretter. Skrevet seint på kvelden:} ------------ } %XXX XXX
 
 %XXX SKRIV BEDRE: 
 \emph{T$\rightarrow$ doTask()} will have the responsibility for any tasks that have anything with time to do. 
@@ -683,7 +693,7 @@ For this reason it is important to call the destructor for all the auron objects
 Because all the auron objects are created in the free store, we will have to deallocate the memory explicitly so that the destructor for the auron is called. 
 This can be done by using the \emph{delete} operator on a pointer to the obect.
 
-Manual deletion of every auron is inconvenient and error prone. The only thing that happens if the user forgets to free the memory is that the destructor for the auron will not be called. 
+Manual deletion of every auron is inconvenient and error prone for the octave script. The only thing that happens if the user forgets to free the memory is that the destructor for the auron will not be called. 
 This causes the .oct script to give errors when executing the script.
 
 For convenience, all aurons constructed will also place [this] pointer in std::list$<$i\_auron*$>$ i\_auron::pAllAurons.
@@ -725,6 +735,31 @@ In this case it would be important that different log files are created.
 Se appendix \ref{appendixSecPresynapticSynapticPartOfTransmission} for a motivation for differentiating between excitatory and inhibitory synaptic plasticity and 
 	for a review of synaptic plasticity in biological neural systems.
 %This might be important when synaptic plasticity is implemented, as the excitatory synapses could be designed with an other set of learning rules that the inhibitory synpses.
+
+
+The implementation takes arguments from shell that, for example can set the number of iterations for the next execution.
+This has a default of 1000 iterations if no argument is provided.
+After the arguments are read in from shell the actions are taken to keep an order in the log files.
+A directory is created for the log files: The directory \emph{./datafiles\_for\_evaluation/}.
+All log files are placed under this directory at the construction of the different node elements.
+\begin{lstlisting}
+if( system("mkdir datafiles_for_evaluation") != 0 ){
+	cout<<"Could not make directory for log files "
+	    <<"[./datafiles_for_evaluation/]."
+		<<"Directory probably already exist."
+}
+//Tidy up ./datafiles_for_evaluation/
+if( system("rm ./datafiles_for_evaluation/log_*.oct") != 0){
+	cout<<"Could not remove old log files.\n"
+	    <<"Please do this manually "
+	    <<"to avoid accidendtally plotting old results.\n";
+}
+\end{lstlisting}
+To avoid reanalysis of old results, the old log files are automaticly removed at the initiation of the execution.
+This is done after the arguments have been read out from the software call.
+%Before the implementation reads inn the arguments for the current execution all present \emph{.oct} log files are removed.
+%This is important so that we do not analyze old results when debugging.
+
 
 
 %\begin{figure}[htb!p]

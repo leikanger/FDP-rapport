@@ -16,25 +16,33 @@
 % 	- Det over og:
 % 	- axo-axonic synapses
 %
+% 	- KN, KANN node : 	node based on a the consept of the $\kappa$ model of the neuron. Nodes of KANN
+% 	- SN, SANN node : 	node based on a direct simulation of a spikin neuoron. Nodes of SANN
+% 	- suptrathreshold levels : 	value higher than the firing threshold of a node.
+% 	- STDP
+% 	- LIF neuron
+%
 %
 
 % TODO TODO T0D0:
 %  	- Verifiser all koden som står i teksten.
 %   - Gjør om alle multiplikasjoner : Fra $a*b$ til $a b$ eller $a \cdot b$ (lager prikk for ganging)
 % 	- Gå gjennom alle word's s-ending. Det er mykje feil i denne teksten! Eg har en tendens til å skrive kategorisk feil.. Words vs word's.
-%
+%	- bør ha med enkle sammenligninger av kjøretid også. Bare for å bruke / vise bruk av programma.
+%  	- (Kanskje: finn (og skriv) om at det er vanskelig å estimere fyringstid. Veit ikkje kva dette skal brukes til, men syns å huske at dette sto i en artikkel. Kanskje en eg fekk av Hans Plesser?)
 
 
 
 
-\documentclass[b4paper,11 pt]{report}
+\documentclass[a4paper,11 pt]{report}
+%LEVERES SOM : \documentclass[b4paper,11 pt]{report}
 
 
 
 
 
 % TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO Skriv inn navn på alle refererte enkeltkapittel, i bibliografi.bib TODO
-% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO Endre rapport i NEVR3003, og legg det inn som appendix. Referert til i "The BiologiskeSystemet" -- kapittelet.
+% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO Endre rapport i NEVR3003, og legg det inn som appendix. Referert til i "The BiologiskeSystemet" -- kapittelet.   TODO Tar nokre timer.
 % 																	TODO Gjør om denne, slik at en kybber kan lese den. Definer uttrykk som LTP, LTD, (AMPA?), ATP,  ...
 % TODO Skriv om sensorauron i design.tex. Brukes i implementasjon_KANN.tex ...
 % TODO Legg ved eit plot av ei synapse loggfil eller auron loggfil.
@@ -87,8 +95,8 @@ basicstyle=\footnotesize,       % the size of the fonts that are used for the co
 %stepnumber=1,                   % the step between two line-numbers. If it's 1 each line will be numbered
 %numbersep=5pt,                  % how far the line-numbers are from the code
 %showspaces=false,               % show spaces adding particular underscores
-%showstringspaces=false,         % underline spaces within strings
-%showtabs=false,                 % show tabs within strings adding particular underscores
+showstringspaces=false,         % underline spaces within strings
+showtabs=false,                 % show tabs within strings adding particular underscores
 %captionpos=b,                   % sets the caption-position to bottom
 %breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
 %escapeinside={\%*}{*)}          % if you want to add a comment within your code

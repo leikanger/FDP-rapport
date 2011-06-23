@@ -1,3 +1,5 @@
+
+%TODO Skriv litt om: halv dag.
 %
 % PLAN:
 % - ta med "propagating of kappa". At metoden brukt er antagelig ikkje den mest effektive, men det gjøres likt for å lage det meir egna for sammenligning.(ligger i implementation.tex)
@@ -297,8 +299,8 @@ static std::list<timeInterface*> pCalculateTaskQue;
 		% uvisst kva delay før propagation av kappa skal være.
 
 
-
-
+	
+	
 			\subsection{Analysis of synaptic transmission as the derived}
 			To avoid summation of the transmission of all node's input synapses, the edge transmission is defined as the derived.
 			To update the synapse's $\kappa_{ij}$, the edge transmission only has to be added to the previous $\kappa_{ij}$. %ta med?  :   that is the change of the synapse's transmission   før "only"?
@@ -340,7 +342,7 @@ static std::list<timeInterface*> pCalculateTaskQue;
 	% Feil ref.		In fig. \ref{figEdgeTransmissionKaboveT} we can se a plot of the edge transmission of an inhibitory synapse.
 	% Feil ref.		The presynaptic node's activity variable is presented in fig. \ref{figEdgeTransmission:edge-a}.
 
-\begin{figure}[hb!tp]
+\begin{figure}[hb!tp] 				% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO FLYTT til resultat og sammenlign. kap.
 	\centering
 	%
    	\subfloat[Presynaptic activity variable, {$\kappa_j$}]{\label{figEdgeTransmission:edge-a} 						\includegraphics[width=0.95\textwidth]{./synapticTransmissionPlots/eps_auronKs2-kappa.eps} 		}  \\
@@ -371,6 +373,12 @@ static std::list<timeInterface*> pCalculateTaskQue;
 			At every step we sum the current value with the new value. If we get a small error in these calculations we get what is called `` truncation error''.
 
 
+
+
+%TODO Flytte analyse over, over til comparison and  results? nee..
+%TODO synaptisk transmission overføringsplott, som viser pre og postsyn aktivitetsvar.? Eit som ikkje har problemer: for å vise at det funker..
+
+
 % _____________________ fiksa til hit __________________________________________________________________________________________________________________________________________________________________________________
 | \\ \emph{\bf\large{{----------------------------- fiksa til hit ----------------------------}}}\\
 %\newpage
@@ -388,13 +396,13 @@ static std::list<timeInterface*> pCalculateTaskQue;
 		\label{ssecRecalcKappa}
 		Defining the edge transmissions as the derived has many positive sides when we consider efficiancy of the implementation. The negative sides comes when we consider the ease of implementation and the truncation error.
 		Using the edge transmission as the derived of the synaptic transmission makes it harder to do the implementation. 
-		It also introduces a BLA BLA  global truncation error\footnote{``Integralfeil''}
+		It also introduces a BLA BLA  global truncation error.
 		%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
 		%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
 		%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
 		%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
 		%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
-		%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+		%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO    Her er eg komen..
 		%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
 		%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
 		%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
@@ -548,7 +556,7 @@ static std::list<timeInterface*> pCalculateTaskQue;
 
 
 
-	\subsection{When do $\kappa$ propagate?}
+	\subsection{When do $\kappa$ propagate?} %TODO TODO Dette er analyse => Discursion! XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX 
 	In the start of this project, $\kappa$ANN were implemented as a varian of a network with spiking nodes.
 	Here the information is transmitted by the synapses following an action potential. 
 	Because the SANN model was the basis of this implementation, the information were originally transmitted at the time of the node spiking.
@@ -563,6 +571,12 @@ Når Kappa propagerer kvar gang presyn endres, fjærnes dette problemet. Propage
 Dette har med synapstisk transmissjon å gjøre, og eg må gjøre dette ferdig før eg skrive meir om dette..
 
 NEI faen! no er feilen der igjen. Sjekka kode, og fann at den propagerete, men bare om K>T, så det over er TULL.
+
+
+% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+% Lag plott av KN for nettverk der sensorneuronet venter til fyring, og eit SN depol-plott. For sammenligning (chap. comparison and results).
+% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+
 
 
 
