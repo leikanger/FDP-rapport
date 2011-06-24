@@ -16,6 +16,10 @@
 \label{secKANN}
 	
 	%KANSKJE NESTE subsection er INNLEDNING til section? ELLER kanskej eg heller skal skrive motivatorisk? (SKrive om mine håp for modellen..)
+	INNLEDNING: Mens SANN kjører en direkte simulering av mekanismene i neuronet, har eg i dette prosjektet modellert mekanismene.
+	Ved hjelp av matematikken fra sec. [ref->modellering-kap] er ideen at det er mulig å lage eit meir effektivt, eller på andre måter bedre, ANN.
+% 		Skriv at eg vil gjøre eit forsøk på å lage eit ANN med flyttalsvariabel som propagerer (og kvifor), men med state for å gi spike timing.
+% 		%	x Forrige kapittel: Skriv om grunnen til å gå vidare til ANN med informasjon om relativ spike timing ALLEREDE ER gått gjennom. REFERER. Nevn STDP, LFPO.
 
 	Skriv først innledning, med mål om å sette meg og leser på samme utgangsnivå.
 	Skrive litt om kvifor eg tenker det er lurt å gå videre fra SANN.
@@ -48,11 +52,11 @@
 	% In section \ref{secMatematiskModelleringAvBioNeuron} we have seen that from kappa, both the value of the node (the ``depolartization'') and the estimated firing time can be calculated.
 
 	To interface with a second generation ANN, we can use that the frequency is the inverse of the period. The period is calculated from eq. \eqref{eqHeilePerioden}.
-	The $\kappa$N can as easily be used to get input from as sending output to a node of a second generation ANN.
+	The $\kappa$N can as easily be used to get input from as sending output to a node of a second generation ANN. %TODO TODO Dette stemmer ikkje! xxx
 
 	% TA VEKK: Interfacing with a node of the first XXX Dersom eg ikkje HEILT forstår 1.gen. noder.
 	For interfacing with a node of the first or third generation ANN, the spike time of the node will be used. % ref_123@i_KANN TODO enten forstå 1.gen HEILT, eller ta bort dette. (her og over("..all other gen. ANN"))
-	As the node ``fires an acion potential'', and sends output thourgh all its output synapses at the time calculated by eq. \eqref{eqRemainderOfPeriod}, the node works as an interface to a node of a third generation ANN. 
+	As the node ``fires an acion potential'', and sends output thourgh all its output synapses at the time calculated by eq. \eqref{eqRemainderOfPeriod}, the node could work as an interface to a node of a third generation ANN. 
 	Here special synapses needs to be devised for the transmission to SANN nodes. 
 	The connections between the $\kappa$N and the SN will use the transmission sceme from SANN, where the synapse transmit its synaptic weight to the postsynaptic node. 
 	Transmissons from the SN to  the $\kappa$N is a little more complex. Here the equivalent $\kappa$ resulting in the level of transmission needs to be calculated, and from this the level of transmission.
@@ -190,7 +194,7 @@
 			The edge transmission $u_{ij}(\kappa_j)$ is used as the transmission from node $j$ to node $u$ in the implementation. 
 			These two transmissions differ if the implementation's solution is different than a direct implementation of eq. \eqref{eqSynapticTransmissionAsSumOfEdgeTransmissions}.
 			%A discussion 
-			% FEIL: The choice for this implementation is presented in the next section (sec. \ref{ssecImplementationOfSynPlastKANN}).
+			% FEIL: The choice for this implementation is presented in the next section (sec. \ref{ssecImpOfSynTransmissionKANNN}).
 			For this implementation the edge transmission is previously defined as the change in synaptic transmission. 
 			%The fact that these transmissions differ follows a solution for making the implementation more effetive.
 
@@ -239,7 +243,7 @@
 
 
 			\subsection{Implementation of Synaptic Transmission}
-			\label{ssecImplementationOfSynPlastKANN}
+			\label{ssecImpOfSynTransmissionKANNN}
 	
 	%		Begynn med å skrive at det er er vankelig å vite når det skal skje. Diskuter litt fram og tilbake som intro til section. %TODO 
 	

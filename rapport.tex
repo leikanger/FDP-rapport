@@ -94,7 +94,7 @@ basicstyle=\footnotesize,       % the size of the fonts that are used for the co
 %numberstyle=\footnotesize,      % the size of the fonts that are used for the line-numbers
 %stepnumber=1,                   % the step between two line-numbers. If it's 1 each line will be numbered
 %numbersep=5pt,                  % how far the line-numbers are from the code
-%showspaces=false,               % show spaces adding particular underscores
+showspaces=false,               % show spaces adding particular underscores
 showstringspaces=false,         % underline spaces within strings
 showtabs=false,                 % show tabs within strings adding particular underscores
 %captionpos=b,                   % sets the caption-position to bottom
@@ -102,7 +102,7 @@ showtabs=false,                 % show tabs within strings adding particular und
 %escapeinside={\%*}{*)}          % if you want to add a comment within your code
 %
 %frame=single,                % adds a frame around the code
-tabsize=3,                % sets default tabsize to 2 spaces
+tabsize=4,                % sets default tabsize to 2 spaces
 %breaklines=true,                % sets automatic line breaking
 }
 
@@ -226,11 +226,16 @@ Sammenligne tematisk? Skrive at eine er Moore, andre Mealy auromata?
 
 %\appendix %Unødvendig å skrive. Bare for å gjøre det synlig.. (makroen er kalla i appendixSynPlast.tex)
 % XXX XXX XXX XXX XXX XXX
-% 		APPENDIX 
+% 		APPENDIX 				Fiks appendix rett!
 % XXX XXX XXX XXX XXX XXX 
 %Kanskje eg skal ha med "table of abbrevations" i appendix, eller først.
 %TODO include{appendixTableOfAbbrevations} , eller ha det før innledning..
+
+%Seier fra til tex at resten (eller neste) skal være nummerert som appendix (i referanser og i index):
+\appendix
 \include{appendixSynPlast}
+\include{appendixTimeInterface}
+\include{appendixTimeClass}
 
 \bibliography{bibliografi}
 %\bibliographystyle{abbrvnat}
