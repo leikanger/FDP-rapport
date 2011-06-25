@@ -75,10 +75,6 @@
 % 			
 % 			
 % 			
-%
-% 		TODO Sjekk ut EDLUT. GPL software for å lage pragmatisk SANN. (brukt f.eks. i robot-styring)
-%
-%
 % 		MULIGHET:
 % 			- IDE: Bra for å distribuere utregning over fleire enheter, sammenknytta vha. ethernet (dette er bare en mulighet/ide)
 % 				Skrive i så fall: at dette bare gjelder for SANN, der nodene
@@ -88,20 +84,7 @@
 %
 \section{Artificial neural networks: background}
 
-% TODO Skrive at oppgaveteksten ber meg om å finne eksisterende modeller som representerer BÅDE fyringsrate og -frekvens. Dette finnes ikkje.
-% Tenkte difor å heller gå gjennom historien for ANN, for at leser skal ha eit innblikk i kva som eksisterer av frekvens-ANN og etterkvart fyringstid-ANN.
-%In the start of this project effort were used on trying to find a model equal or similar to the model tested in this project.
-In the start of this project, a search for a similar model that could represent both firing time and firing frequency, was commenced.
-My ability to find relevant articles and reports was not so good, and
- 	I had already developed a ``new model'', later found to be called ``spiking artificial neural network''(SANN).
-To be certain this model was new, Yasser Roudi, topic supervisor of NEVR3004 -- neural networks, was asked. 
-After a meeting for about an hour, also used on litterature search for this new model, no model was found.
-This does not mean that the model does not exist, but we can be fairly certain.
-It is therefore entirely possible that the model presented in this text is the first of its kind.
-%Despite my effort to find such models, none has presented itself, neither from a comprehensive litterature seach or by asking professor Yasser Roudi, topic supervisor of NEVR3004 -- neural networks.
-%It is therefore possible that the model presented in this text is the first of its kind.
-
-To illuminate different aspects of artificial neural networks (ANN) a short history about ANN is presented. 
+To illuminate different aspects of artificial neural networks (ANN) a short history about ANN is presented in sec. \ref{ssecHistoryOfANN}. 
 The models presented in the following section are either of a historical interrest or of a more immediate relevance to this project.
 % 	eller: introduced  xxx
 Because this report compares two different ANN with imformation about the timing of the spikes of the neuron, there will be a special focus on models with this capability. %XXX .. når vi går gjennom historien.
@@ -112,6 +95,7 @@ Because this report compares two different ANN with imformation about the timing
 
 %Krive: Såvidt om neuronet før eg begynner på hisorie for ANN? 																									%Ikkje "I refer to.." men ?
 Before we review the different ANN models and the history of ANN, we need to know a minuscule of the biological neuron. For a more comprehensive introduction it is referred to section \ref{secTheBiologicalNeuralSystem}.
+The most important findings will be repeated here.
 
 The biological neural system is comprised of nodes, the neuron, and connections between the nodes, the synapse.
 A neuron has a state that gives the value of the neuron. 
@@ -135,6 +119,7 @@ The action potential is introduced in section \ref{ssecTheActionPotential}.
 %TODO Skriv en overgang. Fra det over, til ANN-historie.
 
 \subsection{Review of the History of ANN}
+\label{ssecHistoryOfANN}
 The pragmatic use of simulations of neural networks started with the McCulloch--Pitts neuron in 1943. 
 Warren McCulloch, an early neuroscientist, and matematician Walter Pitts first began a formalized discussion of the mechanisms of the neuron.
 The result was the first artificial neural network, consisting of logical gates. McCullock and Pitts modelled the neuron as boolean devises (off--on response)\cite{MccullochPittsHistorie}. 
@@ -148,14 +133,15 @@ The next generation of ANNs have computational units with a continous activation
 One common activation function is the \emph{sigmoid function} $\sigma(y)=\frac{1}{1+e^{-y}}$ \cite{HaykinANNbok}.
 %As we will discover in section \ref{ssecTheNeuron} and \ref{ssecTheActionPotential}, the biological neuron has a boolean carracteristic, in the form of having an on--off output to its synapses, where the transmission is a function of the size of the synaptic connection (the synaptic weight). %TODO Ta vekk det med synapsene? XXX Isåfall: Innfør begrepet "synaptic weight" annen plass.     % TODO KAnskje skrive ref{secBiol.sys} isteden?
 In sec. \ref{ssecTheNeuron} and \ref{ssecTheActionPotential}, the computational basis of neural networks will be introduced. %koble sammen med neste setning:  ..be introduced, and we will see..
-We will see that the neuron has a boolean carracteristic, in the form that the neuron as a whole either sends output through all its output synapses of rests. %TODO Sjekk. Slutten er skrevet på natta(feil ende: 0700). Før gjald setn over.
+We will see that the neuron has a boolean carracteristic, in the form that the neuron as a whole either sends output through all its output synapses or rests. %TODO Sjekk. Slutten er skrevet på natta(feil ende: 0700). Før gjald setn over.
 %the biological neuron has a boolean carracteristic, in the form of having an on--off output to its synapses, where the transmission is a function of the size of the synaptic connection (the synaptic weight). %TODO Ta vekk det med synapsene? XXX Isåfall: Innfør begrepet "synaptic weight" annen plass.     % TODO KAnskje skrive ref{secBiol.sys} isteden?
 %
 %In the synapses the transmission is dependent on the synaptic connection to the next neuron\ref{ssecTheActionPotential}.
 %The biological interpretation of a floating point number propagating through the network can therefore be viewed as ``firing rate interpretations'.
 Neural nets of the second generation can therefore be viewed as ``firing rate interpretations'' of biological neural networks\cite{Maass97networksof}.
+%Over : få vekk "therefore". sikt heller på det cite-Maass seier.   UNDER: ".. will then be .." : dårlig. Gjør om!
 Simulation of a neural network by a 2. generation ANN will then be in the frequency domain, and have no information about the timing of the node's spikes. %TODO Sjekk om "spike" er innført tidligere.
-In this case, the second generation ANN gives a better simulation of neural systems. 
+In this case, the second generation ANN could be said to give a better simulation of neural systems than the first generation ANN. %xxx tok med:   "...  than the first generation ANN. " Ble det bedre?
 
 %XXX 2.gen er bedre enn første, fordi begge er "state less". For tidsdomenet blir dette heilt feil. For frekvensdomenet blir det mindre feil. (Heilt rett dersom du ser bort fra syn.p. og modulatory neurotransmitters.
 
@@ -168,13 +154,13 @@ In this case, the second generation ANN gives a better simulation of neural syst
 % Sjå gjennom. Referer alle utsagn som ikkje eg har funnet!
 %
 
-
+% TODO Cite: 3.gen. ANN-artikkelen på pulten.
 Recently, the third generation of ANN has emerged. In this model, each node is simulated with respect to aspects thought important for signal processing.
 The most used model of the neuron is the ``Leaky--Integrate and Fire''(LIF) neuron. %TODO Referer til section {ssecTheEquilibriumPotential}, og xxx Hugs å skrive om LIF, der.
 
 %todo: sjekk: skrevet for tidlig på morgenen.
-In the LIF neuron model, the node's value is computed as a leaky integration.%  with respect to time. %%%, an intregration that is leaky with respect to time.
-All the input to the node is intragrated over time with a leakage propotional to the value of the node. This happens every time step.
+In the LIF neuron model, the node's value is computed as a leaky integration of its input. %  with respect to time. %%%, an intregration that is leaky with respect to time.
+All the input to the node is integrated over time with a leakage propotional to the value of the node, every time step.
 The node's value is thus a result of the present excitatory and inhibitory input as well as the immediate history for the node.
 % Skriv at dette er en vanlig modell for neuronet.
 %In the LIF neuron model, the node's value is calculated as a combination of the nodes excitatory and inhibitory input and the 
@@ -187,7 +173,7 @@ From the information presented in sec. \ref{secTheBiologicalNeuralSystem}, we ca
 It is in fact so close that the word ``simulation'' will occationally be used in this report.
 %We can see that this is a better simulation of neural systems than that of the first two generations of ANN, based on the information presented in section \ref{secTheBiologicalNeuralSystem}.
 
-In the third generation ANN it is the spikes, or action potentials that is in the focus.
+In the third generation ANN it is the spikes, or action potentials that is in focus. %TODO Skriv om slutten / Feil ord..
 This ANN model is therefore often referred to as ``Spiking Artificial Neural Network''(SANN).
 %TODO skrive at siden det er en simulering av neurale sys., er det kanskje eit poeng å først beskrive det originale systemet.
 % 		Forbered leser / gjør leser nøgd med at eg har ei kapittel om det bioloiske systemet.
@@ -236,7 +222,9 @@ This ANN model is therefore often referred to as ``Spiking Artificial Neural Net
 %xxx Skrive at forskjellen mellom de ulike generasjonene er på noden: kva gjør noden? Kva er input, activation function og output?
 
 %TODO TODO TODO Ikkje summarize! Eg innfører nye evalueringer! 1. og 2. gen. ANN er stateless. 3. gen. har state!
-To summarize the introduction to this chapter, we have three ``generations'' of artificial neural networks, each with its own set of computational units.
+%TODO SKRIV OM neste setning
+To summarize the ANN history section,  we have three ``generations'' of artificial neural networks, each with its own set of computational units. %TODO Ikkje "its own set of computational units." Dette er feil..
+%To summarize the introduction to this chapter, we have three ``generations'' of artificial neural networks, each with its own set of computational units.
 What propagates through the network, the activation function and synaptic plasticity differs between them. 
 %TODO Skriv kvifor det er bedre med stateless noder for frekvensdomenet enn for noder i tidsdomenet.
 % TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
@@ -271,28 +259,37 @@ In this case, the second generation ANN is closer to the biological neural netwo
 %One could state that this is closer to the biological neuron, in respect to the biological neurons output frequency being a function of the frequency of the node's input.
 
 %TODO TODO SKriv at dette er egene tanker. (da får eg uttelling for det..)
-Later, when we review the biological system (sec. \ref{secTheBiologicalNeuralSystem}), it is possible to note that for each new generation of ANN the model gets closer to the biological neural networks.
-The first two generations of ANNs were stateless, in the form that each node's output were a direct consequence of its input. 
-For the second generation this gave a model that was closer to the biological system, as the neuron in the frequency domain is closer to being stateless than the neuron in the time domain.
+% XXX XXX Flytta til design : General design.
+%Later, when we review the biological system (sec. \ref{secTheBiologicalNeuralSystem}), it is possible to note that for each new generation of ANN the model gets closer to the biological neural networks.
+%The first two generations of ANNs were stateless, in the form that each node's output were a direct consequence of its input. 
+%For the second generation this gave a model that was closer to the biological system, as the neuron in the frequency domain is closer to being stateless than the neuron in the time domain.
 
 %TODO skriv at 3.gen har state, og (det som står etter komma i neste linje).
 The nodes of the third generation ANN became even more similar to the biological neuron, as the output of a node depend solely on the state of the node.
 In biology, the ``state'' of the neuron is represented by the neurons depolarization.
 When this value reaches the threshold, we get an action potential in the neuron.
-This is the same principles that is the foundation of the nodes of SANN. Spiking Nodes (SN) can thus be said to be a direct simulation of the biological neuron.
+This is the same principles that is the foundation of the nodes of SANN. 
+Spiking Nodes (SN) can thus be said to be a direct simulation of the biological neuron.
 %If we view this as the output value of the neuron as a whole, we can say that the output of a neuron is given by the temporally summed input to the neuron.
 %The output of the neuron (an action potential in the neuron) will further activate synaptic transmission in each of the node's output synapses, causing a increase or decrease of the postsynaptic node's value.
 The mechanisms of the biological neuron, the action potential and synaptic transmission will be reviewed in chapter \ref{secTheBiologicalNeuralSystem}.
 %The action potential and synaptic transmission for the biological system is reviewed in section \ref{secTheBiologicalNeuralSystem}.
 
-The output value of a node as a whole is thus given by the input from the node's past and immediate past, in the form of the neurons depolarization.
-%, not the immediate input to the node.
-First when the node is excited above threshold, we get an output signal throught the node's output connections.
-The reason for the node firing is not the input in itself, but the state of the neuron going to suprathreshold levels as a consequence of the sum of all excitatory and inhibitory input.
-If we model each node as a ``leaky--integrate and fire neuron'' (LIF neuron), introduced in section \ref{ssecTheEquilibriumPotential}, we get a leaky temporal integration of the effect of all synaptic input at each time step.
-%TODO SKRIV om setninga over. Blir for mykje informasjon. Blir krøkete! (kanskje?)
-%
-% TODO: Skriv at dette er slik det blir gjordt, eller at dette vil gi en god simulering av det modellerte neuronet ("rettheten" er no gitt av modelleringa).
+
+
+
+
+
+
+% XXX XXX XXX TA med? Ta vekk? Vettafaen! Kommenterer ut no, for det ser litt feil ut, her. TODO Sjå over (har ikkje gjort det sjølv..)
+%The output value of a node as a whole is thus given by the input from the node's past and immediate past, in the form of the neurons depolarization.
+% %, not the immediate input to the node.
+%First when the node is excited above threshold, we get an output signal throught the node's output connections.
+%The reason for the node firing is not the input in itself, but the state of the neuron going to suprathreshold levels as a consequence of the sum of all excitatory and inhibitory input.
+%If we model each node as a ``leaky--integrate and fire neuron'' (LIF neuron), introduced in section \ref{ssecTheEquilibriumPotential}, we get a leaky temporal integration of the effect of all synaptic input at each time step.
+% %TODO SKRIV om setninga over. Blir for mykje informasjon. Blir krøkete! (kanskje?)
+%%
+% % TODO: Skriv at dette er slik det blir gjordt, eller at dette vil gi en god simulering av det modellerte neuronet ("rettheten" er no gitt av modelleringa).
 
 
 

@@ -1,12 +1,9 @@
 % Implementation design :
-rart, dette kommer på anna side..
 
 
 % TODO Denne må skrives heilt om. Sett av to dager til dette. (1 natt+en dag?)
 
 
-PLAN:
-- innledning til kap.
 %XXX INNLEDNING til kap. ER FLYTTA TIL rapport.tex (ELLER er planlagt flyttet).
 	% Skrive at alt dette er egenprodusert. Alle mekansimer, ligninger osv er egenprod. Dette var unødvendig, da SANN allerede er laget. Det er difor mulig at eg har innført nokre nye element for dette.
 		% Siden alt er egenprodusert ("oppfinne hjulet på nytt") har eg ikkje leita mykje om implementasjonsspesifikke detaljer, og det er lite referanser i dette kapittelet.
@@ -26,9 +23,9 @@ PLAN:
 % 				- Til innledning:  Sjå "kladd fra tidligare: effektivitet". Om at det er vanskelig å forutse kva som er effektivt. Eit par gode poeng der. Bør teste effektivitet, men dette får bli "for futher research".
 
 
-- section design
+%XXX section design
 % 				- About efficiency (om å optimalisere effektivitet. Kø for beregning. (Variant av) avsnitt er skrevet)
-% TODO Skriv om sensor funksjoner!
+% 			skriv om sensor funksjoner!
 % 				- loggføring - sjå "log for comparison".
 % 				- synaptisk plastisitet. Har ikkje tid. Skriv at vi i denne oppgava fokuserer på implementasjonsforskjellen mellom KANN og SANN. Dersom effektivitet skulle sammenlignes er det best å fjærne syn.p. fra ligninga (mindre kaos)
 % 				- Skriv om kvalitative forskjeller for SANN og KANN. Forskjellen mellom SANN simulering av neuron og KANN matematisk simulering med estimering til fremtida.
@@ -63,29 +60,7 @@ PLAN:
 
 
 
-Skriv innledning. Kva skal stå her?
-\begin{itemize}
-	\item Korleis man impleneterer er abhengig av kva som er målet for implementsjonen (likhet til det simulerte systemet("retthet"), effektivitet(pragmatisk), anna? ). (Se design, forrige kapittel)%TODO Skriv om det i forrige kapittel.
-	\item Skrive mine valg. Dette er avhengig av kva eg ønsker å sammenligne systemet for. Velger vel den pragmatiske veien(?)
-	\item programmeringsspråk (viktig for implenetation design): Objektorientert. Kanskje nemne at eg vil bruke C++ (Skal seinare skrives meir om (i "implementation"))
-%	\item Sammenligne læring? TODO Skriv kvifor læring ikkje er med: Målet for denne oppgaven er ikkje læring, men sammenligning av de to modellene. 
-% 																				- Dersom eg får tid til å sammenligne effektivitet: bedre å ta bort læring (få vekk en variabel i eit allerede komplekst system)
-% 																				- Tid: Har ikkje tid til å implementere læring i dette prosjektet. Referer også til mailen til Hans Plesser: 
-% 																					at modellene for imhibitorisk læring ikkje er ferdig modellert, så enda vanskeligare å implementere (må modelleres først).
-\end{itemize}
-
-
-% Innledning RÅKLADD (på nårsk):
-	% Kva er fokus for implementasjonen?
-		% pragmatisk eller simulering?
-			% Skrive at lite er kjendt om kva som er viktig i neural science, så fokus bør være å ha implementsjonen nært det biologiske systemet. Bør også være lett utvidbart.
-			% I utgangspunktet pragmatisk, men pga at vi ikkje veit kva som er viktig, gjør det biologisk nært (dette kan også brukes for å teste ut hypoteser i neural science).
-		% sammenligne de to modellane: Impelmentasjonen av de to modellane bør dermed være så lik som mulig (uten å gjøre de separate modellane dårligare).
-	%
-
-
 \section{Design} % eller "Design; General Consepts for both Imlementations" eller noke anna..
-	% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
 	% Skriv en liten innledning til denne section. Det er tross alt litt tekst i den..
 
 	%In this section the common framework of the design and implementation of the two models will be presented.
@@ -336,43 +311,95 @@ When the active que is completed, time is iterated before we ``switch'' to the o
 
 
 
+
+
+
+
+
+
+
 %TODO Skriv også at siden neuroscience er så nytt felt så er det vanskelig å vite kva som er viktig. Eg prøver å lage implementasjon som lett kan fokusere på andre eller nye aspekter ved neuronet.
 %Dette er grunnen til  at eg legger det opp som neuronet, med lett utvidbarhet. F.eks. til meir nøyaktig tidssimulering, nye element i neuronet, ... 
 %HER ELLER UNDER subsection{Biologisk nært}
-	\subsection{The object design}
-	\label{ssecTheObjectDesign}
-		Inspired by biology, each node of the neural network consists of numerous subelements(se sec. \ref{secTheBiologicalNeuralSystem} for more about biological neural systems). 
-		Each node in the neural web consists of the same elements as in biological neural systems. 
-		Each node (``auron'' -- artificial neuron) is comprised of 
+	\subsection{The General Design}
+	\label{ssecTheGeneralDesign}
+		%In when rewieving the history of ANN, it was noted that the simulation of each node in ANN models improved for each generation ANN.
+		When rewieving the history of ANN, it could be noted that for each of generation of ANN models the simulation became more realistic and closer to the biological netwoks.
+		The first two generations were stateless, in the form that each node's output were a direct consequence of its input.
+		For the second generation, the propagating signal can be interpreted as the firing frequency of the biological correlate.
+		In this case, the second generation gave a model that was closer to the biologial system, as the neuron in the frequency domain is closer to being stateless than the neuron in the time domain.
+		%When later reviewing the biological system, we could see that the next generation came even closer to the biological system.
+		%One can even say that the third generation is a direct simulation of 
+		The third generation could be seen as a direct simulation of biological neural nets, with the output of a node given as a consequence of the value (state) of the node becoming more than the firing threshold.
+	
+		Inspired by this observation, the general design of each node will % for both implementations
+			be the same as for the biological neuron.
+		There are many benefits to this design, one is the compatability with neuroscience;
+			New aspects from neuroscience could easily be implemented and simulated in this code.
+		This text will later mention some possible examples of this. %% XXX What? Skriv bedre!
+
+		An other benefit is that it will be easier for people with a neuroscience background to get an overview of the implementation.
+		For the general reader, the most important aspects regarding neural systems' information flow has been presented in section \ref{secTheBiologicalNeuralSystem}. %DÅRLIG : ".. neural systems' information flow. "
+		%In our case, the most important information regarding neural systems' information flow has been presented in section \ref{secTheBiologicalNeuralSystem}. %DÅRLIG : ".. neural systems' information flow. "
+		It is recommended that the reader use this section as supporting litterature for a better overwiev while reading about the design of this simulator.
+		%for prosjektets del: begge er like: lette å sammenligne.
+
+		% Grunner til at bio-inspirert ANN er bra: % tru på darwinisme, forståelighet for neurofolk, greihet siden systemet allerede er introdusert, bra for sammenligning av de to,
+
+		Inspired by biology, each node of the ANN can be divided into four functional parts:
 		\begin{itemize}
-			\item Auron, the core of the artificial neuron. With one output axon and one input dendrite.
-			%\item Soma, with an output axon and input dendrite.
-			\item Synapses, connected to both presynaptic axon terminal and the postsynaptic dendrite.
-			\item Axon, containing the neurons output synapses. %XXX Skriv seinare at dette gir mulighet for nøyaktig simuleing av time delay. Men også rask simulering (best for teknologi (pragmatisk)).
-			\item Dendrites, containing the input synapses to artificial neuron.
+			\item The dendrite, the part of the artificial neuron that recieves input connections; The node's input synapses are located here.
+			%\item Dendrites, containing the input synapses to artificial neuron.
+			\item The auron, the artificial neuron's cell body and axon hillock.
+			%\item Auron, the core of the artificial neuron. With one output axon and one input dendrite.
+			\item The axon, an important element for signal propagation. The axon contains the node's output synapses. % The action potential is represented
+			%\item Axon, containing the neurons output synapses. %XXX Skriv seinare at dette gir mulighet for nøyaktig simuleing av time delay. Men også rask simulering (best for teknologi (pragmatisk)).
+			\item The synapse, the connection between nodes. The synaptic weight gives the level of information transmittance between two nodes.
+			%\item Synapses, connected to both presynaptic axon terminal and the postsynaptic dendrite.
 		\end{itemize}
-		
-% TODO TODO BARE ROT: TODO SKRIV OM neste par avsnitta!
-
-		%XXX TODO Skriv heller at "av implementasjonstekniske årsaker". Destructor. Beskriv meir i "Biologisk nært"avsnitt. Kall det heller for "Object layout". XXX
-		%Lets start with the dendrite. Each object of the dendrite class will have one or more input synapses. It will also need to be able to access the elements of the postsynaptic auron. 
-		Lets start with the dendrite. When the dendrite recieves much information through its input synapses, it need access to the postsynaptic neurons activationObject (more on this later). %TODO XXX Skriv meir,og bruk heller \ref{secA}
-		To retain the possibility to simulate new theories in what is important in neural systems, the auron will also need access to its dendrites functions and variables. 
-		One element of learning (synaptic plasticity) might be the so--called ``backpropagating action potential'', that propagates back to the synapses of the dendrite when the auron fires.
-		To be able to simulate such elements of learning, we need a two--way connection between the dendrite and the soma.
+		In real neurons the dendrite is not the only place the neuron recieves synaptic input, we also have synaptic input close to the cell body.
+		Most of the synaptic input on the cell body is inhibitory\cite{PrinciplesOfNeuralScience4edKAP12}.
+		In this implementation all the synaptic input to a node is located at the dendrite, but because of the modular structure of each node this can easily be changed.
+		For comparison between the two models, what is important is that both versions have an equal design.
+		%This aspect has therefore been ignored in both implementations.  %TODO TODO Finn medre ord enn "ignorert". Dette sikter til at eg snur ryggen til. Dette er feil!
+		The choice has therefore been to disregard this in both implementations.
+						%TODO TODO 		disregarded  	er OGSÅ feil!
 
 
-		The learning happens in the synapse (the connection between nodes of the network). In biological neural systems, the synapse can be percieved as part of both the presynaptic neuron and the postsynaptic neuron.
-		Again, to retain the possibility of retrograde messangers from the postsynaptic auron and to send retrograde signals to the presynaptic auron, the synapse will need access to both the earlier and the latter object in the signal path. To do this the synapse will not be part of either neuron but be an object of its own with pointers to the previous and the next object in the signal path. 
-		This also enables us to have an abituary number of synapses connected to the presynaptic axon (part of the presynaptic neuron) and to the postsynaptic dendrite (part of the postsynaptic neuron).
-		%litt mykje å beskrive både for dendrite og synapse?
 
-		This leads us into the general design of each auron. In my implementation, each element of the auron will be an object of its own, with pointers to the next and the previous object in the signal path.
+
+	% HER PASSER DET seg veldig bra med en figur (Her trengs det en figur. For mykje tett tekst, for lenge..)
+
+
+
+		%TODO lag evt. en subsubsection her.  Trenger litt oppdeling.
+		The auron has the role of all the parts of the neuron that lies close to the cell body. 
+		The most important of these in respect to information flow is the axon hillock, responsible for initiating action potentials.
+		As we have seen in sec. \ref{ssecTime}, the \emph{s\_auron} is therefore responsible for initiating the simulated action potential       by inserting a pointer to the axon to \emph{pWorkTaskQue}. %lat til den siste eg. Passer det?
+
+		The axon is the simplest part of the neuron to simulate.
+		The digital axon it the object containing the node's output synapses.
+		%TODO Flytt til egen subsubsection(?):
+		When a digital ``action potential'' is initiated, the node's axon element is inserted into \emph{pWorkTaskQue}.
+		%After an adequate delay,  all the output elements located in the axon object is inserted into \emph{pWorkTaskQue}.
+		%At the next time iteration, all the output elements located in the axon object is inserted into \emph{pWorkTaskQue}.
+		The next time iteration, all the output elements located in the axon object is inserted into \emph{pWorkTaskQue}.
+		The main output element of the axon is the synapse.
+% 	XXX	An output element could also be the an axon object, making it possible to improve the spatiotemporal resolution.
+		%By the elements presented here, the resolution of spatiotemporal delay could be increased by decreasing the time step and inserting more serial elements.
+		%The spatiotemporal resolution is given by the size of the time step.
+
+		The synapse is the connection between nodes. This contains a synaptic weight, giving the size of each transmission.
+		This synaptic weight is plastic, and changes as a consequence of the pre-- and post-- synaptic activity.
+		The exact mechanisms of synaptic plasticity is still debated, but there is a general agreement that the relative timing of the spikes could play a role (se appendix \ref{appendixSynPlast:postsynapticMechanisms}).
+		In this project, synaptic plasticity has not been implemented due to time constraints.
+
+
+
+% TODO TODO TODO SKRIM NOKE OM:		This leads us into the general design of each auron. In my implementation, each element of the auron will be an object of its own, with pointers to the next and the previous object in the signal path.
 
 		%TODO LAG objekt-diagram (er det noko som heiter? ellers: definer mitt eget diagram(egne regler), og lag diagram, og ta med her.
 		% Helst bruk UML sei stavdahl.
-
-		%skrive om implementasjon, her? At dette krever mykje av constructor and destructor
 
 		
 		
@@ -381,23 +408,33 @@ When the active que is completed, time is iterated before we ``switch'' to the o
 %			and to the object after it in the information flow (the auron it is a part of). To do this 
 		
 
+% TODO Vurder å fjærne heile subsubsection:
+%HOLDER faen med kanskje med setning nr. 3 i neste avsnitt..
+%		\subsubsection{Temporal accuracy}
+%		\label{sssecTemporalAccuracy}
+%		The object design in combination with elements introduced in subsection \ref{ssecTime} give a framework that can easily be adjusted to different uses of the simulation. 
+%		
+%		Pragmatic ANNs are often use ``one compartment models'' of the neuron. %REFERER noke!
+%		Here, each node only has one element (no subelements). This ignores the time delay of transmission through each subelement. 
+%		% Skriv at dersom det ønskes, så:
+%		%In the implementation produced in this project, this can be easily achieved with letting each node directly call the next nodes' \emph{\small{doTask()}}. 
+%		For pragmatic uses of the implementation produced in this project, a ``one compartment model'' can be easily achieved by letting each node directly call the next nodes' \emph{\small{doTask()}}. 
+%		For simulation purposes, we could give this focus to the implementation;
+% %			As the designed axon can have an axon element as an output, the spatiotemporal resolution can be improved.
+% %		With ``spatiotemporal'' it is referred to the aspect that time delay caused by signal propagation is based on the spatial stretch of the axon;
+% %			When an action potential propagates through the axon, synapses located close to the cell body would transmit sooner than synapses located further away.
+% % %By the elements presented here, the resolution of the spatiotemporal delay could be increased by making the time step smaller and increasing the number of serial elements for the different node elements.
+% %		For simulations with a focus on the timing of each element of the auron, we can have a high time resolution, and many elements within each subelement of the auron.
+% %
+%		In e.g. transmission through an axon, each subelements' task will be to add the next elements to \emph{pWorkTaskQue},
+%			giving the effect of a time delay of one time step. 
+%		As the axon can have an axon object as an output element, an increased number of serial axon elements give us a linked list of elemens.
+%		Each element have a time delay of one time iteration.
+%		As different axon objects have different output synapses and possibly more axon elements, the transmission through each synapse is given by its simulated spatial location.
+% %		The axon then behaves as a basic linked list of elements, with a time delay of one time iteration at each link.
+% %		This gives an opportunity to adjust the behavior of the neuron in relation to timing to our needs.
 
-		\subsubsection{Temporal accuracy}
-		\label{sssecTemporalAccuracy}
-		The object design in combination with elements introduced in subsection \ref{ssecTime}, we get a framework that can easily be adjusted to different uses of the simulation. 
-		
-		Pragmatic ANNs are often use ``one compartment models'' of the neuron. %REFERER noke!
-		Here, each node only has one element (no subelements). This ignores the time delay of transmission through each subelement. 
-		In my implementation this can be easily achieved with letting each node directly call the next nodes' \emph{\small{doTask()}}. 
-
-		%For a simulation of neural network with a focus on the time delay of each element in the neuron, we can use the object model with more elements 
-		%For a simulation that does not focus of the time delay of each element of the neuron, the \small{\emph{axon.doTask()}} can call \small{\emph{synapse.doTask()}} directly.
-		
-		For simulations with a focus on the timing of each element of the auron, we can have a high time resolution, and many elements within each subelement of the auron.
-		In e.g. transmission through an axon, each subelements' task will be to add the postelement to the work list,%XXX er uttr. "work list" introdusert i time? wær sikker!
-			giving the effect of a time delay of one time step. 
-		The axon then behaves as a basic linked list of elements, with a time delay of one time iteration at each link.
-		This gives an opportunity to adjust the behavior of the neuron in relation to timing to our needs.
+%TODO RYDD OPP, over. Det vart litt rotete. Kan også fjærne heile avsnittet / section.
 
 %TODO kan kanskje også skrive noke om at for nye KANN, er det endringa som fører til computational load. Dette gir at vi i prinsippet kan ha så nøyaktig tidsoppløsning som vi bare vil. 
 %Einaste jobb som blir utført er funksjonskall (?.doTask() ) og det å legge til neste element i arbeidslista..
@@ -406,54 +443,91 @@ When the active que is completed, time is iterated before we ``switch'' to the o
 
 %TODO KANSKJE HER? Skriv at dersom vi velger timestep til størrelsen av en refraction time (referer til ssecValueOfAlpha) så vil det (statistisk sett) bli rett å vente utsette vidaresending av aktivitet: ett timeStep.
 
-	\subsection{Object design for the artificial neuron} 								%XXX TODO SKRIV BEDRE!!! 																	XXX SKRIV BEDRE
-	The artificial neuron, hereby referred to as ``auron'', consists of the same sub--elements that are described in section \ref{secTheBiologicalNeuralSystem}.
-	For the sake of generality, each sub--element of the auron will be an object of its own. If higher temporal accuracy is required, this enables us to insert more linked objects into a linked list of causal actions. %ELLER NOKE
 
-	To achieve the wanted effects from section \ref{sssecTemporalAccuracy}, each sub--element of the auron will be an object of its own. 			  %Eller "to achieve generality" ?
-	If each sub--element is a linked list with $n$ links, and the task for each intermediate element (between the first and last element of the auron element) is to add the next element of the linked list to the task que, 
-		time delay will be decided by the indivitual inplementation of the general framework ($n$ links gives a trasmission time of $n$ time steps).
-	For further development of this ANN as a neural simulator, the axon could give different time delays for different synapses along the axon, depending on the synapses distance from the neurons soma.
 
-	In a neural simulator it would be desirable to increase the spatial accuracy for the artificial neuron. 
-	Each biological neuron have a multitude of dendrites. This is also ignored in most implementations of ANN for the sake of efficiancy.
 
-	There are hypothesis in neuroscience that suprathreshold depolarization over the membrane somwhere in the neuron may send an intracellular message to the axon hillock that will initiate an action potential as a result.
-	% Kanskje: Skriv "theory" og i såfall REFERER!
-	This may explain the apparent random behaviour of the action potential as the neurons value approaches the firing threshold. %SKRIV BEDRE. Skriv at det ER appearent random behaviour først. XXX
-	If all the input enters at one place in the neuron (one dendrite compartment), a level of input that would not induce firing of the neuron if the input was more distributed on the neuron.
-		
-	An object design that enables us to expand the number of dendrites if the objective of each implementation is a neural simulation. 
-	With this general framework it is also possible to make an effective ANN--implementation by making fewer sub--elements of the auron.
 
-	The object design of also enables an implementation of one neural system to have an abituary spatial accuracy of the axon. 
-	These two aspects (spatial and temporal resolution) of the axon and the dendrite makes the implementation good both for neural simulators and for the use of more pragmatic ANN tasks.
+% TODO TODO TODO Føkk: Mulig å fjærne heile shiten. "må ikkje regne med å få poeng for elementer som går utenfor oppgaven."
+% //{
+	%\subsection{Object design for the artificial neuron} 			
+%	\subsection{Generality of the Design}
+%	Each node consists of the same elements as the biological neuron, described in section \ref{secTheBiologicalNeuralSystem}.
+%	For the sake of generality, each element of the auron is an object of its own. 
+%	If higher spatial accuracy is required, we could insert more linked objects into a linked list of subelements within each element of the node. %causal actions (in addition to decreasing the time step). %ELLER NOKE
+%	As we will se next, combined with a smaller time step, this would give an increased spatiotemporal resolution.
+%	%TODO Skriv at vi vil sjå .. Eller noke slikt.
+%
+% %	To achieve the wanted effects from section \ref{sssecTemporalAccuracy}, each sub--element of the auron will be an object of its own. 			  %Eller "to achieve generality" ?
+%	Let each element consist of sub--elements in a linked list with $n$ links, and the task for each intermediate element be to add the next sub--element of the linked list to the task que.
+%	Combined with a smaller time step, this would give a higher spatiotemporal resolution. %XXX La være å definere "spatiotemroral"?
+%	The time delay will then be given by the temporal resolution and the number of subelements in each element ($n$ links gives a trasmission time of $n$ time steps).
+%	For further development of this ANN as a neural simulator, the synapse could therefore be given different locations along the axon, and a transmission time based on this location.
+%	This is only included to examplify the generality of the implementation, and will not be procequted further.
+%	%give different time delays for different synapses along the axon, depending on the location of each synapse along the axon.
+%	%This would further cause a different delay for different synapses based on the location of the synapse.
+%
+%	%In a neural simulator it would be desirable to increase the spatial accuracy for the artificial neuron. 
+%	%Each biological neuron have a multitude of dendrites. This is also ignored in most implementations of ANN for the sake of efficiancy.
+%
+% %	There are hypothesis in neuroscience that suprathreshold depolarization over the membrane somwhere in the neuron may send an intracellular message to the axon hillock that will initiate an action potential as a result.
+% %	% Kanskje: Skriv "theory" og i såfall REFERER!
+% %	This may explain the apparent random behaviour of the action potential as the neurons value approaches the firing threshold. %SKRIV BEDRE. Skriv at det ER appearent random behaviour først. XXX
+% %	If all the input enters at one place in the neuron (one dendrite compartment), a level of input that would not induce firing of the neuron if the input was more distributed on the neuron.
+%		
+%	If spatiotemroral aspects are in focus for the implementation, we could also expand the number of dendrites. 
+% %	The input of each dendrite now
+% %	An object design that enables us to expand the number of dendrites if the objective of an implementation is to be a neural simulation. 
+%	With this general framework it is also possible to make an effective ANN--implementation by making fewer sub--elements of the auron.
+%
+%	The object design of also enables an implementation of one neural system to have an abituary spatial accuracy of the axon. 
+%	These two aspects (spatial and temporal resolution) of the axon and the dendrite makes the implementation good both for neural simulators and for the use of more pragmatic ANN tasks.
+%
+%	For pragmatic ANNs, each node can have one dendrite. This will be more effective,
+%	For a simulation of neurons, the number sub--elements (dendrites and axon--links) should be set higher to give better spatial resolution and temporal accuracy. 
+%	This will give a better simulation of biological neural systems, because of less abstraction the simulated system.
+%
+%	
+%	%Also implementation specific reasons exist. XXX SKRIV DETTE FØRST
+%	This design introduces a some new challanges for the implementation. 
+%	If each \emph{soma} has one pointer to a dendrite object and an axon object (located in the free store), destruction of one of these objects (e.g. the axon) will need to signal the \emph{soma}. 
+%	The \emph{soma} is then responsible to take action to avoid memory exhaustion and undefined behavior following calls to the deleted object. %få med at det er peiker-kall, og obj. er sletta
+%	For this reasons, the pointers between the sub--elements of the auron will be bidirectional. 
+%
+%	This structure introduces a new problem, the possibility of access and polution of the general design. 
+%	If the pointers \emph{pOutputAxon} and \emph{pInputDendrite} are protected, the encapsulation protocol of C++ will fix the problem, but now the variables are only accessable to the object or friends of the object.
+%	The associated \emph{axon} and \emph{dendrite} objects are generated in the \emph{soma::soma()} constructor, and can only be altered from an other class that is part of the auron class--cluster. %XXX skriv annaleis: auron class-cluster.
+%																															%Skriv utbrodert om kva friend er, og at alle classene i auron-gruppa er venner => "auron class-cluster".
+%
+%	For encapsulation within this new auron--structure, consisting of soma, axon, dendrite and synapse, we define these classes as \emph{friend} of eachother. 
+%	Only classes that are member of this cluster will then be able to access and write to \emph{protected} variables.
+%	%\emph{class axon;} and \emph{class dendrite;} will then need to be defined as a friend of \emph{class soma;}. In the constructor 
+% //}
 
-	For pragmatic ANNs, each node can have one dendrite. This will be more effective,
-	For a simulation of neurons, the number sub--elements (dendrites and axon--links) should be set higher to give better spatial resolution and temporal accuracy. 
-	This will give a better simulation of biological neural systems, because of less abstraction the simulated system.
 
-																																													% XXX SKRIV VEDRE, TIL HER
+	\subsubsection{The object design}
+%	%Also implementation specific reasons exist. XXX SKRIV DETTE FØRST
+%	This design introduces a some new challanges for the implementation. 
+%	If each \emph{soma} has one pointer to a dendrite object and an axon object (located in the free store), destruction of one of these objects (e.g. the axon) will need to signal the \emph{soma}. 
+%	The \emph{soma} is then responsible to take action to avoid memory exhaustion and undefined behavior following calls to the deleted object. %få med at det er peiker-kall, og obj. er sletta
+%	For this reasons, the pointers between the sub--elements of the auron will be bidirectional. 
+%
+%	This structure introduces a new problem, the possibility of access and polution of the general design. 
+%	If the pointers \emph{pOutputAxon} and \emph{pInputDendrite} are protected, the encapsulation protocol of C++ will fix the problem, but now the variables are only accessable to the object or friends of the object.
+%	The associated \emph{axon} and \emph{dendrite} objects are generated in the \emph{soma::soma()} constructor, and can only be altered from an other class that is part of the auron class--cluster. %XXX skriv annaleis: auron class-cluster.
+%																															%Skriv utbrodert om kva friend er, og at alle classene i auron-gruppa er venner => "auron class-cluster".
+%
+%	For encapsulation within this new auron--structure, consisting of soma, axon, dendrite and synapse, we define these classes as \emph{friend} of eachother. 
+%	Only classes that are member of this cluster will then be able to access and write to \emph{protected} variables.
+%	%\emph{class axon;} and \emph{class dendrite;} will then need to be defined as a friend of \emph{class soma;}. In the constructor 
+
 	
-	%Also implementation specific reasons exist. XXX SKRIV DETTE FØRST
-	This design introduces a some new challanges for the implementation. 
-	If each \emph{soma} has one pointer to a dendrite object and an axon object (located in the free store), destruction of one of these objects (e.g. the axon) will need to signal the \emph{soma}. 
-	The \emph{soma} is then responsible to take action to avoid memory exhaustion and undefined behavior following calls to the deleted object. %få med at det er peiker-kall, og obj. er sletta
-	For this reasons, the pointers between the sub--elements of the auron will be bidirectional. 
-
-	This structure introduces a new problem, the possibility of access and polution of the general design. 
-	If the pointers \emph{pOutputAxon} and \emph{pInputDendrite} are protected, the encapsulation protocol of C++ will fix the problem, but now the variables are only accessable to the object or friends of the object.
-	The associated \emph{axon} and \emph{dendrite} objects are generated in the \emph{soma::soma()} constructor, and can only be altered from an other class that is part of the auron class--cluster. %XXX skriv annaleis: auron class-cluster.
-																															%Skriv utbrodert om kva friend er, og at alle classene i auron-gruppa er venner => "auron class-cluster".
-
-	For encapsulation within this new auron--structure, consisting of soma, axon, dendrite and synapse, we define these classes as \emph{friend} of eachother. 
-	Only classes that are member of this cluster will then be able to access and write to \emph{protected} variables.
-	%\emph{class axon;} and \emph{class dendrite;} will then need to be defined as a friend of \emph{class soma;}. In the constructor 
-
-
-	%In addition, the need for retrograde signalling (signalling the other way) may become important for later uses (e.g. for neural simulation).
-
 	
+	\subsubsection{Oppbygging av to typer ANN-noder vha arv}
+	Skriv om korleis arv for auron-element gir de to ulike ANN-node--typene. \emph{i\_auron arver til s\_auron og K\_auron} osv.
+
+	---Ja, kanskje skrive enda meir om dette, evt fjærne dette subsubsection..
+	
+
 
 
 	\subsubsection{Construction of auron elements} %TODO SKAL DENNE subsubsection være her? Plasserte den bare her siste minutt før eg drar å buldrer..XXX
@@ -530,13 +604,13 @@ When the active que is completed, time is iterated before we ``switch'' to the o
 	For the best result, it is important that the implementations have a balance between being as simular as possible and optimalizing each implementation.
 	%Meir om sammenligningsmetoder (kva som sammenlignes..) seinare.
 
-	The framework described so far in this section will be the general framework for both implementations, both in respect to time (sec. \ref{ssecTime}) and to the object model (sec. \ref{ssecTheObjectDesign}).
+	The framework described so far in this section will be the general framework for both implementations, both in respect to time (sec. \ref{ssecTime}) and to the object model (sec. \ref{ssecTheGeneralDesign}).
 	Other operations, funcion design and at least the object design should do an equal amount of work or use an equal amount of time, depending on what is compared. %SKRIV "MEIR OM SAMMENLIGNING SEINARE"?
 
 	Each element of the auron should also have many similarities. The propagation of the signal from the auron, through the axon and all the output synapses, to the postsynaptic dendrites, etc. will be the same for the two models.
 	The difference lies in what propagates through the graph, and how the activity level of each node is calculated. 
 	
-	The object model will be the object model described earlier (se sec. \ref{ssecTheObjectDesign}), but each node element (dendrite, axon, synapse, auron) will have the design %inheritance design ?
+	The object model will be the object model described earlier (se sec. \ref{ssecTheGeneralDesign}), but each node element (dendrite, axon, synapse, auron) will have the design %inheritance design ?
 		described in fig.? %TODO TODO Lag denne figuren. UML om klassene for auron--element. (generelt, eller dendrite)
 	Each of the elements of the auron will have one abstract class that derives to the model--specific classes of the auron. 
 	The abstract class will be denoted i\_[element], and the model--specific classes will be called s\_[element] for the SANN--node, and $\kappa$\_[element] for the $\kappa$ANN--node, 
@@ -688,13 +762,6 @@ When the active que is completed, time is iterated before we ``switch'' to the o
 	%Dette gjør at eg kan bruke i\_[element]* for alle containers i programmet, og koden blir lik for implementasjonen av de to modellane..
 
 	%%\subsubsection{SKRIV OM activityFunction} TODO
-
-	
-	\subsubsection{Oppbygging av to typer ANN-noder vha arv}
-	Skriv om korleis arv for auron-element gir de to ulike ANN-node--typene. \emph{i\_auron arver til s\_auron og K\_auron} osv.
-
-	---Ja, kanskje skrive enda meir om dette, evt fjærne dette subsubsection..
-	
 
 
 	\subsubsection{Propagation of $\kappa$}

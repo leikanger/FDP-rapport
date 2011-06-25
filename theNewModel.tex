@@ -19,11 +19,11 @@ Mathematical modelling of the neuron helps understand the neuron, and the mechan
 A good model of the neuron will also give us a guide when simulating the system.
 
 In the neuron, the value of each node is given by the electrochemical potential over the cell membrane. 
-The neuron will fire an action potential if the value goes over the firing threhold. This makes the value of the neuron an important aspect of neuronal signal processing.
+The neuron will fire an action potential if the value goes above the firing threhold. This makes the value of the neuron an important aspect of neuronal signal processing.
 When a neuron recieves a synaptic transmission, ligand--gated channels are opened, and the potential of the neuron is changed as a function of the time the channel is open, and the electrochemical driving force for the charged molechules.
 One part of the driving force is given by the electrical potential over the membrane. % XXX vent med dette : When ions are allowed to flow through a channel, the amount that will flow is given
 The electrical potential can be seen as a potential field for charged particles.
-An other element of the driving force is the distribution of the indivitual ions. Ions are transmitted across the membrane by passive diffusion. 
+Another element of the driving force is the distribution of the indivitual ions. Ions are transmitted across the membrane by passive diffusion. 
 This meens that the indiviual ions are pushed down its concentration gradient.
 If we combine these two effects we get a simplified system of the neuron.
 %TODO REFERER: \ref{NeuroscienceExploringTheBrain3edKAP3}
@@ -56,7 +56,7 @@ From this we can later talk about the differential equation of the nodes value.
 %TODO Er det her eg skal skrive om LIF-neuron (leaky integration)?
 In the biological neuron, the reversal potential for the different ions is can be calculated by the Nernst equation. 
 The reversal potential is the electrical potential where the respective ion flow will be revesed (flow the oposite direction) if an ion channel is opened.
-This also involves that at the reversal potential, we get no ionic current following a channel opening. 
+This also involves that at the reversal potential, we get no ionic current for this ion following a channel opening.  %TODO les gjennom, og sjekk om det er rett.
 This is due to a balance between the driving force provided by the concentration gradient of the ion and the electrical driving force.
 The reversal potential is also called the equilibrium potential.
 %The reversal potential is the potential where opening of the ions channel causes no net current flow through the membrane.
@@ -66,7 +66,7 @@ The reversal potential is also called the equilibrium potential.
 	\label{eqNernstEquation}
  	E_{ion} = \frac{C}{z} log\frac{[ion]_o}{[ion]_i}
 \end{equation}
-Where $E_{ion}$ is the equilibrium potential for the ion, C is a constant (for some temperature), z is the charge of the ion and $[ion_i]$,$[ion_o]$ gives the number of ions on the inside and outside of the membrane
+Where $E_{ion}$ is the equilibrium potential for the ion, C is a constant (for some constant temperature), z is the charge of the ion and $[ion_i]$,$[ion_o]$ gives the number of ions on the inside and outside of the membrane
 \cite{NeuroscienceExploringTheBrain3edKAP3}.
 
 For a neuron permeable to a single ion, the equilibrium potential will be the same as this ion's equilibrium potential. %ref kandel kap 7. s129
@@ -80,7 +80,7 @@ To my knowledge, no implementation of SANN with a pragmatic use (i.e. used in te
 These implementations use the electrical potential as the value for each node. This will also be the focus of the remaining part of the modelling section.
 %It is unknown wheter this removes any important aspects of the neuron.
 
-% Todo: Skriv om neste linja!
+% Todo: Skriv om neste linja! 		Ikkje permeabel til noke ion, men litt permeabel for ion.. XXX XXX XXX
 At rest, the membrane is permeable to some ions, and to prevent the ion reaching (and staying) at the neurons equilibrium potential, there are active pumps maintaining a different potential. 
 %
 In the postsynaptic membrane of some synapses there is so--called \emph{ligand--gated ion channels}, channels that are activated by exposing the activating neurotransmittor\cite{NeuroscienceExploringTheBrain3edKAP5}.
@@ -93,7 +93,7 @@ Because this inhibits the neuron in respect to firing an action potential, this 
 %This involves decreasing the postsynaptic neurons value. This is called an Inhibitory PostSynaptic Potential (I-PSP).
 %XXX ref kap 7. kandel.
 Because of time limitations, modelling of the time delay and size of each transmission has not been evaluated in this project.
-An other aspect that will be for further research, is modelling and implementation of synaptic plasticity. 
+Another aspect that will be for further research, is modelling and implementation of synaptic plasticity. 
 This is one important reason behind using artificial neural networks in technology, and the reason behind developing the spiking variant of ANN.
 Synaptic plasticity will hopefully be modelled and implemented in a later project.
 %This project is about the comparison between 
@@ -363,7 +363,7 @@ If $\kappa$ is changed before the estimated firing time, the firing time will be
 %If this new model is as effective or more effective than SANN this project will be a contribution because we calculated the firing time in a new way.
 %%Ta vekk siste, forrige linje?
 
-%An other aspect with this new model is that it lies between the two prior models of ANN, and can easily communicate with both.
+%Another aspect with this new model is that it lies between the two prior models of ANN, and can easily communicate with both.
 
 % If we allow the input and activity of each neuron to vary between spikes, the model approaches the model for the biological neuron.
 % When $\kappa$ is updated, a new time window starts. 
@@ -377,7 +377,9 @@ The simulation implies that the value function is a continous function that conv
 
 With this new use of eq. \eqref{eqVerdiligninga}, we can calculate the remaining part of the neurons period after $\kappa$ changes value. 
 The remaining time of the period is given by equation \eqref{eqTidTilFyringVedEndraKappa}, given constant $\kappa$. 
-If this is updated each time $\kappa$ varies, we get an estimate of the remaining time based on the present $\kappa$.
+%TODO Finn rett ordbruk, neste linje:
+If this is updated each time $\kappa$ varies, we always have an estimate of the remaining time based on the present $\kappa$.
+%If this is updated each time $\kappa$ varies, we will always have an estimate of the remaining time based on the present $\kappa$.
 
 %Skrive at dette plottet IKKJE er fra kjøring av programmet?
 
@@ -414,6 +416,7 @@ If we consider the firing frequency of the neuron, $f(\kappa) = p_{isi}^{-1}(\ka
 		\lim_{\kappa->\infty}{ f(\kappa)} &= \lim_{\kappa->\inf}\left( \frac{-\alpha}{\ln \left( \frac{\kappa - \tau}{\kappa} \right) - \alpha t_r} \right)   \qquad = \frac{1}{t_r} \\ 
 		%\lim_{\kappa->\infty}{ f(\kappa)} &= \frac{1}{t_r}
 	\end{split}
+	\label{eqFrekvensLlim} %todo todo todo todo todo todo todo todo todo todo Verifiser at dette blir rett. Før var det referert til ligninga under.. TODO Endre også navnet til eqFrekvensLim
 \end{equation}
 
 %Using l'Hôpital's rule %INNI ln(-) funksjonen. TODO Viktig å få med dette i denne setninga!
@@ -448,11 +451,11 @@ For $\kappa$ANN this can be implemented more effective by incrementing the estim
 
 % Plott av frekvens med, og uten refraction period:
 \begin{figure}[bhtp]
-	\label{figFrekvensMedOgUtenRefractionPeriod}
 	\begin{center}
 		\includegraphics[width=0.95\textwidth]{frekvensPlotRefractionPeriod.eps}
 	\end{center}
 	\caption{Frequency for a neuron for different values of input. With and without refraction period}
+	\label{figFrekvensMedOgUtenRefractionPeriod}
 \end{figure}
 
 

@@ -21,9 +21,14 @@
 \section{Biological Neural Systems} 
 \label{secTheBiologicalNeuralSystem}
 %Before we can discuss neural networks, either biological neural networks or artificial neural networks, we need to know more about the basic building blocks of the network. 
-
-Neural networks are comprised of nodes called neurons and connections between the neurons called synapses. 
-Before we can discuss neural networks, we need to know more about the basic building blocks, the neuron and the synapse. 
+%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+% MÅ SKRIVES HEILT NY INNLEDING!
+%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+In biology, neural networks are comprised of nodes called neurons and connections between the neurons, called synapses. 
+%TODO Skriv om. Kanskje:
+%Before we can discuss neural networks, we need to know more about the basic building blocks, the neuron and the synapse. 
+%ELLER TA VEKK? 
+% TODO TODO Skriv isåfall at vi starter med neuronet! Og vil ta synapsen seinere ([internrefer]).
 
 The arcitecture of the neuron is important to understand the directionality of of the graph. %kanskje også: med forståelse av biologiske system er det lettere å forstå min simulering(meir om dette seinere). 
 	The mechanisms of the synapse is important later when we will discuss stability of learning. 
@@ -36,7 +41,7 @@ Finally, important aspects of the network that cannot be un derstood from a sing
 \subsection{The neuron}
 \label{ssecTheNeuron}
 In mathematical terms from graph theory, a biologically realistic artificial neural network can be a directed cyclic graph. 
-In terms from neuroscience this meens that the network og neurons is recurrent (with feedback) and that the synapses (the connections between neurons) are directional (information flows in one direction). 
+In terms from neuroscience this meens that the network og neurons is recurrent (with feedback connections) and that the synapses (the connections between neurons) are directional (information flows in one direction). 
 
 %The majority of neurons in a biological being are so-called interneurons. This group of neurons have nervous input and give theire output to other neurons. 
 %The biological neuron is special kind of cell with the ability to assess incoming inforamion and transmit information. 
@@ -96,7 +101,8 @@ Whether the postsynaptic depolarization is increased or decreased by a synaptic 
 \label{ssecTheActionPotential}
 In the membrane of the axon we have voltage--gated channels that open if the level of depolarization is more than some value. This value is called the ``firing threshold of the neuron''.
 These channels will open and further depolarize the membrane. Through passive transmission of the electrical potential, the next site with voltage gated channels will also go beyond the firing threshold.
-This establishes the self carrying signal of the axon, and results in a similar depolarization for the different axon terminals\cite{PrinciplesOfNeuralScience4edKAP09}.
+% NEste setning er litt rar. Få fram at det er en maksing av depol. No får man følelsen av at det bare blir "samme" (equal) XXX XXX XXX
+This establishes the self carrying signal of the axon, and results in an equal depolarization at the different axon terminals\cite{PrinciplesOfNeuralScience4edKAP09}.
 %An important result of this is that the presynaptic membrane at the synapses recieves an equal depolarization, independent of its location. The release of neurotransmitters is a result of this depolarization, and the action potential enshures an equal depolarization of the presynaptic membrane, so that the transmission is dependent only on the synaptic weight.
 %
 %This means that sufficient depolarization of the membrane of the axon opens voltage gated ion channels that will further depolarize the membrane. 
@@ -114,7 +120,7 @@ Because there is a larger concentration of $K^+$ inside the cell, this will caus
 %We have more $K^+$ ions inside the cell, so increasing the permeability for $K^+$ will decrease the depolarization over the membrane, or ``repolarize'' the membrane.
 %When both channels are closed again we are back at the resting potential of the neuron. %SITER: Bear s:91
 After the action potential the membrane potential is ``reset''\cite{NeuroscienceExploringTheBrain3edKAP4}.
-As the electrical potential spead passively to the next site with voltage--gated channels, this is impotant to hinder the action potential going ``the wrong way''.
+As the electrical potential spead passively to the next site with voltage--gated channels, the refraction period of each voltage gated channel is an impotant mechanism to hinder the action potential from going ``the wrong way''.
 
 To recreate the ionic gradient, the ions are transported back by the sodium--potassiom pump.
 This is the basis for the refraction period of the neuron, a small period of time where action potential cannot be initiated\cite{NeuroscienceExploringTheBrain3edKAP4}.
@@ -126,9 +132,13 @@ This is the basis for the refraction period of the neuron, a small period of tim
 After firing an action potential, the neuron will also have a short period where it is impossible to exite the cell, called \emph{the absolute refraction period}\cite{PrinciplesOfNeuralScience4edKAP09}.. 
 %The refraction period of a neuron usually lasts for a few milliseconds\cite{PrinciplesOfNeuralScience4edKAP09}.
 %\cite Bear kap. 4  (s.91, nede) og Kandel kap.9 s 157 (nede)
+% 			TTOODDOO Xxx NESTE LINJE: Det er har gjort er å modellere det. Gjør det til mindre enn det er sagt no.
+%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+% Plan: finn referanse på dette, og så sei at eg har matematisk vist det å være sant.
 In this project the author has formalized that the refraction period is important for limiting the firing frequency of the neuron. The analysis is presented in section \ref{ssecValueOfAlpha}.
 
-The axon is organized as a tree, with one trunk close to the soma of the neuron called the axon hillock, and branches called axon collaterals. 
+%												"close to":  SKRIV OM
+The axon is organized as a tree, with a trunk close to the soma of the neuron called the axon hillock, and branches called axon collaterals. 
 The axon ``ends'' in the axon terminal, where the presynaptic part of the synapse is located.
 When the action potential reaches the synapse, a transmission is initialized by the opening of voltage gated $Ca^{2+}$ channels\cite{PrinciplesOfNeuralScience4edKAP10}.
 %The signals transmitted in the axon is strictly directional, that is: the signal goes from the axon hillock (close to the neurons soma) to the axon terminals (where the synapses is). 
@@ -159,7 +169,7 @@ The transmission is thought to be a funcion of presynaptic and postsynaptic mech
 
 \begin{itemize}
 	\item Presynaptically, different amount of neurotransmittors could be released from the axon terminal following an action potential.
-	\item Postsynaptically the amount of receptors varies between different synapses. The amount also varies with time.% This is one mechanism of synaptic plasticity.
+	\item Postsynaptically, the amount of receptors varies between different synapses. The amount also varies with time.% This is one mechanism of synaptic plasticity.
 \end{itemize}
 
 These two sides of synaptic transmission are important when synaptic plasticity is considered. 
@@ -222,7 +232,7 @@ The synaptic
 
 
 
-
+%Introduser Syn.w. før det brukes!
 Synaptic weight is dependent on presynptic mechanisms and postsynaptic mechanisms:
 
 %This does not mean that the transmission for different synapses is the same. At each synapse the connection to the postsynaptic neuron is different. 

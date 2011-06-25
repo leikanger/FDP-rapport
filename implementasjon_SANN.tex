@@ -108,7 +108,7 @@
 	%When the somatic potential reaches the firing threshold, we activate the action potential after a delay of one time iteration by inserting a pointer to the node's \emph{s\_auron} object into pWorkTaskQue.
 	%The intracellular signal will propagate from the dendrite, throught the cytoplasm of the neuron to the axon hillock, where it will cause the initiation of an action potential.
 
-	%Because of the object design of this implementaion (se section \ref{ssecTheObjectDesign}), this delay can be implemented by using pWorkTaskQue.
+	%Because of the object design of this implementaion (se section \ref{ssFINNES IKKJE LENGERecTheObjectDesign}), this delay can be implemented by using pWorkTaskQue.
 	%When the somatic potential reaches the firing threshold, a pointer to the s\_auron is inserted into pWorkTaskQue, causing a small time delay before the initiation of the action potential.
 	
 	
@@ -177,7 +177,7 @@ inline void s_dendrite::calculateLeakage()
 	After the time delay, the output synapse's \emph{s\_synapse::doTask()} will be executed, causing the excitation or inhibition of the postsynaptic node to each of the node's output synapse. 
 	%, depending of the nature of each synapse (whether it is excitatory or inhibitory).
 	
-	The postsynaptic potential will change as a function of the synaptic weight. For this simulation the postsynaptic potential will change with a factor $\frac{1}{\alpha}$. 
+	The postsynaptic potential will change as a function of the synaptic weight. For this simulation the postsynaptic potential will change with a factor $\frac{1}{\alpha}$. %XXX Kvifor? 1/a. Sjekk regtek bok.
 	This is handled in the postsynaptic dendrite, causing the postsynaptic depolarisasjon to change by $\pm \frac{W_{ij}}{\alpha}$, depending on the nature of the synapse.
 
 	%TODO TODO OTOD TODO SKRIV OM dale's principle I BiologiskeSystemet.tex TODO TODO Og referer dit.
