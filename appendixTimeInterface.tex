@@ -1,0 +1,25 @@
+\chapter{class timeInterface} %xxx Eller biologisk neurale sys. (er vel strengt tatt ikkje i nevronet, ELLER er det det?)
+
+\section{Class Definition}
+\label{appendixTimeInterfaceDefinition}
+\begin{lstlisting}
+/****************************************
+***  abstract class timeInterface:    ***
+****************************************/
+class timeInterface
+{
+	public:
+	timeInterface(std::string s)  
+		: ulEstimatedTaskTime_for_object(0), sClassName(s){}
+
+	virtual void doTask() =0;
+	virtual void doCalculation() =0;
+
+	unsigned long ulEstimatedTaskTime_for_object; 
+
+	// for debugging purposes:
+	std::string sClassName;
+};
+
+\end{lstlisting}
+

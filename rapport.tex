@@ -192,7 +192,29 @@ Sammenligne tematisk? Skrive at eine er Moore, andre Mealy auromata?
 %TODO Her må er skrive meir om kva modell som er i grunn for SANN, og for den nye modellen. Intro til kapittel.
 \include{theNewModel}
 
-\chapter{Implementation and Design} %XXX KAPITTEL
+\chapter{Design and Implementation} %XXX KAPITTEL
+	In this project, a novel model for ANN has been developed.  %Drittord. Funker ikkje her. Pretensiøst ord..
+	In this chapter and the next, this new model will be presented.  %XXX Dårlig skrevet. Begynnt eit forsøk på å gjøre det bedre, under.
+	%In this chapter the design and implementation of an ANN based on the new model
+	%and the next, this new model will be presented. 
+	The qualitative differences between the ANN model based on a direct simulation of the neuron and the developed model will primarily be presented in the next chapter.
+	The most important differences can also be seen in the design done in this chaper. %TODO Skriv om!
+
+	% XXX Skriv om starten!
+	A neural simulator is placed in an environment, and will have a general design of each node. 
+	% In the remainder of this text this will be referred to as the framework of the simulation.
+	In this chapter this will be referred to as the framework of the simulation.
+	
+	% For a qulitative comparison ... (?) Kanskje bedre, siden det refererer til oppgaveteksten..
+	For a qualitative comparison between the two models, both models have been designed and implemented. %XXX Få med  "... from scratch."
+	As this was done ``from scratch'' in both cases, the similarities and differences became very clear to the author. %distinctive 	%  prominent 		%XXX Finn eit bedre ord. At det vart veldig klart for meg
+
+	%XXX As this was done ``from scratch'' in both cases, the author became wery familliar with both models. %XXX Det er kanskje klart: eg har jo skapt dei..
+	% Det er allikevel eit poeng å få med, sammen med at bare de viktigste forskjellane er presentert i denne rapporten.
+	To optimize the implementations for a comparison between the two models, the most appropriate solution is to use a common framework for the two simulators.
+	This made the differences and similarities between the two designs/implementations more prominent. %TODO Skriv om litt.
+	% TODO SKRIV MEIR: Fyll ut første side av kapittelet, under tittel, som blir satt av til dette.
+	The most important differences and similarities will be presented in chapter \ref{chapterComparisonAndResults}, ``Comparison and Results''. %TODO skriv "... in chapter ?, [TITTEL PÅ KAP]. Vær sikker på at tittel er rett.
 % Generell design av implementasjon.
 \include{design}
 
@@ -212,6 +234,7 @@ Sammenligne tematisk? Skrive at eine er Moore, andre Mealy auromata?
 %Her skal eg legge inn tekst som impliserer at eg er reflektert. Skrive alle feil og mangler som ligger i mine modeller, og implementasjon-design.
 
 \chapter{Comparison and results} 	%XXX KAPITTEL 			TODO TODO Finn en bra tittel. Dette kapittel skal inneholde resultat, sammenligning, diskurs, konklusjon.
+\label{chapterComparisonAndResults}
 
 % SAMMENLIGNING:
 % 	- korleis blir oppgavene tolket?
@@ -222,20 +245,26 @@ Sammenligne tematisk? Skrive at eine er Moore, andre Mealy auromata?
 \include{discussionAndConclusion}
 %legg meir?
 
+% TODO Gå gjennom teksten og endre en del "If .." ustagn. Mink graden av dette. 
+% 		Eksempelvis kan vi skrive 	"If we let A be equal to B, ..." 	som 	"Let A be equal to B. Then ..." 	=> gir mykje bedre flyt i teksten! Mindre, meir forståelige setninger. Lettere å henge med!
+% 		(Lær av matematikk-oppgaver. Var oppom Øystein i dag, og så artikkelen han satt å skreiv. Han brukte dette. Eg vart inspirert..)
 
 
-%\appendix %Unødvendig å skrive. Bare for å gjøre det synlig.. (makroen er kalla i appendixSynPlast.tex)
 % XXX XXX XXX XXX XXX XXX
 % 		APPENDIX 				Fiks appendix rett!
 % XXX XXX XXX XXX XXX XXX 
 %Kanskje eg skal ha med "table of abbrevations" i appendix, eller først.
 %TODO include{appendixTableOfAbbrevations} , eller ha det før innledning..
 
+% Appendix:doTaskFunctions.tex : \chapter{doTask()} % TODO Her skal det som gjennomføres av de ulike elementas' doTask() listes opp. XXX Finn bra tittel. 
+% Denne gjenstår å skrives! XXX Viktig: det er nemlig lovet fra time -> simulated asynchronicity i design.tex..
+
 %Seier fra til tex at resten (eller neste) skal være nummerert som appendix (i referanser og i index):
 \appendix
 \include{appendixSynPlast}
 \include{appendixTimeInterface}
 \include{appendixTimeClass}
+\include{appendixDifferentDoTaskFunctions}
 
 \bibliography{bibliografi}
 %\bibliographystyle{abbrvnat}

@@ -1,0 +1,208 @@
+\chapter{class time\_class : public timeInterface} %xxx Eller biologisk neurale sys. (er vel strengt tatt ikkje i nevronet, ELLER er det det?)
+\label{appendixTimeClass}
+\begin{lstlisting}
+/*********************************************
+** 	class time  							**
+** 		 									**
+*********************************************/
+class time_class : public timeInterface {
+	static unsigned long ulTidsiterasjoner;
+	
+	static std::list<timeInterface*> pWorkTaskQue;
+	static std::list<timeInterface*> pCalculatationTaskQue;
+
+	// List that is checked every iteration.
+	// If it contains an element within ulEstimatedTaskTime_for_object
+	//   that equals the next time iteration, it is inserted into pWorkTaskQue.
+	static std::list<timeInterface*> pPeriodicElements;
+
+	static unsigned long ulNumberOfCallsTo_doTask;
+
+	protected:
+	void doTask();
+	void doCalculation()
+	{ //{
+		/**************************************************************************************
+		*** Gjennomfore kalkulering paa alle kalkuleringsoppgaver (pCalculatationTaskQue) 	***
+		**************************************************************************************/
+
+		//DEBUG("Inne i time_class::doCalculation()\n");
+
+		if( pCalculatationTaskQue.empty() ) return;
+
+		// Organiserer liste slik at kvar oppforing er unik: 			TODO gjor om x++ til ++x, siden ++x slepper a lage en "temporary".
+		for( std::list<timeInterface*>::iterator iter = pCalculatationTaskQue.begin(); iter != pCalculatationTaskQue.end(); iter++ )
+		{
+			// Testet. Virker som det funker no.
+			std::list<timeInterface*>::iterator iter2 = iter; 
+			iter2++;
+			while(iter2!=pCalculatationTaskQue.end()){
+				// ser om iteratorene peker til samme minneadresse (samme timeInterface-element). Isafall: fjaern det andre elementet.
+			 	if( (*iter2) == (*iter) ){ //c out<<"Var duplikat. Fjaerner andre element.\n";
+					// Oker iterator for eg sletter element pa iter2.
+					std::list<timeInterface*>::iterator slettIter = iter2;
+					iter2++;
+					pCalculatationTaskQue.erase(slettIter);
+					continue;
+				}
+				iter2++;
+			}
+		}
+	
+		while( !pCalculatationTaskQue.empty() ){
+			// Kaller pCalculatationTaskQue.front()->pCalculatationTaskQue();
+			#if DEBUG_UTSKRIFTS_NIVAA > 3
+			cout<<"Kaller " <<pCalculatationTaskQue.front()->sClassName <<".doCalculation()\n";
+			#endif
+
+			pCalculatationTaskQue.front()->doCalculation();
+			pCalculatationTaskQue.pop_front();
+		
+		}
+	} //}
+
+	static inline void addCalculationIn_pCalculatationTaskQue( timeInterface* pObject_arg)
+	{
+	 	pCalculatationTaskQue.push_back( pObject_arg );
+	}
+
+/***************************************************************************
+*
+* 		TODO for dette opplegget:
+* 			- lag bidirectional peiker. Peiker til rett timeInterface her, og peiker til rett iterator (hit) i timeInterface elementet. TODO Det er dermed kanskje best a returnere iterator fra funksjonen under.
+* 			- nar timeInterface-elementet far nytt estimat, skal elementet flyttes (fjaernes, sa legges inn ELLER bare flyttes den relative avstanden (kanskje best))
+* 				Det er fundamentalt at det bare er en timeInterface peiker tilstede i lista (ellers far vi ekstra fyringer = overflodig arbeid..) 
+** 				[LOSNING: lag en funksjon som ogsa tar inn en {list< list<timeInterface*>* >::iterator}, og denne vil bare flytte elementet 			]
+** 				[ 			og nar elementet blir gjennomfort, flyttes elementet (?) til plass gitt av no+periode (dvs. med bare periode som argument. 	]
+** 				[ 			Dersom elementet skal fjaernes (f.eks. for s_auron), sa kan vi lagre NULL i peikeren (?) 									]
+* 			- Bli sikker pa korleis indekseringa er under. 1 indeksert? 0-indeksert? Trur det skal vaere antall tidsiterasjoner etter NESTE tidsiter. Ogsa viktig for a fa rett funksjonalitet!
+*
+* 		Sa: implementere i time_class::doTask() at den skal gjore alle jobbene i [neste-tids-iter]-list i pEstimated TaskTime (for sa a ta vekk denne [neste-tidIter]-list i p EstimatedTaskTime.
+* 			- kvart element skal sjolv vaere ansvarlig for a flytte seg i p EstimatedTaskTime etter AP.
+*
+****************************************************************************/
+
+
+
+
+	//static std::list<timeInterface*> pWorkTaskQue;
+	const static void TEST_skrivUt_pWorkTaskQue()
+	{ //{
+		cout<<"Skriver ut pWorkTaskQue: \n";
+		int nIter = 0;
+		// itererer gjennom ytre liste:
+		//			TODO gjor om x++ til ++x, siden ++x slepper aa lage en "temporary".
+		for(std::list<timeInterface*>::iterator l_iter = pWorkTaskQue.begin(); 	l_iter != pWorkTaskQue.end() ; 	l_iter++ )
+		{
+			cout<<nIter <<"\t" <<(*l_iter)->sClassName <<endl;
+			nIter++;
+		}
+		cout<<"\n\n";
+	} //}
+
+
+	public:
+	time_class() : timeInterface("time"){}
+
+	static void addElementIn_pPeriodicElements( timeInterface* pArg )
+	{
+		pPeriodicElements.push_back( pArg );
+	}
+	static void addTaskIn_pWorkTaskQue( timeInterface* pArg )
+	{
+	 	pWorkTaskQue.push_back( pArg );
+	}
+	static const inline unsigned long getTid(){ return ulTidsiterasjoner; }
+	
+	static const void skrivUt_pPeriodicElements()
+	{
+		cout<<"Skriver ut pPeriodicElements-lista:\n";
+		for( std::list<timeInterface*>::iterator pPE_iter = pPeriodicElements.begin() ; pPE_iter != pPeriodicElements.end() ; pPE_iter++ )
+		{
+			cout<<"[ " <<(*pPE_iter)->sClassName <<" ]\n";
+		}
+		cout<<"\n\n";
+	}
+
+	// Viktig med inkapsling!
+
+	// funker ikkje: friend class timeInterface; XX X test igjen. Har gjort det. Funker ikkje..
+	friend class K_auron;
+	friend class i_auron;
+	friend class i_axon; 		// Usikker om dette funker. Alternativt skriv inn kvar klasse (som under)
+	//friend class s_axon;
+
+	friend void initialiserArbeidsKoe();
+	friend void* taskSchedulerFunction(void*);
+	
+	friend int main(int, char**);
+
+
+	friend void testfunk();
+};
+
+\end{lstlisting}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{time\_class::doTask()}
+\label{appendixTimeClassDoTask}
+\begin{lstlisting}
+void time_class::doTask()
+{
+	/*******************************
+	* excute planned calculations: *
+	*******************************/
+	doCalculation();
+
+	/*******************************
+	* Iterate time 				   *
+	*******************************/
+	ulTidsiterasjoner++;
+
+	/*******************************
+	* Update all K_sensor_auron    *
+	*******************************/
+	#if KANN
+	K_sensor_auron::updateAllSensorAurons();
+	#endif
+
+	/*******************************
+	* Update all s_sensor_auron    *
+	*******************************/
+	#if SANN
+	s_sensor_auron::updateAllSensorAurons();
+	#endif
+
+	/********************************************
+	* Insert planned tasks into pWorkTaskQue    *
+	********************************************/
+	for( std::list<timeInterface*>::iterator pPE_iter = 
+		pPeriodicElements.begin() ; 
+		pPE_iter != pPeriodicElements.end()	; 
+		pPE_iter++ )
+	{
+		if( (*pPE_iter)->ulEstimatedTaskTime_for_object 
+			== ulTidsiterasjoner+1 )
+		{
+			addTaskIn_pWorkTaskQue( (*pPE_iter) );
+		}
+ 	}
+
+	/******************************************
+	* Insert [this] pointer into pWorkTaskQue *
+	******************************************/
+	pWorkTaskQue.push_back(this);	
+}
+\end{lstlisting}

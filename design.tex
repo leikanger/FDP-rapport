@@ -1,5 +1,5 @@
 % Implementation design :
-
+rart, dette kommer på anna side..
 
 
 % TODO Denne må skrives heilt om. Sett av to dager til dette. (1 natt+en dag?)
@@ -85,21 +85,13 @@ Skriv innledning. Kva skal stå her?
 
 
 \section{Design} % eller "Design; General Consepts for both Imlementations" eller noke anna..
-	In this project, a novel model for ANN has been developed. 
-	In this chapter and the next this new model will be presented. 
-	The qualitative differences between the ANN model based on a direct simulation of the neuron and the developed model will be presented in this and the next chapter.
-
-	% XXX Skriv om starten!
-	A neural simulator is placed in an environment, and will have a general design of each node. In the remainder of this text this will be referred to as the framework of the simulation.
-	
-	For a comparison between the two models, both models have been designed and implemented.
-	To optimize the implementations for comparison between the two models, the most appropriate solution is to use a common framework for the two simulators.
-	This will make the differences and similarities between the two designs/implementations more prominent.
+	% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+	% Skriv en liten innledning til denne section. Det er tross alt litt tekst i den..
 
 	%In this section the common framework of the design and implementation of the two models will be presented.
 	%TODO Gå gjennom opplistinga i neste linje, når section er ferdigskrevet.
 	This section will start with describing the common framework of the implementations; 
-		General concepts such as simulated asynchronicity (sec.\ref{ssecTime}), generality of the implementation and the design of the indivitual node will be presented in this part. %TODO sett på internreferanser til rett subsection.
+		General concepts such as simulated asynchronicity (sec.\ref{ssecTime}), generality of the implementation and the design of the indivitual node will be presented in this section. %TODO sett på internreferanser til rett subsection.
 	After the common framework of the simulation is presented, there will be a short discussion about how the two simulators are distinguished. %TODO skriv om! slutten er dårlig
 	%Towards the end of the section, different aspects like efficiancy and generality of the implementations are presented
 	Finally, a concept that is important for a comparison between the transient time course of the two models will be introduced is sec. \ref{ssecLogForComparison}. % %"log for comparison" xxx fiks referanse.
@@ -123,31 +115,38 @@ Skriv innledning. Kva skal stå her?
 	%One neuron can therefore be excited to suprathreshold values and fire without affecting the efficiancy of other neurons' calculation. 
 
 
-	In the computer tasks are performed serially, in one or multiple processors.
-	To simulate the same degree of asynchronous behavior, time also has to be simulated.
-	I will in the remainder of this text refer to this as simulated asynchronicity.
+	In the computer, tasks are performed serially in one or multiple processors.
+	To simulate the same degree of asynchronous behavior, time also has to be simulated. %TODO Skriv om litt.
+	The consequence is what will be referred to as simulated asynchronicity.
+	%This will in the remainder of this text be referred to as simulated asynchronicity.
 	%To get the same degree of asynchronicity in simulated neurons, time will also have to be simulated.
 
-	In digital electronics, asynchronous design refers to clockless circuits. Every part of the circuit executes its part independently of the other, in respect to time.
+	In digital electronics, asynchronous design refers to clockless circuits. 
+	With respect to time, every part of the circuit executes its task independently of other parts.
+	%Every part of the circuit executes its part independently of the other, in respect to time.
 	This interpretation of the concept is not possible to accomplish in the serial processor; Tasks can per definition not happen serially, independent of the timing of the other processes.
 	The solution to this is to let the time in the simulation be simulated.
-	As time (``chronos'') becomes a variable that is under our control, it is also possible to control chonology in the simulation.
-	This means that the simulator is able to arrange the order of events om theire order of occurence in the simulated time.
+	As time (``chronos'') becomes a variable that is under our control, it is also possible to control chonology in the simulation. %XXX ".. under our contro." => ".. under the implementation's control."
+	This means that the simulator is able to arrange the order of events om theire order of occurence in the simulated time. %TODO ÆRS! Krokete som helvete. KRØKETE SKREVET: Skriv om!
 	%It is therefore possible to control the order of the events in the order of theire order of occurence in time, in the simulation.
 	
-	The consequence of this is that in a simulation of a network of tree nodes, node B could be ordered to happen after node A, but simultaneously to node C, in respect to the simulated time.
-	As each node has a time variant value, with a value that leaks in respect to time, time is a very important element of the mechanisms of each node.
-	The concept of simulated time therefore becomes wery important for the simulator. 
+	The consequence of this is that in a simulation of a network of tree nodes, node B could be ordered to happen after node A but simultaneously to node C, in respect to the simulated time. %Litt dårlig. KRØKETE
+	As each node has a time variant value, due to ``leakage'', time is an important element of the mechanisms of each node.
+	%As each node has a time variant value, with a value that leaks in respect to time, time is a very important element of the mechanisms of each node.
+	The concept of simulated time therefore becomes very important for the simulator.  %TODO Litt barnlig språk: VELDIG! Ta vekk "very"?
 
-	The intuitive solution to the concept of simulation of time is to iterate through all nodes for each time step, and update the value as a consequence of time propagation.
-	As efficiancy is important for a neural simulator that is to be used in technology, it is undesirable to do the calculation for each node every time iteration.
+	The simple solution to the concept of simulation of time is to iterate through all nodes at each time step, and update the value as a consequence of time propagation.
+	As efficiancy is important for a neural simulator that is to be used in technology, optimalization makes it undesirable to do the calculation for each node every time iteration.
 	In the remainder of this section an alternative will be proposed.
 
 	%A discussion of what time is, is outside the scope of this text, but a discussion of the result of asynchronicity behavior is important to this project.
 	
 	 	\subsubsection{Simulated Asynchronocity}
+	%TODO Feil start på section / Dårlig skrevet. (Det er jo einaste måten å gjøre noko i datamaskina..) TODO TODO Skriv om neste linje.
 	One way of simulating asynchronicity in neurons is to use the concept of discrete time, where one time iteration is the smallest time step.
 	%If the set of tasks of one time iteration remains constant during the time iteration, and new tasks are at first added to the next time iteration's taks list, we could say that we have simulated asynchronicity.
+
+	%TODO Begrunn utsagnet. "Blabla, as THIS AND THAT"
 	If the set of tasks of one time iteration remains constant during the time iteration, and new tasks first could be added to the next time iterations task lit, we could say that we have simulated asynchronicity.
 
 
@@ -156,157 +155,132 @@ Skriv innledning. Kva skal stå her?
 	%As the work load of each time step varies, 
 	%DA MÅ VI define each time iteration so large that ALLE BLIR UTFØRT FØR SLUTT AV ITERASJON.
 	Using the ``real world'' time as a basis for these time steps will create to strong a dependence on the work load of the system.
+	% Alt for oppstykka tekst. Få også med at evt. kan vi ha STORE time steps.
 	As this means that is would only work if all tasks is carried out before the iteration ends, such a dependence is undesirable. % this is avoided.
 	% 																							% 					ville skapt for store tidssteg, and is undesirable.
 
-	A better alternative is to use a scheme based on serial execution.
-	This is based on a linked list with the different task elements, and a scheduler function that calls a certain function for each element.
-	If each element is an object of a class derived of a common interface class, the scheduler function could call one of the member functions of this interface class.
+	A better alternative is to use a scheme based on serial execution. % ".. a time scheme .."? Må ha med litt meir enn bare scheme..
+	This could be based on a linked list containing the different task elements, and having a scheduler function that calls a certain function for each element.
+	If each element is a pointer to an instance of a class derived of a common interface class, the scheduler function could call one of the member functions of the interface class.
+
 	If we let the interface class be an abstract class, with pure virtual fuctions, these pure virtual function would also be inherited to the derived classes.
 	Unless the derived class defines these functions, it also inherits being an abstract class, and no object if that class can be created \cite{Stroustrup2000KAP12}.
+	We can therefore be certain that each object has its own version of the virtual function.
 
 	To concretize this discussion, let us take a look at the mechanisms of the implementation.
-	Here, the abstract time interface class is called \emph{class time\_interface}.
-	The class definition can be seen in appendix \ref{appendixTimeInterfaceDefinition}.
+	Here, the abstract time interface class is named \emph{class time\_interface}.
+	%The class definition can be seen in appendix \ref{appendixTimeInterfaceDefinition}. % ".. can be seen in appendix ?" => ".. is included in appendix ?".  Bedre, syns eg.
+	For the sake of completeness, the the class definition is included in appendix \ref{appendixTimeInterfaceDefinition}. % ".. can be seen in appendix ?" => ".. is included in appendix ?".  Bedre, syns eg.
 
 	We can see from the class definition that the two member functions of \emph{timeInterface} are defined as pure virtual functions.
-	This gives that every derived class must first define these two functions before an instance of the class can be created.
-	We therefore have a clearly defined behaviour for every element that is derived from \emph{class timeInterface}.
+	%This gives that every derived class must first define these two functions before an instance of the class can be created.
+	This gives that for every derived class, these two functions have to be defined before an instance of the class can be created.
+	As these functions define the class' scheduled behavior, we have that every object of a class derived from \emph{class timeInterface} have a clearly defined behavior through these virtual fuctions.
+	%This gives that every object of a \emph{timeInterface} derived class has a clearly defined behavior for these inherited classes.
+	%We therefore have a clearly defined behaviour for every element that is derived from \emph{class timeInterface}.
 
-	The function that is responsible for execution of the task of each object in \emph{pWorkTaskQue} is the virtual function \emph{doTask()}, derived from \emph{timeInterface}.
-	This function lists all actions that are to be performed in a  
-	The function doCalculation() will become important later, when we discuss synaptic transmission for the new model in sec. \ref{ssecImpOfSynTransmissionKANNN}.
+	% Neste setninga var alt for lang. Kort ned/ del opp. ..Kanskje ok no ?
+	The function that is responsible for execution of the task of each object in \emph{pWorkTaskQue}, is the virtual function \emph{doTask()}. % derived from \emph{timeInterface}. %TA VEKK: "... derived from \emph{timeInterface}." ?
+	This function contains all the actions that are to be made as a result of the behavior that is to be implememnted as being chronological. %XXX Litt rart med ordet "chronological".
+	% Neste setning passer ikkje heilt inn, men det er kanskje viktig å nevne den. Finn på noke anna..
+	% Tjah.. 
+	The function doCalculation() will first become important later, when we discuss synaptic transmission in $\kappa$ANN (sec. \ref{ssecImpOfSynTransmissionKANNN}). 
+	%The function doCalculation() will first become important later, when we discuss synaptic transmission for the new model in sec. \ref{ssecImpOfSynTransmissionKANNN}. 
+	 
 
-	The interface class contains two pure virtual functions and one variable, all important for the derived element's interraction with time.  %XXX Tja.. Skriv litt om..
+	%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+	% SKRIV OM NESTE BITEN: Blei bare rot.. Kanskje eg ikkje skal ha den her i det heile tatt?
+	% i allefall veldig mykje mindre. Også vanskelig å snakke om ting som ikkje er introdusert enda..
+
+	%TODO XXX XXX Dårlig overgang! Skriv noke anna i neste setning:
+	The above discussion became very theoretical, and it is time to present an example. 
+	% For mykje. Skriv bare : "For the direct simulation of the biological neuron, the signal propagation is strongly causal."
+	%For the biological neuron, and the direct simulation of this, the SN, the signal transmission is strongly causal.
+	%The \emph{s\_auron} is chosen as the example presented in this section.
+	% AVSNITT SKAL VÆRE KOBLA IHOP MED NESTE LINJE
+
+	%XXX Neste linje seier litt for lite i forhold til diskusjonene her.. XXX Føles som eit tomt utsagn TODO SKRIV OM / fjærn.
+	For the direct simulation of the biological neuron, the signal propagation is strongly causal.
+	A subelement of a SANN node, the \emph{s\_auron} is chosen as the example presented in this section.
+	%As the example presented in this section, the \emph{s\_auron} is used.
+	%
+	% XXX Neste linje er for lang (føles rett, men ER for lang)
+	As the we will se in sec. \ref{ssecSANNAP}, the SANN node's \emph{s\_auron} has the role of the axon hillock in the biological neuron, and will be scheduled for execution when the value of the node goes to suprathreshold levels.
+
+	As introduced in sec. \ref{ssecTheActionPotential}, the axon hillock initiates the action potential for the biological neuron.
+	Let the action potential be the task of the SANN node's axon, the \emph{s\_axon}.
+	The action of \emph{s\_auron} will then be to insert the node's \emph{s\_axon} into \emph{pWorkTaskQue}.
+	When each of the node's subelements \emph{doTask()} is defined later in this chapter, we will se that we get a fully functional SN. %Litt krøkete start? XXX 
+	%For the reader, the elements' \emph{doTask()} actions are listed in appendix \ref{appendixDifferentDoTaskFunctions}. 					
+	For an introduction to the action of each element's \emph{doTask()} it is referred to appendix \ref{appendixDifferentDoTaskFunctions}. %XXX Ikkje heilt fornøgd med starten. "introduction" er feil. TODO Finn rett ord.
+
+	%This element of the node is responsible for initiating the action potential, so the task of the \emph{s\_auron} is to insert the node's \emph{pOutputAxon} to \emph{pWorkTaskQue}.
+
+%	The \emph{s\_auron} has the role of the axon hillock, introduced in sec. \ref{ssecTheActionPotential}.
+%	It is also referred to sec. \ref{ssecSANNAP} for the role of the \emph{s\_auron}. %XXX Ta vekk? Det blir kanskje litt mykje internreferering.. (Ta vekk den over, eller denne, i såfall. Finn ut etter at SANN er ferdigskrevet.)
 	
-	It contains the functions \emph{doTask()} and \emph{doCalculation()}.
+%	When the \emph{s\_synapse} does its task, the postsynaptic potential is altered. 
+%	As this does not happen instantaneously, it is important to let the action be carried out the next time iteration. 
+%	The task done by each \emph{time\_interface} derived class' \emph{doTask()} function is listed in appendix \ref{appendixDifferentDoTaskFunctions}.
 
-
-
-
-
-	% TODO Gå rett på ideen min, og seinere forklar det med to lister (Som Koch seinare forklarte meg om).
-	%This could be done by having two lists %eller bare gå rett på ideen min, og seinere forklare med to lister?
-
-	It is better to use a scheme based on serial execution, where the last element of the time iteration's task list is responsible for iteration of time.
-	In the case of to large a work load, the iteration of time will be slowed down as well as the execution of tasks.
-	%In this scheme, the work load of the system will slow down the iteration of time as well as the execution of tasks. 
-	As real world time is unimportant for the simulated system, this serial scheme for time simulation will be the choice of this implementation.
-	%As this is much less error prone for the simulated system, this will be the choise for this implementation. %affect the time it will take to iterate the simulated time.
-
-	Serial time simulation could be implemented by having one task list for each new time iteration. 
-	For this implementation, an alternative approach with only one list has been implemented.
-	Here all new tasks are appended last in a linked list. A separate tasks is responsible to iterate time, and appoint a new time separation task at the end of the list.
-	If the list consists of pointers, the task could add a pointer to itself instead of creating a new object for insertion.
-
-	In this implementation, a linked list is declared static in class \emph{time\_class}, meaning that only one instance of the variable is created for all objects of class \emph{time\_class}.
-	This list is named \emph{pWorkTaskQue}, and is the list where the elements' \emph{doTask()} function is called by the scheduler function.
-	%and is the list executed by the sceduler function.
-
-	% This can be done by having a linked list of tasks planned for execution, \emph{pWorkTaskQue}. This is defined as a static variable of class \emph{time\_class} (see appendix \ref{appendixTimeClass}).
-	% When one task is completed, a scheduler function commence the execution of the next task on the list. % XXX feil ord? commence
-
-\begin{lstlisting}
-static unsigned long std::list<timeInterface*> pWorkTaskQue;
-\end{lstlisting}
-
-	The scheduler function is the global loop of the implementation, and runs in the background. Every time a new task is created by the execution of a task, it is inserted at the end of the list.% at the back of the list. ?
-
-
-	In C, if the data in the elements of a linked list are pointers, any kind of data could be pointed to. 
-	%The compile time type cheching of C++ enshure 
-	In C++, pointers to objects of a certain class can only be assigned pointers to objects of this class or classes derived from this class.
-%XXX Trenger å koble sammen med videre tekst.	
-	We can therefore use a list of \emph{timeInterface*} to keep a listing of the tasks to be executed in the present and the immediate future.
-	
-	Because a derived class also inherits the pure virtual functions of an abstrakt ancestor class, the derived elements have to define the function for it to be possible to create objects of the class
-	%A derived class also inherit the pure virtual functions.
-	%Every class with a pure virtual function becomes is an abstract class, and no object of that class can be created\cite{Stroustrup2000KAP12}.
-
-
-	%The list that contains future tasks is a list of pointers to the \emph{timeInterface} class, so only classes derived from \emph{timeInterface} is scheduled by the simulated time dimention.
-	%Because the member function \emph{doTask()} is defined as a pure virtual function in timeInterface (se appendix \ref{appendixTimeClassDefinition}), no instance can be made of it.
-
-	Let the list be of type \emph{std::list$<$father*$>$ LIST} and \emph{$[father]$} contain pure virtual fuctions.
-		, then only pointers to objects derived from \emph{[father]} can be placed in the list. 
-	Further, all derived classes will inherit the pure virtual function, and thus be unable to make an instance of unless the fuction is defined in the derived class.
-
-	This gives that every object used in \emph{pWorkTaskQue} and thus the time scheduler, has its own defined \emph{doTask()} function.
-	As this is the function that is called by the scheduler function, every object of a class derived from \emph{class timeInterface} have a defined behavior connected to the simulated time.
-
-	As we can see, the \emph{pWorkTaskQue} is a list of pointers to elements of the \emph{timeInterface} class, meaning that only pointers to instances of \emph{class timeInterface} or derived classes can be inserted into the list.
-
-
-	The timeInterface derived class that is most important to the simulated asynchronisity is the class \emph{time\_class}.
-
-	As seen in appendix \ref{appendixTimeClassDoTask}
-
-
-% XXX ------------------- XXX --------------- xxx-------------------------xxx--------------------------xxx
+% XXX XXX XXX Dersom eg får tid: Ta med de kule illustrasjonane for pWorkTaskQue. Kjempebra illustrasjoner. TODO XXX XXX XXX
+% Det er også viktig for å få med poenget at jobbane lager nye jobber. Ellers blir heile diskurs over litt fjærnt..
+% 		Evt. : Serial time simulation could be implemented by having one task list for each new time iteration. 
+%//{
+% 	To make the % TODO Fullfør med å lage eit eksempel av pWorkTaskQue. Med de listene, du veit..
+%	\subsubsection{UFERDIG. Ta med lett eksempel om korleis pWorkTaskQue funker}
+%When it is time for the scheduler-thread to start a new task, it calls \emph{LIST.front()$\rightarrow$doTask()}. 
+%This calls the \emph{doTask()} function of the first element of the list.
+%Since \emph{doTask()} is a virtual function, we may have different tasks assigned to each class derived from \emph{[father]}.
+%
+%If we have a list of scheduled tasks $L = [a, b, c, T]$, where all tasks are pointers to classes derived from a common \emph{[father]}. 
+%All tasks may generate new tasks according to the rules of each derived class, and when a task is completed, it is removed from the list.
+%
+%If we allways pick the first task, we get a ``first in--first out'' (FIFO) que. The next task to be executed will in this example be task $a$. %All tasks can possibly generate new tasks.
+%If a generates new tasks $x_{a_1}$, this new task will be added at the end of the list. We get the task list
+%
+%\begin{equation}
+%	\nonumber
+%	L = [b, c, T, x_{a_1}]
+%\end{equation}
+%
+%Lets say that $b$ does not generate any new tasks and $c$ gives us two new tasks $[x_{c_1}, x_{c_2}]$. After task $c$ we get the list:
+%\begin{equation}
+%	\nonumber
+%	L = [T, x_{a_1}, x_{c_1}, x_{c_2} ]
+%\end{equation}
+%
+%As the syntax indicates, the element $T$ is a rather unique task. $T$ is a const--instance of the timeIterator--class, responsible for iterating time.
+%X XX SKRIV BEDRE: 
+%\emph{T$\rightarrow$ doTask()} will have the responsibility for any tasks that have anything with time to do. 
+%
+%First, it will the iterate the global time variable \emph{unsigned long timeIterations}.
+%
+%Finally it will append a \emph{self--pointer} to the end of the task list.
+%\begin{equation}
+%	\nonumber
+%	L = [x_{a_1}, x_{c_1}, x_{c_2}, T ]
+%\end{equation}
+% //}
+% XXX Kanskje: skriv at en anna måte å sjå det på er å ha to altererende lister. Nye jobber blir lagt til i den andre lista enn den vi utfører ting fra no.
 \newpage
 
-%	This will create a stong dependence on the work load of the simulation, and will be error prone.
+% XXX ANDRE TING SOM KANSKJE ER VIKTIG:
+%\begin{lstlisting}
+%static unsigned long std::list<timeInterface*> pWorkTaskQue;
+%\end{lstlisting}
 
-	%The concept of simpulated asynchronicity, 
+%	The scheduler function is the global loop of the implementation, and runs in the background. Every time a new task is created by the execution of a task, it is inserted at the end of the list. % at the back of the list. ?
 
-
-%TODO Skriv om heile subsection. Skriv først innledning til section (over), så rydd opp (under).
-Following the fact that the ANN will be simulated asynchronous, the computer resources will deside the size of the time iterations. The maximum size is desided by the real--time requirement of the task.
-
-To make the software general, the simulated time should therefore be unconnected to the world time outside the simulation. To achieve this, a scheduler has been devised for this implementation.
-
-SKRIV OM KSRIM OM VKEIN OM SKRIV OM KSRIV OMS SKRIV OM:
-
-In most programming languages we can make a linked list of elements. %TODO Skriv at eg vil bruke objektorientert språk, fordi da kan man ha funksjoner tilknytta objekta (istedenfor variabel--struct..). Velger C++
-If we use an object oriented programming language, every derived element contains the functions and variables from \emph{[father]}. 
-If the data of the elements are pointers, the pointers can be pointers to any kind of data.  %TODO SKRIV OM!
-Let the list be of type \emph{std::list$<$father*$>$ LIST} and \emph{$[father]$} contain pure virtual fuctions.
-, then only pointers to objects derived from \emph{[father]} can be placed in the list. 
-% Skriv avsnittet bedre, skriv neste linje bedre! XXX
-
-%skriv meir: "for this implementation" skal vi gjøre "så her".
-If we use virtual functions, the functions can be overloaded in the derived classes.%(Virtual functions may be overloaded in the derived classes).
-The containers of the standard library in C++ is used instead of arrays, due to its optimalized and well tested behavior\cite{Stroustrup2000KAP16}. More on this later. %TODO more on this later!
-
-When it is time for the scheduler-thread to start a new task, it calls \emph{LIST.front()$\rightarrow$doTask()}. 
-This calls the \emph{doTask()} function of the first element of the list.
-Since \emph{doTask()} is a virtual function, we may have different tasks assigned to each class derived from \emph{[father]}.
-
-If we have a list of scheduled tasks $L = [a, b, c, T]$, where all tasks are pointers to classes derived from a common \emph{[father]}. 
-All tasks may generate new tasks according to the rules of each derived class, and when a task is completed, it is removed from the list.
-
-If we allways pick the first task, we get a ``first in--first out'' (FIFO) que. The next task to be executed will in this example be task $a$. %All tasks can possibly generate new tasks.
-If a generates new tasks $x_{a_1}$, this new task will be added at the end of the list. We get the task list
-
-\begin{equation}
-	\nonumber
-	L = [b, c, T, x_{a_1}]
-\end{equation}
-
-Lets say that $b$ does not generate any new tasks and $c$ gives us two new tasks $[x_{c_1}, x_{c_2}]$. After task $c$ we get the list:
-\begin{equation}
-	\nonumber
-	L = [T, x_{a_1}, x_{c_1}, x_{c_2} ]
-\end{equation}
-
-As the syntax indicates, the element $T$ is a rather unique task. $T$ is a const--instance of the timeIterator--class, responsible for iterating time.
-
-\large{\bf{------------ FÅVEKK --- subsection{} er skrevet dårlig herretter. Skrevet seint på kvelden:} ------------ } %XXX XXX
-
-%XXX SKRIV BEDRE: 
-\emph{T$\rightarrow$ doTask()} will have the responsibility for any tasks that have anything with time to do. 
-
-First, it will the iterate the global time variable \emph{unsigned long timeIterations}.
-
-Finally it will append a \emph{self--pointer} to the end of the task list.
-\begin{equation}
-	\nonumber
-	L = [x_{a_1}, x_{c_1}, x_{c_2}, T ]
-\end{equation}
+% 	In C, if the data in the elements of a linked list are pointers, any kind of data could be pointed to. 
+	%The compile time type cheching of C++ enshure 
+%	In C++, pointers to objects of a certain class can only be assigned pointers to objects of this class or classes derived from this class.
+%	We can therefore use a list of \emph{timeInterface*} to keep a listing of the tasks to be executed in the present and the immediate future.
+	
+%	Because a derived class also inherits the pure virtual functions of an abstrakt ancestor class, the derived elements have to define the function for it to be possible to create objects of the class
 
 
 
-%TODO Vær sikker på at uttrykket "work list" er introdusert. Brukes etter neste subsection.
 
 
 
@@ -324,7 +298,7 @@ Finally it will append a \emph{self--pointer} to the end of the task list.
 			\item Auron, the core of the artificial neuron. With one output axon and one input dendrite.
 			%\item Soma, with an output axon and input dendrite.
 			\item Synapses, connected to both presynaptic axon terminal and the postsynaptic dendrite.
-			\item Axon, containing the neurons output synapses.%XXX Skriv seinare at dette gir mulighet for nøyaktig simuleing av time delay. Men også rask simulering (best for teknologi (pragmatisk)).
+			\item Axon, containing the neurons output synapses. %XXX Skriv seinare at dette gir mulighet for nøyaktig simuleing av time delay. Men også rask simulering (best for teknologi (pragmatisk)).
 			\item Dendrites, containing the input synapses to artificial neuron.
 		\end{itemize}
 		
@@ -332,7 +306,7 @@ Finally it will append a \emph{self--pointer} to the end of the task list.
 
 		%XXX TODO Skriv heller at "av implementasjonstekniske årsaker". Destructor. Beskriv meir i "Biologisk nært"avsnitt. Kall det heller for "Object layout". XXX
 		%Lets start with the dendrite. Each object of the dendrite class will have one or more input synapses. It will also need to be able to access the elements of the postsynaptic auron. 
-		Lets start with the dendrite. When the dendrite recieves much information through its input synapses, it need access to the postsynaptic neurons activationObject (more on this later).%TODO XXX Skriv meir, og bruk heller \ref{secA}
+		Lets start with the dendrite. When the dendrite recieves much information through its input synapses, it need access to the postsynaptic neurons activationObject (more on this later). %TODO XXX Skriv meir,og bruk heller \ref{secA}
 		To retain the possibility to simulate new theories in what is important in neural systems, the auron will also need access to its dendrites functions and variables. 
 		One element of learning (synaptic plasticity) might be the so--called ``backpropagating action potential'', that propagates back to the synapses of the dendrite when the auron fires.
 		To be able to simulate such elements of learning, we need a two--way connection between the dendrite and the soma.
@@ -362,7 +336,7 @@ Finally it will append a \emph{self--pointer} to the end of the task list.
 		\label{sssecTemporalAccuracy}
 		The object design in combination with elements introduced in subsection \ref{ssecTime}, we get a framework that can easily be adjusted to different uses of the simulation. 
 		
-		Pragmatic ANNs are often use ``one compartment models'' of the neuron.%REFERER noke!
+		Pragmatic ANNs are often use ``one compartment models'' of the neuron. %REFERER noke!
 		Here, each node only has one element (no subelements). This ignores the time delay of transmission through each subelement. 
 		In my implementation this can be easily achieved with letting each node directly call the next nodes' \emph{\small{doTask()}}. 
 
@@ -414,12 +388,12 @@ Finally it will append a \emph{self--pointer} to the end of the task list.
 	%Also implementation specific reasons exist. XXX SKRIV DETTE FØRST
 	This design introduces a some new challanges for the implementation. 
 	If each \emph{soma} has one pointer to a dendrite object and an axon object (located in the free store), destruction of one of these objects (e.g. the axon) will need to signal the \emph{soma}. 
-	The \emph{soma} is then responsible to take action to avoid memory exhaustion and undefined behavior following calls to the deleted object.%få med at det er peiker-kall, og obj. er sletta
+	The \emph{soma} is then responsible to take action to avoid memory exhaustion and undefined behavior following calls to the deleted object. %få med at det er peiker-kall, og obj. er sletta
 	For this reasons, the pointers between the sub--elements of the auron will be bidirectional. 
 
 	This structure introduces a new problem, the possibility of access and polution of the general design. 
 	If the pointers \emph{pOutputAxon} and \emph{pInputDendrite} are protected, the encapsulation protocol of C++ will fix the problem, but now the variables are only accessable to the object or friends of the object.
-	The associated \emph{axon} and \emph{dendrite} objects are generated in the \emph{soma::soma()} constructor, and can only be altered from an other class that is part of the auron class--cluster.%XXX skriv annaleis: auron class-cluster.
+	The associated \emph{axon} and \emph{dendrite} objects are generated in the \emph{soma::soma()} constructor, and can only be altered from an other class that is part of the auron class--cluster. %XXX skriv annaleis: auron class-cluster.
 																															%Skriv utbrodert om kva friend er, og at alle classene i auron-gruppa er venner => "auron class-cluster".
 
 	For encapsulation within this new auron--structure, consisting of soma, axon, dendrite and synapse, we define these classes as \emph{friend} of eachother. 
@@ -531,7 +505,7 @@ Finally it will append a \emph{self--pointer} to the end of the task list.
 
 	These elements will be pointers to the previous and the next elements in the signal path, and should be pointers to object of the right class. 
 	For SANN dendrites, the \emph{pElementAvAuron} will be a pointer to an s\_auron and for $\kappa$\_ANN nodes it will be a pointer to an $\kappa$\_auron. 
-	To achieve this for the abstract i\_dendrite class, the variables will be of type \emph{i\_[element]*}.%, in the case of i\_dendrite's pElementAvAuron that is a pointer to an object of class i\_xaxon.
+	To achieve this for the abstract i\_dendrite class, the variables will be of type \emph{i\_[element]*}. %, in the case of i\_dendrite's pElementAvAuron that is a pointer to an object of class i\_xaxon.
 
 	For the model--specific node element, e.g. s\_dendrite, the pointer should point to a SANN element, s\_dendrite. In C++ it is possible to save pointers to derived classes in a pointer variable to the ancestor class.
 	This means that a pointer to an s\_auron is possible to save to an i\_auron* variable.
@@ -729,7 +703,7 @@ The leakage in each nodes value is the background of the non--linearity of the e
 
 %TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
 %FJÆRN!
-% NEI TODO ENDRE: skal handle om calculation task que (ref{ssecCalcultaionTaskQue})..%
+% NEI TODO ENDRE: skal handle om calculation task que (ref{ssecCalcultaionTaskQue}).. %
 % TODO Endre navn til pCalculationTaskQue, eller noke..
 \subsection{Om oppsamling av $\kappa$}
 \label{ssecCalcultaionTaskQue}
