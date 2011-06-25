@@ -6,7 +6,7 @@
 ** 		 									**
 *********************************************/
 class time_class : public timeInterface {
-	static unsigned long ulTidsiterasjoner;
+	static unsigned long ulTime;
 	
 	static std::list<timeInterface*> pWorkTaskQue;
 	static std::list<timeInterface*> pCalculatationTaskQue;
@@ -15,8 +15,6 @@ class time_class : public timeInterface {
 	// If it contains an element within ulEstimatedTaskTime_for_object
 	//   that equals the next time iteration, it is inserted into pWorkTaskQue.
 	static std::list<timeInterface*> pPeriodicElements;
-
-	static unsigned long ulNumberOfCallsTo_doTask;
 
 	protected:
 	void doTask();
@@ -84,23 +82,6 @@ class time_class : public timeInterface {
 
 
 
-
-	//static std::list<timeInterface*> pWorkTaskQue;
-	const static void TEST_skrivUt_pWorkTaskQue()
-	{ //{
-		cout<<"Skriver ut pWorkTaskQue: \n";
-		int nIter = 0;
-		// itererer gjennom ytre liste:
-		//			TODO gjor om x++ til ++x, siden ++x slepper aa lage en "temporary".
-		for(std::list<timeInterface*>::iterator l_iter = pWorkTaskQue.begin(); 	l_iter != pWorkTaskQue.end() ; 	l_iter++ )
-		{
-			cout<<nIter <<"\t" <<(*l_iter)->sClassName <<endl;
-			nIter++;
-		}
-		cout<<"\n\n";
-	} //}
-
-
 	public:
 	time_class() : timeInterface("time"){}
 
@@ -112,7 +93,7 @@ class time_class : public timeInterface {
 	{
 	 	pWorkTaskQue.push_back( pArg );
 	}
-	static const inline unsigned long getTid(){ return ulTidsiterasjoner; }
+	static const inline unsigned long getTid(){ return ulTime; }
 	
 	static const void skrivUt_pPeriodicElements()
 	{
@@ -169,7 +150,7 @@ void time_class::doTask()
 	/*******************************
 	* Iterate time 				   *
 	*******************************/
-	ulTidsiterasjoner++;
+	ulTime++;
 
 	/*******************************
 	* Update all K_sensor_auron    *
@@ -194,7 +175,7 @@ void time_class::doTask()
 		pPE_iter++ )
 	{
 		if( (*pPE_iter)->ulEstimatedTaskTime_for_object 
-			== ulTidsiterasjoner+1 )
+			== ulTime+1 )
 		{
 			addTaskIn_pWorkTaskQue( (*pPE_iter) );
 		}

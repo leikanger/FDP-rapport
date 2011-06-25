@@ -775,9 +775,9 @@ pEstimatedTaskTime.pop_front();
 	\subsection{Checking estimated task time directly from time\_class::doTask()}
 	A more direct approach is to check the elements estimated firing time directly from time\_class::doTask(). 
 	Every class derived from timeInterface contains a variable called ulEstimatedTaskTime where the elements estimated task time is written every time this is updated.
-	If we check ulEstimatedTaskTime every time iteration, and number is the same as the next time iteration's index (ulTidsiterasjoner), time\_class::doTask() is responsible to insert its pointer into pWorkTaskQue.
+	If we check ulEstimatedTaskTime every time iteration, and number is the same as the next time iteration's index (ulTime), time\_class::doTask() is responsible to insert its pointer into pWorkTaskQue.
 	This will cause the element to do its task on the planned time iteration.
-	%If lEstimatedTaskTime is the same as the next time iterations ulTidsiterasjoner, we can insert a pointer to the element into pWorkTaskQue, causing it to do its task next time iteration.
+	%If lEstimatedTaskTime is the same as the next time iterations ulTime, we can insert a pointer to the element into pWorkTaskQue, causing it to do its task next time iteration.
 
 	When $\kappa$ is updated, and K\_auron::doCalculation() updates the aurons estimated firing time, it also updates the K\_auron::lEstimatedTaskTime.
 	If $\kappa$ is less than the firing threshold, the K\_aurons lEstimatedTaskTime is set to 0. 
