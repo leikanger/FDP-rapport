@@ -1,12 +1,373 @@
-\chapter{doTask()} % TODO Her skal det som gjennomføres av de ulike elementas' doTask() listes opp. XXX Finn bra tittel. 
+
+
+
+%\section{s\_synapse}
+%	When the \emph{s\_synapse} does its task, the postsynaptic potential is altered. 
+%	As this does not happen instantaneously, it is important to let the action be carried out the next time iteration. 
+%	The task done by each \emph{time\_interface} derived class' \emph{doTask()} function is listed in appendix \ref{appendixDifferentDoTaskFunctions}.
+
+%\section{\emph{s\_auron}}
+%\begin{lstlisting}
+%\end{lstlisting}
+
+\chapter{doTask()} % TODO Her skal det som gjennomfoeres av de ulike elementas' doTask() listes opp. XXX Finn bra tittel. 
 \label{appendixDifferentDoTaskFunctions} 
 
-\section{\emph{s\_auron}}
 \begin{lstlisting}
-jeje.
+/*************************************************************
+****** 													******
+******  		doTask() -- samla paa en plass. 			******
+****** 													******
+*************************************************************/
 \end{lstlisting}
 
-\section{s\_synapse}
-	When the \emph{s\_synapse} does its task, the postsynaptic potential is altered. 
-	As this does not happen instantaneously, it is important to let the action be carried out the next time iteration. 
-	The task done by each \emph{time\_interface} derived class' \emph{doTask()} function is listed in appendix \ref{appendixDifferentDoTaskFunctions}.
+
+
+
+
+\begin{lstlisting}
+
+/*
+ //{1   *  i_axon::doTask() KOMMENTERT UT
+inline void i_axon::doTask()
+{
+ 	cout<<"i_axon::doTask()\tLegger inn alle outputsynapser i arbeidskoe. Mdl. av auron: " <<pElementOfAuron->sNavn <<" - - - - - - - - - - - - - - - \n";
+
+	// For meir noeyaktig simulering av tid kan alle synaper faa verdi for 'time lag' foer fyring. No fokuserer eg heller paa effektivitet. 
+		//			TODO gjoer om x++ til ++x, siden ++x slepper aa lage en "temporary".
+ 	for( std::list<i_synapse*>::iterator iter = pUtSynapser.begin(); iter != pUtSynapser.end(); iter++ )
+	{ // Legger alle pUtSynapser inn i arbeidskoe: (FIFO-koe)
+		
+		//time_class::pWorkTaskQue.push_back( (*iter) );
+		// Legger til ut-synapser i time_class::arbeidskoe
+		time_class::addTaskIn_pWorkTaskQue( *iter );
+	}
+
+} //}1
+*/
+//{1 		* 	SANN
+inline void s_auron::doTask()
+{ //{ ** AURON
+
+	//Avblokkerer bBlockInput_refractionTime: Kanskje dette skal vaere her? (1ms refraction time..)
+	//pInputDendrite ->bBlockInput_refractionTime = false;
+
+
+
+
+	#if DEBUG_UTSKRIFTS_NIVAA > 0
+	cout<<"\tS S " <<sNavn <<" | S | " <<sNavn <<" | S | S | S | | " <<sNavn <<" | S | | " <<sNavn <<" | S | | " <<sNavn <<"| S | S | S | S |\t"
+		<<sNavn <<".doTask()\tFYRER neuron " <<sNavn <<".\t\t| S S | \t  | S |  \t  | S |\t\tS | " <<time_class::getTid() <<" |\n"
+		<<endl;
+	#endif
+
+	//Axon hillock: send aksjonspotensial 	-- innkapsling gir at a xon skal ta haand om all output. // bestiller at a xon skal fyre NESTE tidsiterasjon. Simulerer tidsdelay i a xonet.
+	time_class::addTaskIn_pWorkTaskQue( pOutputAxon );
+
+
+	if( ulTimestampForrigeFyring == time_class::getTid() )
+	{
+		#if DEBUG_UTSKRIFTS_NIVAA > 1
+		cout<<"\n\n************************\nFeil?\nTo fyringer paa en iterasjon? \nFeilmelding au#103 @ auron.h\n************************\n\n";
+		#endif
+		return;
+	}
+
+	// Registrerer fyringstid (for feisjekk (over) osv.) 
+	ulTimestampForrigeFyring = time_class::getTid();
+
+
+	//Resetter depol.verdi 
+	dAktivitetsVariabel = 0; 
+
+	writeAPtoLog();
+
+} //}
+inline void s_axon::doTask()
+{ //{ ** AXON
+
+DEBUG("s_axon::doTask() START");
+	// Avblokkerer dendritt. Opner den for meir input. Foreloepig er dette maaten 'refraction time' funker paa.. (etter 2 ms-dendrite og auron overfoering..)
+	//static_cast<s_dendrite*>(pElementOfAuron->pInputDendrite)->bBlockInput_refractionTime = false;
+	pElementOfAuron->pInputDendrite ->bBlockInput_refractionTime = false;
+
+	#if DEBUG_UTSKRIFTS_NIVAA > 3
+ 	cout<<"s_axon::doTask()\tLegger inn alle outputsynapser i arbeidskoe. Mdl. av auron: " <<pElementOfAuron->sNavn <<" - - - - - - - - - - - - - - - \n";
+	#endif
+
+	// Legger til alle utsynapser i pWorkTaskQue:
+		//			TODO gjoer om x++ til ++x, siden ++x slepper aa lage en "temporary".
+ 	for( std::list<s_synapse*>::iterator iter = pUtSynapser.begin(); iter != pUtSynapser.end(); iter++ )
+	{ // Legger alle pUtSynapser inn i time_class::pWorkTaskQue: (FIFO-koe)
+		time_class::addTaskIn_pWorkTaskQue( *iter );
+	}
+
+	 //Skriver til logg etter refraction-period.
+	 pElementOfAuron->writeDepolToLog();
+DEBUG("s_axon::doTask() SLUTT");
+
+} //}
+inline void s_synapse::doTask()
+{ //{2 ** SYNAPSE
+
+	#if DEBUG_UTSKRIFTS_NIVAA > 3
+	cout<<"Overfoering i s_synapse.\n";
+	#endif
+
+	// Dersom synapsen har inhibitorisk effekt: send inhibitorisk signal (subtraksjon). Ellers: eksiter postsyn. auron.
+	// Dendrite lagrer tidspunk for overfoering.
+	// Istedenfor sender inn pos. eller neg. signal avhengig av bInhibitoryEffect: [ 1-2*bInhibitoryEffect ]  Gir enten +1 dersom bInhibitoryEffect er false (=0) eller -1 om bInhibitoryEffect er true (=1).
+
+	// TODO TODO TODO TODO Foer dette legges inn i rapporten: Endre neste if-setning til
+	// (1- 2*bInhibitoryEffect) dSynapticWeight 
+ 	pPostNodeDendrite->newInputSignal( (1-2*bInhibitoryEffect) * 	( 1000 * dSynapticWeight )   );   //1/a = 250. Ganger dermed med 250 000.
+	/*
+	if( bInhibitoryEffect ){
+ 		pPostNodeDendrite->newInputSignal(  1000/ALPHA * dSynapticWeight );   //1/a = 250. Ganger dermed med 250 000.
+	}else{
+		pPostNodeDendrite->newInputSignal(  1000/ALPHA * dSynapticWeight );
+	}*/
+//( dendrite legges til i arbeidskoe dersom den kommer over fyringsterskel.) --Dette er feilaktig, men meir effektivt.
+		
+
+
+	// XXX Kalkulere syn.p.?
+
+
+
+	// Loggfoerer syn.weight
+	synTransmission_logFile 	<<"\t" <<time_class::getTid() <<"\t" <<(1-2*bInhibitoryEffect) * dSynapticWeight
+						<<" ;   \t#Synpaptic weight\n" ;
+	synTransmission_logFile.flush();
+
+	// Logg for aktivitetsVar for postsyn auron skjer i pPostNodeDendrite->newInputSignal(-);
+
+} //}2
+inline void s_dendrite::doTask()
+{ //{ DENDRITE
+	// Kva skal dendrite::doTask() gjoere? 
+	//cout<<pElementOfAuron->sNavn <<"->[dendrite]::doTask(). Postsyn. depol (" <<pElementOfAuron->sNavn <<") etter overfoering: " <<pElementOfAuron->nAktivitetsVariabel <<".\n";
+	time_class::addTaskIn_pWorkTaskQue( pElementOfAuron );
+} //}
+//}1            *       slutt SANN
+
+//{1 		* 	KANN
+
+
+inline void K_auron::doTask()
+{ //{ ** AURON
+
+	//{ Kommentert ut
+	// Feilsjekk! Sjekker om kappa har vore over Tau, siste 'time window'
+	#if 0
+	if( !bKappaLargerThanThreshold_lastIter )
+	{
+		#if DEBUG_UTSKRIFTS_NIVAA > 1
+		cout<<"ERROR \t ERROR \t ERROR \t ERROR \t Fyring mens K<T forrige time window: bKappaLargerThanThreshold_lastIter: false" <<endl;
+		#endif
+		return;
+	}
+	#endif
+	//}
+
+	#if DEBUG_UTSKRIFTS_NIVAA > 3
+	cout 	<<"K_auron::doTask():\n"
+			<<"\tdLastCalculatedPeriod :\t" <<dLastCalculatedPeriod <<endl
+			<<"\tdPeriodINVERSE :\t" <<dPeriodINVERSE <<endl;
+	#endif
+
+
+	//Utskrift til skjerm:
+	#if DEBUG_UTSKRIFTS_NIVAA > 0
+
+
+
+	cout<<"\tK K " <<sNavn <<" | K | " <<sNavn <<" | K | K | K | | " <<sNavn <<" | K | | " <<sNavn <<" | K | | " <<sNavn <<"| K | K | K | K |\t"
+		<<sNavn <<".doTask()\tFYRER neuron " <<sNavn <<".\t\t| K | |  [periode] = " <<dLastCalculatedPeriod/1000 <<"     | K | \tK | " <<time_class::getTid() <<" |\n"
+		<<"\t| | Kappa:" <<dAktivitetsVariabel <<"\tForrige periode:" <<dLastCalculatedPeriod <<"\tDepol foer fyring:" <<dDepolAtStartOfTimeWindow <<"\n"
+		<<endl;
+
+	#endif
+
+	//Axon hillock: send aksjonspotensial 	-- innkapsling gir at a xon skal ta haand om all output. // bestiller at a xon skal fyre NESTE tidsiterasjon. Simulerer tidsdelay i a xonet.
+	// TODO Dette kan gjoeres direkte, for aa slippe litt jobb: Dersom vi legger til 1 i fyringsestimatet, er ikkje axon-delay naudsynt.. TODO
+	time_class::addTaskIn_pWorkTaskQue( pOutputAxon );
+
+	// Setter v_0 til 0 og t_0 til [no]:
+	dDepolAtStartOfTimeWindow = 0;
+	ulStartOfTimewindow = time_class::getTid();
+
+		// Har testa litt, og det er definitivt best aa kjoere neste tre linjene, iforhold til aa kjoere doCalculation()!
+		//(doCalculation() varianten slutta aldri paa 40K tidssteg, neste-tre-linje varianten slutta etter 30 sekund paa 1000K tidsiterasjoner..
+		//
+		// Har testa det for nye varianten av tidsplanlegging (sjekke alle aurons ulEstimatedTaskTime_for_object)
+		// Naa er det det samme (1 000 000 iter, to ukobla auron(eit vanlig og eit sensor) : 28,155 sek  eller 29.286  for doCalculation() VS 		29.056 eller  28.828 	for neste 4 linjene
+
+	//Har funnet ut at neste fire linjene er mest effektivt, men bare litt. For eit auron, 300000 tidsiter gjorde det 29/15/12 istedenfor doCalculation() som gjorde 31/17/13
+	#if 0
+	//{
+		// Beregn ny isi-periode^{-1}. Brukes til aa beregne syn.overfoering seinare i signal-cascade.
+		dL astCalculatedPeriod = (- log((dAktivitetsVariabel - FYRINGSTERSKEL) / dAktivitetsVariabel) / ALPHA);
+		
+		double dPeriodInverse_temp =  (1/d LastCalculatedPeriod);
+ 		dChangeInPeriodINVERSE = dPeriodInverse_temp - dPeriodINVERSE ;
+		dPeriodINVERSE = dPeriodInverse_temp;
+	//}
+	#else
+		//Kjoer heller det over enn .doCalculations() ... Der er jo en del meir jobb.. (Krever sattans mykje meir arbeid!)
+		doCalculation();
+	#endif
+
+
+	// Oppdaterer ulEstimatedTaskTime_for_object til [no] + dLastCalculatedPeriod:
+	ulEstimatedTaskTime_for_object = time_class::getTid() + (unsigned long)dLastCalculatedPeriod;
+
+	// Logger AP (vertikal strek)
+	writeAPtoLog();
+	
+	
+} //}
+inline void K_axon::doTask()
+{ //{ ** AXON
+	#if DEBUG_UTSKRIFTS_NIVAA > 3
+ 	cout<<"K_axon::doTask()\tLegger inn alle outputsynapser i arbeidskoe. Mdl. av auron: " <<pElementOfAuron->sNavn <<" - - - - - - - - - - - - - - - \n";
+	#endif
+
+	// Refraction time: Setter depol til 0 igjen (dette er 
+	// FUNKER IKKJE: (blir bare problemer med jaevvla hoege verdier (type folde-shit (eller ka-det-ne-neiter) )
+	//Ok, no funker det men har ingen effekt. (fjaerna +1 paa ulStartOfTimewindow=tid +1;
+	//pElementOfAuron->dDepolAtStartOfTimeWindow = 0;
+	//pElementOfAuron->ulStartOfTimewindow = time_class::getTid() ;
+
+	// Overfoering:
+	doTransmission();
+
+	// Gjoeres i s_auron. Skal eg ogsaa gjoere det her (for aa poengtere refraction time)?
+	//pElementOfAuron->writeDepolToLog();
+
+} //}
+
+// Delte opp for aa kunne skille mellom aa propagere kappa, og aa fyre AP, for aa kunne ha refraction period.
+inline void K_axon::doTransmission()
+{
+	// Legg til alle utsynapser i pWorkTaskQue:
+		//			TODO gjoer om x++ til ++x, siden ++x slepper aa lage en "temporary".
+ 	for( std::list<K_synapse*>::iterator iter = pUtSynapser.begin(); iter != pUtSynapser.end(); iter++ )
+	{ // Legger alle pUtSynapser inn i time_class::pWorkTaskQue: (FIFO-koe)
+		time_class::addTaskIn_pWorkTaskQue( *iter );
+	}
+}
+
+inline void K_synapse::doTask()
+{ //{ ** SYNAPSE
+	// K_ij = w_ij / p(K_j) Differansen Delta K_ij blir sendt som argument til pPostNodeDendrite->newInputSignal( argument );
+	// 	denne er gitt som Delta K_ij = dt * w_ij / Delta p(K_j)
+
+	// Istedenfor sender inn pos. eller neg. signal avhengig av bInhibitoryEffect: [ 1-2*bInhibitoryEffect ]  Gir enten +1 dersom bInhibitoryEffect er false (=0) eller -1 om bInhibitoryEffect er true (=1).
+	pPostNodeDendrite->newInputSignal( (1-2*bInhibitoryEffect) * dSynapticWeight * (pPreNodeAxon->pElementOfAuron)->dChangeInPeriodINVERSE );
+
+	
+	// Funker nesten som en makro. Ta vekk:
+	double dPresynDeltaPeriodeINVERSE_temp =  (pPreNodeAxon->pElementOfAuron)->dChangeInPeriodINVERSE;
+	#if DEBUG_UTSKRIFTS_NIVAA > 2
+ 	cout<<"K_synapse::doTask()\tdSynapticWeight: " <<dSynapticWeight 
+		<<", preNode->dChangeInPeriodINVERSE: " <<dPresynDeltaPeriodeINVERSE_temp <<"\tOverfoering: "
+		<<(1-2*bInhibitoryEffect) * dSynapticWeight * dPresynDeltaPeriodeINVERSE_temp
+		<<endl;
+	#endif
+
+	synTransmission_logFile
+		<<time_class::getTid() <<"  \t"
+		<<(1-2*bInhibitoryEffect) * dSynapticWeight * dPresynDeltaPeriodeINVERSE_temp
+		<<" ; \n";
+	synTransmission_logFile.flush();
+} //}
+
+inline void K_dendrite::doTask()
+{ //{ XX DENDRITE (ikkje i bruk)
+	// TODO Trur ikkje denne skal vaere med lenger. Legger til brutal feilsjekk: exit(-1);
+	cout<<"\n\nBrutal feilsjekk @ K_dendrite::doTask() : exit(-1);\n\n";
+
+	exit(-1);
+} //}
+
+//}1            *       KANN slutt
+
+//{1 		* 	time_class
+
+void time_class::doTask()
+{ 	//{ 
+
+	// gjennomfoerer planlagte kalkulasjoner:
+	doCalculation();
+
+
+	//itererer time:
+	ulTime++;
+
+	// utskrift:
+	#if DOT_ENTER_UTSKRIFT_AV_TID
+	cout<<".";
+	if(ulTime % DOT_ENTER_UTSKRIFT_AV_TID == 0)
+		cout<<endl;
+	#endif
+
+	#if UTSKRIFT_AV_TID
+	if(ulTime % UTSKRIFT_AV_TID_KVAR_Nte_ITER  == 0)		
+		cout<<"\t* * * * TID: \t  =  " <<ulTime <<" * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * = "
+			<<ulTime <<"\n";
+	#endif
+
+
+	/*******************************
+	* Oppdater alle K_sensor_auron *
+	*******************************/
+	#if KANN
+	K_sensor_auron::updateAllSensorAurons();
+	#endif
+
+	/*******************************
+	* Oppdater alle K_sensor_auron *
+	*******************************/
+	#if SANN
+	s_sensor_auron::updateAllSensorAurons();
+	#endif
+
+	
+	/*************************************************
+	* Flytter planlagde oppgaver over i pWorkTaskQue *
+	*************************************************/
+	for( std::list<timeInterface*>::iterator pPE_iter = pPeriodicElements.begin() ; pPE_iter != pPeriodicElements.end() ; pPE_iter++ )
+	{
+		if( (*pPE_iter)->ulEstimatedTaskTime_for_object == ulTime+1 )
+		{
+			addTaskIn_pWorkTaskQue( (*pPE_iter) );
+			// Dette foerer til eit kall til eit tidsElements doTask(). Teller antall kall (til rapporten):
+			comparisonClass::ulNumberOfCallsTo_doTask ++;
+			#if DEBUG_UTSKRIFTS_NIVAA > 2
+			cout<<"Telte kall til " <<(*pPE_iter)->sClassName <<".doTask()\n";
+			#endif
+		}
+ 	}
+
+
+	/*XXXXXXXXXXXXXXX
+	X 	 TESTING 	X
+	XXXXXXXXXXXXXXXX*/
+	// Kaller testfunk for aa teste K_auron. 
+	K_auron::loggeFunk_K_auron();
+
+	// Bare debugging--utskrift:
+	timeClassTestFunk_som_kjoeres_kvar_tidsIter();
+	
+	// Legger til egenpeiker paa slutt av pNesteJobb_ArbeidsKoe
+	pWorkTaskQue.push_back(this);	
+}//}
+
+
+//}1
+
+
+
+
+\end{lstlisting}

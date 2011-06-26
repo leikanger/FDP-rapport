@@ -283,11 +283,53 @@ We can se that we are back at the initial condition of the example
 The number of tasks in each iteration of time is unimportant. 
 The role of $T$ as a ``time separation object'' is the fundamental mechanism in this time simulation.
 
-An other way to see this is as two alternating ques of tasks, where new tasks are always inserted at the inactive que. 
-When the active que is completed, time is iterated before we ``switch'' to the other task que.
-%Skrive kvifor det ikkje er implementert slik? --at T har andre roller også, og to-kø--løsning ... nei. Kvifor?
+%An other way to see this is as two alternating ques of tasks, where new tasks are always inserted at the inactive que. 
+%When the active que is completed, time is iterated before we ``switch'' to the other task que.
+% %Skrive kvifor det ikkje er implementert slik? --at T har andre roller også, og to-kø--løsning ... nei. Kvifor?
 
-% XXX Kanskje: skriv at en anna måte å sjå det på er å ha to altererende lister. Nye jobber blir lagt til i den andre lista enn den vi utfører ting fra no.
+
+
+\subsubsection{pCalculationTaskQue}
+\label{ssecCalcultaionTaskQue} %navnet er feil XXX gjør dette noke?
+Some times is better to wait to the end of the time iteration before some variable is calculated.  %TODO Skriv når, tematisk dette er bra: når effekten først opptrer neste time iteration..
+An example is recalculation of the effect of the updated $\kappa$ as a consequence of synaptic transmission. 
+Change of $\kappa$ is summed up during of one time iteration, and the result only needs to be calculated before the next time iteration.
+
+For such mechanisms the concept of \emph{pCalculationTaskQue} was devised.
+As the end of the time iteration is defined by the execution of \emph{time\_class::doTask()}, all elements in the list can be defined to be executed before time is iterated.
+
+Several options for \emph{pCalculationTaskQue} has been considered.
+The choice became to make list of calculation tasks a linked list, due to the ease of insertion of new elements.
+Because every element only needs to be calculated once, a reorganization of the list that asserts uniqueness of each element was implemented.
+
+\begin{lstlisting}
+std::list<timeInterface*> time_class::pCalculationTaskQue;
+\end{lstlisting}
+
+Just as the inherited pure virtual function \emph{doTask()}, the function \emph{doCalculation()} is inherited to derived classes of \emph{class timeInterface}.
+Before time is iterated in \emph{time\_class::doTask()}, \emph{time\_class::doCalculation()} is executed.
+In \emph{time\_class} the function has the role of reorgazating the \emph{pCalculationTaskQue} list before calling the function \emph{doCalculation()} for all remaining entries of the list.
+%After the reorganization this implies that every element is only calculated once.
+
+%These mechanisms means that for every time some nodes $\kappa$ is updated, a [\emph{this}] pointer can be added to pCalculationTaskQue without fear of duplicate entries. 
+The mechanisms discussed gives that every time an action that requires calculation at the end of the time iteration is executed, a [\emph{this}] pointer can be added to pCalculationTaskQue without fear of duplicate entries. 
+%a pointer to the element is inserted into \emph{pCalculationTaskQue}.
+At the end of the current time iteration, \emph{time\_class::doCalculation()} will perform the calculations required by the elements listed in \emph{pCalculationTaskQue}.    % (once for each entry).
+What is calculated varies between the different element of the node, defined in the element's \emph{doCalculation()} function.
+Due to the reorganization or the list before the elements' \emph{doCalculation()} function is executed, the calculation for each element is only executed once.
+
+%The uniqueness of each element is manually coded in \emph{time\_element::calculateTask()}.
+%If we define \emph{std::list$<$timeInterface*$>$ pCalculationTaskQue} and let time\_class::doCalculation() be responcible for the uniqueness of every element and to perform the calculatons listed in pCalculationTaskQue, 
+%	the calculaton of every node with an updated $\kappa$ will only be done once for each time iteration.
+
+
+
+
+
+
+
+
+
 \newpage
 
 %\begin{lstlisting}
@@ -408,8 +450,8 @@ When the active que is completed, time is iterated before we ``switch'' to the o
 %			and to the object after it in the information flow (the auron it is a part of). To do this 
 		
 
-% TODO Vurder å fjærne heile subsubsection:
 %HOLDER faen med kanskje med setning nr. 3 i neste avsnitt..
+% //{
 %		\subsubsection{Temporal accuracy}
 %		\label{sssecTemporalAccuracy}
 %		The object design in combination with elements introduced in subsection \ref{ssecTime} give a framework that can easily be adjusted to different uses of the simulation. 
@@ -442,6 +484,7 @@ When the active que is completed, time is iterated before we ``switch'' to the o
 %Beste er kanskje å nevne det her, med frampeik til f.eks. "The two ANN models"
 
 %TODO KANSKJE HER? Skriv at dersom vi velger timestep til størrelsen av en refraction time (referer til ssecValueOfAlpha) så vil det (statistisk sett) bli rett å vente utsette vidaresending av aktivitet: ett timeStep.
+% //}
 
 
 
@@ -504,92 +547,164 @@ When the active que is completed, time is iterated before we ``switch'' to the o
 % //}
 
 
-	\subsubsection{The object design}
-%	%Also implementation specific reasons exist. XXX SKRIV DETTE FØRST
-%	This design introduces a some new challanges for the implementation. 
-%	If each \emph{soma} has one pointer to a dendrite object and an axon object (located in the free store), destruction of one of these objects (e.g. the axon) will need to signal the \emph{soma}. 
-%	The \emph{soma} is then responsible to take action to avoid memory exhaustion and undefined behavior following calls to the deleted object. %få med at det er peiker-kall, og obj. er sletta
-%	For this reasons, the pointers between the sub--elements of the auron will be bidirectional. 
-%
-%	This structure introduces a new problem, the possibility of access and polution of the general design. 
-%	If the pointers \emph{pOutputAxon} and \emph{pInputDendrite} are protected, the encapsulation protocol of C++ will fix the problem, but now the variables are only accessable to the object or friends of the object.
-%	The associated \emph{axon} and \emph{dendrite} objects are generated in the \emph{soma::soma()} constructor, and can only be altered from an other class that is part of the auron class--cluster. %XXX skriv annaleis: auron class-cluster.
-%																															%Skriv utbrodert om kva friend er, og at alle classene i auron-gruppa er venner => "auron class-cluster".
-%
-%	For encapsulation within this new auron--structure, consisting of soma, axon, dendrite and synapse, we define these classes as \emph{friend} of eachother. 
-%	Only classes that are member of this cluster will then be able to access and write to \emph{protected} variables.
-%	%\emph{class axon;} and \emph{class dendrite;} will then need to be defined as a friend of \emph{class soma;}. In the constructor 
+	\subsection{The Object Design -- Differentiating by Inheritance} % Det er elementa i nodene i Models som er blir designet. Kanskje dette skal inn? XXX
+%	\subsection{The Object Design -- Designing the two Models by Inheritance} % Det er elementa i nodene i Models som er blir designet. Kanskje dette skal inn? XXX
+	%TODO Finne bedre ord enn "aim".
+%	As the aim of this project is to develop and compare a new model ANN, with the existing model that takes into consideration the firing time of each node.
+%	%In sec. \ref{secMatematiskModelleringAvBioNeuron} the mathematical background of the new model 
+%	An important focus has therefore been to design the implementations so that the similarities and differences between the two models become clear.
+
+	For comparing the two ANN models, one implementation of each model is designed and implemented. 
+	Because the aim of this project is to develop and compare the two models, an important focus has been to design the implementations so that the similarities and differences between the two models become clear.
+	For the best result, it is also important that the implementations have a balance between being as simular as possible and optimalizing each implementation. % .. og ikkje bli kunstig lik den andre.xxx
+
+	The new model will be named $\kappa$ANN, referring to the constant $\kappa$ in eq. \eqref{eqVerdiligninga}. The old model is often referred to as SANN.
+	Initially, the two models were thorough to be so similar that each node element could be implemented as two variants of the same class.
+	To accomplish this, a scheme based on pointer functions and common variables was devised.
+
+	% Skriv om: XXX XXX 
+	This soon proved to be a misleading assumption, and the necessary changes between a SANN Node (SN) and a $\kappa$ANN Node ($\kappa$N) became so large that the design became overly complex.
+	A new design based on inheritance was devised.
+% 	%
+	In this design, a common abstract class \emph{i\_[element]} contained all the similarities between the corresponding SN element and $\kappa$N element.
+	As this was inherited to both the SN and the $\kappa$N, the common aspects of the two variants of the model--specific elements was implemented only once.
+
+	The separable design and implementation of each model--specific node element gave a clear view of the similarities and differences between the two models.
+	All aspects that were common to the two models was implemented in the common abstract class, and the differences were implemented in model--specific derived classes.
+	The differece in design for the two model thus became prominent.
+
+% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+% Lag UML-diagram, og skriv at det over kan bli sett i denne fig.
 
 	
+	When a common interface class is defined for all elements with the same function, a pointer to this element could be used for accessing the SN or the $\kappa$N element.
+	For example the list \emph{pAllAurons} exploit this fact, as it contains elements of both the SANN model--specific \emph{s\_auron} and the $\kappa$ANN model--specific \emph{K\_auron} auron element.
+	%Skriv kanskje litt meir. (eller kansje ta vekk..)
+
+
+	%Skriv om encapsulation og friend.
+	% - beskriv "meta-klassen" node. Encapsulation inni metaklassen..
+
+% TODO  Passer ikkje heilt inn. Fiks slik at det gjør det..
+% XX 	  - Kanskje begynne med det som står nederst, så gå vidare til det øvste?
+% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+% 	DETTE ER viktig for teksten vidare. Brukes allerede i første setning i neste subsubsection..
+	Let us define the auron as the master element, containing axon and dendrite. 
+	The axon and dendrite contains synapses, but also has a pounter to the auron it belongs to. The synapse has a pointer to the presynaptic and to the postsynaptic node.
+% 	%
+	We can therefore say that each element is connected to the next and the previous element in the signal path.
+
+
+
+
+
+	\subsubsection{Construction of node elements} 
+	Because each element is connected to the next and the previous element in the signal path, a pointer to the ``containing'' element have to be supplied when constructing the element.
+	If the node construction begins at the ``master element'', the auron.
+	At the construction of the auron, the dendrite and axon elements of the node is constructed.
+	As these elements have a pointer to the master element of the node, a [this] pointer has to be supplied by the auron at the time of construction. %Skriv om slutten.
+
+	The synapse is different. 
+	The synapse allways contains a presynaptic and a postsynaptic node but does not belong to either of them.
+	As this is defined at the time of construction of the synapse, the constructor takes the pre-- and post-- synaptic auron as an argument. 
+	In the constructor, the auron is translated intro the axon for the presynaptic node or the dendrite for the postsynaptic node.
+	The construction of a synapse also inserts the synapse into the presynaptic axon's \emph{pUtSynapser} and the postsynaptic dendrite's \emph{pInnSynapser}. %skriv litt til om dette => kva det innebærer.
 	
-	\subsubsection{Oppbygging av to typer ANN-noder vha arv}
-	Skriv om korleis arv for auron-element gir de to ulike ANN-node--typene. \emph{i\_auron arver til s\_auron og K\_auron} osv.
+	Because the connections are handled by the elements themselves, for example a new synapse can be constructed in the free store. 
+	The constructor of the synapse handles the insertion of a pointer to the element in the presynaptic axon's output list and the postsynaptic dendrite's input list.
+	A user of the implementation therefore does not have to worry about pointers or construction and destruction of elements.
 
-	---Ja, kanskje skrive enda meir om dette, evt fjærne dette subsubsection..
-	
-
-
-
-	\subsubsection{Construction of auron elements} %TODO SKAL DENNE subsubsection være her? Plasserte den bare her siste minutt før eg drar å buldrer..XXX
-	%XXX XXX XXX XXX 
-	%VÆR SIKKER PÅ AT SUBSUBSECTION SKAL STÅ HER / at teksten under gjenspeiler overskrifta.. XXX
-	In the construction of a new sub--element, a pointer to the previous element will have to be supplied. 
-	The constructors of each class are therefore defined with a pointer to the previous element in the signal path. E.g. the constructor for an axon will make a pointer to the associated soma. 
-	When \emph{axon::axon(soma* pSoma)} is called, the soma--pointer will be assigned to the aurons constant \emph{axon::pElementOfAuron} pointer.
-	A pointer to the axon is also assigned to the aurons \emph{soma::pOutputAxon} pointer by generating the axon in the free memory and saving its pointer.
-	Because \emph{axon::pElementOfAuron} is a constant, it can not be altered. For \emph{soma::pOutputAxon} and \emph{soma::pInputDendrite} however, poiners can be changed, but only from other objects inside the auron--cluster.
-%	We can say that we have a wider form of encapsulation (encapsulation to the objects of the auron--cluster).
-
-%	The same applies to \emph{pInputDendrite}.
+	When a new node is to be made, this is done by creating a new auron element.
+	This will assign the member variables \emph{dendrite* pInputDendrite} and \emph{axon* pOutputAxon} with a pointer to these elements, created in the free store.
+%	When \emph{axon::axon(soma* pSoma)} is called, the soma--pointer will be assigned to the aurons constant \emph{axon::pElementOfAuron} pointer.
+%	A pointer to the axon is also assigned to the aurons \emph{soma::pOutputAxon} pointer by generating the axon in the free memory and saving its pointer.
+%	Because \emph{axon::pElementOfAuron} is a constant, it can not be altered. For \emph{soma::pOutputAxon} and \emph{soma::pInputDendrite} however, poiners can be changed, but only from other objects inside the auron--cluster.
+% %	We can say that we have a wider form of encapsulation (encapsulation to the objects of the auron--cluster).
 
 \begin{lstlisting}
- auron::auron() : tidInterface("auron")
- {
-   pOutputAxon = new axon(this);         
-   pInputDendrite = new dendrite(this);
- }
+auron::auron() : tidInterface("auron")
+{
+  pOutputAxon = new axon(this);         
+  pInputDendrite = new dendrite(this);
+}
 \end{lstlisting}
 
-	The synapse however is different, because of the multitude of synapses associated with each auron. 
-	\begin{equation} \nonumber
-		\begin{split}
-			\text{\small{synapse::synapse(}} &\text{\small{auron* pPresynAuron, auron* pPostsynAuron,}} \qquad \qquad\\
-													&\text{\small{const bool bInhibEffectArg =false, float fWeight =1);}}
-		\end{split} %feiltolking. Dette er rett
-	\end{equation} %feiltolking. Dette er rett
-			
+	The example uses a class named ``auron'', and is only an example of a constructor. %TODO TODO Skriv om. Dårlig skrevet.
+	In the implementation the auron elements are either called \emph{i\_auron}, \emph{s\_auron} or \emph{K\_auron}.
+	The same goes for the other element names in the above example.
+
+% 	The synapse is in a special position. The synapse contains a presynaptic element and a postsynaptic element, but each of these elements contain a multitude of synapses.
+%
 %\begin{lstlisting}
-%synapse::synapse(auron* pPresynAuron, auron* pPostsynAuron, const bool bInhibEffectArg =false, float fWeight =1);
+%synapse::synapse( 	auron* pPresynAuron, 
+%					auron* pPostsynAuron, 
+%					const bool bInhibitoryEffect, 
+%					floating dWeight );
 %\end{lstlisting}
-	The constructor for \emph{class synapse} takes pointers to the presynaptic auron and the postsynaptic auron as arguments, and assign the synapse to the right sub--element of the two aurons. 
-	The last two arguments have a default value, and \emph{const bool bInhibEffect} will be generated as a constant with the value sendt in or the default value (\emph{false}). This defines the synapse as an exitatory synapse. 
-	The synaptic weight will be initialized to \emph{fWeight}. Due to learning \emph{fWeight} cannot be a constant.
+%			
+%	The constructor for \emph{class synapse} takes pointers to the presynaptic auron and the postsynaptic auron as arguments, and assign the synapse to the right sub--element of the two aurons. 
+%	The last two arguments have a default value, and \emph{const bool bInhibEffect} will be generated as a constant with the value sendt in or the default value (\emph{false}). This defines the synapse as an exitatory synapse. 
+%	The synaptic weight will be initialized to \emph{fWeight}. Due to learning \emph{fWeight} cannot be a constant.
 
 
 
 	\subsubsection{Destruction of auron elements}
-	Destruction of one object causes the every pointer to it to be invalid. 
-	Both to avoid undefined behaivor following calls to deleted objects and avoid memory leakage, well defined destructors are neccesary for the classes involved in the auron--cluster class.
-	%Because of the object model of the auron simulator, destruction of an object therefore should be responsible to remove every pointer to it.
+	When an object is destructed, dereferencing a pointer to it gives undefined behavior.  % XXX Dårlig skrevet.
+	%In addition to freeing the memory used for the elemen's variables, all pointers to it must therefore be removed.
+	The destructor therefore have to remove all incoming connections to the element as well as freeing the memory allocated by the element.
+	%Because of the complex object model used in this design, the destruction of elements is not trivial.
+	With the complexity of the object design used in this project, destruction of the elements needs a little attention.
 
-	For destruction, it is best to start with the elements containing only two pointers, one to the pre--element and one to the elements post--element, where destruction does not cause further destruction; the synapse.
-	When \emph{synapse::$\sim$synapse()} is called, the pointer to the synapse is removed from the presynaptic axons \emph{pUtSynapser} list and the postsynaptic dendrites \emph{pInnSynapser} list. 
-	Both containt only pointers so an infinite recursive destructive loop is avoided. %Skriv noke anna enn "is avoided".
+% FAEN så ukonkret! Gjør diskurs konkret! Dette er lettere å skrive OG lese! XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX 
 
-	%kanskje skrive "listed in \emph{std::list<synapse*> pUtSynapseri} ..." ? :
-	When the dendrites or the axons destructor is called, every synapse--element associated with it (listed in the \emph{pInnSynapser} list for dendrite and \emph{pUtSynapser} list for axons) is deleted. 
-	Removal of an element of std::list<?> usually calls the elements destructor. Since the list only contains pointers, the destructor must be explicitly called by calling the delete operator on the dereferenced pointer (object).
-	%TODO skriv slutt av forrige setn. bedre. : on the dereferenced pointer, eller value of the pointer, eller ?
+	When destructing a node, it is best to start with the ``master element'' of the node.
+	The auron only contains two pointers, one for the previous element and one for the next element in the signal path.
+	As both these elements only contain one auron pointer, this is easy to remove.
+	We will consentrate on the next element, the axon
+	After the axon along the signal path, lies all the output synapses of the node.
+	As we have multiple output synapses, and the postsynaptic element can have a multitude of input connections, the synapse requires a little more attention.
+
+	As a synapse (a connection between two nodes) can not exist without both nodes, the synapse will be destructed if the previous or next element is destructed.
+	When the axon's or the dendrite's destructor is called, the destructor is therefore called for every synapse element associated with it (listed in the \emph{pInnSynapser} list for the dendrite and \emph{pUtSynapser} list for axons).
+	The destruction of a synapse will remove the pointer to it from the presynaptic axon and the postsynaptic dendrite.
+%	The dendrite and axon elements contain a multitude of synapses. 
+%	Destruction of the dendrite therefore need to call the destructor for each of its input synapses.
+%
+	%When the dendrites or the axons destructor is called, the destructor is called for every synapse element associated with it (listed in the \emph{pInnSynapser} list for dendrite and \emph{pUtSynapser} list for axons).
 
 \begin{lstlisting}
   while( !pUtSynapser.empty() )
-  	delete( (*pUtSynapser.begin() );
+  	delete( pUtSynapser.first() );
 \end{lstlisting}
+	%The synapse is pointed to by the dendrite and the axon. 
+	%These elements contain a multitude of synapses	For example the dendrite contains a multitude of 
 
-	An auron only contains one dendrite pointer and one axon pointer, so destruction of an axon can will call destruction of these two elements.
-	Destruction of this axon will induce destruction of every synapse element connected to the axon. This will remove all postsynaptic pointers to this synapse, and every synapse pointer at the postsynaptic dendrite is still valid.
-	The same goes for destruction of the aurons dendrite.
-	
+	Removal of an element from a list of type \emph{std::list$<$T$>$} calls the destructor of $T$.
+	As the list \emph{pUtSynapser} contains pointers, and the destruction of the ponter does not call the destruction of the object, we need explicitly call the deallocated pointer's destructor.
+	%
+	The destruction of the object can be called by using the \emph{delete} operator on the dereferenced pointer (returned by \emph{pUtSynapser.first()} ).
+	In the above example we explicitly delete the synapse. %, but does not touch the list itself.
+	The destruction for each of the synapses in the \emph{pUtSynapser} list is therefore called.
+	As the destructor for the synapse removes the presynaptic and postsynaptic elements pointer to it, we do not have to worry about \emph{pOutputSynapser} in the destruction of the axon.
+	%This further removes the pointer from the axon's pUtSynapser list. 
+	The loop will continue untill the list \emph{pUtSynapser} is empty.
+
+	%TODO skriv slutt av forrige setn. bedre. : on the dereferenced pointer, eller value of the pointer, eller ?
+
+	In some of the elements we have a log used to log variables of interest.
+	This log is implemented as a file stream that will write an \emph{octave} executable script.
+	%This log is written as an \emph{octave} executable script.
+	When each element is destructed, we therefore have to finalize the \emph{octave} log file, and close the file stream used for writing to the log. 
+	%This is also done in the destructor of the elements with a log. 
+	The logging of variables that is of used for a comparison between the two models is introduced in sec. \ref{ssecLogForComparison}.
+	%For more about logging variables that will be used to compare the two models, 
+	%As the log is written as an \emph{octave} script, the script also needs to be finished before the file stream is closed. 
+
+
+%	Destruction of one object causes the every pointer to it to be invalid. 
+%	Both to avoid undefined behaivor following calls to deleted objects and avoid memory leakage, well defined destructors are neccesary for the classes involved in the auron--cluster class.
+%	%Because of the object model of the auron simulator, destruction of an object therefore should be responsible to remove every pointer to it.
+
 
 
 % Bedre å accessere tidligere elements mdl.variabler enn å sende som argument. Skriv om dette.
@@ -598,277 +713,250 @@ When the active que is completed, time is iterated before we ``switch'' to the o
 	
 
 
-	\subsection{Forberede implementasjon for å sammenlikne The two ANN models}
+%	\subsection{Forberede implementasjon for å sammenlikne The two ANN models}
+% //{
+%
+%	For comparing the two ANN models, one implementation of each model is created. 
+%	For the best result, it is important that the implementations have a balance between being as simular as possible and optimalizing each implementation.
+%	%Meir om sammenligningsmetoder (kva som sammenlignes..) seinare.
+%
+%	The framework described so far in this section will be the general framework for both implementations, both in respect to time (sec. \ref{ssecTime}) and to the object model (sec. \ref{ssecTheGeneralDesign}).
+%	Other operations, funcion design and at least the object design should do an equal amount of work or use an equal amount of time, depending on what is compared. %SKRIV "MEIR OM SAMMENLIGNING SEINARE"?
+%
+%	Each element of the auron should also have many similarities. The propagation of the signal from the auron, through the axon and all the output synapses, to the postsynaptic dendrites, etc. will be the same for the two models.
+%	The difference lies in what propagates through the graph, and how the activity level of each node is calculated. 
+%	
+%	The object model will be the object model described earlier (se sec. \ref{ssecTheGeneralDesign}), but each node element (dendrite, axon, synapse, auron) will have the design %inheritance design ?
+%		described in fig.? %TODO TODO Lag denne figuren. UML om klassene for auron--element. (generelt, eller dendrite)
+%	Each of the elements of the auron will have one abstract class that derives to the model--specific classes of the auron. 
+%	The abstract class will be denoted i\_[element], and the model--specific classes will be called s\_[element] for the SANN--node, and $\kappa$\_[element] for the $\kappa$ANN--node, 
+%		where [element] is any of the auron sub--element (dendrite, axon, ...).
+%
+%	In the rest of this section I will focus on the mechanisms of the dendrite. This is an important element of the auron, and has many differences for SANN--nodes vs. $\kappa$ANN--nodes. 
+%	It is important to stress that this is but an exaple, and that the %Skriv heller "simular ? goes for .." enn "the same goes for .."
+%		same goes for the other elements of the artificial neuron.
+% //}
 
-	For comparing the two ANN models, one implementation of each model is created. 
-	For the best result, it is important that the implementations have a balance between being as simular as possible and optimalizing each implementation.
-	%Meir om sammenligningsmetoder (kva som sammenlignes..) seinare.
 
-	The framework described so far in this section will be the general framework for both implementations, both in respect to time (sec. \ref{ssecTime}) and to the object model (sec. \ref{ssecTheGeneralDesign}).
-	Other operations, funcion design and at least the object design should do an equal amount of work or use an equal amount of time, depending on what is compared. %SKRIV "MEIR OM SAMMENLIGNING SEINARE"?
 
-	Each element of the auron should also have many similarities. The propagation of the signal from the auron, through the axon and all the output synapses, to the postsynaptic dendrites, etc. will be the same for the two models.
-	The difference lies in what propagates through the graph, and how the activity level of each node is calculated. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% Gammel. Gjennomgang av kva dendrite gjør for i_dendrite og s_dendrite TODO Dette er gull for diskurs..
+%	\subsection{An Example -- Dendrite}
+% //{
+%	% TODO Ta vekk heile driten ? Nok tekst.. Sjå gjennom teksten i_dendrite, og les gjennom s_dendrite ogsjå om det er noko stennande der..
+%
+%	\subsubsection{The abstract \emph{i\_dendrite} class}
+% //{
+%	Each dendrite class ( s\_dendrite and $\kappa$\_dendrite ) is derived from the abstract i\_dendrite class.
+%	This class is a abstract class, and is thus not possible to make an instance of. 
+%	%The class is however inherited to the model--specific classes s\_dendrite and $\kappa$\_dendrite.
+%	The variables and functions that are general for the model--specific classes are be placed in the abstract interface class. 
+%
+%	Both model--specific dendrite classes will have a [next element] pointer, \emph{pElementAvAuron} and a list of [previous element] pointers. % , the incoming synapses. 
+%	For the dendrite the previous elements will be placed in a list of all the input synapses.
+%
+%	These elements will be pointers to the previous and the next elements in the signal path, and should be pointers to object of the right class. 
+%	For SANN dendrites, the \emph{pElementAvAuron} will be a pointer to an s\_auron and for $\kappa$\_ANN nodes it will be a pointer to an $\kappa$\_auron. 
+%	To achieve this for the abstract i\_dendrite class, the variables will be of type \emph{i\_[element]*}. %, in the case of i\_dendrite's pElementAvAuron that is a pointer to an object of class i\_xaxon.
+%
+%	For the model--specific node element, e.g. s\_dendrite, the pointer should point to a SANN element, s\_dendrite. In C++ it is possible to save pointers to derived classes in a pointer variable to the ancestor class.
+%	This means that a pointer to an s\_auron is possible to save to an i\_auron* variable.
+%
+%	The best way to implement this is to have the constructor of the model--specific class assign the pointer to the next element in the signal paht. 
+%	For s\_dendrite this means that the \emph{s\_dendrite::s\_dendrite()} will assign a pointer to an s\_auron object to pElementAvAuron.
+%
+%	The s\_dendrite constructors take an auron pointer as an argument. 
+%	Because the s\_dendrite is constructed from the constructor of the auron element, the s\_dendrite contructor is designed to be called with a \emph{[this]} pointer from the aurons constructor.
+%
+%	The abstract class has all the functions and variables that are general for all the derived classes. 
+%	The most important of these functions is for both dendrite classes, the \emph{virtual void doTask()}, \emph{virtual void newInputSignal( double )}.
+%	%The functions for the dendrite class are \emph{virtual void doTask()}, \emph{virtual void newInputSignal( int )} and \emph{virtual void axonTilbakemelding()}. 
+%	All of these are defined as pure virtual classes in i\_dendrite.
+%
+%\begin{lstlisting}
+%  virtual inline void doTask() =0;
+%\end{lstlisting}
+%
+%	The dendrite's \emph{newInputSignal(double)} is called from the synapse in the case of signal transmission. 
+%	For the two model specific dendrite elements, the mechanism of synaptic transmission differ.
+%	Separate functions therefore have to be defined by the derived elements.
+%	The same goes for the other mentioned functions, and because they are defined as pure virtual functions they have to be defined in the derived classes before an instance of that class can be created.
+%
+%	In addition, the \emph{i\_dendrite} has two variables; The pointer to the previous and the next element in the signal path.
+% //}
+%
+%	\subsubsection{The Model Specific \emph{s\_dendrite} Class}
+% //{
+%	\emph{s\_dendrite::newInputSignal( int )} is called from the input synapse in the case of transission. 
+%	To aproximate the synaptic delay, \emph{s\_dendrite::newInputSignal( int )} is called directly from the synapse at the time of transmission.
+%	If the postsynaptic node is exited above firing threshold, the dendrite is added to the back of the working que by the command \emph{time\_class::leggTilTask( this )}. 
+%	This will induce the actions of a dendrite after one time iteration.
+%	%for å simulere litt tids--delay også i dendrite. Skriv at synapse--klassa bruker litt tid og dendrite--klassa bruker litt tid. For nøyaktigheten til pragmatisk ANN er dette bra nok (skriv at det er vanskelig å vite kva kva skal være)
+%
+%	%Skriv om kappa--dendrite også her?
+%
+%	For the s\_dendrites newInputSignal(int) the work done is a simulation of a leaky integration of the input. 
+%	The simulation of the leakage is implemented as an exponential function, $l^n$ where $l$ is the leakage factor at each time iteration and $n$ is the number of time steps between [now] and the last time the value changed (after input).
+%	For SANN nodes, the time of input therefore needs to be saved for the use of calculating the leakage. An alternative approach, used by many neural simulator tools, is to calculate the leakage for each node at each iteration.
 	
-	The object model will be the object model described earlier (se sec. \ref{ssecTheGeneralDesign}), but each node element (dendrite, axon, synapse, auron) will have the design %inheritance design ?
-		described in fig.? %TODO TODO Lag denne figuren. UML om klassene for auron--element. (generelt, eller dendrite)
-	Each of the elements of the auron will have one abstract class that derives to the model--specific classes of the auron. 
-	The abstract class will be denoted i\_[element], and the model--specific classes will be called s\_[element] for the SANN--node, and $\kappa$\_[element] for the $\kappa$ANN--node, 
-		where [element] is any of the auron sub--element (dendrite, axon, ...).
-
-	In the rest of this section I will focus on the mechanisms of the dendrite. This is an important element of the auron, and has many differences for SANN--nodes vs. $\kappa$ANN--nodes. 
-	It is important to stress that this is but an exaple, and that the %Skriv heller "simular ? goes for .." enn "the same goes for .."
-		same goes for the other elements of the artificial neuron.
-
-	\subsubsection{The abstract i\_dendrite class}
-	Each dendrite class ( s\_dendrite and $\kappa$\_dendrite ) is derived from the abstract i\_dendrite class.
-	This class is a abstract class, and is thus not possible to make an instance of. The class is however inherited to the model--specific classes s\_dendrite and $\kappa$\_dendrite.
-
-	For this reason, the variables and functions that are general for the model--specific classes should be placed here. 
-	Both of the model--specific dendrite classes will have a [next element] pointer, \emph{pElementAvAuron} and a [previous element] pointer. For the dendrite the previous element will be an array of all the input synapses.
-
-	These elements will be pointers to the previous and the next elements in the signal path, and should be pointers to object of the right class. 
-	For SANN dendrites, the \emph{pElementAvAuron} will be a pointer to an s\_auron and for $\kappa$\_ANN nodes it will be a pointer to an $\kappa$\_auron. 
-	To achieve this for the abstract i\_dendrite class, the variables will be of type \emph{i\_[element]*}. %, in the case of i\_dendrite's pElementAvAuron that is a pointer to an object of class i\_xaxon.
-
-	For the model--specific node element, e.g. s\_dendrite, the pointer should point to a SANN element, s\_dendrite. In C++ it is possible to save pointers to derived classes in a pointer variable to the ancestor class.
-	This means that a pointer to an s\_auron is possible to save to an i\_auron* variable.
-
-	The best way to implement this is to have the constructor of the model--specific class assign the pointer to the next element in the signal paht. 
-	For s\_dendrite this means that the \emph{s\_dendrite::s\_dendrite()} will assign a pointer to an s\_auron object to pElementAvAuron.
-
-	The s\_dendrite constructor take an auron pointer as an argument. 
-	Because the s\_dendrite is constructed only from the constructor of the auron element, the s\_dendrite contructor is called with a \emph{[this]} pointer from the aurons constructor.
-
-	The abstract class should have all the functions and variables that are general for all the derived classes. 
-	The functions for the dendrite class are \emph{virtual void doTask()}, \emph{virtual void newInputSignal( int )} and \emph{virtual void axonTilbakemelding()}. 
-	All of these are defined as pure virtual classes in i\_dendrite.
+	% HER ER KJEMPEVIKTIG POENG for sammenligninga.. XXX XXX :
+%	The calculation of the leakage is implemented in \emph{s\_dendrite::calculateLeakage()}. This is one function that only is present in the SANN variant of the nodes. 
+%	Because the pointers to the elements are pointers of to the abstract ancestor class (located at the other nodes with direct contact with the node), calls to the model--specific functions and variables will give errors at compilation.
+%%neuroElements/neuroElement.cpp:443:21: error: ‘class i\_dendrite’ has no member named ‘calculateLeakage’
+%	\newline \emph{error: 'class i\_dendrite' has no memeber named 'calculateLeakage'}
+%
+%	One way to avoid this error is explicit type convertion (often called `casting') from \emph{i\_dendrite} to \emph{s\_dendrite} for calls to model specific functions.
+%	Casting will work wery well, if every call to model--specific functions and variables is from other node elements from the same model.
+%	Stroutrups advice is to avoid explicit type convertion\cite{Stroustrup2000KAP6}. 
+%	
+%	An alternative approach will be to access the function and variables of the model--specific classes only internally in the class. 
+%	External calls should only be made to functions declared in the abstract ancestor class \emph{i\_dendrite}.
+%
+%	In this implementation, we have a special situation. We have a sort of a ``meta--class'' for each node. Each node is comprised of four sub--classes; Axon, Auron, Dendrite and Synapses. 
+%	Three of these classes can be seen as internal to the node, while the synapse could be said to be a connector between two nodes.
+%
+%	To access the model--specific functions and variables internally in the node, inherited from the i\_[element] demands casting of the pointer (from i\_auron to s\_auron og K\_auron). 
+%	An alternative approach is to overwrite the pointer to the next and previous element in the signal path with a pointer to a model specific element.
+%	This will best be described by an example:
+%
+%	For the s\_auron class, we have one inherited pointer to the previous element and one inherited pointer to the next element in the signal path.
+%	The pointer inherited from i\_auron pointing at the next element in the signal path, the \emph{i\_dendrite* pInputDendrite}, is overloaded to a pointer to a modelspecific \emph{s\_dendrite} class in s\_auron.
+%	When calls are made to \emph{s\_auron.pInputDendrite}, every function and variable available in \emph{s\_dendrite} will be accessable.
+%	This gives us the oppurtunity to access the model specific functions and varibles in the aurons dendrite whithout defying stroustrup's advice.
+%
+%	At the same time, we still have the oppurtunity to access the pInputDendrite from a pointer to i\_auron, which is the pointers used in the different containers (e.g. the \emph{static i\_auron::pAllAurons}).
+%	
+%	As previously mentioned, the synapse is somewhat different. 
+%	The synapse is between the presynaptic and the postsynaptic node, and can not be said to belong to either of these. 
+%	Intuitively the synapse should not belong to the presynaptic or the postsynaptic node, but for implementation specific reasons this is done.
+%	%Skriv om at dersom ... Vettafaen kvifor det er slik. Eg bør enten gjøre om kode, tilbake til å ikkje ha modellspesifikke peikere i synapse, evt. ikkje nevne forskjellen mellom andre element og synapse, her i rapporten! XXX
+%
+%
+%%TODO HER HER EHR HER HER HER TODO Gjør det over! Godnatt.
+%
+%
+%
+%	% TODO DÅRLIG SKREVET. SKRIV OM :
+%	Functions that is localized only in one of the model--specific classes, like \emph{s\_dendrite::calculateLeakage(int)} is only called only from within the \emph{s\_dendrite} class (before addition of the new synaptic input to the value).
+%%/****************************************************************************/ SKRIV OM: tekst og tilhørende kode.
+%	% TODO TODO TODO TODO SKRIV om. Har endra meining. Mellom auron og dendrite er det greit (siden alle dendritter er laga i constructor for auron er ALLE auron-dendrite par alltid av samme type).
+%	% Skriv heller det. Det som står under gjelder fortsatt, men for andre underelement i ANN nodene.. TODO endre også dette i kode:
+%	In addition the \emph{s\_dendrite} contains a boolean variable called \emph{bBlockInput} that blocks synaptic input to the node. 
+%	This variable is set (\emph{bBlockInput = true}) when the dendrite caculates that the nodes value goes to suprathreshold values. In addition a pointer to the \emph{s\_dendrite} will be added to the time\_class::pTaskArbeidsKoe list.
+%	This calls \emph{s\_dendrite::doTask()} the next iteration, which will add the next element in the signal path to the work que.
+%	Depending on the length of the absolute refraction period for the node, the bBlockInput will be reset (\emph{bBlockInput=false}) either in class s\_auron or in class s\_axon (one or two time iterations later).
+%	Because of the choice to avoid explicit type convertion, bBlockInput will be reset internally in \emph{s\_dendrite} by a call to a derived function from i\_dendrite, \emph{void feedbackToDendrite()}.
+%%/****************************************************************************/
+%
+%%Kanskje skrive at internt i meta-objektet som utgjør kvar [node] kan dette trygt gåes ut fra. 
+%%For å gjøre det litt trygt, lages de modellspesifikke variabler og funksjoner [private], slik at bare andre klasser og evt funksjoner som er [friend] kan accessere dei. Dette innebærer bare andre klasser i metaklassen som utgjør kvar node
+% %skriv det først, så hopp over neste avsnitt, og gå rett på kva casting som skal brukes (static_cast).
+%
+%	Because the dendrite always is constructed in the construcor of the associated auron object, the two can safely be assumed to be % modelspecific elements 
+%		of the same model (KANN or SANN). %TODO Skriv om setninga over. Blir mange "assume" her. Funker best under (?)
+%	This is so certain that casting (e.g. from i\_auron to K\_auron) can be assumed safe.
+%
+
+% 	Også viktig poeng! xxx
+%	In C++, the \emph{static\_cast} operator can be used to convert related types, such as a pointer to an object of one class to an other in the same class hiriachy. 
+%	This will be safer that C style casting (or the \emph{reinterpret\_cast} in C++), that can convert a pointer to one class to some other totally unrelated class or variable.
+%	To follow stroustrup advice, %og kjøre compile-time type cheching når eg caster, så [det under]. Skriv litt om kvifor eg ikkje bruker dynamic cast.
+%	the safer \emph{static\_cast} will be used whenever explicit type convertion is exercised in this project.
+%
+%	It is even safer to use the \emph{dynamic\_cast} operator when casting. \emph{dynamic\_cast} will provide run time type identification whenever casting. %litt rart å sei ".. whenever casting". Casting: kall noke anna, eller fyll ut.
+%	There is a small run--time cost associated with the \emph{dynamic\_cast} operator. 
+%	\emph{static\_cast} relies on altervative (compile time) methods to be certain that the type convertion is valid, and run time cheching in \emph{dynamic\_cast} is seen as redundant.
+%	For ANN, the small run--time cost at each node will sum up to a significant amount.
+%	Because of the above elements, the \emph{static\_cast} operator will be used rather than \emph{dynamic\_cast} or \emph{reinterpret\_cast} in this implementation.
+%
+%% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+%% opp til ********* boksa skal alt skrives om. Har gjordt det om i koden, slik at istaden for å bare bruke i\_[element] funksjoner, og isteden for å bruke eksplisitt casting, overskrives pre-signal og post-signal element fra 
+%% 	i_[element] (arva fra i_*) med den modellspesifikke s_[element] eller K_[element], avhengig av kva modellspesifikkt element det er snakk om..
+% %TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+%% DERMED: Skriv om all teksten opp til *****-boksa! (men bruk gjerne en del som eksempel eller noke)
+%
+%
+%	
+%
+%
+%
+%  
+%	%***********************************************************************************************************
+%	%Because the objective of this project is to compare two ANN models, the two implementations should be %relativt
+%	%simular. It is also important to make each implementation optimal, but the framework of each implementation should be simular.
+%
+%	%For each auron element (synapse, dendrite, axon and auron), I have designed one interface class that derives to s\_[element] and K\_[element]. 
+%
+%	%All the general functions and variables of each element lies in i\_[element]. Specialized elemens (s\_[element] and K\_[element] has model spesific funcitons and variables for SANN nodes and $\kappa$ANN nodes.
+%
+%	%Hadde lenge problemer med dette, siden container for element (som dendrite::pElementOfAuron, auron::pOutputAxon, synapse::pOutputSynapser osv.) var av typen i\_[element].
+%	%Dette gjorde at eg ikkje kunne benytte variablene på tross av elementa (f.eks. s\_axon::doTask() kunne ikkje resette s\_dendrite::bBlockInput--flagg (gjort i axon for å få refraction period).
+%	%Det er fristende å explicit typekonvertere i\_[element]* til s\_[element]* for element innad i eit auron. 
+%	%Dette ville nok vore raskeste løsning, men stroutrup advarer mot dette. (finn referanse i stroustrup--boka).
+%
+%	%Mi løsning ble å kun accesere de modell--spesifikke variablene internt i kvart auron--element, og bruke interne funksjoner (som er definert i $<<$interface$>>$'et for elementet (i\_[element]). 
+%	%--Bruke bare slike interne funksjoner (i kvart auron--element) til å skrive og lese fra modellspesifikke variabler og kalle modellspesifikke funksjoner  for kvart auron--element.
+%
+%	%Dette gjør at eg kan bruke i\_[element]* for alle containers i programmet, og koden blir lik for implementasjonen av de to modellane..
+%%
+%%	%%\subsubsection{SKRIV OM activityFunction} TODO
+% //}
+% //}
+%
+%
 
-\begin{lstlisting}
-  virtual inline void doTask() =0;
-\end{lstlisting}
 
-	\subsubsection{The model specific s\_dendrite class}
-	
-	\emph{s\_dendrite::newInputSignal( int )} is called from the input synapse in the case of transission. 
-	To aproximate the synaptic delay, \emph{s\_dendrite::newInputSignal( int )} is called directly from the synapse at the time of transmission.
-	If the postsynaptic node is exited above firing threshold, the dendrite is added to the back of the working que by the command \emph{time\_class::leggTilTask( this )}. 
-	This will induce the actions of a dendrite after one time iteration.
-	% for å simulere litt tids--delay også i dendrite. Skriv at synapse--klassa bruker litt tid og dendrite--klassa bruker litt tid. For nøyaktigheten til pragmatisk ANN er dette bra nok (skriv at det er vanskelig å vite kva kva skal være)
 
-	%Skriv om kappa--dendrite også her?
 
-	For the s\_dendrites newInputSignal(int) the work done is a simulation of a leaky integration of the input. 
-	The simulation of the leakage is implemented as an exponential function, $l^n$ where $l$ is the leakage factor at each time iteration and $n$ is the number of time steps between [now] and the last time the value changed (after input).
-	For SANN nodes, the time of input therefore needs to be saved for the use of calculating the leakage. An alternative approach, used by many neural simulator tools, is to calculate the leakage for each node at each iteration.
-	
-	The calculation of the leakage is implemented in \emph{s\_dendrite::calculateLeakage()}. This is one function that only is present in the SANN variant of the nodes. 
-	Because the pointers to the elements are pointers of to the abstract ancestor class (located at the other nodes with direct contact with the node), calls to the model--specific functions and variables will give errors at compilation.
-%neuroElements/neuroElement.cpp:443:21: error: ‘class i\_dendrite’ has no member named ‘calculateLeakage’
-	\newline \emph{error: 'class i\_dendrite' has no memeber named 'calculateLeakage'}
 
-	One way to avoid this error is explicit type convertion (often called `casting') from \emph{i\_dendrite} to \emph{s\_dendrite} for calls to model specific functions.
-	Casting will work wery well, if every call to model--specific functions and variables is from other node elements from the same model.
-	Stroutrups advice is to avoid explicit type convertion\cite{Stroustrup2000KAP6}. 
-	
-	An alternative approach will be to access the function and variables of the model--specific classes only internally in the class. 
-	External calls should only be made to functions declared in the abstract ancestor class \emph{i\_dendrite}.
 
-	In this implementation, we have a special situation. We have a sort of a ``meta--class'' for each node. Each node is comprised of four sub--classes; Axon, Auron, Dendrite and Synapses. 
-	Three of these classes can be seen as internal to the node, while the synapse could be said to be a connector between two nodes.
 
-	To access the model--specific functions and variables internally in the node, inherited from the i\_[element] demands casting of the pointer (from i\_auron to s\_auron og K\_auron). 
-	An alternative approach is to overwrite the pointer to the next and previous element in the signal path with a pointer to a model specific element.
-	This will best be described by an example:
 
-	For the s\_auron class, we have one inherited pointer to the previous element and one inherited pointer to the next element in the signal path.
-	The pointer inherited from i\_auron pointing at the next element in the signal path, the \emph{i\_dendrite* pInputDendrite}, is overloaded to a pointer to a modelspecific \emph{s\_dendrite} class in s\_auron.
-	When calls are made to \emph{s\_auron.pInputDendrite}, every function and variable available in \emph{s\_dendrite} will be accessable.
-	This gives us the oppurtunity to access the model specific functions and varibles in the aurons dendrite whithout defying stroustrup's advice.
 
-	At the same time, we still have the oppurtunity to access the pInputDendrite from a pointer to i\_auron, which is the pointers used in the different containers (e.g. the \emph{static i\_auron::pAllAurons}).
-	
-	As previously mentioned, the synapse is somewhat different. 
-	The synapse is between the presynaptic and the postsynaptic node, and can not be said to belong to either of these. 
-	Intuitively the synapse should not belong to the presynaptic or the postsynaptic node, but for implementation specific reasons this is done.
-	%Skriv om at dersom ... Vettafaen kvifor det er slik. Eg bør enten gjøre om kode, tilbake til å ikkje ha modellspesifikke peikere i synapse, evt. ikkje nevne forskjellen mellom andre element og synapse, her i rapporten! XXX
 
 
-%TODO HER HER EHR HER HER HER TODO Gjør det over! Godnatt.
 
+%\subsection{About efficiency}
+% //{
+%When it comes to what algorithms are effective in terms of computational load, it is impossible to generalize across hardware.
+%One set of hardware may be as effective, or in some cases even more effective on floating point operations, than ???. %TODO cite !
+%Optimalization of ANN to a particular set of hardware is in many aspects a differet project. 
+%The aim of this project is a general comparison of ANN based on two different models.
+%To make the comparison general, we should therefore not be to concerned with the execution time, since the execution time spent on different operations wary greatly between different hardware.
+%
+%It is however important to optimalize the code for both of the two ANNs. 
+%For the SANN the leakage (of the nodes value) will be calculated each time the node gets input.
+%BLABLA BLA. SKRIV OM SANN OPTIMALISERING.
+%% TODO Skriv om tid, effektivisering i SANN osv., her..
+%
+%
+%When it comes to the $\kappa$ANN, the leakage is not a concern, and is already implemented in the value equation that is the basis of the model (se section \ref{secMatematiskModelleringAvBioNeuron}).
+%The leakage in each nodes value is the background of the non--linearity of the equation, and no further calculation if required for this.
+% //}
 
 
-	% TODO DÅRLIG SKREVET. SKRIV OM :
-	Functions that is localized only in one of the model--specific classes, like \emph{s\_dendrite::calculateLeakage(int)} is only called only from within the \emph{s\_dendrite} class (before addition of the new synaptic input to the value).
-%/****************************************************************************/ SKRIV OM: tekst og tilhørende kode.
-	% TODO TODO TODO TODO SKRIV om. Har endra meining. Mellom auron og dendrite er det greit (siden alle dendritter er laga i constructor for auron er ALLE auron-dendrite par alltid av samme type).
-	% Skriv heller det. Det som står under gjelder fortsatt, men for andre underelement i ANN nodene.. TODO endre også dette i kode:
-	In addition the \emph{s\_dendrite} contains a boolean variable called \emph{bBlockInput} that blocks synaptic input to the node. 
-	This variable is set (\emph{bBlockInput = true}) when the dendrite caculates that the nodes value goes to suprathreshold values. In addition a pointer to the \emph{s\_dendrite} will be added to the time\_class::pTaskArbeidsKoe list.
-	This calls \emph{s\_dendrite::doTask()} the next iteration, which will add the next element in the signal path to the work que.
-	Depending on the length of the absolute refraction period for the node, the bBlockInput will be reset (\emph{bBlockInput=false}) either in class s\_auron or in class s\_axon (one or two time iterations later).
-	Because of the choice to avoid explicit type convertion, bBlockInput will be reset internally in \emph{s\_dendrite} by a call to a derived function from i\_dendrite, \emph{void feedbackToDendrite()}.
-%/****************************************************************************/
 
-%Kanskje skrive at internt i meta-objektet som utgjør kvar [node] kan dette trygt gåes ut fra. 
-%For å gjøre det litt trygt, lages de modellspesifikke variabler og funksjoner [private], slik at bare andre klasser og evt funksjoner som er [friend] kan accessere dei. Dette innebærer bare andre klasser i metaklassen som utgjør kvar node
-% skriv det først, så hopp over neste avsnitt, og gå rett på kva casting som skal brukes (static_cast).
 
-	Because the dendrite always is constructed in the construcor of the associated auron object, the two can safely be assumed to be % modelspecific elements 
-		of the same model (KANN or SANN). %TODO Skriv om setninga over. Blir mange "assume" her. Funker best under (?)
-	This is so certain that casting (e.g. from i\_auron to K\_auron) can be assumed safe.
 
-	In C++, the \emph{static\_cast} operator can be used to convert related types, such as a pointer to an object of one class to an other in the same class hiriachy. 
-	This will be safer that C style casting (or the \emph{reinterpret\_cast} in C++), that can convert a pointer to one class to some other totally unrelated class or variable.
-	To follow stroustrup advice, %og kjøre compile-time type cheching når eg caster, så [det under]. Skriv litt om kvifor eg ikkje bruker dynamic cast.
-	the safer \emph{static\_cast} will be used whenever explicit type convertion is exercised in this project.
-
-	It is even safer to use the \emph{dynamic\_cast} operator when casting. \emph{dynamic\_cast} will provide run time type identification whenever casting. %litt rart å sei ".. whenever casting". Casting: kall noke anna, eller fyll ut.
-	There is a small run--time cost associated with the \emph{dynamic\_cast} operator. 
-	\emph{static\_cast} relies on altervative (compile time) methods to be certain that the type convertion is valid, and run time cheching in \emph{dynamic\_cast} is seen as redundant.
-	For ANN, the small run--time cost at each node will sum up to a significant amount.
-	Because of the above elements, the \emph{static\_cast} operator will be used rather than \emph{dynamic\_cast} or \emph{reinterpret\_cast} in this implementation.
-
-% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-% opp til ********* boksa skal alt skrives om. Har gjordt det om i koden, slik at istaden for å bare bruke i\_[element] funksjoner, og isteden for å bruke eksplisitt casting, overskrives pre-signal og post-signal element fra 
-% 	i_[element] (arva fra i_*) med den modellspesifikke s_[element] eller K_[element], avhengig av kva modellspesifikkt element det er snakk om..
-% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-% DERMED: Skriv om all teksten opp til *****-boksa! (men bruk gjerne en del som eksempel eller noke)
-
-
-
-
-	
-
-
-
-
-	%***********************************************************************************************************
-	%Because the objective of this project is to compare two ANN models, the two implementations should be %relativt
-	%simular. It is also important to make each implementation optimal, but the framework of each implementation should be simular.
-
-	%For each auron element (synapse, dendrite, axon and auron), I have designed one interface class that derives to s\_[element] and K\_[element]. 
-
-	%All the general functions and variables of each element lies in i\_[element]. Specialized elemens (s\_[element] and K\_[element] has model spesific funcitons and variables for SANN nodes and $\kappa$ANN nodes.
-
-	%Hadde lenge problemer med dette, siden container for element (som dendrite::pElementOfAuron, auron::pOutputAxon, synapse::pOutputSynapser osv.) var av typen i\_[element].
-	%Dette gjorde at eg ikkje kunne benytte variablene på tross av elementa (f.eks. s\_axon::doTask() kunne ikkje resette s\_dendrite::bBlockInput--flagg (gjort i axon for å få refraction period).
-	%Det er fristende å explicit typekonvertere i\_[element]* til s\_[element]* for element innad i eit auron. 
-	%Dette ville nok vore raskeste løsning, men stroutrup advarer mot dette. (finn referanse i stroustrup--boka).
-
-	%Mi løsning ble å kun accesere de modell--spesifikke variablene internt i kvart auron--element, og bruke interne funksjoner (som er definert i $<<$interface$>>$'et for elementet (i\_[element]). 
-	%--Bruke bare slike interne funksjoner (i kvart auron--element) til å skrive og lese fra modellspesifikke variabler og kalle modellspesifikke funksjoner  for kvart auron--element.
-
-	%Dette gjør at eg kan bruke i\_[element]* for alle containers i programmet, og koden blir lik for implementasjonen av de to modellane..
-
-	%%\subsubsection{SKRIV OM activityFunction} TODO
-
-
-	\subsubsection{Propagation of $\kappa$}
-	%Skriv at det er vanskelig å vite når kappa skal propagere. Skriv litt rundt dette: kva som er intuitivt (ved fyring), beste er å ha transient overføringsfunk men dette krever transferfunk. fokus, 
-	%umulig å vite kva som gir godt nok resultat, så bør gjøre dette eksperimentellt. : sammenligne depol.-forløp, og sjå når de ikkje lenger er lik. Kanskje etter en ekstra periode, lenger tid, anna? 
-	% 	Skal ivertfall vente ei stund. Resultatet om KANN er meir effektivt er avhengig av svaret på dette spm.
-	% KANSKJE DETTE IKKJE SKAL STÅ HER? VEIT IKKKJE KOR..
-	%ELLER: kan skrive resultatet her, etter at eg har sammenligna resultata..
-	For $\kappa$ANN it is hard to know when the activity variable, $\kappa$ should propagate. In many ways, $\kappa$ gives the general input of a node.
-	$\kappa_{ij}$, node $j$\,s influence on node $i$ is given by the period of node $j$, given by $\kappa_j$. 
-	It is wery hard to deside some specific time instance $\kappa_j$ should propagate, since the period when $\kappa_j$ is changed also influences $\kappa_i$. 
-	The period of neuron $j$ and thus the period between synaptic transmissions to neuron $i$ can also be said to be given by the new $\kappa_j$ first after the first period with the new $\kappa_j$.
-	
-	The best is to make a transfer function from $\kappa_j$ to $\kappa_i$ with a transient time course. 
-	Due to time limitations, this will unfortunately be outside the scope of this project, since this will further alter the postsynaptic nodes after node $j$. 
-	A neural network of transfer functions, where each node represents a transform, will probably give a better result both in terms of efficiancy and in terms of the transient time course of each node.
-	
-	What can be established from the above discussion is that the time of propagation should be somewhere between zero and two periods after updating $\kappa$, depending on when $\kappa$ is updated in the period.
-	Because of the caotic and unpredictable nature of neural networks, and the simplification to deside some constant time delay, the time delay between updating $\kappa$ and propagation of $\kappa$ have to be found experimentally.
-	As the effectivity of $\kappa$ANN is strongly dependent on this aspect, it is wery hard to theoretically find the efficiancy of the new model.
-
-	To experimentally find when $\kappa$ propagates, the transient time course of each neuron have to be compared.
-	For pragmatic ANNs, it is also hard to find a measure of ``good enough'' for the comparison of the two plots. 
-	SKRIV MEIR NÅR RESULTAT DUKKER OPP! %TODO
-	%TODO Når eg har sammenligna de to, skriv meir her. Bra nok kan være "rett" output for ut--noden, eller "rett" transient time course for ut-noden, osv. Sammenligner heile tida med den andre modellen som om den var rett.
-	% Dette kan også være feil. Kven veit.. Mykje å skrive på diskursjon etter dette aspektet!
-
-
-
-
-
-
-	%TODO uferdig subsection! XXX
-
-
-
-
-
-\subsection{About efficiency}
-When it comes to what algorithms are effective in terms of computational load, it is impossible to generalize across hardware.
-One set of hardware may be as effective, or in some cases even more effective on floating point operations, than ???. %TODO cite !
-Optimalization of ANN to a particular set of hardware is in many aspects a differet project. 
-The aim of this project is a general comparison of ANN based on two different models.
-To make the comparison general, we should therefore not be to concerned with the execution time, since the execution time spent on different operations wary greatly between different hardware.
-
-It is however important to optimalize the code for both of the two ANNs. 
-For the SANN the leakage (of the nodes value) will be calculated each time the node gets input.
-BLABLA BLA. SKRIV OM SANN OPTIMALISERING.
-% TODO Skriv om tid, effektivisering i SANN osv., her..
-
-
-When it comes to the $\kappa$ANN, the leakage is not a concern, and is already implemented in the value equation that is the basis of the model (se section \ref{secMatematiskModelleringAvBioNeuron}).
-The leakage in each nodes value is the background of the non--linearity of the equation, and no further calculation if required for this.
-
-\large{HER}
-
-%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-%FJÆRN!
-% NEI TODO ENDRE: skal handle om calculation task que (ref{ssecCalcultaionTaskQue}).. %
-% TODO Endre navn til pCalculationTaskQue, eller noke..
-\subsection{Om oppsamling av $\kappa$}
-\label{ssecCalcultaionTaskQue}
-% Skriv om lekkasje, slik at lekkasje gjennomføres i s_auron::doCalculation(). Da kan eg skrive om pCalculationTaskQue generelt her, og seinare i implementation_KANN.tex skrive om kappa-oppsamling.
-To do the minimalize the number of times $p(\kappa)$ is calculated, it is best to wait to after the current time iteration before calculating the result of the new $\kappa$ in terms of the nodes period.
-%Skriv heller noke slikt som :  Når kappa er ferdig oppdatert, dvs på slutten av current time iteration.
-This is best done by collecting all the calculations in a list and at the end of the time iteration, after all the change of input level at the node is registere, do the calculations.
-
-The most convenient way of doing this is to use the standard library [set]. %Skriv at det antagelig også er mest optimalt: godt optimaiserte funksjoner i std!
-\emph{std::set} is an associative container where the key is the same as the value, with unique elements. %Ref stroustrup kap 17 (bl.a. s 491 og 480 under "map" (ca samme greia står på s. 491)
-This means that the set will keep the list of collected computation tasks so that every task only appear once.
-
-The \emph{std::set} is optimalized for maintaining a list with a unique key, and for efficient access to the list's elements. 
-A better container for the calculation que is \emph{list}, optimalized for insertions and deletions on either end of the list. Random access of the \emph{list} elements are painfully slow\cite{Stroustrup2000KAP17}.
-Because the \emph{std::list} is better suited for pCalculationTaskQue's task, \emph{std::list} will be used.
-The uniqueness of each element is manually coded in \emph{time\_element::calculateTask()}.
-
-If we define \emph{std::list$<$timeInterface*$>$ pCalculationTaskQue} and let time\_class::doCalculation() be responcible for the uniqueness of every element and to perform the calculatons listed in pCalculationTaskQue, 
-	the calculaton of every node with an updated $\kappa$ will only be done once for each time iteration.
-These mechanisms means that for every time some nodes $\kappa$ is updated, a [\emph{this}] pointer can be added to pCalculationTaskQue without fear of duplicate entries. 
-At the end of the current time iteration, \emph{time\_class.doCalculation()} will perform the calculations required by the elements listed in \emph{pCalculationTaskQue}.    % (once for each entry).
-
-
-
-
-\subsection{kladd fra tidligere: Effektivitet}
-Skriv om at det er veldig vanskelig å forutse kva som vil være effektivt. Ulike hardware aritekturer gir  ulikt resultat. Dette er grunn til at eg bare teller antall operasjone. Dersom van lager spesial-hw, så vil det det er spesialisert for gå fort og anna gå seinare..
-
-Skriv også om generellt optimalisering:
-\begin{itemize}
-	\item flytande tid. Ikkje alle noder trengs å sjekkes kvar iterasjon. (sjå/edit det over). (SKRIV OM implemenasjonene til Ås, og at de bruker synkron tid).
-	\item samle opp beregning av $\kappa$ til slutt. $\kappa$ kan endre seg fleire ganger i løpet av en iterasjon. På grunn av dette skal alle noder som får endra aktivitetsnivå legges inn i ei liste. Denne lista gåes gjennom ved tidsiterasjon (i tid::doTask() ). Skal bare ligge eit element av eit objekt i lista, så dersom $\kappa_i$ endres fleire ganger for neuron $i$, vil det bare bli en kalkulering av depol./`interspike period' per [neuron, tidsiterasjon].
-\end{itemize}
-
-Her kan også ``Firing Cycle'' stå. Dette er estimering fordi hastighet ikkje er konstant lik gjennomsnittshastighet. Dersom FC skal brukes (som optimalisering) så kan enten gjennomsnittshastigheta over heile perioden brukes, eller så kan perioden deles opp i $n$, og gjennomsnittet i kvar bit brukes (for eksempel $n=2$: deler farta inn i to deler. Først er farta stor, så blir den mindre, fordi $(1-e^{-at}$ flater ut..)
-
-%	\subsection{valg av programmeringsspråk for implementasjon. Kvifor.} % Kansje dette skal være seinare. Tenkte etter meir generelle implementasjonsmetoder (tid, optimalisering (ny tid vs. synkron modell), tidsdelay ved kø, ...)
-%		\subsubsection{C++ :concurrency kommer.} % Nevn artikkel koch fann om concurrency i library.}
-%		\subsubsection{objektorientert. Skrive subsubsection om dette?}
-
-
-
-	\subsection{synaptisk platisitet}
-	Skrive at siden eg velger å lage recurrent ANN kan eg ikkje bruke backpropagation eller supervised learning. Må starte fra scratch, og lage en modell for reinforcement learning som er basert på biologien. 
-	Fortell om dopamin, diffuse modulatory system, dopamine blir utløst når biologien gjenkjenner pos resultat (mat, sex, trening, glede). Forsterker de synapsene som var aktiv før pos resultat. 
-	Lage reinforcement learning basert på dette!
-
-	Dersom eg får lov å utvide FDP til å være FDP+diplom kan eg gjøre det direkte. Evt blir dette neste prosjekt. Skriv dette isåfall..
+%	\subsection{synaptisk platisitet}
+%	Skrive at siden eg velger å lage recurrent ANN kan eg ikkje bruke backpropagation eller supervised learning. Må starte fra scratch, og lage en modell for reinforcement learning som er basert på biologien. 
+%	Fortell om dopamin, diffuse modulatory system, dopamine blir utløst når biologien gjenkjenner pos resultat (mat, sex, trening, glede). Forsterker de synapsene som var aktiv før pos resultat. 
+%	Lage reinforcement learning basert på dette!
+%
+%	Dersom eg får lov å utvide FDP til å være FDP+diplom kan eg gjøre det direkte. Evt blir dette neste prosjekt. Skriv dette isåfall..
 
 
 
@@ -885,7 +973,7 @@ The log is implemented by writing the interresting variables to \emph{.oct} file
 Every time we want to log the activation variable of the node, the activation variable can be written to the log file by the call \emph{activityVar\_logFile$<<$ [value];}
 \begin{lstlisting}
 activityVar_logFile <<time_class::getTid() <<"\t" 
-  		    <<nAktivitetsVariabel <<";\n";
+				    <<nAktivitetsVariabel <<";\n";
 \end{lstlisting}
 
 This writes each element a two value vector, separated by `;'. This is the syntax for matrices in octave.
@@ -899,16 +987,21 @@ Every auron therefore have one log file with the path \\ \mbox{\emph{./datafiles
 The .oct file is finalized in the aurons destructor. This includes to close the bracket for the aurons activity log--matrix, adding the commands required to making the octave script executable.
 For this reason it is important to call the destructor for all the auron objects. 
 Because all the auron objects are created in the free store, we will have to deallocate the memory explicitly so that the destructor for the auron is called. 
-This can be done by using the \emph{delete} operator on a pointer to the obect.
+This can be done by using the \emph{delete} operator on a dereferenced pointer to the obect.
 
-Manual deletion of every auron is inconvenient and error prone for the octave script. The only thing that happens if the user forgets to free the memory is that the destructor for the auron will not be called. 
+Manual deletion of every auron is inconvenient and error prone (for the octave script). 
+The only thing that happens if the user forgets to free the memory is that the destructor for the auron will not be called. 
 This causes the .oct script to give errors when executing the script.
+For the sake of clean programming, a mechanism to avoid this has been implemented anyway.
 
-For convenience, all aurons constructed will also place [this] pointer in std::list$<$i\_auron*$>$ i\_auron::pAllAurons.
+To accomplish this, 
+%For convenience,
+all aurons constructed will also place a [this] pointer in std::list$<$i\_auron*$>$ i\_auron::pAllAurons.
 The aurons destructor will remove the elment from this list.
 
-Before the program terminates, all remaining elements in i\_aurons::pAllAurons will be deleted properly, and the destructor will be called.
-This will finalize the log for each auron, and the octave scripts will be executable.
+Before the program terminates, all remaining elements in i\_aurons::pAllAurons will be deleted, and the destructor will be called.
+This will free the allocated memory, in addition to finalize the log for each auron.
+Finalizing the log file will cause the octave scripts to be executable.
 
 \begin{lstlisting}
   while( ! i_auron::pAllAurons.empty() ) 
@@ -921,7 +1014,8 @@ This will finalize the log for each auron, and the octave scripts will be execut
   }   
 \end{lstlisting}
 
-For comparison and development of synaptic transmission, each synapse also has a log file. This is most relevant for the synapses in $\kappa$ANN.
+For comparison and development of synaptic transmission, also the synapse has a log file. 
+This is most relevant for the synapses in $\kappa$ANN, as synaptic plasticity has not been implemented yet.
 When the \emph{K\_synapse} is constructed, a log file is established for each object. This log file is created with a suitable name to separate all the log files after execution of the software.
 
 The following code is from the constructor of \emph{K\_synapse}.
@@ -930,26 +1024,25 @@ std::ostringstream tempFilAdr;
 tempFilAdr
   <<"./datafiles_for_evaluation/log_transmission_K_synapse_" 
   <<pPresynAuron_arg->sNavn <<"-"  <<pPostsynAuron_arg->sNavn ;
-if(bInhibitoryEffect){ tempFilAdr<<"_inhi"; }
-else{ 			  tempFilAdr<<"_eksi"; }
+if(bInhibitoryEffect){ 	tempFilAdr<<"_inhi"; }
+else{ 			  		tempFilAdr<<"_eksi"; }
 tempFilAdr<<".oct";
 \end{lstlisting}
 
-We see that this that it is possible to create two synapse--logs, for two synapses going to the same postsynaptic node, one excitatory and one inhibitory synapse.
-Two synapses of the same kind could give the same result as one larger synapse(depending on the learning rule), but one excitatory and one inhibitory synapse should give an other result when synaptic plasticity is implemented.
+We see that this that it is possible to create two synapse--logs for two synapses going to the same postsynaptic node, one excitatory and one inhibitory synapse.
+%Two synapses of the same kind could give the same result as one larger synapse(depending on the learning rule), but one excitatory and one inhibitory synapse should give an other result when synaptic plasticity is implemented.
+A separate log file for inhibitory synapses could be interresting for analyzing $\kappa$ANN and for analyzing the effect of synaptic transmission after synaptic plasticity (when learning is implemented).
 %If future a implementation is made as a simulation of biological neural systems, we could end up differentiation between excitatory and inhibitory synapses when it comes to learning.
-In this case it would be important that different log files are created.
+%In this case it would be important that different log files are created.
 %This could give different learning rules for excitatory and inhibitory synapses, and different log files might become important in later projects based on this code.
 Se appendix \ref{appendixSecPresynapticSynapticPartOfTransmission} for a motivation for differentiating between excitatory and inhibitory synaptic plasticity and 
 	for a review of synaptic plasticity in biological neural systems.
 %This might be important when synaptic plasticity is implemented, as the excitatory synapses could be designed with an other set of learning rules that the inhibitory synpses.
 
 
-The implementation takes arguments from shell that, for example can set the number of iterations for the next execution.
-This has a default of 1000 iterations if no argument is provided.
-After the arguments are read in from shell the actions are taken to keep an order in the log files.
-A directory is created for the log files: The directory \emph{./datafiles\_for\_evaluation/}.
-All log files are placed under this directory at the construction of the different node elements.
+The implementation takes arguments from shell that can set the number of iterations for the next execution (the code is listed in appendix \ref{appendixCommandLineArguments}).
+The default number of iterations is 1000 iterations if no arguments is provided.
+%This has a default of 1000 iterations if no argument is provided.
 \begin{lstlisting}
 if( system("mkdir datafiles_for_evaluation") != 0 ){
 	cout<<"Could not make directory for log files "
@@ -963,8 +1056,16 @@ if( system("rm ./datafiles_for_evaluation/log_*.oct") != 0){
 	    <<"to avoid accidendtally plotting old results.\n";
 }
 \end{lstlisting}
+After the argument is read in from shell the actions are taken to keep an order in the log files.
+%A directory is created for the log files; The directory \emph{./datafiles\_for\_evaluation/}.
+The directory \emph{./datafiles\_for\_evaluation/} is created for the log files and old log files are removed.
+All log files are placed under this directory at the construction of the different node elements.
+
 To avoid reanalysis of old results, the old log files are automaticly removed at the initiation of the execution.
-This is done after the arguments have been read out from the software call.
+% TODO Skriv litt meir om dette
+
+%This is done after the arguments have been read out from the software call.
+
 %Before the implementation reads inn the arguments for the current execution all present \emph{.oct} log files are removed.
 %This is important so that we do not analyze old results when debugging.
 
@@ -975,6 +1076,112 @@ This is done after the arguments have been read out from the software call.
 %	\includegraphics[width=0.8\textwidth]{eps_auronE.eps}
 %	\caption{Punktplott for spiking auron's aktivitetsVar (depol.), fra simulering. Generert ved å skrive aktivitetsVar til eit .oct fil (octave), og plotte resultatet seinere.}
 %\end{figure}
+
+
+
+\subsection{Planned events}
+	\label{secPlannedEvents}
+	One of the immediate differences between the SN and the $\kappa$N is the calculation of spike time for each node.
+	For the SN, the spike is a reactive event, in the respect that it acts as a consequence of the value going to suprathreshold levels.
+	For the $\kappa$N, a spike is planned by estimating the firing timen, given that the present level of input lasts for the remainder of the period. %the level of input until firing. 
+	%Given that the level of input is constant, the estimate becomes a certainity. 
+	As long as the activity level is constant, the estimated task time is the planned task time.
+	From the concept of time windows, we therefore have that $\kappa$N has a planned task time for each node state (value and level of input).
+	We can in this case say that the $\kappa$N calcutates the firing time given the present level of input for the remainder of the period.
+	This estimate can certainly be improved by using a more advanced scheme for estimation.
+
+	The concept of planned events is also important for periodic tasks, e.g. the recalulation of varibles. 
+	This has been used for the recalcualation of $\kappa$ for an implementation of synaptic transmission as the derived.
+	This is done to minimize the global trunction error (Se sec. \ref{ssecRecalcKappa} for more about recalculation of $\kappa$).
+	%Planned events
+
+	A methods for planning events and in the future executing the event at the planned time has therefore been devised.
+	As efficiancy is in the focus for these implementations, two methods were designed and tested.
+	
+	\subsubsection{pEstimatedTaskTime}
+	%Because the input level of each node varies almost constantly, the calcutated firing time is but an estimate of the firing time of the node. 
+	A dynamic linked list was first created for the purpose of planning a task and executing them at the planned time.
+\begin{lstlisting}
+std::list<timeInterface*> pEstimatedTaskTime;
+\end{lstlisting}
+	The std::list container is implemented as a doubly linked list\cite{Stroustrup2000KAP16}, and thus effective for insertion and removal of elements from the midst of the list.
+
+	The elements of \emph{pEstimatedTaskTime} are pointers to new linked lists.
+	%The list \emph{std::list$<$timeInterface*$>$ pEstimatedTaskTime} have elements that is pointers to new linked lists.
+	The ``outer list'' represents the relative timing from the present until the time of of execution for the tasks in the inner list.
+	Before time is iterated by \emph{time\_class::doTask()}, the first element of \emph{pEstimatedTaskTime} is popped from the list. 
+	All the elements of the inner list is inserted into \emph{pWorkTaskQue}.
+
+
+
+
+	The tasks located in the inner list of the first element of the outer list are the tasks that are to be executed the next time iteration.
+%	Tasks that are to be performed the next time iteration is inserted in the first element (inner list) of the outer list.
+%	In time\_class::doTask(), the first element of the outer list (the first inner list) is evaluated, and all the taskt are executed. 
+	time\_class::doTask() is responsible for tasks being executed at the planned time. 
+	Before time\_class::doTask() iterates time, all tasks that are planned for next time iteration is moved from pEstimatedTaskTime to pWorkTaskQue.
+	The tasks are appended at the back of pWorkTaskQue before the \emph{time\_class} object pointer is moved to the end of pWorkTaskQue. 
+	This will cause the planned tasks to be performed the next time iteration.
+% 	%
+	It will also keep \emph{pEstimatedTaskTime} ``up to date'', as the first element is removed from the list.
+	% xxx TAVEKK? : The first element is removet as time iterates, and the next time time is iterated the element that was second initially in this example will be first the next time time is iterated.
+	New elements is inserted by the relative time ( [estimated absolute time] - [present time] ).
+	This gave that the mechnism of \emph{pEstimatedTaskTime} worked as designed when implemented.
+
+%	Before the discrete time is iterated, the first element is removed from the outer pEstimatedTaskTime--list.
+%	In this way it is possible to keep an overview of the immediate future with pEstimatedTaskTime.
+
+	If a new element (a new estimated task time) is to be inserted somewhere outside the present scope of the pEstimatedTaskTime, the list has to be expanded. %the element (std::list) needs to be constructed.
+\begin{lstlisting}
+int nDiff = uRelativeTime - pEstimatedTaskTime.size();
+if( nDiff >= 0 ) //To few elements. Insert right number of elem.
+{
+  for(int i=0; i <= nDiff; i++){
+  pEstimatedTaskTime.push_back( new std::list<timeInterface*> );
+  }
+}
+\end{lstlisting}
+	Because of the above mentioned mechanism of keeping the list ``up to date'', every element between the present scope of the list and the new element also has to be inserted.
+
+	
+%	When the efficiancy of the method later was compared to a more direct approach, one cause of the slower execution of the \emph{pEstimatedTaskTime} method could be that the size of the list was not limited.
+
+	\subsubsection{The Direct Approach}
+	\label{ssChoiceOfTimeEstimationForThisImplementation}
+	The most intuitive, and also the intuitively least effective method is to compare the estimated firing time of every element with the present time.
+	This is to be done every time iteration.
+
+	Each class that is interfaced with time is derived from \emph{class timeInterface}
+	The derived classes inherits the variable \emph{ulEstimatedTaskTime\_for\_object}.
+\begin{lstlisting}
+unsigned long ulEstimatedTaskTime_for_object;
+\end{lstlisting}
+	When the element's \emph{ulEstimatedTaskTime\_for\_object} equals the next time iteration, a ponter to the element is inserted into \emph{pWorkTaskQue}.
+
+	When the two methods were compared, the direct approach were a little more effective. 
+	As the direct approach gives a more constant work load, and was not (much) less effective, this methods is the choice for this implementation.
+
+	A more comprehensive discussion of \emph{pEstimatedTaskTime} has been escluded from this text because it no longer is relevant. 
+	As this probably could be made more effective than the direct approach, the concept of \emph{pEstimatedTaskTime} will not be discarded.
+
+	One possible cause of the bad performance of the \emph{pEstimatedTaskTime} concept, is that the length of the list was unlimited.
+	If a new element was inserted with a planned time $t_{est} = 10^6$, the \emph{pEstimatedTaskTime} will become approximately $10^6$ elements long.
+	This gives a bad performance for the task of moving elements in the list.
+
+	Another aspect it that \emph{pEstimatedTaskTime} probably is more effective for planned tasks that does not change its planned task time so often. 
+	The difference between the two methods, even when the estimated task time was altered almost every time iteration was small.
+	This indicate that the method probably is far more effective for other uses where the planned task time does not change so often.
+% 	%
+	As this aspect is not part of this project, the concept of \emph{pEstimatedTaskTime} will not be pursuited any further in this text.
+
+
+
+
+
+
+
+
+
 
 
 

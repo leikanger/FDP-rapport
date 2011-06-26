@@ -55,6 +55,80 @@
 %
 
 
+% XXX MERK har skrevet det meste før (i design). Skal isåfall bare nevnes her..
+Skriv også om generellt optimalisering:
+\begin{itemize}
+	\item flytande tid. Ikkje alle noder trengs å sjekkes kvar iterasjon. (sjå/edit det over). (SKRIV OM implemenasjonene til Ås, og at de bruker synkron tid).
+	\item samle opp beregning av $\kappa$ til slutt. $\kappa$ kan endre seg fleire ganger i løpet av en iterasjon. På grunn av dette skal alle noder som får endra aktivitetsnivå legges inn i ei liste. Denne lista gåes gjennom ved tidsiterasjon (i tid::doTask() ). Skal bare ligge eit element av eit objekt i lista, så dersom $\kappa_i$ endres fleire ganger for neuron $i$, vil det bare bli en kalkulering av depol./`interspike period' per [neuron, tidsiterasjon].
+\end{itemize}
+
+Her kan også ``Firing Cycle'' stå. Dette er estimering fordi hastighet ikkje er konstant lik gjennomsnittshastighet. Dersom FC skal brukes (som optimalisering) så kan enten gjennomsnittshastigheta over heile perioden brukes, eller så kan perioden deles opp i $n$, og gjennomsnittet i kvar bit brukes (for eksempel $n=2$: deler farta inn i to deler. Først er farta stor, så blir den mindre, fordi $(1-e^{-at}$ flater ut..)
+
+
+
+
+
+
+
+
+	\subsubsection{Propagation of $\kappa$}
+	%Skriv at det er vanskelig å vite når kappa skal propagere. Skriv litt rundt dette: kva som er intuitivt (ved fyring), beste er å ha transient overføringsfunk men dette krever transferfunk. fokus, 
+	%umulig å vite kva som gir godt nok resultat, så bør gjøre dette eksperimentellt. : sammenligne depol.-forløp, og sjå når de ikkje lenger er lik. Kanskje etter en ekstra periode, lenger tid, anna? 
+	% 	Skal ivertfall vente ei stund. Resultatet om KANN er meir effektivt er avhengig av svaret på dette spm.
+	% KANSKJE DETTE IKKJE SKAL STÅ HER? VEIT IKKKJE KOR..
+	%ELLER: kan skrive resultatet her, etter at eg har sammenligna resultata..
+	For $\kappa$ANN it is hard to know when the activity variable, $\kappa$ should propagate. In many ways, $\kappa$ gives the general input of a node.
+	$\kappa_{ij}$, node $j$\,s influence on node $i$ is given by the period of node $j$, given by $\kappa_j$. 
+	It is wery hard to deside some specific time instance $\kappa_j$ should propagate, since the period when $\kappa_j$ is changed also influences $\kappa_i$. 
+	The period of neuron $j$ and thus the period between synaptic transmissions to neuron $i$ can also be said to be given by the new $\kappa_j$ first after the first period with the new $\kappa_j$.
+	
+	The best is to make a transfer function from $\kappa_j$ to $\kappa_i$ with a transient time course. 
+	Due to time limitations, this will unfortunately be outside the scope of this project, since this will further alter the postsynaptic nodes after node $j$. 
+	A neural network of transfer functions, where each node represents a transform, will probably give a better result both in terms of efficiancy and in terms of the transient time course of each node.
+	
+	What can be established from the above discussion is that the time of propagation should be somewhere between zero and two periods after updating $\kappa$, depending on when $\kappa$ is updated in the period.
+	Because of the caotic and unpredictable nature of neural networks, and the simplification to deside some constant time delay, the time delay between updating $\kappa$ and propagation of $\kappa$ have to be found experimentally.
+	As the effectivity of $\kappa$ANN is strongly dependent on this aspect, it is wery hard to theoretically find the efficiancy of the new model.
+
+	To experimentally find when $\kappa$ propagates, the transient time course of each neuron have to be compared.
+	For pragmatic ANNs, it is also hard to find a measure of ``good enough'' for the comparison of the two plots. 
+	SKRIV MEIR NÅR RESULTAT DUKKER OPP! %TODO
+	%TODO Når eg har sammenligna de to, skriv meir her. Bra nok kan være "rett" output for ut--noden, eller "rett" transient time course for ut-noden, osv. Sammenligner heile tida med den andre modellen som om den var rett.
+	% Dette kan også være feil. Kven veit.. Mykje å skrive på diskursjon etter dette aspektet!
+
+
+
+
+
+
+	%TODO uferdig subsection! XXX
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \chapter{FRA GAMMEL comparison and results -- fil:}
 

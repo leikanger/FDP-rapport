@@ -304,7 +304,27 @@ The mechanisms of the biological neuron, the action potential and synaptic trans
 
 
 
-\subsection{Synaptic Plasticity for artificital neural networks}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% TODO : OK, no skriv litt om synaptisk plasticity. Fokus på stabilitet.
+
+
+%\subsection{Synaptic Plasticity for artificital neural networks}
 %TODO Skriv om synaptisk plastisitet (sjå oppgave 1 (fokuser spesiellt på forhold som kan knyttes til stabilitet under læring og/eller tilbakekobling("recurrent ANN").)
 %Simple variants of ``Hebbian learning'' only give an increase in the synaptic weight, and is clearly exponentially unstable. Different variations of the naive model of synaptic 
 %Because Hebb's postulate only considered poitive weight change, STDP has later been %omtalt som stable hebbian learning.
@@ -312,20 +332,20 @@ The mechanisms of the biological neuron, the action potential and synaptic trans
 %and many variations has been devised to stabilize synaptic plasticity, many of them biologically unplausible.
 
 
-OGSÅ: NEVN: STDP.
-%In neuroscience, learning is |||xxx Skriv at synaptisk plasticity er samme som læring. (innføring til det neste, og mulighet til å innføre begrepet "synaptisk weight".
-In 1949 Donal O. Hebb proposed a famous postulate, later known as Hebb's postulate:
-\begin{quote}
-When an axon of cell A is near enough to excite a cell B and repeatedly or persistently takes part in firing it, some growth process og metabolic change takes place in one or both cells such that A's efficiency, as one of the cells firing B, is increased.\cite{Hebb1949Kap4}
-\end{quote}
+%OGSÅ: NEVN: STDP.
+% %In neuroscience, learning is |||xxx Skriv at synaptisk plasticity er samme som læring. (innføring til det neste, og mulighet til å innføre begrepet "synaptisk weight".
+%In 1949 Donal O. Hebb proposed a famous postulate, later known as Hebb's postulate:
+%\begin{quote}
+%When an axon of cell A is near enough to excite a cell B and repeatedly or persistently takes part in firing it, some growth process og metabolic change takes place in one or both cells such that A's efficiency, as one of the cells firing B, is increased.\cite{Hebb1949Kap4}
+%\end{quote}
+%
+%This postulate were formalized into formulas for synaptic plasticity, and has been extencively used as a learning rule for artificial neural networks.
+%This has been referred to as ``Hebbian learning''\cite{HaykinANNbok}.
+%%Hebb's postulate were later formalized into learning formulas for synaptic plasticity. 
+%%``Hebbian learning'' is still used in some forms for neural networks. % TODO Skriv HEILT spesifikkt / finn referanser.
 
-This postulate were formalized into formulas for synaptic plasticity, and has been extencively used as a learning rule for artificial neural networks.
-This has been referred to as ``Hebbian learning''\cite{HaykinANNbok}.
-%Hebb's postulate were later formalized into learning formulas for synaptic plasticity. 
-%``Hebbian learning'' is still used in some forms for neural networks. % TODO Skriv HEILT spesifikkt / finn referanser.
 
-
-%Heilt på slutten av Syn. P.: få overgang til neste kapittel: SANN :		Blandt andre ting, After the discovery of STDP, the timing of the action potential recieved an increased focus also in ANN models. 
+% %Heilt på slutten av Syn. P.: få overgang til neste kapittel: SANN :		Blandt andre ting, After the discovery of STDP, the timing of the action potential recieved an increased focus also in ANN models. 
 
 
 
@@ -353,43 +373,13 @@ This has been referred to as ``Hebbian learning''\cite{HaykinANNbok}.
 % 			- Siden beregning kreves bare når verdiane endres (i biologiske NN), bør dette være fokus for ANN. SANN bruker mye ressurser på å opprettholde en stabil tilstand (dersom det ikkje er endring i nettet).
 % 			- Det beste hadde vore å utvikla eit ANN som bare krever ressurser ved endring av input til nodene. Skrive litt fram og tilbake om dette. Ende opp med at vi trenger en Mealey automata? (dersom dette stemmer)
 % 			-
-\subsection{SANN -- ``the third generation ANN''}
 
 
 
 
 
 
-
-
-
-
-
-
-
-
-%----------------------------------------------- gammelt .------------------------------------------------------
-\section{gammelt ANN-bakgrunn}
-section{Bakgrunn: ANN}
-	\subsection{årsak for bruk av ANN / historie}
-
-	\subsection{The traditional ANN}
-Early ANNs used float values as the value that propagates through the network. According to sec. \ref{secTheBiologicalNeuralSystem} this is not so in the biological neuron.
-The biological neuron have a boolean (``all--or--none'') transfer of value. A ``true'' value propagating through a neuron is called an action potential or a ``spike''.
-
-The biological understanding of the float value as the signal is that the value represents the frequency of the neuron's firing in a given time interval.
-
-Modelling the neuron in this way makes it better for simulating ANNs in a computer. 
-Instead of a vast amount of bolean signals generated at each neuron and transmitted through its many synapses, the computations are done by operation on variables representing the spike frequency of the neuron.
-If the non-linear function at each node is made to aproximate the neurons response to different input frequencies, the theory is that ANNs based on this model aproximates a network of biological neurons.
-
-Aspects of the neuron that are functions of time, however is lost because the simplification removes all information of the relative timing of spikes.
-The temporal delay at the axon hillock (generation of a spike), the axon and the synapse (transmission of a spike), temporal leakage of the neurons depolarization value and many other mechanisms in the time domain is at best crudely aproximated.
-It is more efficient, however. This makes this kind of ANN popular for algorithms that need associative properties, e.g. pattern recognition. It is seldomly used for simulations of neural systems.
-
-%Neuroscience is a relatively young field, and knowledge about the importance of prevously ignored aspects of the signal is discovered every year. 
-
-		\subsubsection{Synaptic plasticity for the early ANNs}
+		\subsection{Synaptic plasticity for the early ANNs} % Eller "Hebbian learning"? Eller det over.
 Since the traditional ANNs (tANN) does not contain information about the phase of the signal, the information about the relative timing of spikes is lost. This implies that STDP can not be calculated for these ANNs. 
 The learning rule for tANN is based on a wery simple variant of STDP that does not consider the relative timing of spikes.
 
@@ -427,6 +417,7 @@ This has later been known as Spike Timing Dependent Plasticity (STDP). Se \cite{
 %	\cite{stableHebbVedSTDP}
 %\end{figure}
 
+%\subsection{SANN -- ``the third generation ANN''}
 \subsection{Spiking Artificial Neural Network}
 % 	"Thus, one of the fundamental questions of neuroscience is to determine if neurons communicated by a rate code or by a pulse code.[1]" 
 % 	[1]: (Wulfram Gerstner (2001). "Spiking Neurons". In Wolfgang Maass and Christopher M. Bishop. Pulsed Neural Networks. MIT Press. ISBN 0262632217.)
@@ -471,15 +462,52 @@ In neural systems the neurons are directly connected, such that the output of on
 With this fundamental difference betwee  \emph{XXX} SKRIV MEIR HER.
 
 
-\newpage
-		\emph{SJÅ essay i NEVR3004 - rapport}
-
-	\subsection{historie for ANN}
 
 
-	\subsection{årsak til å gå vidare fra tANN til SANN}
-	\subsection{Grunn til å gå vidare fra SANN til $\kappa$ANN. Ide for $\kappa$ANN}
-		Kanskje eg skal her skrive om kva eg  reagerte på med SANN? (ikkje vent å sjå på resultatet, skriv uansett. Tolk heller at dette var feilt..)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%----------------------------------------------- gammelt .------------------------------------------------------
+%\section{gammelt ANN-bakgrunn}
+%section{Bakgrunn: ANN}
+%	\subsection{årsak for bruk av ANN / historie}
+%
+%	\subsection{The traditional ANN}
+%Early ANNs used float values as the value that propagates through the network. According to sec. \ref{secTheBiologicalNeuralSystem} this is not so in the biological neuron.
+%The biological neuron have a boolean (``all--or--none'') transfer of value. A ``true'' value propagating through a neuron is called an action potential or a ``spike''.
+%
+%The biological understanding of the float value as the signal is that the value represents the frequency of the neuron's firing in a given time interval.
+%
+%Modelling the neuron in this way makes it better for simulating ANNs in a computer. 
+%Instead of a vast amount of bolean signals generated at each neuron and transmitted through its many synapses, the computations are done by operation on variables representing the spike frequency of the neuron.
+%If the non-linear function at each node is made to aproximate the neurons response to different input frequencies, the theory is that ANNs based on this model aproximates a network of biological neurons.
+%
+%Aspects of the neuron that are functions of time, however is lost because the simplification removes all information of the relative timing of spikes.
+%The temporal delay at the axon hillock (generation of a spike), the axon and the synapse (transmission of a spike), temporal leakage of the neurons depolarization value and many other mechanisms in the time domain is at best crudely aproximated.
+%It is more efficient, however. This makes this kind of ANN popular for algorithms that need associative properties, e.g. pattern recognition. It is seldomly used for simulations of neural systems.
+%
+% %Neuroscience is a relatively young field, and knowledge about the importance of prevously ignored aspects of the signal is discovered every year. 
+
+
+
+
+
+%XXXXXXXXXXXXXXXX XXX XXXXXXXXXXXXXXXXXXXXXXX XXX
+%skriv dette en eller anna plass, på en eller anna måte:
+	%\subsection{Grunn til å gå vidare fra SANN til $\kappa$ANN. Ide for $\kappa$ANN}
+	%	Kanskje eg skal her skrive om kva eg  reagerte på med SANN? (ikkje vent å sjå på resultatet, skriv uansett. Tolk heller at dette var feilt..)
+%XXXXXXXXXXXXXXXX XXX XXXXXXXXXXXXXXXXXXXXXXX XXX
 
 %\section{Artificial Neural Network Architecture}
 %Kan eg skrive omtrengt som section over, bare for arkitekturen til ANN. Ende opp med recurrent ANN!

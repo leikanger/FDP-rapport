@@ -13,6 +13,14 @@
 %*********************** SANN ***************************
 %\chapter{Implementasjon: SANN}
 
+
+
+%TODO Sjå design.tex (mot slutten er eit parti som er utkommentert som bestkrive s\_dendrite sin funksjon sammen med i_dendrite)
+
+
+
+
+
 \section{SANN design and implementation}
 \label{secSANN} 
 
@@ -20,6 +28,10 @@
 	% 		- Figur som henger på veggen: auron-E-kretsen. (neural oscillator).
 	% 		- Plott av lekkasje: Lekkasje kvart time-step v.s. å bare regne ut lekkasje kvart 30 tidssteg. ((skal være likt)).
 
+% Frå section lekkasje:	%TODO Skriv i introen til section: om lekkasjen. Skriv om LIF. Internreferer!
+
+
+%todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo 
 	SKRIV INNLEDNING TIL SANN.
 	Her kan det være litt motivasjon, spiking-tid, og at det er lettest å lage dette ved direkte simulering av neuronet.
 	Oppsummere litt det som er skrevet i ANN (sende litt bakover--referanser til ANN kapittel)
@@ -86,61 +98,103 @@
 	
 
 	\subsection{The Nodes' Input}
-	The transmission through the input synapses of a neuron arrives at the dendrite. 
+	In this implementation, all transmissions through the input synapses arrive at the dendrite.
 	Here the membrane potential is either increased or decreased, depending on whether the synapse is an exitatory og inhibitory synapse.
 
-	When the membrane potential of the axon is higher than the firing threshold, specialized voltage gated channels are opened, and we get the self--carrying action potential. 
-	Se section \ref{ssecTheActionPotential} for a description of the action potential in the biological neuron.
+	Whenever the membrane potential goes to suprathreshold levels (value goes above the predefined firing threshold), an action potential is simulated.
+	%When the membrane potential of the axon is higher than the firing threshold, specialized voltage gated channels are opened, and we get the self--carrying action potential. 
+	As the biological acion potential initiates transmission in all the neuron's output synapses, the simulated action potential will initiate the ANN's version of a synaptic transmission.
+	For a review of the biological action potential, it is referred to section \ref{ssecTheActionPotential}. %XXX Veit ikkje heilt korleis eg skal skrive : "gå tilbake til start (section ?? )".
+	%Se section \ref{ssecTheActionPotential} for a description of the action potential in the biological neuron.
 	
-	Because of the mechanisms of the self--carrying signal in the axon %, all the way into the axon hillock
-		, a suprathreshold potential over the membrane of the axon hillock will initiate an action potential.
 	% TODO Neste linja stater for svakt. Dersom det er debatert er det lite truleg. Framstill det som at dette ikkje er debattert (det er ikkje det. (?))
 	%Another mechanism that is debated in the neuroscience community is the possibility of some intracellular signalling mechanism that will initiate the action potential.% at the axon hillock. %TODO referer!
 	%This mechanism is initiated by a suprathreshold potentiation somewhere on the dendrite, sendt through the cytoplasm of the neuron to the axon hillock, where it will cause the initiation of an action potential.
 
-	% går kanskje ikkje an å endre potential av en plass. Må være i forhold til utafor membran.
-	A dendritic input will change the electrical potential of the cytoplasm comparet to the extracellular fluid. This electrochemical potential will propagate with a small time delay through the cell body, to the axon hillock.
-	% Skriv at det også kan være andre time delays. Eg (og stavdahl) ser ikkje på strøm som treigt..
-	In this implementation, the time delay is implemented by having a small delay of one time iteration before initiating the action potential.
-	This is done by the mechanisms of the pWorkTaskQue (se section \ref{ssecTime} for more about pWorkTaskQue).% and section \ref{ssecSANNAP}).
-
-	%For efficiancy, both the reception of synaptic input and the somatic potential is handled by the dendrite.
-	%When the somatic potential reaches the firing threshold, we activate the action potential after a delay of one time iteration by inserting a pointer to the node's \emph{s\_auron} object into pWorkTaskQue.
-	%The intracellular signal will propagate from the dendrite, throught the cytoplasm of the neuron to the axon hillock, where it will cause the initiation of an action potential.
-
-	%Because of the object design of this implementaion (se section \ref{ssFINNES IKKJE LENGERecTheObjectDesign}), this delay can be implemented by using pWorkTaskQue.
-	%When the somatic potential reaches the firing threshold, a pointer to the s\_auron is inserted into pWorkTaskQue, causing a small time delay before the initiation of the action potential.
+	As synaptic input is defined to arrive at the dendrite in the emulated neuron, the dendrite is responsible for the action of recieving the transmission.
+	This is done by the function \emph{s\_dendrite::newInputSignal(double)}.
+	%As the function is inherited from \emph{i\_dendrite}, where it is defined as a pure virtual funtion, the function must be declared in class \emph{s\_dendrite}. XXX XXX XXX XXX Kjempeviktig poeng for "comparison"
 	
-	
-	%This causes the \emph{s\_axon::doTask()} to be executed the next time iteration.
-	%After a delay of one time iteration, the action potential is initiated.
 
-	%todo Koble dette avsnittet meir sammen med det forrige.
-	% Evt. lag eit nytt subsection.
+	In the biological neuron, a new input signal changes the value of the postsynaptic neuron propotionally with the size of the transmission.
+	The size of the transmission is given by the synaptic weigth $w_{ij}$.
+	When a new transmission comes from a synapse, it is therefore the synaptic weigth that is sent into the postsynaptic dendrite.
+	Because future use of the code may include short--term synaptic plasticity, or other aspects changing the size of the transmission from the synapse, the size of the transmission is sent in as an argument to the postsynaptic dendrite.
+	% TODO Gjør setninga over lettare! =kortare!
+	%As the size of transmission is given by the strength of the connection, the synaptic weight $w_{ij}$, the synaptic weight is what is sent in from the synapse.
+	%Because of future use of the code may have short--term synaptic plasticity, the size of the transmission is sendt to the postsynaptic dendrite as an argument (se appendix \ref{appendixSynPlast} for a review of synaptic plasticity).
+
+	% TA VEKK? : An other aspect of the biological dendrite's function is the time delay between the initiation of a
+
+	%Z XXX Skrive kvifor eg venter til neste iter? Neiss. Dette gir seg sjølv. Kan ikkje skje umiddelbart..
+
+
+
+%UNDER: FEIL FOKUS, dette er ikkje biologi-kap.!
+%	A dendritic input will change the electrical potential of the cytoplasm comparet to the extracellular fluid. This electrochemical potential will propagate with a small time delay through the cell body, to the axon hillock.
+%	% Skriv at det også kan være andre time delays. Eg (og stavdahl) ser ikkje på strøm som treigt..
+%	In this implementation, the time delay is implemented by having a small delay of one time iteration before initiating the action potential.
+%	This is done by the mechanisms of the pWorkTaskQue (se section \ref{ssecTime} for more about pWorkTaskQue).% and section \ref{ssecSANNAP}).
+%
 
 	\subsection{The ``Leakage''}
 	\label{secTheLeakageForSANN}
-	%TODO Skriv (intro) om lekkasjen. Skriv om LIF. Internreferer!
-	%TODO TODO TODO TODO TODO TODO
-	For the discrete time system, the next iterations value is computed as the sum of the leakage and any new synaptic input signals.
-	%In the absence of input, 
-	Isolated from the input to the node, the updated value is given by the equation
+	%TODO Skriv i introen til section: om lekkasjen. Skriv om LIF. Internreferer!
+
+	The LIF neuron is modelled as being leaky with respects to time. %TODO REFERER.
+	One way of simulating leakage is to update the value every time iteration. %eller recalculate?
+	The leak can be defined as a value propotional to last calculated value.
+	As this is the value from the last time iteration, we get the equation for the new value $v_t$
+	
 	\begin{equation}
-		v_t = v_{t-1} - \alpha v_{t-1} \; = v_{t-1} (1-\alpha)
+		v_t = v_{t-1} - \alpha v_{t-1} \; = (1-\alpha) \cdot v_{t-1}
+		\label{eqOppdateringAvVerdiEtterLekkasjeSimpelVariant}
 	\end{equation}
+
+	As we are concerned with efficiancy in the simulation, recaluclating the value for each node every time iteration is not preferable.
+	
+	From eq. \eqref{eqOppdateringAvVerdiEtterLekkasjeSimpelVariant} it can be shown that 
+
+	\begin{equation}
+		v_t = v_{t-l} (1-\alpha)^{t-l}
+		\label{eqLeakageForSANN}
+	\end{equation}
+	
+	Where $l$ is the time iteration when the value was last updated.
+	%Where $l$ is the last time iteration the value was updated.
+	Because leakage is a diminishing mechanism for the value of the node, the value will not go above firing threshold as a consequence of leakage alone.
+	This makes it safe to update the value only when the value is used.
+%-----------------------------------
+% Gammelt (er fortsatt der nede, kommentert ut..)
+%	Where $n$ is the last time where the value was updated. 
+%	Because leakage is a diminishing effect on the value, the value will not go above the firing threshold because of this effect alone.
+%	This makes it entirely safe to use \eqref{eqLeakageForSANN} in the implementation of SANN.
+
+----------------------------------------------------------------------------------------------\newpage
+
+
+
+
+	%TODO TODO TODO TODO TODO TODO
+%	For the discrete time system, the next iterations value is computed as the sum of the leakage and any new synaptic input signals.
+%	%In the absence of input, 
+%	Isolated from the input to the node, the updated value is given by the equation
+%	\begin{equation}
+%		v_t = v_{t-1} - \alpha v_{t-1} \; = v_{t-1} (1-\alpha)
+%	\end{equation}
 
 	For this implementation, the time design enables us to have an event based simulation of the neuron.
 	This involves that the node is updated only when the value is changed.
 	In this case we can make the calculation of leakage more effective by updating the value only when it is used.
 	The equation for the effect of the leakage then becomes
-	\begin{equation}
-		v_t = v_{t-n} (1-\alpha)^{t-n}
-		\label{eqLeakageForSANN}
-	\end{equation}
-	
-	Where $n$ is the last time where the value was updated. 
-	Because leakage is a diminishing effect on the value, the value will not go above the firing threshold because of this effect alone.
-	This makes it entirely safe to use \eqref{eqLeakageForSANN} in the implementation of SANN.
+% 	\begin{equation}
+%		v_t = v_{t-n} (1-\alpha)^{t-n}
+%		\label{eqLeakageForSANN}
+%	\end{equation}
+%	
+%	Where $n$ is the last time where the value was updated. 
+%	Because leakage is a diminishing effect on the value, the value will not go above the firing threshold because of this effect alone.
+%	This makes it entirely safe to use \eqref{eqLeakageForSANN} in the implementation of SANN.
 
 % todo? Her kan eg lage eit plott av auron1 som lekker kvar iterasjon og auron2 som venter 30 iterasjoner før den lekke. Desse vil ligge over kvarandre.
 % Lag auron1-plott med .-plott og auron2 som @-plott. (sjå s_dendrite::calulateLeakage() : kommentaren seier at eg allerede har gjort forsøket. Funka fett.)
