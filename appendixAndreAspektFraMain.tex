@@ -1,0 +1,64 @@
+\chapter{Other aspects from main} % TODO Her skal det som gjennomfoeres av de ulike elementas' doTask() listes opp. XXX Finn bra tittel. 
+%\label{appendixDifferentDoTaskFunctions} 
+
+\section{Command--Line Arguments}
+\label{appendixCommandLineArguments}
+\begin{lstlisting}
+//Leser inn argumenter: 
+if(argc > 1 ) //{1 	  //	 (argc>1 betyr at det staar meir enn bare programkall)
+{
+	int innArgumentPos = 1;
+
+	while(argv[innArgumentPos][0] == '-')
+	{
+		cout<<"argv[" <<innArgumentPos <<"]: " <<argv[innArgumentPos] <<endl;
+
+		switch( argv[innArgumentPos][1] )
+		{
+			case 'i':
+				// Sjekker om antall iterasjoner er i samme argument (uten mellomrom):
+				if( 		(ulLengthOfSimulation = atoi( &argv[innArgumentPos][2])) ) 	cout<<"Simulation length set to " <<ulLengthOfSimulation <<" time steps\n";
+				// Ellers: sjekker om det er paa neste argument (med mellomrom):
+				else if( 	(ulLengthOfSimulation = atoi( argv[innArgumentPos+1]) ) ){
+					++innArgumentPos;
+					cout<<"Anntall tidsiterasjoner er satt til " <<ulLengthOfSimulation <<endl;
+				}else{
+					cout<<"Can not read argument. Please follow the conventions:" <<endl;
+					skrivUtArgumentKonvensjoner(argv[0]);
+					continue;
+					//exit(-1);
+				}
+			default:
+				if( atoi( argv[innArgumentPos] ) )
+					cout<<"Her var eit tall, ja!\n";
+
+				cout<<"Unknown argument: " <<argv[innArgumentPos] <<"\tUnable to complete request. Try again." <<endl;
+				skrivUtArgumentKonvensjoner(argv[0]);
+		}
+
+		// Gaar vidare til neste argument.
+		if( argv[innArgumentPos+1] ) 
+			innArgumentPos++;
+		else // dersom det ikkje finnes fleire argument aa lese: break.
+			break;
+	}
+	// ser paa siste argument. Dersom dette er en int skal antall iterasjoner settes til dette:
+	if( innArgumentPos == argc-1 )
+	{
+		int nInnInt;
+		//innArgumentPos er paa siste argumentet for programkallet.
+		if( ( (nInnInt = atoi( argv[innArgumentPos]))>0) ) //Skal eg sette oevre grense ogsaa?
+		{
+			cout<<"Argument gives number of iterations to be: \t\t" <<nInnInt <<endl;
+			ulLengthOfSimulation=nInnInt;
+		}else{
+			cout<<"Number of iterations must be a positive number.\nUse default: " <<DEFAULT_ANTALL_TIDSITERASJONER <<endl;
+		}
+	}
+}else{ // for if(argc > 1)
+	cout<<"No arguments listed. Continue with default values:\tNumber of iterations: " <<DEFAULT_ANTALL_TIDSITERASJONER <<endl;
+	ulLengthOfSimulation = DEFAULT_ANTALL_TIDSITERASJONER;
+
+	skrivUtArgumentKonvensjoner(argv[0]);
+} //}1
+\end{lstlisting}
