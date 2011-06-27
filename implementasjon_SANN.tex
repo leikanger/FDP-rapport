@@ -30,8 +30,12 @@
 
 % Frå section lekkasje:	%TODO Skriv i introen til section: om lekkasjen. Skriv om LIF. Internreferer!
 
+% TODO Skriv mykje om lekkasje. Gjør dette avsnittet stort.
+
+% SKRIV at dette er direkte simulering av neuronet i innledning.
 
 %todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo 
+
 	SKRIV INNLEDNING TIL SANN.
 	Her kan det være litt motivasjon, spiking-tid, og at det er lettest å lage dette ved direkte simulering av neuronet.
 	Oppsummere litt det som er skrevet i ANN (sende litt bakover--referanser til ANN kapittel)
@@ -124,10 +128,6 @@
 	%As the size of transmission is given by the strength of the connection, the synaptic weight $w_{ij}$, the synaptic weight is what is sent in from the synapse.
 	%Because of future use of the code may have short--term synaptic plasticity, the size of the transmission is sendt to the postsynaptic dendrite as an argument (se appendix \ref{appendixSynPlast} for a review of synaptic plasticity).
 
-	% TA VEKK? : An other aspect of the biological dendrite's function is the time delay between the initiation of a
-
-	%Z XXX Skrive kvifor eg venter til neste iter? Neiss. Dette gir seg sjølv. Kan ikkje skje umiddelbart..
-
 
 
 %UNDER: FEIL FOKUS, dette er ikkje biologi-kap.!
@@ -164,6 +164,10 @@
 	%Where $l$ is the last time iteration the value was updated.
 	Because leakage is a diminishing mechanism for the value of the node, the value will not go above firing threshold as a consequence of leakage alone.
 	This makes it safe to update the value only when the value is used.
+
+
+
+
 %-----------------------------------
 % Gammelt (er fortsatt der nede, kommentert ut..)
 %	Where $n$ is the last time where the value was updated. 
@@ -207,6 +211,24 @@ inline void s_dendrite::calculateLeakage()
     pow( (double)(1-ALPHA), (double)(time_class::getTid()-pElementOfAuron->ulTimestampLastInput) );
 }
 \end{lstlisting}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	The leakage will be calculated every time the value of the node is used or changed.
 	This means that whenever the dendrite gets a new transmission from one of its input synapses, \emph{s\_dendrite::calculateLeakage()} is called.

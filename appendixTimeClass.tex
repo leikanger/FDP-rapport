@@ -18,68 +18,12 @@ class time_class : public timeInterface {
 
 	protected:
 	void doTask();
-	void doCalculation()
-	{ //{
-		/**************************************************************************************
-		*** Gjennomfore kalkulering paa alle kalkuleringsoppgaver (pCalculatationTaskQue) 	***
-		**************************************************************************************/
-
-		//DEBUG("Inne i time_class::doCalculation()\n");
-
-		if( pCalculatationTaskQue.empty() ) return;
-
-		// Organiserer liste slik at kvar oppforing er unik: 			TODO gjor om x++ til ++x, siden ++x slepper a lage en "temporary".
-		for( std::list<timeInterface*>::iterator iter = pCalculatationTaskQue.begin(); iter != pCalculatationTaskQue.end(); iter++ )
-		{
-			// Testet. Virker som det funker no.
-			std::list<timeInterface*>::iterator iter2 = iter; 
-			iter2++;
-			while(iter2!=pCalculatationTaskQue.end()){
-				// ser om iteratorene peker til samme minneadresse (samme timeInterface-element). Isafall: fjaern det andre elementet.
-			 	if( (*iter2) == (*iter) ){ //c out<<"Var duplikat. Fjaerner andre element.\n";
-					// Oker iterator for eg sletter element pa iter2.
-					std::list<timeInterface*>::iterator slettIter = iter2;
-					iter2++;
-					pCalculatationTaskQue.erase(slettIter);
-					continue;
-				}
-				iter2++;
-			}
-		}
-	
-		while( !pCalculatationTaskQue.empty() ){
-			// Kaller pCalculatationTaskQue.front()->pCalculatationTaskQue();
-			#if DEBUG_UTSKRIFTS_NIVAA > 3
-			cout<<"Kaller " <<pCalculatationTaskQue.front()->sClassName <<".doCalculation()\n";
-			#endif
-
-			pCalculatationTaskQue.front()->doCalculation();
-			pCalculatationTaskQue.pop_front();
-		
-		}
-	} //}
+	void doCalculation();
 
 	static inline void addCalculationIn_pCalculatationTaskQue( timeInterface* pObject_arg)
 	{
 	 	pCalculatationTaskQue.push_back( pObject_arg );
 	}
-
-/***************************************************************************
-*
-* 		TODO for dette opplegget:
-* 			- lag bidirectional peiker. Peiker til rett timeInterface her, og peiker til rett iterator (hit) i timeInterface elementet. TODO Det er dermed kanskje best a returnere iterator fra funksjonen under.
-* 			- nar timeInterface-elementet far nytt estimat, skal elementet flyttes (fjaernes, sa legges inn ELLER bare flyttes den relative avstanden (kanskje best))
-* 				Det er fundamentalt at det bare er en timeInterface peiker tilstede i lista (ellers far vi ekstra fyringer = overflodig arbeid..) 
-** 				[LOSNING: lag en funksjon som ogsa tar inn en {list< list<timeInterface*>* >::iterator}, og denne vil bare flytte elementet 			]
-** 				[ 			og nar elementet blir gjennomfort, flyttes elementet (?) til plass gitt av no+periode (dvs. med bare periode som argument. 	]
-** 				[ 			Dersom elementet skal fjaernes (f.eks. for s_auron), sa kan vi lagre NULL i peikeren (?) 									]
-* 			- Bli sikker pa korleis indekseringa er under. 1 indeksert? 0-indeksert? Trur det skal vaere antall tidsiterasjoner etter NESTE tidsiter. Ogsa viktig for a fa rett funksjonalitet!
-*
-* 		Sa: implementere i time_class::doTask() at den skal gjore alle jobbene i [neste-tids-iter]-list i pEstimated TaskTime (for sa a ta vekk denne [neste-tidIter]-list i p EstimatedTaskTime.
-* 			- kvart element skal sjolv vaere ansvarlig for a flytte seg i p EstimatedTaskTime etter AP.
-*
-****************************************************************************/
-
 
 
 	public:
@@ -98,28 +42,22 @@ class time_class : public timeInterface {
 	static const void skrivUt_pPeriodicElements()
 	{
 		cout<<"Skriver ut pPeriodicElements-lista:\n";
-		for( std::list<timeInterface*>::iterator pPE_iter = pPeriodicElements.begin() ; pPE_iter != pPeriodicElements.end() ; pPE_iter++ )
+		for( std::list<timeInterface*>::iterator pPE_iter = 
+			pPeriodicElements.begin() ;
+			pPE_iter != pPeriodicElements.end() ;
+			pPE_iter++ )
 		{
 			cout<<"[ " <<(*pPE_iter)->sClassName <<" ]\n";
 		}
 		cout<<"\n\n";
 	}
 
-	// Viktig med inkapsling!
-
-	// funker ikkje: friend class timeInterface; XX X test igjen. Har gjort det. Funker ikkje..
 	friend class K_auron;
 	friend class i_auron;
-	friend class i_axon; 		// Usikker om dette funker. Alternativt skriv inn kvar klasse (som under)
-	//friend class s_axon;
+	friend class i_axon; 
 
 	friend void initialiserArbeidsKoe();
 	friend void* taskSchedulerFunction(void*);
-	
-	friend int main(int, char**);
-
-
-	friend void testfunk();
 };
 
 \end{lstlisting}
@@ -186,4 +124,44 @@ void time_class::doTask()
 	******************************************/
 	pWorkTaskQue.push_back(this);	
 }
+\end{lstlisting}
+
+
+\section{time\_class::doCalculation()}
+\begin{lstlisting}
+	inline void time_class::doCalculation();
+	{ 
+		/*********************************************************
+		** Do calculations for all elemin pCalculatationTaskQue **
+		**********************************************************
+
+		if( pCalculatationTaskQue.empty() ) return;
+
+		// Organize list so that each entry is unique 
+		for( std::list<timeInterface*>::iterator iter 
+			= pCalculatationTaskQue.begin();
+			iter != pCalculatationTaskQue.end(); 
+			iter++ )
+		{
+			std::list<timeInterface*>::iterator iter2 = iter; 
+			iter2++;
+			while(iter2!=pCalculatationTaskQue.end()){
+			 	if( (*iter2) == (*iter) ){
+					// Increment iterator vefore deleting element.
+					std::list<timeInterface*>::iterator slettIter = iter2;
+					iter2++;
+					pCalculatationTaskQue.erase(slettIter);
+					continue;
+				}
+				iter2++;
+			}
+		}
+	
+		while( !pCalculatationTaskQue.empty() ){
+			// Call .doCalculation() for fiste element:
+			pCalculatationTaskQue.front()->doCalculation();
+			// Remove first element:
+			pCalculatationTaskQue.pop_front();
+		}
+	} 
 \end{lstlisting}

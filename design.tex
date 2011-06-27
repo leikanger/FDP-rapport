@@ -61,6 +61,7 @@
 
 
 \section{Design} % eller "Design; General Consepts for both Imlementations" eller noke anna..
+	\label{secDesignForANN}
 	% Skriv en liten innledning til denne section. Det er tross alt litt tekst i den..
 
 	%In this section the common framework of the design and implementation of the two models will be presented.
@@ -323,7 +324,7 @@ Due to the reorganization or the list before the elements' \emph{doCalculation()
 %	the calculaton of every node with an updated $\kappa$ will only be done once for each time iteration.
 
 
-
+% XXX Den er brukt mykje i \ref{ssecImpOfSynTransmissionKANNN}
 
 
 
@@ -1175,7 +1176,9 @@ unsigned long ulEstimatedTaskTime_for_object;
 	As this aspect is not part of this project, the concept of \emph{pEstimatedTaskTime} will not be pursuited any further in this text.
 
 
-
+% XXX Dersom eg kjører en mellomting, dvs at vi sjekker kvar node kvar 10ande iter, så kan nodene flyttes over til pEstimatedTaskTime dersom de ligger innenfor neste 50 iter.
+% Konstant lengde på pEstimatedTaskTime lager konstant kjøretid. Bedre.
+% (Dette er bare en notat til seinare)
 
 
 

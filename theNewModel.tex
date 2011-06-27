@@ -253,11 +253,19 @@ And
 	\end{split}
 \end{equation}
 
-The diversity of neurons makes it unrealistic to generalize over all neurons, and say to what the value is reset to.
+% TODO Neste: drittsetning. Tar vekk.  TODO Definer kappa som final value.
+%The diversity of neurons makes it unrealistic to generalize over all neurons, and say to what the value is reset to.
 For our artificial neuron we can define 
 %Generalization for all neurons is unrealistic due to the divesity of neurons, but for our synthetic neurons we can define
 that the neuron is reset to what corresponds to the equilibrium potential at rest, $V_r = 0$ after firing an AP.
 %In the simulated neurons this means that after firing, the neuron is reset to $v_0=0$ after firing. 
+This simplifies further calculations.
+
+An other way to look at it, is to say that $\kappa$ is the final value of $v(t)$
+\begin{equation}
+	\lim_{t\to\infty} v(t) = \kappa
+	\label{eqKappaSomFinalValueAvV}
+\end{equation}
 
 The action potential is a discontinuity in the othervise continous system. The continous equation is only valid between action potentials (within one period).
 %If we reset every aspect of the equation to be reset after firing, the equation can be used for the discontinous system. 

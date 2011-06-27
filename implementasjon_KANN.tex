@@ -270,7 +270,6 @@
 
 			Every time a node's $\kappa$ is changed, a pointer to the node is inserted into a list \emph{pCalculateTaskQue}, introduced in section \ref{ssecCalcultaionTaskQue}.
 			This list is a static element of \emph{time\_class}, and only one instance of the list is constructed. 
-			% TODO TODO todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo  SKRIV OM DETTE (pCalculateTaskQue) i design.tex TODO TODO TODO
 \begin{lstlisting}
 static std::list<timeInterface*> pCalculateTaskQue;
 \end{lstlisting}
@@ -305,84 +304,6 @@ static std::list<timeInterface*> pCalculateTaskQue;
 
 	
 	
-			\subsection{Analysis of synaptic transmission as the derived}
-			\label{ssecAnalysisOfSynTransAsTheDerived}
-			To avoid summation of the transmission of all node's input synapses, the edge transmission is defined as the derived.
-			To update the synapse's $\kappa_{ij}$, the edge transmission only has to be added to the previous $\kappa_{ij}$. %ta med?  :   that is the change of the synapse's transmission   før "only"?
-			As a node's activity variable $\kappa_i$ is defined as the sum of all the input transmissions, $\kappa_{ij}$,
-				the postsynaptic activity variable is also updated by summing it with the new edge transmission.
-
-			After each transmission we get the updated $\kappa_i$ as a sum of the current $\kappa_i$ and the edge transmission $u_{ij}(\kappa_j)$
-			\begin{equation}
-				\kappa_i = \kappa_i + u_{ij}(\kappa_j)
-			\end{equation}
-			
-			After at the end of the time iteration, the effect of the updated $\kappa$ is calculated.
-			As the synaptic transmission, and thus the edge tranmission, depend on some of the variables calculated in \emph{K\_auron::doCalculation()}, the updated $\kappa_i$ is first propagated after this function is executed.
-			For an analysis of the time of propagation of $\kappa$ it is referred to section ?. %TODO TODO TODO OTODO OTDO TODO TODO TODOD TODO Skriv in referanse nå er har skrevet om dette i Analyse-kapittelet.
-
-			In fig. \ref{figEdgeTransmissionKaboveT} we can se a plot of the edge transmission of an inhibitory synapse.
-			The presynaptic node's activity variable varies as \mbox{$f(t) = 1.1 \cdot \tau \cdot (1 + sin( 2\pi \cdot \frac{t}{1000})$}.
-	
-\begin{figure}[hb!tp]
-	\centering
-	\includegraphics[width=0.95\textwidth]{./synapticTransmissionPlots/eps_transmissionKappaAboveThreshold.eps} 	
-	\caption{ 	
-			} %TODO skriv om dette tomrommet i teksten under.
-	\label{figEdgeTransmissionKaboveT}
-\end{figure}
-
-			The edge transmission for an inhibitory synapse is the negative of that of an excitatory synapse.
-			From fig. \ref{figEdgeTransmissionKaboveT}, we can therefore see that the synapse is an inhibitory synapse as it shows a plot that resembles $ - 1.1 \cdot cos(x)$, 
-				or the negative of the derived of $\kappa_j$.
-			%From the figure we can se that the synapse is an inhibitory synapse, as the figure shows a scaled version of the negative of the derived of the presynaptic activity variable.
-				%edge transmission is the derived of the presynaptic node's activity variable.
-
-			
-			If we let the presynaptic activity variable ``dip'' below threshold, the synaptic transmission becomes zero.
-			This is because the period becomes infinitive (the node will never fire) for a sub--threshold activity variable. 
-			As the synaptic transission is the synaptic weight times the inverse of the period, the synaptic transission is zero when $\kappa$ is less than $\tau$.
-			For the edge transmission we will therefore se see a non--linearity if the activity variable is less than or equal to the threshold.
-
-	% Feil ref.		In fig. \ref{figEdgeTransmissionKaboveT} we can se a plot of the edge transmission of an inhibitory synapse.
-	% Feil ref.		The presynaptic node's activity variable is presented in fig. \ref{figEdgeTransmission:edge-a}.
-
-\begin{figure}[hb!tp] 				% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO FLYTT til resultat og sammenlign. kap.
-	\centering
-	%
-   	\subfloat[Presynaptic activity variable, {$\kappa_j$}]{\label{figEdgeTransmission:edge-a} 						\includegraphics[width=0.95\textwidth]{./synapticTransmissionPlots/eps_auronKs2-kappa.eps} 		}  \\
-   	\subfloat[Synaptic transmission]{\label{figEdgeTransmission:edge-b} 		\includegraphics[width=0.95\textwidth]{./synapticTransmissionPlots/eps_transmission_Ks2->K1.eps} 	}
-	%\caption{Demonstration of the value function for changing kappa}
-	\caption{ 	( \ref{figEdgeTransmission:edge-a} ) The presynaptic activity variable $\kappa_j$         and   
-				( \ref{figEdgeTransmission:edge-b} ) The corresponding edge transmission to a presynaptic activity variable presented in \ref{figEdgeTransmission:edge-a}. 
-			Notice the gap of the synaptic transmission when $\kappa_j \leq \tau$ = 1000. 
-			} %TODO skriv om dette tomrommet i teksten under.
-	\label{figEdgeTransmission}
-\end{figure}
-			If the presynaptic node is a sensor neuron with a sensor function varying as a sinus that dips below threshold, we get the edge transmission presented in fig. \ref{figEdgeTransmission:edge-b}. 
-			The presynaptic activity variable is presented in fig. \ref{figEdgeTransmission:edge-a}.
-
-			We can see that the edge transmission no longer resembles the derived of the presynaptic activity function. 
-			Now we have a strong non--linearity when $\kappa_j \leq \tau$.
-			In all plots in this report, the firing threshold is set to $1000$
-
-			The plots of synaptic transmission is made by running the octave log--scritps resulting from the execution of the implementation.
-			In the constructor of each synapse object, a file stream is created. 
-			This writes a fully executable octave script. The above plots have been made by executing such scripts.
-
-			%Skriv om at dette er ei inhib. syn. Dette er grunen til at kurva er "opp ned".
-
-	
-			% DÅRLIG: Skriv om, men bruk mindre ord, meir følelser, osv. Skal ikkje være veldig teknisk, men skal innlede lese mot neste section.. XXX TPOD COTO DOTO TODO TODO TODO
-			By defining the edge transmission as the derived where we integrate all the input in the postsynaptic node involves one drawback, the global truncation error.
-			At every step we sum the current value with the new value. If we get a small error in these calculations we get what is called ``truncation error''.
-
-
-
-
-%TODO Flytte analyse over, over til comparison and  results? nee..
-%TODO synaptisk transmission overføringsplott, som viser pre og postsyn aktivitetsvar.? Eit som ikkje har problemer: for å vise at det funker..
-
 
 % _____________________ fiksa til hit __________________________________________________________________________________________________________________________________________________________________________________
 | \\ \emph{\bf\large{{----------------------------- fiksa til hit ----------------------------}}}\\
@@ -514,7 +435,7 @@ static std::list<timeInterface*> pCalculateTaskQue;
 
 
 
-
+% KAN ikkje denne takast vekk? XXX XXX XXX
 	\subsection{Estimation of firing time}
 	% Skriv kvifor eg kaller det "Estimation" og ikkje calculation.
 	%TODO dette var en del av section{KANN} tidligere. Fokuset i teksten er det. Skriv om slik at det gjelder generelt, men med spesiellt fokus på KANN.
@@ -561,22 +482,22 @@ static std::list<timeInterface*> pCalculateTaskQue;
 
 
 
-	\subsection{When do $\kappa$ propagate?} %TODO TODO Dette er analyse => Discursion! XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX 
-	In the start of this project, $\kappa$ANN were implemented as a varian of a network with spiking nodes.
-	Here the information is transmitted by the synapses following an action potential. 
-	Because the SANN model was the basis of this implementation, the information were originally transmitted at the time of the node spiking.
-%XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX 	
-%FORTSETT HER
-	ARGUMENTER for at den propagerer heile tida.
-Stavdal meiner at det er tull å propagere heile tida (kvar gang K oppdateres i presyn). 
-Eg har laga plot for å sei imot dette: når kappa venter med å propagere til første fyring får man eit tidsdelay for depol til KN tilsvarende tida det tar til første fyring. (dette er veldig tydlig ved sprang i presyn K).
-
-Når Kappa propagerer kvar gang presyn endres, fjærnes dette problemet. Propagerer som det er gjordt før, med at axon legges til i pWorkTaskQue. Alle postsyn. noder får dermed input tidligst neste iterasjon.
-
-Dette har med synapstisk transmissjon å gjøre, og eg må gjøre dette ferdig før eg skrive meir om dette..
-
-NEI faen! no er feilen der igjen. Sjekka kode, og fann at den propagerete, men bare om K>T, så det over er TULL.
-
+%	\subsection{When do $\kappa$ propagate?} %TODO TODO Dette er analyse => Discursion! XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX 
+%	In the start of this project, $\kappa$ANN were implemented as a varian of a network with spiking nodes.
+%	Here the information is transmitted by the synapses following an action potential. 
+%	Because the SANN model was the basis of this implementation, the information were originally transmitted at the time of the node spiking.
+% %XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX 	
+% %FORTSETT HER
+%	ARGUMENTER for at den propagerer heile tida.
+%Stavdal meiner at det er tull å propagere heile tida (kvar gang K oppdateres i presyn). 
+%Eg har laga plot for å sei imot dette: når kappa venter med å propagere til første fyring får man eit tidsdelay for depol til KN tilsvarende tida det tar til første fyring. (dette er veldig tydlig ved sprang i presyn K).
+%
+%Når Kappa propagerer kvar gang presyn endres, fjærnes dette problemet. Propagerer som det er gjordt før, med at axon legges til i pWorkTaskQue. Alle postsyn. noder får dermed input tidligst neste iterasjon.
+%
+%Dette har med synapstisk transmissjon å gjøre, og eg må gjøre dette ferdig før eg skrive meir om dette..
+%
+%NEI faen! no er feilen der igjen. Sjekka kode, og fann at den propagerete, men bare om K>T, så det over er TULL.
+%
 
 % TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
 % Lag plott av KN for nettverk der sensorneuronet venter til fyring, og eit SN depol-plott. For sammenligning (chap. comparison and results).
