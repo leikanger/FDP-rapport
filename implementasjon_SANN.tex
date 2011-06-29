@@ -241,27 +241,28 @@ inline void s_dendrite::calculateLeakage()
 	% %, depending of the nature of each synapse (whether it is excitatory or inhibitory).
 	
 	The simulated synaptic tranmission is executed by the output synapse's \emph{doTask()} function.
-	This increases or decreases the postsynaptic node's value, depending on whether it is an excitatory or inhibitory synapse.
+	This gives an increases or decreases the postsynaptic node's value, depending on whether it is an excitatory or inhibitory synapse.
 	The size of the transmission is given by the synaptic weight.
 	%This is done by sending the new signal to the postsynaptic dendrite's input function \emph{newInputSignal(double)}.
-	% TODO HER TODO HER TODO HER TODO HER TODO HER TODO HER TODO HER TODO HER TODO HER TODO HER TODO HER TODO HER TODO HER TODO HER TODO HER TODO HER TODO HER TODO HER TODO HER TODO HER TODO HER TODO HER TODO HER TODO HER TODO HER TODo
 
-	As an input is presented to the postsynaptic dendrite, an argument is sent in to the function \emph{s\_dendrite::newInputSignal(double)}.
-	This function alters the postsynaptic node's value by the  %XXX HER
-
-
-	The postsynaptic potential will change as a function of the synaptic weight. For this simulation the postsynaptic potential will change with a factor $\frac{1}{\alpha}$. %XXX Kvifor? 1/a. Sjekk regtek bok.
-	This is handled in the postsynaptic dendrite, causing the postsynaptic depolarisasjon to change by $\pm \frac{W_{ij}}{\alpha}$, depending on the nature of the synapse.
+	%As an input is presented to the postsynaptic dendrite, an argument is sent in to the function \emph{s\_dendrite::newInputSignal(double)}.
+	A new input signal is presented to the postsynaptic dendrite by sending in the synaptic weight to the function \emph{s\_dendrite::newInputSignal(double)}.
+	Synaptic transmission is thus divided into two parts, where the postsynaptic dendrite ultimately controls the change of depolarisasjon for the postsynaptic node.
+	The postsynaptic depolarisasjon is changed by an amount given by the argument presented, and by the predefined time constant of the node.
+	After an incoming transmission the postsynaptic node is change by a value of $\pm \frac{W_{ij}}{\alpha}$, depending on the nature of the synapse.
+%	The postsynaptic potential will change as a function of the synaptic weight. For this simulation the postsynaptic potential will change with a factor $\frac{1}{\alpha}$. %XXX Kvifor? 1/a. Sjekk regtek bok.
+%	This is handled in the postsynaptic dendrite, causing the postsynaptic depolarisasjon to change by $\pm \frac{W_{ij}}{\alpha}$, depending on the nature of the synapse.
 
 	%TODO TODO OTOD TODO SKRIV OM dale's principle I BiologiskeSystemet.tex TODO TODO Og referer dit.
 	In many ANNs the synapse has the ability to change between between being excitatory and inhibitory. 
 	This corresponds to e.g. a positive synaptic weight becoming negative after synaptic plasticity.
-	According to Dale's Principle %TODO \ref{REFERER RETT PLASS!}
-		, in biology the synapses are either excitatory or inhibitory.
-	%If the synaptic weight is zero the synapse dissapears.
+	According to Dale's Principle, neurons release one neurotransmittor\cite{NeuroscienceExploringTheBrain3edKAP6}
+%	The result of this is that in biology, synapses are either excitatory or inhibitory.
 
-	Synapses can not go from being excitatory to being inhibitory, and vice versa.
-	In this simulation, excitatory and inhibitory synapses are therefore separated by a boolean \emph{bInhibitoryEffect}. The transmission is implemented in \emph{s\_synapse::doTask()} as
+	A result of this is that synapses can hardly ``change its nature'' and go from being excitatory to being inhibitory, and vice versa.
+	%Synapses can not go from being excitatory to being inhibitory, and vice versa.
+	In this simulation, excitatory and inhibitory synapses are therefore separated by a boolean \emph{bInhibitoryEffect}. 
+	The transmission is implemented in \emph{s\_synapse::doTask()} as
 \begin{lstlisting}
 inline void s_synapse::doTask()
 {
@@ -269,64 +270,71 @@ inline void s_synapse::doTask()
     (1-2*bInhibitoryEffect) * dSynapticWeight );
 }
 \end{lstlisting}
-	When synaptic plasticity is implemented for this simulation, it is important to make shure that the synapse does not become negative. 
-	The specific mechanisms of synaptic plasticity have not been designed, but when the synaptic weight comes to close to being zero, the biological synapse will dissapear.
-	The plan is to make some condition for the dissapation of synapses as the synaptic weight becomes to small.
-	%The spatial and temoral resolution can be improved by simply adding more input dendrites and axon elements for the node.
-	%Each axon elements then gets the function of a segment of the ``axon proper'' in the biological neuron. %TODO Skriv kva "axon proper" er i BiologiskeSystemet.tex, og referer dit!
+
+	When synaptic plasticity is implemented for this simulation, it is important to make shure that the synaptic weight does not become negative. 
+%	The specific mechanisms of synaptic plasticity have not been designed, but when the synaptic weight comes to close to being zero, the biological synapse will dissapear.
+% 	The plan is to make some condition for the dissapation of synapses as the synaptic weight becomes to small.
 
 \subsection{The response of the SN}
 	In the previous sections, the design of each node for the SANN was introduced.
 	The activity variable for the SN corresponds to the level of depolarization of the membrane potential for the biological neuron.
-	Excitatofy synaptic input to a node will increase the value of the node and inhibitory synaptic input will decrease the node's value.
+	Excitatory synaptic input to a node will increase the value of the node and inhibitory synaptic input will decrease the node's value.
 
 	%TODO Lag figur om kretsen. Den skal ligge her. Neste plott er resultatet, og kan komme på neste side, eller noke..
 	\begin{figure}[hb!tp]
-		\centering
+		\centering 				%TODO TODO Flytt dette plottet ned, ca ei side. Putt fig. av oppsett, her.
 		\includegraphics[width=0.95\textwidth]{depolPlotAvSN/eps_auronE-depol.eps}
 		\caption{Depolarization plot for auronE in the neural circuit from fig ?. The activity variable for a SN corresponds to the depolarization of a neuron.
-		(Plot generated by AuroSim)} %TODO TODO Lag plot som beskriver kretsen, og referer dit, her.
+		(Generated by AuroSim)} %TODO TODO Lag plot som beskriver kretsen, og referer dit, her.
 		\label{figAuronE}
 	\end{figure}
 
+%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+%TODO TODO TODO TODO TODO TODO TODO TODO                              ENTEN Lag fig ?, over kretsen, eller fjærn denne ref.  HELST lag fig!                      TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
 	Each time iteration, the value of the node will diminish due to ``leakage''. 
-	In this implementation, the leakage is only computed whenever the value is used.
+	In AuroSim, the leakage is only computed whenever the value is used.
 	This is done by the use of equation \eqref{eqLeakageForSANN}.
 
 	%Skriv først (underveis i neste avsnitt) at for å teste dette kan vi lage en "neural oscillator", en krets som vil holdes aktiv av seg selv. Kvar output .. osv...
-	To test the implementation of the SN, the circuit in fig. ? % XXX TODO Lag denne, og :  \ref{}
-		was tested. The connections between node A1 and node A2 has a synaptic weight of weight $W_{21}=1$, large enough to excite node A2 above firing threshold in a single transmission.
+	To test the implementation of the SN, the circuit in fig. ? % XXX TODO Lag denne, og :  \ref{} TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+		was tested. The connections between node A1 and node A2 has a synaptic weight of weight $W_{21}=1.1$, large enough to excite node A2 above firing threshold in a single transmission.
 	Each of the nodes A1-A9 has a synapse to the next node with a synaptic weight of one. 
 	From node A9, there is a synapse to node A1 of weitht 1 completing the ``neural oscillator''. In this circuit each of the nodes will fire once every ninth time iteration.
 
-	Except from node A7, every node in the ``neural oscillator'' have a synaptic connection to node E with a constant synaptic weight $W_{Ej}=0.017$ . %todo: ta vekk "constant" ?
+	Except from node A7, every node in the ``neural oscillator'' have a synaptic connection to node E with a synaptic weight $W_{Ej}=0.017$ . %todo: ta vekk "constant" ?
 	There is no synapse from A7 to node E.
 	%From each of the nodes in the ``neural oscillator'' except for node A7, there is a synaptic connection to node E with a constant synaptic weight $W_{Ej}=0.0017$ .
-	In the course of one period we therefore get eight excitatory inputs to node E, each transmission of size $W_{Ej}*\tau = 17$. Every ninth time iteration we get no input to node E.
-						%period AV KA? Skriv kva!
+	In the course of one period of the oscillator we get eight excitatory inputs to node E, each transmission of size $W_{Ej}*\tau = 17$. 
+	Every ninth time iteration we get no input to node E.
 
 	Fig. \ref{figAuronE} shows the resulting depolarization plot of node E. 
-	We can se that node E gets a steady input from the nodes of the ``neural oscillator''.
+	% TODO flytt neste linja litt ned (eller noke, passer ikkje akkurat her..)
+	%Fig.\ref{figAuronE} is a direct result of the execution of the log files created by the simulator.
+	This plot is the result of running the octave log script of auron E in octave after the execution of AuronSim.
+	%
+
+	We can see that node E gets a steady input from the nodes of the ``neural oscillator''.
 	%
 	Every cycle of the oscillator there is a pause in the excitatory input to node E, resulting in a small drop in node E's activity variable. 
 	One cycle of the oscillator is represented by 8 entries in the log file, one log entry after each transmission.
-	This can also be observed in fig. \ref{figAuronE} by remebering that during a pause in transmission, the change of value for the node is only due to the ``leakage'' of the node's value.
+	This can also be observed in fig. \ref{figAuronE} by remembering that during a pause in transmission, the change of value for the node is only due to the ``leakage'' of the node's value.
 	Every 8'th value of node E's value is smaller than the previous entry due to this effect.
 	%This is due to the absense of excitatory input and due to the leakage during the pause in excitatory input to the node.
 
 	%After the pause in synaptic input to node E, the leakage is calculated at the time of the next transmission by eq. \eqref{eqLeakageForSANN}, resulting in the little drop in the node's value.
 
-	% TODO flytt neste linja litt ned (eller noke, passer ikkje akkurat her..)
-	Fig.\ref{figAuronE} is a direct result of the execution of the log files created by the simulator.
 	% TODO Skriv det under i "log-file"-biden av design.tex! Passer ikkje her...
 	%The constructor of every node creates a log file and each time the nodes activity variable is changed, the time iteration and the new value is written to the log file.
 	%The destruction of each node finalize the node's log file, by writing octave calls that makes plots like the one in fig. \ref{figAuronE} and prints the resulting plot to an eps file.
 	%Many of the eps files included in this report comes from the execution of similar octave script--file logs.
 
-	We can also se that the mechanisms behind firing an action potential works. 
+	We can also see that the mechanisms behind firing an action potential works. 
 	%When the value of the node goes over the firing threshold an action potential is fired.  %XXX Dette er kanskje bedre måte å sei det enn neste?
 	When the node's value goes to suprathreshold levels, an action potential is fired. %Skriv: dette er representert ved en vertikal strek i figuren (eller i logg-plottet).
-	In fig. \ref{figAuronE} we can se that the node's value is reset to zero after firing an action potential.
+	In fig. \ref{figAuronE} we can see that the node's value is reset to zero after firing an action potential.
 	%TODO Ta med det neste, men ikkje før eg er heilt sikker, og kan gjøre det til meir enn en påstand (ta med noke i appendix, eller skrive tidspunkt for de to)
 	%In the corresponding log file for the synaptic transmission of node E's output synapses, it can be observed that the synaptic transmission comes two time iterations after the node's value reaches the firing threshold. 
 	%%Similar plots of the synaptic transmission from the synapses log file shows transmission after the time delay caused by the initiation of an action potential and the delay caused by the action potential propagating through the axon.
@@ -341,26 +349,15 @@ inline void s_synapse::doTask()
 	The log entry for the next time iteration is zero, due to the simulated refraction period of the node.
 	Two time iterations after the action potential the node's value becomes or 17. %TODO? Skal eg skrive litt om at eg kjører størrelse på W_ij i kor mykje postsyn. går mot fyring. I promille? Viktig poeng!
 	%Har sjekka: Dette gjelder for begge overføringene/AP i simuleringen. Skriv dette, og at det betyr at vi for desse to overføingene faller "pause" ikkje til to tidssteg etter fyring.
-	This corresponds to the defined synaptic transmission for each of the synpses of the circuit. %Kanskje heller : ".. for the synapse in question"? ELLER at dette betyr at i desse tilfellene har vi ikkje pause på dette tidspunktet.
+	%This corresponds to the defined synaptic transmission for each of the synpses of the circuit. %Kanskje heller : ".. for the synapse in question"? ELLER at dette betyr at i desse tilfellene har vi ikkje pause på dette tidspunktet.
+	This corresponds to a transmission through one of the synpses.
+	As AuroSim does not calculate synaptic plasticity, the result of a transmission is a constant postsynaptic change of size 18.
 
 	%This analysis shows that the above discussed design of the simulated neuron gives us the mechanisms of the neuron, in respect to synaptic transmission, leakage, refraction time and action potential firing.
-	This analysis shows that, in respect to synaptic transmission, synaptic leaky integration, refraction time and action potential firing, the design and implementation gives the behaviour of the model used. 
+	This analysis shows that, in respect to synaptic transmission, leaky integration, refraction time and action potential firing, the design and implementation gives the behaviour of the neuron model used. 
 																																														  %ELLER: .. considered model of the neuron.
-	%TODO Skriv om den siste linja litt. (siste bit: kanskje heller: "... , the design and implementation gives the desired behaviour for the simulated neuron."?
 
 
-
-
-	%We can se that the value of the node has a vaulue % at det varierer som plot X (finn eit plott, legg det inn i BiologiskeSystemet.tex, referer dit, her) %TODO
-%	Fig. \ref{figAuronE} resemples a plot of a step responce of a condencator, with an extra non--linearity when the value of the node crosses the firing threshold.
-%	We have already analyzed the 
-%	Skriv at kurva ser rett ut.
-
-
-
-
-
-	
 
 
 
@@ -379,7 +376,6 @@ inline void s_synapse::doTask()
 
 
 
-%TODO TODO Lag eit plott som sammenligner kontinuerlig lekkasje, vs beregning av lekkasje etter 30 iterastions. (Dette skal inn her..)
 
 
 

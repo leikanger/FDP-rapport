@@ -177,7 +177,7 @@
 
 	For the direct simulation of the biological neuron, the signal propagation is strongly causal; The ``action potential'' happens after the ``depolarization'' goes to suprathreshold levels.
 	Let the SANN node's \emph{s\_axon} element have the role of the axon in propagating the signal.
-	As the we will se in sec. \ref{ssecSANNAP}, the SANN node's \emph{s\_auron} represent the axon hillock in the biological neuron, and will be scheduled for execution when the value of the node goes to suprathreshold levels.
+	As the we will see in sec. \ref{ssecSANNAP}, the SANN node's \emph{s\_auron} represent the axon hillock in the biological neuron, and will be scheduled for execution when the value of the node goes to suprathreshold levels.
 	This gives that the task of \emph{s\_auron} is to add the node's axon to \emph{pWorkTaskQue}.
 	%xxx En av de neste tre. Kanskje en mellomting?
 	For a more comprehensive notion of the mechanisms behind this design, it is referred to appendix \ref{appendixDifferentDoTaskFunctions}, where all the tasks of element's \emph{doTask()} are listed.
@@ -185,12 +185,12 @@
 	%For the reader, the elements' \emph{doTask()} actions are listed in appendix \ref{appendixDifferentDoTaskFunctions}. 					
 
 	%A subelement of a SANN node, the \emph{s\_auron} is chosen as the example presented in this section.
-	% % As the we will se in sec. \ref{ssecSANNAP}, the SANN node's \emph{s\_auron} has the role of the axon hillock in the biological neuron, and will be scheduled for execution when the value of the node goes to suprathreshold levels.
+	% % As the we will see in sec. \ref{ssecSANNAP}, the SANN node's \emph{s\_auron} has the role of the axon hillock in the biological neuron, and will be scheduled for execution when the value of the node goes to suprathreshold levels.
 
 	%As introduced in sec. \ref{ssecTheActionPotential}, the axon hillock initiates the action potential for the biological neuron.
 	%Let the action potential be the task of the SANN node's axon, the \emph{s\_axon}.
 	%The action of \emph{s\_auron} will then be to insert the node's \emph{s\_axon} into \emph{pWorkTaskQue}.
-	%When each of the node's subelements \emph{doTask()} is defined later in this chapter, we will se that we get a fully functional SN. %Litt krøkete start? XXX 
+	%When each of the node's subelements \emph{doTask()} is defined later in this chapter, we will see that we get a fully functional SN. %Litt krøkete start? XXX 
 	% %For the reader, the elements' \emph{doTask()} actions are listed in appendix \ref{appendixDifferentDoTaskFunctions}. 					
 	%For an introduction to the action of each element's \emph{doTask()} it is referred to appendix \ref{appendixDifferentDoTaskFunctions}. %XXX Ikkje heilt fornøgd med starten. "introduction" er feil. TODO Finn rett ord.
 
@@ -280,7 +280,7 @@ After the global time variable \emph{time\_class::ulTime} has been iterated and 
 	L = [a_1, c_1, c_2, T ]
 \end{equation}
 
-We can se that we are back at the initial condition of the example
+We can see that we are back at the initial condition of the example
 The number of tasks in each iteration of time is unimportant. 
 The role of $T$ as a ``time separation object'' is the fundamental mechanism in this time simulation.
 
@@ -331,7 +331,6 @@ Due to the reorganization or the list before the elements' \emph{doCalculation()
 
 
 
-\newpage
 
 %\begin{lstlisting}
 %static unsigned long std::list<timeInterface*> pWorkTaskQue;
@@ -498,7 +497,7 @@ Due to the reorganization or the list before the elements' \emph{doCalculation()
 %	Each node consists of the same elements as the biological neuron, described in section \ref{secTheBiologicalNeuralSystem}.
 %	For the sake of generality, each element of the auron is an object of its own. 
 %	If higher spatial accuracy is required, we could insert more linked objects into a linked list of subelements within each element of the node. %causal actions (in addition to decreasing the time step). %ELLER NOKE
-%	As we will se next, combined with a smaller time step, this would give an increased spatiotemporal resolution.
+%	As we will see next, combined with a smaller time step, this would give an increased spatiotemporal resolution.
 %	%TODO Skriv at vi vil sjå .. Eller noke slikt.
 %
 % %	To achieve the wanted effects from section \ref{sssecTemporalAccuracy}, each sub--element of the auron will be an object of its own. 			  %Eller "to achieve generality" ?
@@ -599,7 +598,7 @@ Due to the reorganization or the list before the elements' \emph{doCalculation()
 
 
 
-	\subsubsection{Construction of node elements} 
+	\subsubsection{Construction of Node Elements} 
 	Because each element is connected to the next and the previous element in the signal path, a pointer to the ``containing'' element have to be supplied when constructing the element.
 	If the node construction begins at the ``master element'', the auron.
 	At the construction of the auron, the dendrite and axon elements of the node is constructed.
@@ -649,7 +648,7 @@ auron::auron() : tidInterface("auron")
 
 
 
-	\subsubsection{Destruction of auron elements}
+	\subsubsection{Destruction of Node elements}
 	When an object is destructed, dereferencing a pointer to it gives undefined behavior.  % XXX Dårlig skrevet.
 	%In addition to freeing the memory used for the elemen's variables, all pointers to it must therefore be removed.
 	The destructor therefore have to remove all incoming connections to the element as well as freeing the memory allocated by the element.
@@ -801,7 +800,7 @@ auron::auron() : tidInterface("auron")
 %
 %	\subsubsection{The Model Specific \emph{s\_dendrite} Class}
 % //{
-%	\emph{s\_dendrite::newInputSignal( int )} is called from the input synapse in the case of transission. 
+%	\emph{s\_dendrite::newInputSignal( int )} is called from the input synapse in the case of transmission. 
 %	To aproximate the synaptic delay, \emph{s\_dendrite::newInputSignal( int )} is called directly from the synapse at the time of transmission.
 %	If the postsynaptic node is exited above firing threshold, the dendrite is added to the back of the working que by the command \emph{time\_class::leggTilTask( this )}. 
 %	This will induce the actions of a dendrite after one time iteration.
@@ -1192,8 +1191,8 @@ unsigned long ulEstimatedTaskTime_for_object;
 \begin{figure}[hbt!p]
 	\centering
 	\includegraphics[width=0.95\textwidth]{sensorAuron.eps}
-	\caption{Example of the use of a sensor auron. The sensor function is \mbox{$2\tau (1-cos(\pi \frac{t}{1000}))$} before time $t=1500$. After this it halves the amplitude and doubles the frequency.
-			The blue curve represents the sensor function. The green curve represents the ``depolarization'' of the node. (Plot generated by AuroSim)} 
+	\caption{Example of the use of a sensor auron. A sensor function is designed to be \mbox{$2\tau (1-cos(\pi \frac{t}{1000}))$} before time $t=1500$. After this it halves the amplitude and doubles the frequency.
+			The blue curve represents the sensor function. The green curve represents the ``depolarization'' of the node. (Generated by AuroSim)} 
 	\label{figSensorAuronExample}
 \end{figure}
 
@@ -1207,6 +1206,8 @@ unsigned long ulEstimatedTaskTime_for_object;
 
 	Objects of these classes update its activity level each time iteration.
 	The activity level, represented by $\kappa$ in $\kappa$ANN, is given by the output of some ``sensor function''.
+
+	The operation of the sensor node is very inspired by biology, where we also have specialized receptor cells responsible for the monitoring of the environment\cite{NeuroscienceExploringTheBrain3edKAP8}.
 
 	\subsubsection{The sensor function is a function pointer}
 	The sensor function is the method that ``senses''.
@@ -1242,6 +1243,24 @@ K_sensor_auron::K_sensor_auron(
 	Inspired by biology, the sensing done by the sensor auron happens at the dendrite;
 		The sensor auron is updated by sending in the sensed signal to the dendrite's \emph{newSignal()} function.
 	%The sensed signal is therefore sent in to the dendrite as the derived of the sensor function. % , before the result is sent in to the \emph{newSignal()} function.
+
+
+	For the K\_sensor\_auron this gives the code
+\begin{lstlisting}
+inline void K_sensor_auron::updateSensorValue()
+{ //{
+	// Use two variables, to find the derived.
+	dLastSensedValue = dSensedValue;
+	dSensedValue = (*pSensorFunction)(); 
+
+	// Use the native mechanism for dendritic integration for the sensor neuron:
+	if( dSensedValue != dLastSensedValue){
+		changeKappa_derivedArg( dSensedValue-dLastSensedValue );
+	}
+} //}
+\end{lstlisting}
+
+	%Litt meir, kanskje. Ikkje heilt naudsynt..
 
 
 

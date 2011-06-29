@@ -183,7 +183,7 @@
 			\end{equation}
 			
 			Where $u_{ij}(\kappa_j)$ is the transmission through the edge.
-			This involves that a new transission updates $\kappa_{ij}$ by adding its value to the current $\kappa_{ij}$.
+			This involves that a new transmission updates $\kappa_{ij}$ by adding its value to the current $\kappa_{ij}$.
 			%As the postsynaptic node's activity variable is the sum of all the synaptic transmissions, as defined in \eqref{eqSumOfKij}, transmission through 
 			As the postsynaptic node's activity variable is the sum of all the synaptic transmissions, and each synaptic transmission is the integral of all the transmissions through the edge, 
 				$\kappa_i$ can be updated by simply adding the new edge transmission to $\kappa_i$.
@@ -256,7 +256,7 @@
 			%TODO finn ut korleis eg skal skrive det over / which of dei to setningene eg skal basere setninga på..
 	
 			%%\subsubsection{Implementation of transmission through a synapse} % Vettafaen om denne skal være med. Gjorde om fra å være en kommentar, no..
-			When implementing synaptic transissions, equation \eqref{eqSynapticTransmissionForKANN} is considered first.
+			When implementing synaptic transmissions, equation \eqref{eqSynapticTransmissionForKANN} is considered first.
 			This equation is based on the presynaptic inter--spike period and the synaptic weight of the edge, elements that are available from the presynaptic node and the synapse itself.
 			At the time of transmission, the edge transmission is further calculated as the change in $\kappa_{ij}$.
 			
@@ -528,7 +528,7 @@ static std::list<timeInterface*> pCalculateTaskQue;
 
 
 
-% //{ \section{Planned Events}
+% //{ \section{Planned Events} KOMMENTERT UT
 %	\label{secPlannedEvents}
 %	\subsection{pEstimatedTaskTime}
 %	$\kappa$ANN is based on calculating the firing time, given the present level of input. 
@@ -609,7 +609,7 @@ static std::list<timeInterface*> pCalculateTaskQue;
 %In the above algorithm, new std::lists are created in the free store. This creates elements for pEstimatedTaskTime that will exist after the return from the function where the elements are constructed.
 %%When the free store is used, it is important to deallocate the memory after the element is used. %skriv bedre, denne setininga
 %To avoid memory exhaustion, it is important to deallocate the memory allocated in the free store when the variable no longer will be used. This is done when the inner lists are evaluated in \emph{time\_class::doTask()}.
-%For more about the execution of pEstimatedTaskTime tasks, se section \ref{ssecEvaluationOfpEstimatedTaskTimeELEMENTS}.
+%For more about the execution of pEstimatedTaskTime tasks, see section \ref{ssecEvaluationOfpEstimatedTaskTimeELEMENTS}.
 %%TODO Skrim om deallocating memory i ssecEvaluationOfpEstimatedTaskTimeELEMENTS   asd123
 %
 %

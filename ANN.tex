@@ -55,14 +55,15 @@
 
 \section{Artificial neural networks: background}
 
+%TODO Endre neste setning. Dårlig:
 To illuminate different aspects of artificial neural networks (ANN) a short history about ANN is presented in sec. \ref{ssecHistoryOfANN}. 
 The models presented in the following section are either of a historical interrest or of a more immediate relevance to this project.
-Because this report compares two different ANN with information about the timing of the spikes of the neuron, there will be a special focus on models with this capability. 
+Because this report compares two ANNs with information about the timing of the output transmission for a node, there will be a special focus on models with this capability in this introduction.  %XXX Stemmer dette?
 %Because the new model and the model behind ``Spiking Artificial Neural Network'' will be compared in this project, we will have a special focus on SANN in the following review of ANN history.
 
 
 
-Before we review the different ANN models and the history of ANN, we need to know a minuscule of the biological neuron. 
+Before we review the different ANN models in the history of ANN, we need to know a minuscule of the biological neuron. 
 For a more comprehensive introduction it is referred to section \ref{secTheBiologicalNeuralSystem}.
 Only the most important findings will be repeated here.
 
@@ -73,67 +74,68 @@ For a simplified model of the neuron the value often refers to the electrical po
 In this text, ``the value'' refers to the depolarization whenever we speak about the biological neuron.
 
 %The ``output'' of a neuron in the following paragraph refers to an action potential of the neuron.
-If the neuron ``fires an action potential'', all the neuron's output synapses will transmit.
-The size of this transmission is given by the strength of the synaptic connection between the nodes.
-This value is often referred to as the ``synaptic weight'' of the synapse.
+If the neuron ``fires an action potential'', all the neuron's output synapses will transmit after a small delay.
+The size of this transmission is given by the strength of the synaptic connection between the nodes, not the value of the neuron.
+% KAffane ksal eg skrive i starten her? (under) 	xxx xxx
+This size of the connection is often referred to as the ``synaptic weight'' of the synapse.
 
-The value of the neuron does not give the size of transmission for it's output synapses. It does however give the time of transmission.%todo skriv om:skriv om funksjonen til depol. først SÅ sist i avsnitt:det gir ikkje størrelse på overf.
+The value of the neuron is not unrelated to the synaptic transmission.
+In the simplified neuron, the size of transmission is uncorrelated with the value of the node, but the transmission itself is given as a direct result of the value going over the ``firing threshold'' of the neuron.
+% % The value of the neuron does not give the size of transmission for it's output synapses. It does however give the time of transmission.
 %An action potential is only initialized when the value of the neuron goes to suprathreshold levels.
-When the value reaches the firing threshold, an action potential is initialized, causing transmission at all the neuron's output synapses.
+When the value reaches the firing threshold, an action potential is initialized.
+The action potential causes a transmission to occur at all the neuron's output synapses.
+%This causes a transmission through all the neuron's output synapses.
 The synapses can be excitatory or inhibitory, causing an increase of decrease of the postsynaptic neuron's value. %\cite{PrinciplesOfNeuralScience4edKAP02}. % TODO Ta vekk alle referanser fra dette avsnittet? (Det er bare en..)
 
-More information about the mechanisms of the neural system can be found in chapter \ref{secTheBiologicalNeuralSystem}. 
+More information about the mechanisms of the neural system can be found in sec. \ref{secTheBiologicalNeuralSystem}. 
 Relevant background information about the neuron and synaptic transmission is presented in section \ref{ssecTheNeuron} and section \ref{ssecTheSynapse}. 
 The action potential is introduced in section \ref{ssecTheActionPotential}.
+The curious reader may also find citations and references for further readings in these sections.
 
 %TODO Skriv en overgang. Fra det over, til ANN-historie.
 
 \subsection{Review of the History of ANN}
 \label{ssecHistoryOfANN}
 The pragmatic use of simulations of neural networks started with the McCulloch--Pitts neuron in 1943. 
-Warren McCulloch, an early neuroscientist, and matematician Walter Pitts first began a formalized discussion of the mechanisms of the neuron.
+Warren McCulloch, an early neuroscientist, and matematician Walter Pitts first began a formalized discussion of the use of the mechanisms of the neuron in technology. % Bra? eller dårlig: slutten av linja.
 The result was the first artificial neural network, consisting of logical gates. McCullock and Pitts modelled the neuron as boolean devises (off--on response)\cite{MccullochPittsHistorie}. 
-																														% TODO Vær heilt sikker på at dette står i denne artikkelen.
 What is later referred to as the first generation ANN is based on the McCulloch--Pitts neuron\cite{Maass97networksof}.
 One of these models is Rosenblatt's Perceptron\cite{HaykinANNbok}.
 
 The next generation of ANNs have computational units with a continous activation function. 
-One common activation function is the \emph{sigmoid function} $\sigma(y)=\frac{1}{1+e^{-y}}$ \cite{HaykinANNbok}.
-In sec. \ref{ssecTheNeuron} and \ref{ssecTheActionPotential}, the computational basis of neural networks will be introduced. 
+A common activation function is the \emph{sigmoid function} $\sigma(y)=\frac{1}{1+e^{-y}}$ \cite{HaykinANNbok}.
+In sec. \ref{ssecTheNeuron} and \ref{ssecTheActionPotential}, the computational basis of networks of neurons will be introduced. 
 We will see that the neuron has a boolean carracteristic, in the form that the neuron as a whole either sends output through all its output synapses or rests. 
 %
-Neural nets of the second generation can therefore be viewed as ``firing rate interpretations'' of biological neural networks\cite{Maass97networksof}.
+%Neural nets of the second generation can therefore be viewed as ``firing rate interpretations'' of biological neural networks\cite{Maass97networksof}.
+ANN of the second generation is often referred to as ``firing rate interpretations'' of biological neural networks\cite{Maass97networksof}.
 %Over : få vekk "therefore". sikt heller på det cite-Maass seier.   UNDER: ".. will then be .." : dårlig. Gjør om!
-Simulation of a neural network by a 2. generation ANN will then be in the frequency domain, and have no information about the timing of the node's spikes. %TODO Sjekk om "spike" er innført tidligere.
-In this case, the second generation ANN could be said to give a better simulation of neural systems than the first generation ANN.  %KVIFOR?
+%A simulation of a biological neural network by a 2. generation ANN will then be in the frequency domain, and have no information about the timing of the spikes. %TODO Sjekk om "spike" er innført tidligere.
+A Simulation of biological neural network by a 2. generation ANN will then be in the frequency domain, and have no information about the timing of the node's spikes.
+%In this case, the second generation ANN could be said to give a better simulation of neural systems than the first generation ANN.  %KVIFOR? XXX Er mevmt seinare..
 
-%XXX 2.gen er bedre enn første, fordi begge er "state less". For tidsdomenet blir dette heilt feil. For frekvensdomenet blir det mindre feil. (Heilt rett dersom du ser bort fra syn.p. og modulatory neurotransmitters.
+% 2.gen er bedre enn første, fordi begge er "state less". For tidsdomenet blir dette heilt feil. For frekvensdomenet blir det mindre feil. (Heilt rett dersom du ser bort fra syn.p. og modulatory neurotransmitters.
 
-%TODO Fokuser meir på prosessering av SN-signal fremfor læring. Læring er jo en del av oppgaveteksten, og bør spares.
-% Skriv om mekanismer og fart på prosessering, som impliserer at neuron ikkje har tid til å vente på frekvenssammenligning. Frekvent må samples først, noke som tar litt tid. Farta i neurale systemer indikerer at dette ikkje er tilfelle
-% 	i biologiske system. I tillegg har vi inferior colliculus (trur eg) som bruker tidspunkt på spikes til å finne ut kor lyd kommer fra (Barn owl).
 
 %
 % TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
 % Sjå gjennom. Referer alle utsagn som ikkje eg har funnet!
 %
 
-% TODO Cite: 3.gen. ANN-artikkelen på pulten.
 Recently, the third generation of ANN has emerged. In this model, each node is simulated with respect to aspects thought important for signal processing\cite{Maass97networksof}.
-One of the models used is the ``Leaky--Integrate and Fire''(LIF) neuron. %TODO Referer til section {ssecTheEquilibriumPotential}, og xxx Hugs å skrive om LIF, der.
+One of the models used is the ``Leaky--Integrate and Fire''(LIF) neuron. 
 
 %todo: sjekk: skrevet for tidlig på morgenen.
-In the LIF neuron model, the node's value is computed as a leaky integration of its input. %  with respect to time. %%%, an intregration that is leaky with respect to time.
+In the LIF neuron model, the node's value is computed as a leaky integration of its input. 
 All the input to the node is integrated over time with a leakage propotional to the value of the node, every time step.
 The node's value is thus a result of the present excitatory and inhibitory input as well as the immediate history for the node.
-% Skriv at dette er en vanlig modell for neuronet.
-%In the LIF neuron model, the node's value is calculated as a combination of the nodes excitatory and inhibitory input and the 
 
 %skrive først kva som gjøres. LIF
 %så skrive at dette kalles for SANN.
-When a node goes above the firing threshold, an action potential or ``spike'' is generated in the node. 
-When this spike reaches a synapse after a simulated delay, we get synaptic transmission at the synapse.
-From the information presented in sec. \ref{secTheBiologicalNeuralSystem}, we can se that this is much closer to the biological system that previous ANN generations.
+When a node is excited above the firing threshold, an action potential or ``spike'' is generated in the node. 
+When this spike reaches a synapse, after a simulated delay, we get synaptic transmission at that synapse.
+From the information presented in sec. \ref{secTheBiologicalNeuralSystem}, we can see that this is much closer to the biological system that previous ANN generations.
 It is in fact so close that the word ``simulation'' will occationally be used in this report.
 %We can see that this is a better simulation of neural systems than that of the first two generations of ANN, based on the information presented in section \ref{secTheBiologicalNeuralSystem}.
 
