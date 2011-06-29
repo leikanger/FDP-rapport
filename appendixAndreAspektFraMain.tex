@@ -16,18 +16,24 @@ if(argc > 1 )
 		switch( argv[innArgumentPos][1] )
 		{
 			case 'i':
-				if( (ulLengthOfSimulation = atoi( &argv[innArgumentPos][2])) )
-					cout<<"Simulation length set to " <<ulLengthOfSimulation <<" time steps\n";
-				else if( (ulLengthOfSimulation = atoi( argv[innArgumentPos+1]) ) ){
+				if(ulLengthOfSimulation = atoi( &argv[innArgumentPos][2]))
+					cout<<"Simulation length set to " 
+						<<ulLengthOfSimulation <<" time steps\n";
+				else if(ulLengthOfSimulation = atoi(argv[innArgumentPos+1]))
+				{
 					++innArgumentPos;
-					cout<<"Number of time iterations set to " <<ulLengthOfSimulation <<endl;
+					cout<<"Number of time iterations set to " 
+						<<ulLengthOfSimulation <<endl;
 				}else{
-					cout<<"Can not read argument. Please follow the conventions:" <<endl;
+					cout<<"Can not read argument. "
+						<<"Please follow the conventions:" 
+						<<endl;
 					skrivUtArgumentKonvensjoner(argv[0]);
 					continue;
 				}
 			default:
-				cout<<"Unknown argument: " <<argv[innArgumentPos] <<"\tUnable to complete request. Try again." <<endl;
+				cout<<"Unknown argument: " <<argv[innArgumentPos] 
+					<<"\tUnable to complete request. Try again later." <<endl;
 				skrivUtArgumentKonvensjoner(argv[0]);
 		}
 
@@ -37,21 +43,25 @@ if(argc > 1 )
 		else 
 			break;
 	}
-	// Look at last argument. If this is an int, is the number of iterations set to this number:
+	// Look at last argument. If this is an int, 
+	// 	 the number of iterations is set to this number:
 	if( innArgumentPos == argc-1 )
 	{
 		int nInnInt;
 		if( ( (nInnInt = atoi( argv[innArgumentPos]))>0) )
 		{
-			cout<<"Argument gives number of iterations to be: \t\t" <<nInnInt <<endl;
+			cout<<"Argument gives number of iterations to be: \t\t" 
+				<<nInnInt <<endl;
 			ulLengthOfSimulation=nInnInt;
 		}else{
-			cout<<"Number of iterations must be a positive number.\nUsing default: "
+			cout<<"Number of iterations must be a positive number.\n"
+				<<"Using default: "
 				<<DEFAULT_ANTALL_TIDSITERASJONER <<endl;
 		}
 	}
 }else{ // for if(argc > 1)
-	cout<<"No arguments listed. Continue with default values:\tNumber of iterations: "
+	cout<<"No arguments listed. Continue with default values:\t"
+		<<"Number of iterations: "
 		<<DEFAULT_ANTALL_TIDSITERASJONER <<endl;
 	ulLengthOfSimulation = DEFAULT_ANTALL_TIDSITERASJONER;
 

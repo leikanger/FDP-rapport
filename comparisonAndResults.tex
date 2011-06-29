@@ -20,7 +20,6 @@
 % 		Eg blir også bedre kjendt med implementasjonen så lettere å seinere gjennomføre en vilkensomhelst test (ikkje med rammer som er satt av implementasjonen).
 %
 % 	- Sammenligning om implementasjon OG kjøring om: Bra/dårlig ved:
-% 		- kjøring av de to
 % 		- implementasjon av de to
 % 		- sensor(best for KANN)
 % 		- Effektivitet (teoretisk sammenligning)
@@ -39,9 +38,6 @@
 
 
 % - Sammenligning: Snakk om forskjellen i når aktivitetsVariabel propagates. Dette kan sikkert diskuteres mykje..
-
-% TODO TODO T0D0:
-% Verifiser all koden som står i teksten.
 
 
 
@@ -62,7 +58,7 @@ This observation is a strong motivation of make the impementation close to the b
 
 For comparing the behavior of the indivitual nodes of the two nodels, some effort was put into a capabel logging system. 
 Different elements of the node with interresting variables of effects were logged by this system. This includes the \emph{K\_synapse}, the \emph{K\_auron} and the \emph{s\_auron}.
-The synapse was logged mainly for design purposes. The two auron elements were logged for design purposes and for the ``depolarization'' value comparison.
+The synapse is logged mainly for design purposes. The two auron elements were logged for design purposes and for the ``depolarization'' value comparison.
 Both auron models is able to write the ``depolarization'' to a log file. The $\kappa$N is also able to log it's activity level, through $\kappa$.
 
 The activity level of a spiking neuron us not formalized; Neuroscientist often use variables such as the firing frequency to measure the activity of a neuron.
@@ -77,12 +73,6 @@ In this report it is most interresting with the transient depolarization curve o
 
 \section{Comparison of Design and Implementation for the Two Models}
 
-	% Begynn med å oppsummere korleis objektmodellen er lagt opp.
-	% Gå gjennom de ulike elemena? Auron -> dendrite -> osv. ? 	 (HUSK Dette er bare innledning: skal være en ekte delmengde av det som kommer, (delmengde som ikkje er det samme), DERMED: IKKJE SKRIV ALT ("hold spenninga oppe").
-	% (Skriv om ulikhetane i variabler. Bare såvidt nevn ulikhetane i funksjoner..)
-	% 	[Slik:] For the auron, not much could be put into the common interface class of i_auron ...
-	% 			For the axon, on the other hand ...
-	% ANDRE forskjeller: (designforskjeller)
 	% Design av de to implementasjonane er gjordt som en direkte simulering av neuronet (spiking neurons), med dendrite, axon, osv. 
 	% 	Dette førte til at eg begynte å impelmentere de to som like, bare med peiker-funksjoner for de funksjonane som trenkte å være ulike.
 	% 	Eg oppdaga raskt at dette ikkje ville fungere, siden nesten alt er ulikt fra SANN til KANN.
@@ -93,37 +83,52 @@ In this report it is most interresting with the transient depolarization curve o
 	% Nevn også at objektmodellen la opp designet (for begge modellimplementasjoner), og eg oppfatta først etterpå at dette kunne gjøres langt meir effektivt for KANN.
 	%  
 
-	In this project, both implementations were designed to make the differences stand out.
+	%In this project, both implementations were designed to make the differences stand out.
+	In this project, the implementation of the two models is designed to make the differences stand out. %stand out:dårlig
 	The nodes were designed as the biological neuron, both to give a common design to both models and to make the design more recognizable for the reader with knowledge of neuroscience.
-	All common aspects of the subelements of each node was placed in an abstract class derived to the model--specific classes.
+	All common aspects of the subelements of each node is placed in an abstract class derived to the model--specific classes.
 
-	The abstract interface class were named \emph{i\_[element]}, and the model--specific class was named \emph{s\_[element]} for the SN and \emph{K\_[element]} for the $\kappa$N.
+	The abstract interface class is named \emph{i\_[element]}, and the model--specific class is named \emph{s\_[element]} for the SN and \emph{K\_[element]} for the $\kappa$N.
 	Here \emph{[element]} can be one of the four elements each node consists of; The dendrite, the auron, the axon or the synapse.
 
-	As the design made it possible to place all similarities for the two models in the common abstract \emph{i\_element} classes, the similarities and differences between the models became prominent.
+	As the design made it possible to place all similarities for the two models in the common abstract \emph{i\_element} class, the similarities and differences between the models became prominent.
 	%In this section some of the similarities between each element will be presented.
 	
 	In this section the results will be presented.  %TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO  ENDRE avslutting av intro.
-	This will start by presenting a comparison between the individual elements before presenting a larger view of the differences between the models. % TODO Sjekk at dette er rett. Endre setning når section er skrevet..
+	The section will first and foremost be about the differences in design and implementation, but some other aspects can be found. % xxx xxx skriv om xxx xxx
+	The section will start by a comparison the fundamental aspects on each model, before moving on with a comparison of the subelements of each node.
+	%This will start by presenting a comparison between the individual elements before presenting a larger view of the differences between the models. % TODO Sjekk at dette er rett. Endre setning når section er skrevet..
 
 	\subsection{The activity level}
 	
-	The largest and most immediate difference between the two models is how the activity level is represented.
+	%The largest and most immediate difference between the two models is how the activity level is represented.
+	The most immediate difference between the two models is how the activity level is represented.
 	The SANN model is a direct simulation of the depolarization of the neuron. 
-	Synaptic input alters the value of the node, and if the value goes above the firing threshold a simulated action potential is fired.
+	Synaptic input alters the value of the node, 
+	If the value goes above the firing threshold, a simulated action potential is fired.
 	The value of the node is modelled as a leaky integration of the node's input, and each time iteration we have a little dissapation of the value.
 
 	For the $\kappa$ANN model, use higher order mathemathics to calculate the firing time of the node.
-	The neuron is modelled as a LIF neuron, and the leaky integration is included in the equations used by $\kappa$ANN.
-	In these equations we calculate the firing time of the node, given a constant level of input until firing of the node. 
-	%As the equations from sec. \sec{secMatematiskModelleringAvBioNeuron} requires a constant activity level, the concept of a time window was introduced.
+	Each node is modelled as a LIF neuron, and the leaky integration is included in the equations used by $\kappa$ANN (sec. \ref{secMatematiskModelleringAvBioNeuron}).
+	%In these equations we calculate the firing time of the node, given a constant level of input until firing of the node. 
+	% %As the equations from sec. \sec{secMatematiskModelleringAvBioNeuron} requires a constant activity level, the concept of a time window wa s introduced.
 	
 	The activity variable of a $\kappa$N is based on the notion of the final value of the simulated depolarization value of the node.
 	Given a constant level of input and a constant degree of leakage, the value of the node will converge to some value $\kappa$.
-	By the use of this value, the period of the node is calculated.
 
 	As the variable sertainly will change before the end of some period, the concept of a time window was introduced.
-	The concept of the time window gave the oppurtunity to use the model in an artificial neural network, if the state of the node was calculated each time the activation level was altered for the node.
+	The concept of the time window enables the use the model in an artificial neural network, if the state of the node is updated each time the activation level is altered for the node.
+
+	By the use of the value $\kappa$ and the concept of time windows, the values that is important for signal processing in the neuron can be calculated for the $\kappa$N.
+	One important difference between the $\kappa$N and the SN is therefore the use of the activity variable.
+	For the SN, the activity variable is used for a direct simulation of the neuron's value, or depolarization.
+	A spike will occur when this value goes to suprathreshold levels.
+	%This gives a reactive responce to the input spikes.
+	%In $\kappa$ANN, each node times the next spike by using a forecast based on equations presented in sec. \ref{secMatematiskModelleringAvBioNeuron}. 
+	In $\kappa$ANN, each node use a forecast for timing the spike.
+	This estimated spike time is based on equations presented in sec. \ref{secMatematiskModelleringAvBioNeuron}. %TODO TODO SKRIV OM
+	%The estimate is updated every time the activity variable is changed, and 
+	When the estimated time is the same as the next time iteration, the element is inserted into \emph{pWorkTaskQue}.
 	%MEIR XXX
 
 
@@ -133,19 +138,22 @@ In this report it is most interresting with the transient depolarization curve o
 
 	In a SN, the transmission directly alters the postsynaptic value of the node.
 	As for every other aspect of SANN, synaptic transmission is a direct simulation of the relevant aspects of the biological equivalent.
-	An excitatory artificial synaptic thus increase the postsynaptic activation level and an inhibitory artificial synapse decrease the postsynaptic activation level.
+	Thansmission through an excitatory synaptse thus increase the postsynaptic activation level and an inhibitory synaptic transmission decrease the postsynaptic activation level.
 
-	For the $\kappa$N, the activation level is a consequence of the level of input to the node.
+	For the $\kappa$N, the activation level is a consequence of the \emph{level} of input to the node.
 	As the presynaptic node is capable of esmimating the future firing frequency of the node, synaptic transmission between two nodes is given by this frequency scaled by the synaptic weight.
 
 	The activity variable of a $\kappa$N is a time--invariant variable, as the final value of the node does not dissapate with time;
-		The final value of the node will stay the same, given a constant level of input.
-	Each transmission is therefore a time invariant signal, and the postsynaptic node's activity variable can be recalculated at any time.
+		The final value of the node (from eq. \ref{eqKappaSomFinalValueAvV}) is constant over time, given a constant level of input.
+	Each transmission is therefore time invariant, and the postsynaptic node's activity variable can be recalculated at any time.
 	The postsynaptic activity level could therefore be calculated as the sum of all synaptic input transmissions after the transmissions in one input synapse is altered.
 
-	For the sake of efficiancy, the concept of the edge transmission as the derived is used in this implementation.
-	In this case the postsynaptic activity variable could be updated by adding the edge transmission to the postsynaptic activity variable.
-	The strenght of the time invariant signal became appearent when the activity variable $\kappa$ was recalculated to avoid to large global trunctation errors.
+	For the sake of efficiancy, the edge transmission is defined.
+	The edge transmission is defined as the change in the synaptic transmission.
+	%For the sake of efficiancy, the concept of the edge transmission as the derived is used in this implementation.
+	A new edge transmission thus only needs to be added to the postsynaptic activity variable at the time of transmission.
+	%In this case the postsynaptic activity variable could be updated by adding the edge transmission to the postsynaptic activity variable.
+	The strenght of the time invariant aspect of the signal become appearent when the activity variable $\kappa$ is recalculated to hinder a global trunctation errors.
 
 
 %	In this section, some of the similarities and differences between each node element is presented.
@@ -153,6 +161,8 @@ In this report it is most interresting with the transient depolarization curve o
 %	For a SN, the activity level corresponds to the simulated depolarization of the node, while for the $\kappa$N the activity level 
 
 	%Meir
+
+%XXX HOVEDFORSKJELL: SN : integrerer input for å få state. 		KN: Umiddelbart input gir state, sammen med input historie.
 	
 	\subsection{Comparison of the indivitual node elements}
 	%	%todo SKRIV OM! Innledning til section
@@ -166,44 +176,58 @@ In this report it is most interresting with the transient depolarization curve o
 	% 	%As the mechanisms of the activity of each node differ strongly, the activity variable of each node is 
 	% 	%The difference in the activity level of each node differs strongly, as a resu
 	%This section will be concluded by listing the similarities between the two models. 
-
-	As the elements of each node was designed by having a common abstract class derived to the two modes, the aspect that was different between the SN and the $\kappa$N stands out clearly.
-	The aspects that are similar between the models is represented in the common interface class.
+				
+	As the elements of each node is designed by having a common abstract class derived to the two modes, the aspects that are different between the SN and the $\kappa$N stand out more clearly.
+	The similar aspects between the models are represented in the common interface class.
 
 	In this section, the differences in design for the indivitual elements of the two model--specific nodes are presented. %TODO Dårlig setning!
 	The results are presented in the order of the signal propagation within each node.
 	
-	The elements are compared by the function that defines the element's behaviour in time, the \emph{timeInterface} derived virtual function \emph{doTask()}.
-	As this is what defines the action of the node, the design of this implementation isolates the location of the differences between each model--specific element. %XXX BLABLA TODO Fullfør.
-	%Vettafaen om eg trenger intro i subsection.. XXX 	 (?) Ta vekk:
-	%First the mechanisms of signal transmission will be presented, by comparing the two synapse designs.
-	%The results for the difference in dendritic integration of all input synapses transmission will then be presented.
+	%XXX Skal dette være med? Skriv om!
+	The comparison is presented in the order of the internal signal propagation within each node.
+	We will start by discussing an incoming synaptic transmission, continue to the dendrite's responce, before discussing the differences in the auron's and the axon's responce.
+	%The elements are compared by the function that defines the element's behaviour in time, the \emph{timeInterface} derived virtual function \emph{doTask()}.
+	%As this is what defines the action of the node, the design of this implementation isolates the location of the differences between each model--specific element. %XXX BLABLA TODO Fullfør.
+	% %First the mechanisms of signal transmission will be presented, by comparing the two synapse designs.
+	% %The results for the difference in dendritic integration of all input synapses transmission will then be presented.
 
 		\subsubsection{The Mechanisms of the Synapse Element}
-		We can sum up the previous discussion of synaptic transmission by saying that the activity variable of the nodes, and thus what is transmitted in a synaptic transmission is tematically different.
-		In the SN the node variable is the immediate %[kor han er]  along the path toward firing.
-		For the $\kappa$N the activity variable gives the activity level of the node.
+		The activity variable of the two nodes and thus the model for synaptic transmission is fundamental different for the two models.
+		%For the SN, the activity variable give the node's state compared to the firing threshold.  Synaptic input is inte
+		In the SN, synaptic input is integrated to a ``depolarization'' for the node.
+		When the value reach the firing threshold, an action potential is simulated in the node.
+		For the $\kappa$N, the activity variable gives the \emph{level} of activity for the node, and the firing time is calulated from the present level of input.
+		%In the SN, the activity variable gives the nodes charge towards the firing threshold.
+		%For the $\kappa$N the activity variable gives the activity level of the node.
+		%
+		We therefore get that the mechanisms behind synaptic transmission is also fundamentally different, as this is what gives the next nodes activity variable. %is the input to the next node
+		%
+		This can be seen in the implementation of the two models' synapse functions. 
+		A synaptic transmission is executed by the synapse's \emph{doTask()} function, and we can easily compare the mechanisms of the two.
 
-		This shows in the implementation of the two models' synapse functions.
-		When the \emph{s\_synapse} executes a synaptic transmission, it adds the synaptic weight to the postsynaptic node's activation variable.
-		As stated in in section \ref{secSANN}, the SN is a direct simulation of the elements of the biological neuron.
-		This can be seen if we compare the workings of the synaptic transmission in the \emph{s\_synapse} with the biological synapse, introduced in sec. \ref{ssecTheSynapse}.
+		Synaptic transmission in the SANN model is implemented by simply adding the synaptic weight to the postsynaptic node's activity variable.
+		%When the \emph{s\_synapse} executes a synaptic transmission, it adds the synaptic weight to the postsynaptic node's activation variable.
+		%As stated in in section \ref{secSANN}, the SN is a direct simulation of the elements of the biological neuron.
+		From sec. \ref{ssecTheSynapse}, we can se that this gives a direct simulation of synaptic transmission in the the biological synapse.
+		%This can be seen if we compare the workings of the synaptic transmission in the \emph{s\_synapse} with the biological synapse, introduced in sec. \ref{ssecTheSynapse}.
 
-		For the $\kappa$N, synaptic transmission is given by the presynaptic node's frequency and the synaptic weight.
-		The edge transmission is further defined as the derived of the synaptic transmission in this implementation.
-		When the postsynaptic node updates its activity variable, this is done by simply adding the edge transmission to its activity variable.
+		Synaptic transmission for the $\kappa$N is modelled in sec. \ref{ssecSynTransForANNliggeriKANNsection} by the presynaptic node's frequency and the synaptic weight.
+		%For the $\kappa$N, synaptic transmission is defined in eq. \eqref{eqSynapticTransmissionForKANNimplementation} by the presynaptic node's frequency and the synaptic weight.
+		The edge transmission is further defined as the change in synaptic transmission. % in this implementation.
+		This gives that the postsynaptic activity variable can be updated by simply adding the edge transmission, and much redundant calculation is avoided.
+		The resulting effects for the node is calculated once after the current time iteration.
+		%When the postsynaptic node updates its activity variable, this is done by simply adding the edge transmission to its activity variable.
+
 		% XXX SKRIV OM : We end up with the same transmission scheme, but the variables is 
 		
 		%TODO Skriv heilt om eller ta bort:
 		%The code for the implementation of the two element's \emph{doTask()} function is included in appendix \ref{appendixDoTaskForSynapse}.
 		%We can see the difference in synaptic transmission clearly from the code.
 
-		One important difference between the models becomes obvious allready in synaptic transmission.
-	%	As the synapse transmits a value that varies with the presynaptic activity level, and that the postsynaptic activity level is given by this signal, we could say that this is a 
-		%One important difference in the synaptic tranmission between the two models is therefore that the synaptic transmission of the $\kappa$N 
+		%	%The above differences introduced in 
 		The size of transmission in the $\kappa$N varies with the presynaptic period, further given by its activity variable.
-		As the activity variable is given by the immediate input of the node, we get that the output transmission is given by the state and the input of the node.
-		We could say that the $\kappa$N is a Mealy automata of the biological neuron.
+		As the activity variable is given by the immediate input of the node, we get that the output transmission is given by the state and the present input of the node.
+		It could therefore be said that the $\kappa$N is a Mealy automata of the biological neuron.
 	
 		%TODO Skrive at SN er en moore modell? (i forhold til siste linja over).
 
@@ -216,49 +240,57 @@ In this report it is most interresting with the transient depolarization curve o
 		%For the activity variable, a new input therefore gives the same result for the $\kappa$N and the SN. 
 		%Both \emph{newInputSignal(double)} adds the new input to the the activity variable.
 		
-		In SANN, the dendrite first has to see whether the postsynaptic node is in a refraction period. 
-		%For the SN, the dendrite first have to chech that the node is not in a refraction period. 
+		In SANN, the input is discarded if the node is in the state of being in a refraction period.
+		The fist action of the \emph{s\_dendrite::doTask()} is therefore to see if the variable \emph{bBlockInput\_refractionTime} is set.
+		%In SANN, the dendrite first has to see whether the postsynaptic node is in a refraction period. 
 		If not, the dendrite starts to execute the algorithm of the postsynaptic part of synaptic tranmission.
-		Prior to adding the new signal to the postsynaptic node's value, the dendrite calculates the leakage.
-		This is done by eq. \eqref{eqLeakageForSANN}. 
+		The leakage is calculated from eq. \eqref{eqLeakageForSANN}, before the synaptic input is added to the node's activity variable.
+		%Prior to adding the new signal to the postsynaptic node's value, the dendrite calculates the leakage.
+		%This is done by eq. \eqref{eqLeakageForSANN}. 
 
-		As the postsynaptic node will fire an action potential as soon as the value of the node goes above threshold, 
-			the \emph{newInputSignal(double)} function has to test this as a part of its algorithm. %the incmng signal transmission.
-
-		%If not, the dendrite calculates the leakage since the last time the leakage was calculated, before it adds the new input signal.
-		%as the postsynaptic node will fire an action potential if the value goes above the threshold, this is checked by the synapse in the \emph{newInputSignal()} function.
-
-		If a delay is modelled into the simulation, the action potential is initiated after $n$ time steps, were $n$ is the predefined delay.
-		This is best done by letting the dendrite insert the first element in a linket list of $n$ elements into \emph{pWorkTaskQue}.
-		%If $n$ is a number larger than one, $n$ elements will have to be in series before the axon hillock, for the \emph{s\_auron}.
+		As the postsynaptic node will fire an action potential as soon as the value of the node reaches threshold, 
+			it is the task of \emph{newInputSignal(double)} to test this after the input is added to the node's value.
+			%the \emph{newInputSignal(double)} function has to test this as a part of its algorithm. %the incmng signal transmission.
+		The action potential is initiated after the predefined delay, implemented by serially linked internal node elements.
+		If the delay is set to $n$ time iterations, the first element of a linked list of $n$ elements is inserted into \emph{pWorkTaskQue}.
+		%If a delay is modelled into the simulation, the action potential is initiated after $n$ time steps, were $n$ is the predefined delay.
+		%This is best done by letting the dendrite insert the first element in a linket list of $n$ elements into \emph{pWorkTaskQue}.
 
 		For the $\kappa$N, the activity variable is time--invariant; From eq. \eqref{eqKappaSomFinalValueAvV} we get that $\kappa$ is the final value of the node, given a constant input.
-		%In the LIF neuron, this final value does not change as a 
-		As $\kappa$ is time--invariant, nothing has to be calculated as a result to time alone. We can therefore effectively use an event--based simulation scheme.
+		As $\kappa$ does not vary as a consequence of time alone, no calculation is needed for mechanisms like ``leakage''.
+		The activity variable does not have to be compared to any threshold value or othervise tested.
+		The only action needed after an edge transmission is adding the transmitted variable to the activity variable.
+		%As $\kappa$ is time--invariant, nothing has to be calculated as a result to time alone. We can therefore effectively use an event--based simulation scheme.
 		%This further gives that nothing has to be calculated as a function of time alone. 
 
-		By the scheme of edge transmission as the derived of the synaptic transmission, we can calculate the postsynaptic activity variable by simply adding the edge transmission.
-		%	the edge transmission only has to be added to the postsynaptic activity variable.
+		%By the scheme of edge transmission as the derived of the synaptic transmission, we can calculate the postsynaptic activity variable by simply adding the edge transmission.
 		As the $\kappa$N calculates future firing time by the activity variable, we do not have to check the postsynaptic activity variable after each transmission.
 		For the $\kappa$N, most of the operations of SN transmission is therefore avoided:
 			%we therefore have that most of the operations for the SN dendrite input is avoided: 
 		\begin{itemize}
 			\item The leakage does not have to be calculated
-			\item It is unnessecary to compare the activity variable to the firing threshold
-			\item The simulation of intracellular transmission delay becomes obsolete. Simulation of delay can be included in the calculation of the firing time of the node.
+			\item It is unnecessary to compare the activity variable to the firing threshold, or othervise evaluate $\kappa$ after each transmission.
+			\item The simulation of intracellular transmission delay becomes obsolete. The delay can be included in the calculation of the firing time of the node.
 			\item As firing is controlled by other mechanisms, no elements is inserted into \emph{pWorkTaskQue}
 		\end{itemize}
-		If a predefined delay of $n$ time steps is to be included in the simulation, in $\kappa$N this is done by directly adding $n$ to the estimated firing time of the node.
+		If we have a delay of $n$ time iterations before some element is to be executed, 
+			$\kappa$ANN implements this by directly writing the planned task time to the element's \emph{ulEstimatedTaskTime\_for\_object} variable.
+		%	$\kappa$ANN implements this by adding $n$ to the present time iterations and writing it to the elements \emph{ulEstimatedTaskTime\_for\_object} variable.
+		%If a predefined delay of $n$ time steps is to be included in the simulation, in $\kappa$N this is done by directly adding $n$ to the estimated firing time of the node.
+		%If a delay of $n$ time steps is defined before execution of some element task, in $\kappa$ANN this can ge done by directly writing the planned task time for that element 
 
-		If we take a look at the two \emph{newInputSignal(double)} functions, listed in appendix \ref{appendixNewInputSignalDendrite}, we can note that the $\kappa$N version is substantially smaller.
-		The size can, however be decieving, so we will now discuss the two functions.
-		%skriv om at calculateLeakage er stor operasjon. Med exp-funk
-		The SN dendrite calls the function \emph{calculateLeakage()} and the $\kappa$N calls the \emph{changeKappa\_derivedArg()} function.
-		The \emph{calculateLeakage()} function will calculate the leakage as a result of the time since the last calculation. 
-		This is doen by equation \eqref{eqLeakageForSANN}.
-		
-		For the $\kappa$N, dendrite calls the model--specific \emph{K\_auron::changeKappa(double)} function.
-		%This will be discussed in XXX SKal eg diskutere dette i auron?
+%		If we take a look at the two \emph{newInputSignal(double)} functions, listed in appendix \ref{appendixNewInputSignalDendrite}, it can be noted that the $\kappa$N version is substantially smaller.
+%		The size can, however be decieving, so we will now discuss the two functions.
+%		%skriv om at calculateLeakage er stor operasjon. Med exp-funk
+%		The SN dendrite calls the function \emph{calculateLeakage()} and the $\kappa$N calls the \emph{changeKappa\_derivedArg()} function.
+%		The \emph{calculateLeakage()} function will calculate the leakage as a result of the time since the last calculation. 
+%		This is doen by equation \eqref{eqLeakageForSANN}.
+%		
+%		For the $\kappa$N, dendrite calls the model--specific \emph{K\_auron::changeKappa(double)} function.
+%		%This will be discussed in XXX SKal eg diskutere dette i auron?
+
+		When we have an edge transmission in $\kappa$ANN, the dendrite calls the function \emph{K\_auron::changeKappa\_derivedArg(double)}. 
+		For completeness, the code for this funcion is included here.
 \begin{lstlisting}
 inline void K_auron::changeKappa_derivedArg( double dInputDerived_arg)
 {
@@ -272,39 +304,86 @@ inline void K_auron::changeKappa_derivedArg( double dInputDerived_arg)
 }
 \end{lstlisting}
 
-		As we can see, the $\kappa$N uses the concept of \emph{pCalculatationTaskQue}.
+		As we can see, the $\kappa$N uses the concept of \emph{pCalculatationTaskQue}, introduced in sec. \ref{ssecCalcultaionTaskQue}.
 		Whenever $\kappa$ is changed, the node is scheduled for recalculation of all the values that is given by $\kappa$. %a new input changes $\kappa$, 
-		Exampes of this is the corresponding frequency to the present $\kappa$ and the estimated firing time. 
-		Changing $\kappa$ will also initiate a new time window.
+		Exampes of such variables is the firing frequency and the estimated firing time corresponding to the updated $\kappa$.
+		%Exampes of this is the corresponding frequency to the present $\kappa$ and the estimated firing time. 
+		When \emph{K\_auron::doCalculation()} is called, a new time window will be initialized, and	it is important that the activity variable is not changed before calculating the initial ``depolarization value'' for the new time window
+			($v_0$ in eq. \ref{eqVerdiligninga}).
+		The variable \emph{dChangeInKappa\_this\_iter} is used for collecting all changes in $\kappa$ for any time iteration.
 
-		Due to the mechanisms of \emph{pCalculatationTaskQue}, this will only be done once for any time iteration.
-		The calculations will be executed as the last action before time is iterated.
-
+		Due to the mechanisms of \emph{pCalculatationTaskQue}, the calculation of the above mentioned variables will only be executed once for any time iteration.
+		%	this will only be done once for any time iteration.
+		%
 		% TODO VIKTIG Skriv at diskurs over gir at KN kalkuleres det meste bare en gang. For SANN sjekkes alt kvar gang vi har input.
 		The difference in efficiancy between the two models will therefore depend on the number of inputs per time iteration.
 		For the $\kappa$N we execute the heavy part of the calcutaion (at most) once every time iteration. 
-		The other part of synaptic transmission is based on adding the edge inputs to the postsynaptic activity variable.
+		The other part of the work associated with an incoming transmission is only to add the edge transmission to the postsynaptic activity variable. 
+		This is executed without any mentionable cost.
+		%The other part of synaptic transmission is only to add the edge inputs to the postsynaptic activity variable, and is executed without any mentionable cost.
 
-		For the SN, apart from the calculation of leakage, the same amount of work is done every time the node gets an incoming synaptic transmission.
-		%Apart from the calcutaion of leakage, the same amount of work is done every synaptic transmission for the SN.
+		For the SN, apart from the calculation of leakage, the amount of work will be constant for any incoming transmission.
+		%For the SN, apart from the calculation of leakage, the same amount of work is done every time the node gets an incoming synaptic transmission.
 		%Elements of this work is the general amount of actions, the three if--sentences that break up pipelining in the processor (there is also one inside the inlined function \emph{calculateLeakage()}).
 		%
-		%As this amount is not insubstantial, the $\kappa$N could be more effective for a large part of the 
-		This amount is given by two aspects, where the most important probably is the three if--sentences (two in the listed code and one in the inlined function \emph{calculateLeakage()}).
-		Each if--sentences will break up the pipelining of the processor, and lead to a decrease in the efficiancy of the execution.
+		This amount is given by two aspects, where the most important probably is the three if--sentences (two in the code listed in appendix \ref{appendixNewInputSignalDendrite} and one in the inlined function \emph{calculateLeakage()}).
+		Each conditonal statement will break up the pipelining of the processor, and lead to a decrease in the efficiancy of the execution.
 
 		\subsubsection{The Mechanisms of the Auron Element}
-		The auron is the central element of each node, and contains the central mechanisms for signal propagation.
-		For the SN, this includes the depolarization variable (\emph{dAktivitetsVariabel}) and the time stamp used for the calculation or leakage. %og fyrin av AP.
-		For the $\kappa$N, this includes $\kappa$ (\emph{dAktivitetsVariabel}), the initial value for the depolarization and initial time iteration in the current time window and a variable containing the calculated period inverse.
-		The variable that contains the present period inverse is used for calculation of edge tranmission when $\kappa$ is changed.
+		In a direct simulation of the neuron, the auron has the role of every aspect that is close to the core of the neuron.
+		Of the mechanisms of signal processing and propagation, only the initiation of the action potential is percieved as being important enough to simulate in the SN.
+		The \emph{s\_auron::doTask()} therefore only have two tasks: inserting the auron's \emph{pOutputAxon} pointer into \emph{pWorkTaskQue} and resetting the activity variable (``depolarization'') to zero..
+		The refraction period is started as soon as the value goes to suprathreshold levels, in \emph{s\_dendrite::newInputSignal(double)}. %XXX XXX  Skriv om: ref.p. er [starta]
+
+
+%		The auron is the central element of each node, and contains the central mechanisms for signal propagation.
+%		For the SN, this includes the depolarization variable (\emph{dAktivitetsVariabel}) and the time stamp used for the calculation or leakage. %og fyrin av AP.
+%		For the $\kappa$N, this includes $\kappa$ (\emph{dAktivitetsVariabel}), the initial value for the depolarization and initial time iteration in the current time window and a variable containing the calculated period inverse.
+%		The variable that contains the present period inverse is used for calculation of edge tranmission when $\kappa$ is changed.
+
+
+% TODO XXX Dette er vel konklusjon?
+		In $\kappa$ANN, the concept of task scheduling could be used to determine the time of execution for the individual elements of the node.
+		This further removes the necessarity for multiple elements within each node; 
+			Simulation of intracellular delay could then be executed more effectively by setting the task time of the interresting element directly.
+		The concept of delay by simulation thus becomes obsolete, and we do not have to propagate the signal through the node.
+
+		%If the auron is the only element of the $\kappa$N, it controls the central mechanisms
+		In this implementation, the auron has the role of firing the action potential.
+		When it fires an action potential, a new time window is initiated for the $\kappa$ equations.
+		The \emph{dDepolAtStartOfTimeWindow} variable is set to zero, and the next planned task time is set to the present time plus the previously calculated period of the node.
+		Action potential is propagated by the mechanisms used in SANN, but this is, as previously mentioned, unnecessary. 
+		
+%		The task of the $\kappa$N auron then to change the estimated task time for all the output elements and update the firing time of the node.
+%		By updating the firing time, it is referred to the calculated period of the neuron. 
+%		After firing, the estimation for the next firing time will be the present time iteration plus the calculated interspike period.
+%
+%		Examples of tasks that are to be executed after firing of the node is calculation of STDP of the node's synapses and transmission throught synapses going to output nodes of the SANN model.
+%		Neither of these aspects have not been implemented in this project, but the mechanisms used by the $\kappa$N is easily implemented.
+
+		As the $\kappa$N does not have to simulate the mechanisms behind the time delay, single--compartment implementation could be used to simulate a multiple--compartment model of the neuron.
+		This is examplified in this impelementation, by letting the auron element be the only internal element of each node that requires the use of the \emph{doTask()} function.
+		The synapse is in this context percieved as a element that lies between nodes, and is the only element apart from the auron that requires the use of the \emph{doTask()} function. %todo ikkje skriv "requires" igjen!
+		As the simulated time delay scheme from the SANN model was used, the axon element had to use the \emph{doTask()} function.
+		As soon as the above mentioned aspects was realized, the firing of a node without the use of an axon was tested.
+		In this scheme, the estimated firing time was incresed by one (same as the axon time delay) and the code from \emph{K\_axon::doTask()} function was called directly from \emph{K\_auron::doTask()}.
+		The result was identical, and it is concluded that this confirms the authors hypothesis about individual task planning for different elements.
+		Further investigation of this mechanism was not conducted due to time constraints.
+		%Further experimentation with this mechanism will have to be marked as further research. % XXX Eller noke
+		
+		%Skriv kvifor eg har brukt SANN design for KANN noden. 
+		%This realization first came when this report was written. %(at eg kan bruke single-comp. imp.) %TODO skriv at eg realized dette først no.. XXX skriv ppå nytt. Dårlig framført..
+		% Due to time constraints, the implementation will not be altered at this point. 
 	
-		% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
-		% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
-		% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
-		% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
-		% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
-		% SKRIV MEIR!
+% xxx Ta med seinare, i seinare ovesiklig diskurs.
+%xxx	As this implementation have been based on the SANN model, the \emph{K\_axon} also makes use of the \emph{doTask()} function.
+%xxx	In this implementation, the \emph{K\_auron::doTask()} only calls the memberfunction \emph{doTransmission()}. This could as easily be called by a central element, or not at all. %For synapsene kan legges direkte inn som planl. oppg
+%xxx	The alternative way of planning synaptic transmission and other planned tasks first became clear to the author durin the writing of this report, these aspects have not been implemented.
+%xxx	As the principle of task planning has been used for the auron element, and can easily be extended to be used for other elements, this is included in the discussion.
+		%The reasoning is sound, and the concept of estimated task time can easily be extended to synapses and other elements. Due to time constraints, this is unfortunately not implemented.
+		
+
+	
 
 		\subsubsection{The Mechanisms of the Axon Element}
 		The axon is where the difference in execution is most prominent.
@@ -312,7 +391,7 @@ inline void K_auron::changeKappa_derivedArg( double dInputDerived_arg)
 		At the time of firing for the node, the axon is inserted into \emph{pWorkTaskQue}.
 		Let $n$ be the number of serially linked axon elements before some output synape.
 		The synapse will now get a transmission after a delay of $n$ time iterations.
-		We can therefore give the time delay before transmission at a particular synapse by the number of serially linked axon elements before it.
+		We can therefore simulate the time delay before transmission at a particular synapse by the number of serially linked axon elements before it.
 
 		For the $\kappa$N, the same result can be achieved by letting the $\kappa$N write the planned execution time to to the corresponding synapse in the $\kappa$ANN version of the network.
 		The planned execution time for the synapse, $t_{e, syn}$ is given by
@@ -324,102 +403,52 @@ inline void K_auron::changeKappa_derivedArg( double dInputDerived_arg)
 		The same result it therefore achieved for the time of transmission for the $\kappa$N synapse as for the SN synapse, only with a much smaller effort for the simulator.
 																							% TODO Del opp setninga over, | HER, (over streken) ?
 
-	%	For some output synapse, the pointer to the synapse is inserted into \emph{pWorkTaskQue} after a predefined delay of $n$ time iterations.
-	% 	The number $n$ is a consequence of the number of serially linked axon elements.
-
-	%	Depending on the spatiotemporal resolution, the node's output synapses will be inserted into 
-	%	The next time iteration (or after a number of time iterations
-	%	As the SN use the axon as a meth
 
 
 
 
 
 
+\section{Theoretical Comparison Between the two Models}
+SKAL EG SKRIVE DETTE, her også? Sjå diskurs i conclution 1, neste fil.
+
+%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+(er her)..		
+
+
+
+%%Viktig eksempel til diskurs.
+%		In addition, we have the aspect of \emph{how} the activity of the node changes. 
+%		Let us take an example where we simulate a neuron with a constant level of synaptic input.
+%		For the $\kappa$N, the node will have a constant activity level, and does not have to recalculate the firing time of the node when the node fires.
+%		When the node fires, the node writes the current time iteration plus the previously calculated period to the member variable \emph{ulEstimatedTaskTime\_for\_object}.
+%		When the estimated task time is the same as \emph{time\_class::ulTime}, the node fires again and the same is repeated.
+%		For the SN, the number of input transmissions stays at a constant level to produce the same firing frequency for the node.
+%		The number of actions for the SN will therefore stay at a constant level throughtout the simulated period.
+%		As the $\kappa$N only has to calculate its activity level initially in the example, when its $\kappa$ is changed, we get a large difference in work load for this example. 
+%		
+%		The example is unrealistic for most circuits, but it examplifies when $\kappa$ANN will be more effective than SANN.
+%		Even thought the example is unrealistic, there might me situations where a $\kappa$N would be better than a SN.
+%% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+%
+%
+%
+%
 
 
 
 
-%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-Skrive at design av/teorien bak  de to impelmentasjonene er så forsjellig at det er vanskelig å sammenligne de to. En enkel kjøring vil ha statisk input (ikkje-endrende input).
-Mealy varianten av SANN (KANN) er spesialisert for ANN med dynamisk (endrende) input. Vil gi eit vanskeligere testoppsett for sammenligning av de to. Lett å implementere for KANN, vanskeligere å implementere for SANN.
-(Da må eg ha egene sensor-neuron som er spesiallaga for å sense en slik dynamisk state).
-%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
-
-
-
-
-
-%\section{Forskjell i implementasjon}
-Skrive at forskjellen mellom gamle og nye varianten av 3.gen. ANN (SANN) har mykje til felles med forskjellane mellom Moore vs. Mealy Auromata.
-
-Den gamle varianten er for så vidt den som er mest intuitiv å implementere / designe. Denne ser på umiddelbar tilstand (depol. verdi) for nodene. Dersom denne depol. kommer over terskel vil noden gi output til alle sine utnoder.
-Dette er en direkte simulering av det biologiske neuronet. Kan beskrives (direkte?) med Moore Automata.
-
-For den foreslåtte varianten vil Mealy automata beskrive systemet bedre. Her er det 'state' for noden og i tillegg input som gir ut-oppførselen.
-[skriv kva "utoppførsel" betyr. Alltid samme output (før synapsen) for den Moore-Automata varianten av SANN. For Mealy variant vil output være en flyttallsvariabel]
-[skriv kvifor denne tanken kom -- at enkel kraftig prosessor vil være oppmot like effektiv med større flyttalsoperasjoner som ved enkle boolske transmissjoner (tjaneei..)
-Dersom vi har mulighet er ferre større operasjoner bedre for den serielle CPU enn mange små operasjoner.]
-
-[Skriv at implementasjonen viste seg å bli meir omfattende enn først tenkt. Skriv om pEstimatedTaskTime og anna ekstra tidsplanlegging]
-
-% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
-%Viktig eksempel til diskurs.
-		In addition, we have the aspect of \emph{how} the activity of the node changes. 
-		Let us take an example where we simulate a neuron with a constant level of synaptic input.
-		For the $\kappa$N, the node will have a constant activity level, and does not have to recalculate the firing time of the node when the node fires.
-		When the node fires, the node writes the current time iteration plus the previously calculated period to the member variable \emph{ulEstimatedTaskTime\_for\_object}.
-		When the estimated task time is the same as \emph{time\_class::ulTime}, the node fires again and the same is repeated.
-		For the SN, the number of input transmissions stays at a constant level to produce the same firing frequency for the node.
-		The number of actions for the SN will therefore stay at a constant level throughtout the simulated period.
-		As the $\kappa$N only has to calculate its activity level initially in the example, when its $\kappa$ is changed, we get a large difference in work load for this example. 
-		
-		The example is unrealistic for most circuits, but it examplifies when $\kappa$ANN will be more effective than SANN.
-		Even thought the example is unrealistic, there might me situations where a $\kappa$N would be better than a SN.
-% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
-
-
-
-
-% XXX MERK har skrevet det meste før (i design). Skal isåfall bare nevnes her..
-Skriv også om generellt optimalisering:
-\begin{itemize}
-	\item flytande tid. Ikkje alle noder trengs å sjekkes kvar iterasjon. (sjå/edit det over). (SKRIV OM implemenasjonene til Ås, og at de bruker synkron tid).
-	\item samle opp beregning av $\kappa$ til slutt. $\kappa$ kan endre seg fleire ganger i løpet av en iterasjon. På grunn av dette skal alle noder som får endra aktivitetsnivå legges inn i ei liste. Denne lista gåes gjennom ved tidsiterasjon (i tid::doTask() ). Skal bare ligge eit element av eit objekt i lista, så dersom $\kappa_i$ endres fleire ganger for neuron $i$, vil det bare bli en kalkulering av depol./`interspike period' per [neuron, tidsiterasjon].
-\end{itemize}
-
-Her kan også ``Firing Cycle'' stå. Dette er estimering fordi hastighet ikkje er konstant lik gjennomsnittshastighet. Dersom FC skal brukes (som optimalisering) så kan enten gjennomsnittshastigheta over heile perioden brukes, eller så kan perioden deles opp i $n$, og gjennomsnittet i kvar bit brukes (for eksempel $n=2$: deler farta inn i to deler. Først er farta stor, så blir den mindre, fordi $(1-e^{-at}$ flater ut..)
-
-		
-	%Sammenligning av design for de to modellane. Med samme output er det mulig å simulere ANN ved bare en node. Dette kan eg godt vise i plot.
-
-
-% XXX TEMATISKE FORSKJELLER -- Når har vi høg load for systemet. Når kreves mykje ressurser?
-	\subsection{Høgare ordens mekanismer som resultat av det over. Forskjeller..} 
-	%Det kom fram at for KANN er det mulig å gjennomføre tidsdelay som kommer av axon og dendrite med bare auron-elementet.
-	%Dette gjøres med å plusse på en på estimert fyringstid.. VIKTIG poeng!
-	%
-	% XXX Skriv om reactive vs. proactive kalkulering av fyringstid.
-	\subsection{Design for each node, when designed as a simulation of temporal aspects of the neuron}
-	% XXX Dette skal bare nevnes her (eller?), men skrives så utførende som teksten under, i egen section.
-	% En annen ting en oppfatta var at simulering av kvart element ikkje var nødvendig for simulering av time--delay for propagering av AP: for KANN kan dette inkorporeres i estimering av fyringstid og periode (=>syn.transmitted var.)
-	% 	For KANN kan man lett effektivisere bort simulering av tidsdelay, ved å bare legge til tidsdelayet i estimat av fyretid. Dette er vanskeligare å gjøre i SANN. I KANN er denne typen effektivisering "native".
-	% 	Dette gir at for simulerings-likheten som er brukt i dette systemet (en dendrite, eit axon -- alle synapser samme plass..), så er det mulig med eit--elements noder for KANN uten å miste simuleringslikhet.
-	% 		I implementasjonen er K_dendrite::doTask() og K_dendrite::doCalculations() definert til å gi sterk melding og avslutte programmet. Dette for å eksemplifisere at de ikkje er i bruk, og forsikre at de ikkje blir kalla.
-	% 		For K_axon så gjelder fortsatt det at eg vil ha muligheten til å auke 'spatsio-temporal' oppløsning. Dette gjøres ved å legge inn fleire element av K_axon. K_axon blir dermed som eit navier--stokes kontrollvolum for neuronet.
-	% 		Dersom en pragmatisk implementasjon blir laget fra denne koden, kan dermed K_axon fjærnes, of listen med output synapser og doTransmission() kan legges over i K_auron.
-	% 		I såfall får vi eit enklere oppsett of kvar node, med bare eit node element (K_auron) og eit 'edge' element (K_synapse), uten å miste kvalitet i simuleringen. 
-	% 		Dette kan sees i plotta som sammenligner depol-kurve for de to ANN (sjå plott[_ref_])
-	
-	Konkluder med å diskutere lettheten i implementasjon(at KANN er vanskeligare å implementere, men med andre pluss..) 			ELLER:   i 'discussion and conclusion' ?
-
-\section{The Nodes' Output}
+\section{Comparison of The Mechanisms of the Elements}
+\label{secComparisonOfMechanismsOfNodeElements}
 	% XXX Dette skal hovedsaklig ligge i KANN, men siste plott skal også legges ved her (eller bare her?) \subsec.{Comparison between the transient time course of the depolarization of the K auron and s auron,Vettafaen kor det skal ligge}
 	%\subsection{Comparison of the transient time course of nodes of the two models}
-	\subsection{Transient Time Course of The Two Model--specific Nodes}
+	\subsection{Transient Time Course of The Model--Specific Nodes}
 
-\section{Comparison between the transient time course of the depolarization of the K auron and s auron ,   Vettafaen kor det skal ligge}
+%\section{Comparison between the transient time course of the depolarization of the K auron and s auron ,   Vettafaen kor det skal ligge}
 To compare %the implementation of (?)
 			the two models, the the first aspects to be compared is the depolarization  of a single node of each model.
 %							we will start with comparing the depolarization of a single node from each model.
@@ -427,40 +456,52 @@ The same input to the two nodes should give the same transient time course of th
 
 Because of the complexity of the single node, we cannot use a network of neurons to generate an equal input to the analyzed neuron. 
 At least not before we know that the two model--specific nodes give the same output. %TODO Skriv om. Litt.
-%The solution for this problem was to design an underclass 
-%My solution for this was 
-% TODO TODO TODO TODO TODO DETTE SKAL SKRIVE I KANN.tex ATODO TODO TODO TDOO TODO TODO TODO D TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
-The solution for this problem was
-									to design an own underclass K\_sensor\_auron for the $\kappa$ANN model and s\_sensor\_auron for the SANN model.
-Objects of these classes continously update its activity level by the output of some ``sensor function''.
-%This sensor function was designed to give an output appropriate for comparing the variants of the node.
-Both sensor classes are constructed by sending a function pointer into the constructor of the object. 
-The function sent in to the constructor as a function ponter could be specifically designed for the comparison in mind.
 
-\begin{lstlisting}
-K_sensor_auron::K_sensor_auron(
-  std::string sNavn_Arg, double (*pFunk_arg)(void) ) 
-     :  K_auron(sNavn_Arg)
-{
-	// Assign the sensor function:
-	pSensorFunction = pFunk_arg;
-	// Add to pAllSensorAurons list:
-	pAllSensorAurons.push_back(this);
+% //{
+%The solution for this problem is to design an own underclass K\_sensor\_auron for the $\kappa$ANN model and s\_sensor\_auron for the SANN model.
+%Objects of these classes continously update its activity level by the output of some ``sensor function''.
+% %This sensor function wa s designed to give an output appropriate for comparing the variants of the node.
+%Both sensor classes are constructed by sending a function pointer into the constructor of the object. 
+%The function sent in to the constructor as a function ponter could be specifically designed for the comparison in mind.
+%
+%\begin{lstlisting}
+%K_sensor_auron::K_sensor_auron(
+%  std::string sNavn_Arg, double (*pFunk_arg)(void) ) 
+%     :  K_auron(sNavn_Arg)
+%{
+%	// Assign the sensor function:
+%	pSensorFunction = pFunk_arg;
+%	// Add to pAllSensorAurons list:
+%	pAllSensorAurons.push_back(this);
+%
+%	...
+%}
+%\end{lstlisting}
+%
+%Where the member variable \emph{double \mbox{(*pSensorFunction)(void);}} is a function pointer that is assigned the the function pointer adress that is sent in as an argument in the class constructor.
+% %This causes \emph{pSensorFunction} for point to the function sent in as an argument in the constructor.'
+%The variable pAllSensorAurons is a list containing all the valid sensor objects, used for updating the value of each sensor neuron when \emph{time\_class::doTask()} iterates time. %i time_class::doTask()
+% //}
 
-	...
-}
-\end{lstlisting}
+This was the original reason why the sensor aurons was created(see sec. \ref{ssecTheSensorNode}).
+When we have a sensor auron, all aspects of the node's input is controlled by the programmer, and test cases can be designed and implemented by the ``sensor function'' sendt in to the constructor of the object.
 
-Where the member variable \emph{double \mbox{(*pSensorFunction)(void);}} is a function pointer that is assigned the the function pointer adress that is sent in as an argument in the class constructor.
-%This causes \emph{pSensorFunction} for point to the function sent in as an argument in the constructor.'
-The variable pAllSensorAurons is a list containing all the valid sensor objects, used for updating the value of each sensor neuron when \emph{time\_class::doTask()} iterates time. %i time_class::doTask()
+%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+%TODO TODO TODO TODO                                                                                                						 TODO TODO TODO TODO TODO 
+%TODO TODO TODO TODO                     HER ER EG KOMEN..                                                          						 TODO TODO TODO TODO TODO 
+%TODO TODO TODO TODO                                                                                                						 TODO TODO TODO TODO TODO 
+%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+
 
 \begin{figure}[hbtp!]
 	\centering
 	%\begin{center}
 		\includegraphics[width=0.95\textwidth]{eps_Comparison_between_the_two_sensors__depol.eps}
 	%\end{center}
-	\caption{The depolarization curve for a SANN node and a $\kappa$ANN node with the same input. The sensor function is also plotted in green for the analysis of the result.}
+	\caption{The depolarization curve for a SANN node and a $\kappa$ANN node with the same input. The sensor function is also plotted in green for the analysis of the result. 
+	(Plot generated by AuroSim)}
 	\label{figComparisonBetweenSsensorAndKsensorDepolCurve}
 \end{figure}
 
@@ -520,7 +561,7 @@ For the SN this might become a problem, and could be the basis of the difference
 
 
 
-	\subsection{Trunctation error of the SN} %Kanskje skrive "Spiking Node". Hugs at overskrifta blir også oppført i "index".
+	\subsubsection{Trunctation error of the SN} %Kanskje skrive "Spiking Node". Hugs at overskrifta blir også oppført i "index".
 	\label{ssecTruncationErrorOfSN}
 In SANN each node is modelled as a leaky-integrate-and-fire neuron.
 When the depolarization of the SN is updated, the leak of the neuron calculated as the previous value times the leak constant.
@@ -547,7 +588,8 @@ This further implies that for a continous signal that varies around some working
 	%\begin{center}
 		\includegraphics[width=0.95\textwidth]{eps_comparison_between_KN_and_SN_ConstKappa.eps}
 	%\end{center}
-	\caption{The depolarization curve for a SANN node and a $\kappa$ANN node with the same input. The sensor function has an input equivalent to an activation level of $\kappa = 1.5 \tau$ for both nodes.} %XXX Eller for begge nodeModeller
+	\caption{The depolarization curve for a SANN node and a $\kappa$ANN node with the same input. The sensor function has an input equivalent to an activation level of $\kappa = 1.5 \tau$ for both nodes. 
+			(Plot generated by AuroSim)} %XXX Eller for begge nodeModeller
 	\label{figComparisonBetweenSsensorAndKsensorDepolCurveCONStActivityLevel}
 \end{figure}
 
@@ -566,7 +608,7 @@ This implies than the depolarization curve for the SN would be ``before'' that o
 
 
 
-	\subsection{Rounding errors}
+	\subsubsection{Rounding errors}
 %TODO Skriv om: Ikkje røp løysing først. La det være litt spenning!
 After a more thorough analysis of the error, it seems that the difference is an effect of a rounding error.
 
@@ -580,7 +622,8 @@ In many programming languages a float is always ``rounded down''. This means tha
 \begin{figure}[hb!tp]
 	\centering
 		\includegraphics[width=0.95\textwidth]{eps_Comparison_between_the_two_sensors__depol_FIKSA.eps}
-	\caption{Comparison between the SN's and $\kappa$N's depolarization curve. The sensor function is plotted in green for analysis purposes.}
+	\caption{Comparison between the SN's and $\kappa$N's depolarization curve. The sensor function is plotted in green for analysis purposes. 
+			(Plot generated by AuroSim)}
 	\label{figComparisonBetweenSsensorAndKsensorDepolCurveFIXEdError}
 \end{figure}
 
@@ -668,8 +711,8 @@ This deviation is substantially smaller that the deviation originating from the 
 \begin{figure}[hb!tp]
 	\centering
 	\includegraphics[width=0.95\textwidth]{./synapticTransmissionPlots/eps_transmissionKappaAboveThreshold.eps} 	
-	\caption{ 	
-			} %TODO skriv om dette tomrommet i teksten under.
+	\caption{Synaptic transission for a synapse with a presynaptic sensor funciton \mbox{$f(t) = 1.1 \cdot \tau \cdot (1 + sin( 2\pi \cdot \frac{t}{1000})$}. 
+			Notice that the sensor fuction allways will be larger than the firing threshold. 	(Plot generated by AuroSim)} %TODO skriv om dette tomrommet i teksten under.
 	\label{figEdgeTransmissionKaboveT}
 \end{figure}
 
@@ -696,7 +739,8 @@ This deviation is substantially smaller that the deviation originating from the 
 	%\caption{Demonstration of the value function for changing kappa}
 	\caption{ 	( \ref{figEdgeTransmission:edge-a} ) The presynaptic activity variable $\kappa_j$         and   
 				( \ref{figEdgeTransmission:edge-b} ) The corresponding edge transmission to a presynaptic activity variable presented in \ref{figEdgeTransmission:edge-a}. 
-			Notice the gap of the synaptic transmission when $\kappa_j \leq \tau$ = 1000. 
+			Notice the gap of the synaptic transmission when $\kappa_j \leq \tau$ = 1000.  
+			(Plot generated by AuroSim)
 			} %TODO skriv om dette tomrommet i teksten under.
 	\label{figEdgeTransmission}
 \end{figure}
@@ -736,14 +780,14 @@ This deviation is substantially smaller that the deviation originating from the 
 		% Her skal plottet som gir det mest komplekse responsen ligge (ulineariteten og pausa).
 	\subsection{Analysis of the postsynaptic activity variable as a result of syn. transmission} % KANSKJE
 	\subsection{etc.}
-\section{etc.}
 
-%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-\section{En hovedforskjell: mulighet for rekalkulering av aktivitetsnivå}
-	For simulering fekk vi forskjell i den transiente depol. kurva, mellom de to modellane.
-	Mi tolking var at denne feilen er en integralfeil for SN. Feilen økte for større stigning på depol-kurven, og minka til en negativ feil på synkende kurve.
-	
-	Dersom vi har en kurve som svinger rundt eit arbeidspunkt, så vil feilen for den stigende biten av kurven forsvinne når kurva synker igjen. For en "periode" (dersom det er periodisk, uten sprang) vil feilen integreres opp til å bli 0.
 
-	Dersom vi har eit sprang 
-%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+%%XX XXX XXX XXX XXX XXXXXXXXXXXXXXXXXXXXXXXXXXX XXX XXXXXXXXXXXXXXXXXXXXXX XXX XXXXXXXXXX
+%\section{En hovedforskjell: mulighet for rekalkulering av aktivitetsnivå}
+%	For simulering fekk vi forskjell i den transiente depol. kurva, mellom de to modellane.
+%	Mi tolking var at denne feilen er en integralfeil for SN. Feilen økte for større stigning på depol-kurven, og minka til en negativ feil på synkende kurve.
+%	
+%	Dersom vi har en kurve som svinger rundt eit arbeidspunkt, så vil feilen for den stigende biten av kurven forsvinne når kurva synker igjen. For en "periode" (dersom det er periodisk, uten sprang) vil feilen integreres opp til å bli 0.
+%
+%	Dersom vi har eit sprang 
+%%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX

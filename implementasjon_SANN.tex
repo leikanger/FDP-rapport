@@ -61,12 +61,12 @@
 	In terminology from graph teory, a neural netwoks is a directed cyclic graph with a dynamic amplification (weights) on its edges.
 	The nodes of this graph are the neurons and the edges are the synapses between two neurons.% (The connection between them).
 
-	In neural networks you have synaptic plasticity, or change of the weights of the edges. Synaptic plasticity is what is reffered to as learning in neuroscience. %TODO ref bear eller noke.
+	In neural networks you have synaptic plasticity, or change of the weights of the edges. Synaptic plasticity is what is referred to as learning in neuroscience. %TODO ref bear eller noke.
 
 
 	Earlier ANNs can be said to be a set of nodes that transmits continous variables through its output synapses. The timing of such networks is synchrounous, and the transmission of each node is governed by a central clock.
 	For networks of biologic neurons, the transmission is completely asynchronous, an the transmission happens whenever the neuron depolarization reaches the firing threshold.
-	The value is increased or decreased by exitatory or inhibitory synaptic input, respectably .
+	The value is increased or decreased by excitatory or inhibitory synaptic input, respectably .
 	
 	% Ny tanke: synaptisk plastisitet er kanskje større innerst på axonet: her er kanskje AP litt større, så når dette ganges inn med synaptisk effektivitet for å finne 'synaptic weight' vil dette gi at små endringer vil gi større utfall
 	% 	for synapser som ligger tidlig på axonet. Dette er logisk dersom størrelsen på AP varierer.
@@ -103,11 +103,11 @@
 
 	\subsection{The Nodes' Input}
 	In this implementation, all transmissions through the input synapses arrive at the dendrite.
-	Here the membrane potential is either increased or decreased, depending on whether the synapse is an exitatory og inhibitory synapse.
+	Here the membrane potential is either increased or decreased, depending on whether the synapse is an excitatory og inhibitory synapse.
 
 	Whenever the membrane potential goes to suprathreshold levels (value goes above the predefined firing threshold), an action potential is simulated.
 	%When the membrane potential of the axon is higher than the firing threshold, specialized voltage gated channels are opened, and we get the self--carrying action potential. 
-	As the biological acion potential initiates transmission in all the neuron's output synapses, the simulated action potential will initiate the ANN's version of a synaptic transmission.
+	As the biological acion potential initiates transmission in all the neuron's output synapses, the simulated action potential will after a delay initiate the ANN's version of a synaptic transmission.
 	For a review of the biological action potential, it is referred to section \ref{ssecTheActionPotential}. %XXX Veit ikkje heilt korleis eg skal skrive : "gå tilbake til start (section ?? )".
 	%Se section \ref{ssecTheActionPotential} for a description of the action potential in the biological neuron.
 	
@@ -122,7 +122,7 @@
 
 	In the biological neuron, a new input signal changes the value of the postsynaptic neuron propotionally with the size of the transmission.
 	The size of the transmission is given by the synaptic weigth $w_{ij}$.
-	When a new transmission comes from a synapse, it is therefore the synaptic weigth that is sent into the postsynaptic dendrite.
+	When a new transmission comes through a synapse, it is therefore the synaptic weigth that is sent into the postsynaptic dendrite.
 	Because future use of the code may include short--term synaptic plasticity, or other aspects changing the size of the transmission from the synapse, the size of the transmission is sent in as an argument to the postsynaptic dendrite.
 	% TODO Gjør setninga over lettare! =kortare!
 	%As the size of transmission is given by the strength of the connection, the synaptic weight $w_{ij}$, the synaptic weight is what is sent in from the synapse.
@@ -152,49 +152,28 @@
 	\end{equation}
 
 	As we are concerned with efficiancy in the simulation, recaluclating the value for each node every time iteration is not preferable.
-	
+%
+	The time design introduced in sec. \ref{ssecTime} enables the implementation to be an event--driven simulation of the neuron;
+		The value of the node is only updated when the value is to be changed of othervise used.
+	%For this implementation, the time design enables us to have an event based simulation of the neuron.
+	%The value of each node is only updated when the value is changed or othervise used.
+	%This involves that the node is updated only when the value is changed.
+
 	From eq. \eqref{eqOppdateringAvVerdiEtterLekkasjeSimpelVariant} it can be shown that 
 
 	\begin{equation}
-		v_t = v_{t-l} (1-\alpha)^{t-l}
+		v_t = v_{t-x} (1-\alpha)^{t-x}
 		\label{eqLeakageForSANN}
 	\end{equation}
 	
-	Where $l$ is the time iteration when the value was last updated.
+	Where $x$ is the time iteration when the value was last updated.
 	%Where $l$ is the last time iteration the value was updated.
 	Because leakage is a diminishing mechanism for the value of the node, the value will not go above firing threshold as a consequence of leakage alone.
 	This makes it safe to update the value only when the value is used.
 
 
-
-
-%-----------------------------------
-% Gammelt (er fortsatt der nede, kommentert ut..)
-%	Where $n$ is the last time where the value was updated. 
-%	Because leakage is a diminishing effect on the value, the value will not go above the firing threshold because of this effect alone.
-%	This makes it entirely safe to use \eqref{eqLeakageForSANN} in the implementation of SANN.
-
-----------------------------------------------------------------------------------------------\newpage
-
-
-
-
-	%TODO TODO TODO TODO TODO TODO
-%	For the discrete time system, the next iterations value is computed as the sum of the leakage and any new synaptic input signals.
-%	%In the absence of input, 
-%	Isolated from the input to the node, the updated value is given by the equation
-%	\begin{equation}
-%		v_t = v_{t-1} - \alpha v_{t-1} \; = v_{t-1} (1-\alpha)
-%	\end{equation}
-
-	For this implementation, the time design enables us to have an event based simulation of the neuron.
-	This involves that the node is updated only when the value is changed.
-	In this case we can make the calculation of leakage more effective by updating the value only when it is used.
-	The equation for the effect of the leakage then becomes
-% 	\begin{equation}
-%		v_t = v_{t-n} (1-\alpha)^{t-n}
-%		\label{eqLeakageForSANN}
-%	\end{equation}
+	For an event--driven calculation scheme, the calculation of leakage could be made more effective by updating the value by eq. \eqref{eqLeakageForSANN}. %, only when the node's value is used.
+	%In this case we can make the calculation of leakage more effective by updating the value only when it is used.
 %	
 %	Where $n$ is the last time where the value was updated. 
 %	Because leakage is a diminishing effect on the value, the value will not go above the firing threshold because of this effect alone.
@@ -206,53 +185,71 @@
 \begin{lstlisting}
 inline void s_dendrite::calculateLeakage()
 { 
-  // Calulates new value for the node
-  pElementOfAuron->dAktivitetsVariabel *= 
-    pow( (double)(1-ALPHA), (double)(time_class::getTid()-pElementOfAuron->ulTimestampLastInput) );
+	// Calulates new value for the node
+	pElementOfAuron->dAktivitetsVariabel *= pow((double)(1-ALPHA), 
+						(double)(time_class::getTid() - 
+						 pElementOfAuron->ulTimestampLastInput) );
 }
 \end{lstlisting}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	The leakage is calculated whenever the node gets a new input, or the value is used.
+	E.g. when the 
 	The leakage will be calculated every time the value of the node is used or changed.
 	This means that whenever the dendrite gets a new transmission from one of its input synapses, \emph{s\_dendrite::calculateLeakage()} is called.
 
+
+
+
+
+
+
+
 	\subsection{Action Potential in SANN}
 	\label{ssecSANNAP}
-	When the depolarisasjon of the membrane goes above the firing threshold, the s\_auron element of the node is inserted into pWorkTaskQue, causing a small timedelay before calling \emph{s\_auron::doTask()}.
-	In this context, \emph{s\_auron} have the role of the axon hillock, and initiates the action potential by inserting a pointer to the node's s\_axon object into pWorkTaskQue.
+	When the depolarisasjon of the membrane goes above the firing threshold, the s\_auron element of the node is inserted into pWorkTaskQue.
+	This simulates the delay of the intracellular signal propagation, causing a small time delay before calling \emph{s\_auron::doTask()}.
+	In this context, \emph{s\_auron} have the role of the axon hillock.
+	As the axon hillock initiates the action potential for the biological system, the \emph{s\_auron} starts the simulated action potential by inserting a pointer to the node's \emph{s\_axon} object into \emph{pWorkTaskQue}.
 
-	After the axon's time delay (depending on the number of serial axon segments), the axon segment's \emph{s\_axon::doTask()} is called, 
+	After the delay caused by the simulated action potential, the axon segment's \emph{s\_axon::doTask()} is executed.
+	%After the axon's time delay (depending on the number of serial axon segments), the axon segment's \emph{s\_axon::doTask()} is called, 
 	%The next time iteration, the node's \emph{s\_axon::doTask()} will be called,
-																			causing all the output synapses of the segment to be inserted into pWorkTaskQue.
-	This time delay can be increased by having multible s\_axon elements in series, but for the initial testing of this simulator, one single axon segment was used to model the axon.
-	In this case, the segment will contain all the node's output synapses.
-	The time delay of the individual segments corresponds to the time it takes for the action potential to propagate through a segment of the biological system.
-	Increased spatial resolution will almost have no affect the run--time efficiancy of the system. %TODO Test, eller argumenter! XXX
-	%The time delay of the axon corresponds to the action potential propagating through the axon of the neuron in the biological system.
+	This function inserts all the segment's output synapses into \emph{pWorkTaskQue}.
 
-	Also the output synapses of the node will be executed by adding a pointer to the element to pWorkTaskQue.
-	The delay here corresponds to the time delay of a synaptic transmission, due to the delay caused by the release of neurotransmittors(NT), diffusing of NT through the synaptic cleft and the activation of the postsynaptic receptors.
-	% TODO Referer internt til BiologiskeSystemet.tex (Men først skriv om dette). Kanskje bedre å bare skrive om det der, og referere dit (skrive bare "corresponds to the delay of syn.transmission" (med ref. til bioSys) her..)
-	After the time delay, the output synapse's \emph{s\_synapse::doTask()} will be executed, causing the excitation or inhibition of the postsynaptic node to each of the node's output synapse. 
-	%, depending of the nature of each synapse (whether it is excitatory or inhibitory).
+	Multiple axon segment in series cause an increased time delay.
+	%If we have multiple axon elements in series, this time delay is increased. 
+	If we also decrease the step size of the simulation, we get an increased spatiotemporal resolution.
+	By this expression it is referred to the fact that the intracellular tranmission does not happen instantaneously, and that the travelling distance gives the time of the transmission.
+	With multiple axon elements in series, we could therefore separate the output synapses to different groups based on their location.
+	The different groups of synapses would then be given different time delays based on their distance along the axon.
+
+	%This time delay can be increased by having multible s\_axon elements in series, but for the initial testing of this simulator, one single axon segment was used to model the axon.
+	In AuroSim, the focus for implementation is a pragmatic focus, in addition to compare the two models. 
+	The comparison will only suffer if we make each implementation overly complex.
+	For these reasons, the axon is implemented as a single axon segment containing all the node's output synapses.
+
+	When the ``action potential'' reaches the synapses, these synapses are inserted into \emph{pWorkTaskQue}.
+	The delay of one iteration corresponds to the delay of a synaptic tranmission.
+	This delay is probably way to small compared to the biological system, as a synaptic tranmission consists of the release of neurotransmitters(NT), 
+		diffusing of NT through the synaptic cleft and activation of postsynaptic receptors\cite{PurvesNeuroscienceKAP05}
+	The transmission thought a synapse is a simplification anyway, and we will not follow this any further. %TODO Skriv om. Begynner å bli trøtt.
+
+	%Also the output synapses of the node will be executed by adding a pointer to the element to pWorkTaskQue.
+	%The delay here corresponds to the time delay of a synaptic transmission, due to the delay caused by the release of neurotransmittors(NT), diffusing of NT through the synaptic cleft and the activation of the postsynaptic receptors.
+	% % TODO Referer internt til BiologiskeSystemet.tex (Men først skriv om dette). Kanskje bedre å bare skrive om det der, og referere dit (skrive bare "corresponds to the delay of syn.transmission" (med ref. til bioSys) her..)
+	%After the time delay, the output synapse's \emph{s\_synapse::doTask()} will be executed, causing the excitation or inhibition of the postsynaptic node to each of the node's output synapse. 
+	% %, depending of the nature of each synapse (whether it is excitatory or inhibitory).
 	
+	The simulated synaptic tranmission is executed by the output synapse's \emph{doTask()} function.
+	This increases or decreases the postsynaptic node's value, depending on whether it is an excitatory or inhibitory synapse.
+	The size of the transmission is given by the synaptic weight.
+	%This is done by sending the new signal to the postsynaptic dendrite's input function \emph{newInputSignal(double)}.
+	% TODO HER TODO HER TODO HER TODO HER TODO HER TODO HER TODO HER TODO HER TODO HER TODO HER TODO HER TODO HER TODO HER TODO HER TODO HER TODO HER TODO HER TODO HER TODO HER TODO HER TODO HER TODO HER TODO HER TODO HER TODO HER TODo
+
+	As an input is presented to the postsynaptic dendrite, an argument is sent in to the function \emph{s\_dendrite::newInputSignal(double)}.
+	This function alters the postsynaptic node's value by the  %XXX HER
+
+
 	The postsynaptic potential will change as a function of the synaptic weight. For this simulation the postsynaptic potential will change with a factor $\frac{1}{\alpha}$. %XXX Kvifor? 1/a. Sjekk regtek bok.
 	This is handled in the postsynaptic dendrite, causing the postsynaptic depolarisasjon to change by $\pm \frac{W_{ij}}{\alpha}$, depending on the nature of the synapse.
 
@@ -278,8 +275,6 @@ inline void s_synapse::doTask()
 	%The spatial and temoral resolution can be improved by simply adding more input dendrites and axon elements for the node.
 	%Each axon elements then gets the function of a segment of the ``axon proper'' in the biological neuron. %TODO Skriv kva "axon proper" er i BiologiskeSystemet.tex, og referer dit!
 
-%TODO FLytt dette til resultat-kapittel. Kan referere dit, men bare med ei/eit par   setninger.
-%XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX 
 \subsection{The response of the SN}
 	In the previous sections, the design of each node for the SANN was introduced.
 	The activity variable for the SN corresponds to the level of depolarization of the membrane potential for the biological neuron.
@@ -289,7 +284,8 @@ inline void s_synapse::doTask()
 	\begin{figure}[hb!tp]
 		\centering
 		\includegraphics[width=0.95\textwidth]{depolPlotAvSN/eps_auronE-depol.eps}
-		\caption{Depolarization plot for auronE in the neural circuit from fig ?. The activity variable for a SN corresponds to the depolarization of a neuron.} %TODO TODO Lag plot som beskriver kretsen, og referer dit, her.
+		\caption{Depolarization plot for auronE in the neural circuit from fig ?. The activity variable for a SN corresponds to the depolarization of a neuron.
+		(Plot generated by AuroSim)} %TODO TODO Lag plot som beskriver kretsen, og referer dit, her.
 		\label{figAuronE}
 	\end{figure}
 
@@ -355,10 +351,6 @@ inline void s_synapse::doTask()
 
 
 
-%	\subsection{Analysis of the SN's value curve}
-	% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
-	% Gjennomfør ei analyse av kurva. (Meir enn/istedenfor den siste linja over).
-	% TODO TODO TODO TODO TODO TODO
 	%We can se that the value of the node has a vaulue % at det varierer som plot X (finn eit plott, legg det inn i BiologiskeSystemet.tex, referer dit, her) %TODO
 %	Fig. \ref{figAuronE} resemples a plot of a step responce of a condencator, with an extra non--linearity when the value of the node crosses the firing threshold.
 %	We have already analyzed the 
@@ -376,6 +368,7 @@ inline void s_synapse::doTask()
 %  - vi går ut fra at verdien ikkje lekker mellom dendrite og axon hillock. Dette er nok litt feil, men ikkje mykje.
 % 	Dersom vi hadde hatt dette, måtte vi implementert lekkasjen, men også en liten time delay før verdien blir lagt til verdien i axon hillock. Dette er computationally ineffektivt.
 % 	Dersom dette skal implementeres (at programmet skal være en simulering av neurale system, så er dette mulig ved å ha en egen node for axon hillock)
+%  - vi går ut fra at synaptic transmission gir total overføring i.l.a. ei overførin. Dette er nok feil.
 	
 	
 	%TODO Skriv korleis dette kan gjøres for KN.

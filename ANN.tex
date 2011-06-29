@@ -25,30 +25,7 @@
 % 			- Anna ? 							
 % 	Skriv "Why ANN?" først, så skriv det om oppgaveketsten, der eg slutter med å innlede neste section: "ANN history".
 %
-% 		\section{ Background: ANN history }
-% 			- Skrive om starten for ANN; Skriv kort om:
-% 				- McCullock-Pitts neuron, 1943. 
-% 					- Lineær funksjon med threshold. 
-% 					- Boolske signal (ikkje syaptisk weight, syn.plast. (?) )
-% 					- Feedforward.
-% 				- Perceptron, 1957 ("simplest form of feedforward ANN" - wiki) 		Sjå s. 75, Rolls/Treves 
-% 					- Skriv om dette; Kva som var bra, dårlig, osv.
-% 					- Kunne ikkje gjøre en del handlinger. Førte til pause i ANN-utviklinga fram til tidlig 80 tall.
-% 				SKRIV AT desse to ikkje hadde synaptisk vekt. Signalet var boolsk (? -> !).
-%
-% 				Så skriv litt om synapser, gå vidare til syn.p. og Hebb:
-% 				- Hebb, 1949 (?). Skriv om Hebb rule(?)
-% 				- ADALINE ("ADAptive LINear Elements") 								Sjå s. 79, Rolls/Treves
-% 					- Brukt for å fjærne ekko fra telefonlinjer.
-% 				- Hopfield 90-tallet. (ta med? Ikkje uten at det er direkte relevant..) --Kanskje bare nemne det som folk/funding ble interrester i ANN igjen(Om dette stemmer..)  (?)
-% 				
-% 				Når ble aktiveringsfunksjonen ulineær? Finn ut, og skriv at dette (i tillegg til multilayered perceptron) gjorde utviklinga aktuell igjen. Forskere ble gira igjen..
-% 	
-% 				KVA ER FEIL MED DESSE MODELLANE i forhold til biologiske NN?
-% 				- Frekvensbasert. Kontinuerlig ulineær funksjon som kan sies å representere frekvensen til neuronet.
-% 				- Synkron oppdatering: alle nodene oppdateres likt, i motsetning til den biologiske ekvivalent, som er "event-basert" (asynkron).
-% 				- Læring: skriv om læring. Fokus på "Hebbs law", ustabilitet (forberede leser for seinare å lese om stabilitet for spiking ANN)
-% 					- Skrive at mange forsøk er gjort på å stabilisere Hebb. Ikkje einaste læringsregel, men einaste "biologically plausible". Stabilitet for læring er eit issue intill no, uansett.
+% 	... ... ... ... ... ... ... ... ... ... ... ... ... 
 %
 % 		\section{ Third generation ANNs }
 % 			- Oppdagelsen av STDP satte fokus på relativ spike timing for pre- og post- synapsisk neuron.
@@ -75,42 +52,35 @@
 % 			
 % 			
 % 			
-% 		MULIGHET:
-% 			- IDE: Bra for å distribuere utregning over fleire enheter, sammenknytta vha. ethernet (dette er bare en mulighet/ide)
-% 				Skrive i så fall: at dette bare gjelder for SANN, der nodene
-%
-%
-%
-%
+
 \section{Artificial neural networks: background}
 
 To illuminate different aspects of artificial neural networks (ANN) a short history about ANN is presented in sec. \ref{ssecHistoryOfANN}. 
 The models presented in the following section are either of a historical interrest or of a more immediate relevance to this project.
-% 	eller: introduced  xxx
-Because this report compares two different ANN with imformation about the timing of the spikes of the neuron, there will be a special focus on models with this capability. %XXX .. når vi går gjennom historien.
+Because this report compares two different ANN with information about the timing of the spikes of the neuron, there will be a special focus on models with this capability. 
 %Because the new model and the model behind ``Spiking Artificial Neural Network'' will be compared in this project, we will have a special focus on SANN in the following review of ANN history.
-%
 
 
 
-%Krive: Såvidt om neuronet før eg begynner på hisorie for ANN? 																									%Ikkje "I refer to.." men ?
-Before we review the different ANN models and the history of ANN, we need to know a minuscule of the biological neuron. For a more comprehensive introduction it is referred to section \ref{secTheBiologicalNeuralSystem}.
-The most important findings will be repeated here.
+Before we review the different ANN models and the history of ANN, we need to know a minuscule of the biological neuron. 
+For a more comprehensive introduction it is referred to section \ref{secTheBiologicalNeuralSystem}.
+Only the most important findings will be repeated here.
 
 The biological neural system is comprised of nodes, the neuron, and connections between the nodes, the synapse.
-A neuron has a state that gives the value of the neuron. 
-For a simplified model of the neuron the value often refers to the ``depolarization'' of the neuron. % ELLER Bare "The value often refers to .." (uten det om simplified vertion..
+%A neuron has a state that gives the value of the neuron. 
+A neuron has a state, given by e.g. the electrical potential and the ionic consentration gradients for the different ions over the membrane.
+For a simplified model of the neuron the value often refers to the electrical potential, or the ``depolarization'' of the neuron. % ELLER Bare "The value often refers to .." (uten det om simplified vertion..
 In this text, ``the value'' refers to the depolarization whenever we speak about the biological neuron.
 
 %The ``output'' of a neuron in the following paragraph refers to an action potential of the neuron.
-If the neuron fires an action potential, all the neuron's output synapses will transmit.
-The size of this transmission is given by the strength of the synaptic connection between the nodes, a value often referred to as the ``synaptic weight'' of the synapse.
-%This transmission is given by the synaptic connection of the synapse.
+If the neuron ``fires an action potential'', all the neuron's output synapses will transmit.
+The size of this transmission is given by the strength of the synaptic connection between the nodes.
+This value is often referred to as the ``synaptic weight'' of the synapse.
 
 The value of the neuron does not give the size of transmission for it's output synapses. It does however give the time of transmission.%todo skriv om:skriv om funksjonen til depol. først SÅ sist i avsnitt:det gir ikkje størrelse på overf.
 %An action potential is only initialized when the value of the neuron goes to suprathreshold levels.
 When the value reaches the firing threshold, an action potential is initialized, causing transmission at all the neuron's output synapses.
-The synapses can be excitatory or inhibitory, causing an increase of decrease of the postsynaptic neuron's value\cite{PrinciplesOfNeuralScience4edKAP02}.
+The synapses can be excitatory or inhibitory, causing an increase of decrease of the postsynaptic neuron's value. %\cite{PrinciplesOfNeuralScience4edKAP02}. % TODO Ta vekk alle referanser fra dette avsnittet? (Det er bare en..)
 
 More information about the mechanisms of the neural system can be found in chapter \ref{secTheBiologicalNeuralSystem}. 
 Relevant background information about the neuron and synaptic transmission is presented in section \ref{ssecTheNeuron} and section \ref{ssecTheSynapse}. 
@@ -126,22 +96,16 @@ The result was the first artificial neural network, consisting of logical gates.
 																														% TODO Vær heilt sikker på at dette står i denne artikkelen.
 What is later referred to as the first generation ANN is based on the McCulloch--Pitts neuron\cite{Maass97networksof}.
 One of these models is Rosenblatt's Perceptron\cite{HaykinANNbok}.
-%Neural networks based on the McCulloch--Pitts neurons are also referred to as Perceptron or threshold gates.
-%TODO Skriv, her eller under neste avnitt, kvifor dette er dårligere representasjon enn 2.gen ANN. Kvifor er det bolske ouput til perceptron dårlig?
 
 The next generation of ANNs have computational units with a continous activation function. 
 One common activation function is the \emph{sigmoid function} $\sigma(y)=\frac{1}{1+e^{-y}}$ \cite{HaykinANNbok}.
-%As we will discover in section \ref{ssecTheNeuron} and \ref{ssecTheActionPotential}, the biological neuron has a boolean carracteristic, in the form of having an on--off output to its synapses, where the transmission is a function of the size of the synaptic connection (the synaptic weight). %TODO Ta vekk det med synapsene? XXX Isåfall: Innfør begrepet "synaptic weight" annen plass.     % TODO KAnskje skrive ref{secBiol.sys} isteden?
-In sec. \ref{ssecTheNeuron} and \ref{ssecTheActionPotential}, the computational basis of neural networks will be introduced. %koble sammen med neste setning:  ..be introduced, and we will see..
-We will see that the neuron has a boolean carracteristic, in the form that the neuron as a whole either sends output through all its output synapses or rests. %TODO Sjekk. Slutten er skrevet på natta(feil ende: 0700). Før gjald setn over.
-%the biological neuron has a boolean carracteristic, in the form of having an on--off output to its synapses, where the transmission is a function of the size of the synaptic connection (the synaptic weight). %TODO Ta vekk det med synapsene? XXX Isåfall: Innfør begrepet "synaptic weight" annen plass.     % TODO KAnskje skrive ref{secBiol.sys} isteden?
+In sec. \ref{ssecTheNeuron} and \ref{ssecTheActionPotential}, the computational basis of neural networks will be introduced. 
+We will see that the neuron has a boolean carracteristic, in the form that the neuron as a whole either sends output through all its output synapses or rests. 
 %
-%In the synapses the transmission is dependent on the synaptic connection to the next neuron\ref{ssecTheActionPotential}.
-%The biological interpretation of a floating point number propagating through the network can therefore be viewed as ``firing rate interpretations'.
 Neural nets of the second generation can therefore be viewed as ``firing rate interpretations'' of biological neural networks\cite{Maass97networksof}.
 %Over : få vekk "therefore". sikt heller på det cite-Maass seier.   UNDER: ".. will then be .." : dårlig. Gjør om!
 Simulation of a neural network by a 2. generation ANN will then be in the frequency domain, and have no information about the timing of the node's spikes. %TODO Sjekk om "spike" er innført tidligere.
-In this case, the second generation ANN could be said to give a better simulation of neural systems than the first generation ANN. %xxx tok med:   "...  than the first generation ANN. " Ble det bedre?
+In this case, the second generation ANN could be said to give a better simulation of neural systems than the first generation ANN.  %KVIFOR?
 
 %XXX 2.gen er bedre enn første, fordi begge er "state less". For tidsdomenet blir dette heilt feil. For frekvensdomenet blir det mindre feil. (Heilt rett dersom du ser bort fra syn.p. og modulatory neurotransmitters.
 
@@ -155,8 +119,8 @@ In this case, the second generation ANN could be said to give a better simulatio
 %
 
 % TODO Cite: 3.gen. ANN-artikkelen på pulten.
-Recently, the third generation of ANN has emerged. In this model, each node is simulated with respect to aspects thought important for signal processing.
-The most used model of the neuron is the ``Leaky--Integrate and Fire''(LIF) neuron. %TODO Referer til section {ssecTheEquilibriumPotential}, og xxx Hugs å skrive om LIF, der.
+Recently, the third generation of ANN has emerged. In this model, each node is simulated with respect to aspects thought important for signal processing\cite{Maass97networksof}.
+One of the models used is the ``Leaky--Integrate and Fire''(LIF) neuron. %TODO Referer til section {ssecTheEquilibriumPotential}, og xxx Hugs å skrive om LIF, der.
 
 %todo: sjekk: skrevet for tidlig på morgenen.
 In the LIF neuron model, the node's value is computed as a leaky integration of its input. %  with respect to time. %%%, an intregration that is leaky with respect to time.
@@ -214,7 +178,7 @@ This ANN model is therefore often referred to as ``Spiking Artificial Neural Net
 
 
 
-% XXX The McCulloch--Pitts neuron has similarities with what is later reffered to the third generation ANN, Spiking Artificial neural networks.
+% XXX The McCulloch--Pitts neuron has similarities with what is later referred to the third generation ANN, Spiking Artificial neural networks.
 
 
 
@@ -410,6 +374,7 @@ Moreover, the finding that homosynaptic tetanization produced little LTP after t
 This has later been known as Spike Timing Dependent Plasticity (STDP). Se \cite{reviewSTDP} for more information about STDP. The biophysiological background for STDP has been described in section \ref{forklaringBakSTDP}.
 
 % figur funker bare for pdflatex. Ta med til leveringa.
+% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
 %\begin{figure}[htb!p]
 %	\centering
 %	\includegraphics[width=0.8\textwidth]{figurSTDP.jpeg}

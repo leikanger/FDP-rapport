@@ -12,6 +12,8 @@
 
 
 
+% Hugs modellen om syn.trans.  	Skriv i conclusion that a better model can be included with a greater ease, in the K-synaptic transmission than the s-synaptic t.
+% 	(if I manage to modell such behaviour..)
 
 
 % Diskurs:
@@ -30,9 +32,19 @@
 
 % xxx skrive at det er bra med tidsinvariant overføring: Bl.a. kappa kan når som helst bli rekalkulert. Dersom ligninger for det blir utvikla, kan også kanskje v_0 bli rekalulert?
 
+% XXX CONCLUSION : Eg har funnet at det er veldig bra å bruke Kappa som mål på aktivitetsnivå til neuronet. Dette kan være nyttig for neuroscience..
 
 % XXX CONKLUSJON : skrive at modene i SANN (etablerte modellen) er en Moore variant av det biologiske neuronet. KANN er en Mealy automata av neuronet, noke som gir andre muligheter. Drøft.
 
+% XXX CONKLUSJON : For fANN brukes gjennomsnittsfrekvens over time step. For KANN brukes estimert frekvens for å gi syn. trans.
+% 					I denne oppgaven var det ikkje fokus, men dersom en bedre oppførsel ønskes, kan vi la estimerting av frekvens (for syn.trans.) være basert på metoder lært i kyb.
+% 					Høgere ordens estimasjon vil nok heilt sikkert gi bedre oppførsel. No er overføringa basert på en naiv estimering av fyringsfrekvens.
+
+% XXX SKRIV OM planning of other tasks: (Teksten er med i resultat-og-diskurs: "comparison of the individual elements" : "The mechnisms of the auron element")
+% 	As this implementation have been based on the SANN model, the \emph{K\_axon} also makes use of the \emph{doTask()} function.
+%	The alternative way of planning synaptic transmission and other planned tasks first became clear to the author durin the writing of this report, these aspects have not been implemented.
+%	As the principle of task planning has been used for the auron element, and can easily be extended to be used for other elements, this is included in the discussion.
+%	%The reasoning is sound, and the concept of estimated task time can easily be extended to synapses and other elements. Due to time constraints, this is unfortunately not implemented.
 
 
 % 	xxx Skriv grunnen til at eg ikkje har nokon uventede resultater: at dette i all hovedsak har vert en utviklingsprosess, og alle uventede resultater har blitt ordnet på undervegs.
@@ -44,6 +56,12 @@
 %TODO : Skriv at selv om vi ikkje har fått tid til å kjøre effektivitetssammenligning, så har vi funnet eit viktig resultat. KN kan brukes til å oversette mellom 2.gen og 3.gen ANN.
 % 		TODO Finn ut korleis 1.gen funker, og skriv evt. inn dette også. (sjå % ref_123@i_KANN i implementasjon_KANN.tex) EVT ikkje nevn "each of the other generation ANN" og "first gen. ANN" fra linja "% ref_123@i_KANN" står på.
 
+% Kva er nytt i denne oppgaven:
+% 	- time planning: kanskje KANN modellen er mindre effektiv, men elementet med time planning kan brukes for SANN også. Da slepper vi å simulere time delay.
+% 		Axon blir dermed unødvendige, og vi kan lage eit scheme som bruker tidsplanlegging for forskjellige tasks. FUNKER FOR BEGGE MODELLER!
+%
+%
+
 
 % Videre arbeid:
 % 	- Lage syn. p.
@@ -51,7 +69,8 @@
 % 	- Foreta effektivitetsanalyse.
 % 	- Lage transduction mellom KN og SN. Også mellom fN og KN. Kanskje heile veien, mellom alle generasjoner ANN.
 % 	- Utvikle KANN for seg selv. Slik at dette blir så effektivt som mulig..
-%
+% 	- single compartment implemention of multiple compartment model of the neuron. (KANN, time scheduling, planlegging av tasks)
+% 	- effektivitetsanalyse av dette.
 %
 %
 
@@ -76,17 +95,34 @@
 %
 %
 
+%%
+%%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+%Skrive at design av/teorien bak  de to impelmentasjonene er så forsjellig at det er vanskelig å sammenligne de to med testing. En enkel kjøring vil ha statisk input (ikkje-endrende input).
+%Mealy varianten av SANN (KANN) er spesialisert for ANN med dynamisk (endrende) input. Vil gi eit vanskeligere testoppsett for sammenligning av de to. Lett å implementere for KANN, vanskeligere å implementere for SANN.
+%(Da må eg ha egene sensor-neuron som er spesiallaga for å sense en slik dynamisk state).
+%%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+%
 
 
 
-% XXX ER Ikkje dette conclusion?
-	\subsection{Discussion about the differences in the Elements} %TODO Endre tittel!
-		As the SANN model is a direct simulation of each node's depolarization, this requires the design used in this project.
+% XXX Ligger som conclusion:
+		\subsection{The Differences between the Models} %From a broader perspective / A larger view / Discussion : /  				XXX Skriv en av desse først..
+		From the previous section, the difference between the indivitual elements was discussed. 
+		The elements was discussed one at a time, following the propagation of the signal in the biological neuron.
+
+		In this section, the results from the comparison will be discussed with a broader view.
+		The differences in general design and implementation will be discussed first.
+		We will also discuss what effect this might have on the efficiancy of the execution for each node.
+
+
+% KANSKJE DET HELLER ER CONCLUSION?
+%	\subsection{Discussion about the differences in the Elements} %TODO Endre tittel!
+		As the SANN model is a direct simulation of each node's depolarization, SANN requires the design used in this project.
 		For simulation of SANN, the design of each node should therefore be as introduced first in section \ref{secTheBiologicalNeuralSystem} about the biological neural system, 
 			and later in sec. \ref{secDesignForANN} about the design of this implementation.
 		In SANN, ach node executes the same actions as the biological equivalent.
 		As the SANN model does not make use of planned actions, time delay is implemented as a direct result of tranmission through elements with a time delay of one iteration.
-		Time delays spanning multiple time iterations can be implemented by laying multilre elements in series.
+		Time delays spanning multiple time iterations can be implemented by having multiple elements in series.
 
 		%The alternative to implementing the  xxx skrive om single compartment model DERSOM TID.
 
@@ -101,42 +137,76 @@
 			When the node fires, all its output synapses' \emph{ulEstimatedTaskTime} variable is written over with the value [now]+[corresponding delay].
 		This gives that the $\kappa$N could make use of a single compartment implementation without using a single compartment model of the neuron.
 
+\subsection{TEMATISKE FORSKJELLER : skaper muligheter i forhold til effektivitet!}
+		As this implementation have been based on the SANN model, the \emph{K\_axon} also makes use of the \emph{doTask()} function.
+		In this implementation, the \emph{K\_auron::doTask()} only calls the memberfunction \emph{doTransmission()}. This could as easily be called by a central element, or not at all. %For synapsene kan legges direkte inn som planl. oppg
+		The alternative way of planning synaptic transmission and other planned tasks first became clear to the author durin the writing of this report, these aspects have not been implemented.
+		As the principle of task planning has been used for the auron element, and can easily be extended to be used for other elements, this is included in the discussion.
+		%The reasoning is sound, and the concept of estimated task time can easily be extended to synapses and other elements. Due to time constraints, this is unfortunately not implemented.
+
+
+%fra auron: (tatt vekk derifra..)
+		If the $\kappa$ANN is implemented by the 
+
+%		As we could use the concept of task scheduling for different elements, simulation of intracellular propagation delay is unnecessary. %TODO TODO Skriv sammen med neste setning.
+%		As the concept a simulated delay is obsolete in $\kappa$ANN, we do not have to propagate the signal through the node.
+																			% it is unnecessary to simulate the signal propagation throught the internal elements of the node.
+		% Vi kan dermed bare endre ulEstimatedTaskTime_for_object til ut-syn. ved fyring!
+		If the $\kappa$ANN is implemented by following this realization, we could use a one--compartment implementation for a multiple--compartment model of the neuron.
+		%Among other improvements, the execution of the $\kappa$N could be done without the use of dereferencing pointers when variables are to be accessed.
+
+		In this case, the $\kappa$N is the only internal element of each node. The synapse is then percieved as the edge between two nodes in the graph.
+		The $\kappa$N is therefore responsible for estimating the task time of every element of the node and its output synapses.
+%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+		It is therefore responsen
+		The $\kappa$N is then the only element in each node of the ANN, and is responcible to estimate task time for the auron and the output synapses.
+		As this implementation used the SANN model as a basis, time delay is simulated by executing serial linked elements.
+		This is unnecessary for $\kappa$ANN as it has the capability of time scheduling of tasks.
+
+%		Examples of tasks that are to be executed after firing of the node is calculation of STDP of the node's synapses and transmission throught synapses going to output nodes of the SANN model.
+%		Neither of these aspects have not been implemented in this project, but the mechanisms used by the $\kappa$N is easily implemented.
+
+
+
+
+%% XXX TEMATISKE FORSKJELLER -- Når har vi høg load for systemet. Når kreves mykje ressurser?
+%	\subsection{Høgare ordens mekanismer som resultat av det over. Forskjeller..} 
+%	%Det kom fram at for KANN er det mulig å gjennomføre tidsdelay som kommer av axon og dendrite med bare auron-elementet.
+%	%Dette gjøres med å plusse på en på estimert fyringstid.. VIKTIG poeng!
+%	%
+%	% XXX Skriv om reactive vs. proactive kalkulering av fyringstid.
+%	\subsection{Design for each node, when designed as a simulation of temporal aspects of the neuron}
+%	% XXX Dette skal bare nevnes her (eller?), men skrives så utførende som teksten under, i egen section.
+%	% En annen ting en oppfatta var at simulering av kvart element ikkje var nødvendig for simulering av time--delay for propagering av AP: for KANN kan dette inkorporeres i estimering av fyringstid og periode (=>syn.transmitted var.)
+%	% 	For KANN kan man lett effektivisere bort simulering av tidsdelay, ved å bare legge til tidsdelayet i estimat av fyretid. Dette er vanskeligare å gjøre i SANN. I KANN er denne typen effektivisering "native".
+%	% 	Dette gir at for simulerings-likheten som er brukt i dette systemet (en dendrite, eit axon -- alle synapser samme plass..), så er det mulig med eit--elements noder for KANN uten å miste simuleringslikhet.
+%	% 		I implementasjonen er K_dendrite::doTask() og K_dendrite::doCalculations() definert til å gi sterk melding og avslutte programmet. Dette for å eksemplifisere at de ikkje er i bruk, og forsikre at de ikkje blir kalla.
+%	% 		For K_axon så gjelder fortsatt det at eg vil ha muligheten til å auke 'spatsio-temporal' oppløsning. Dette gjøres ved å legge inn fleire element av K_axon. K_axon blir dermed som eit navier--stokes kontrollvolum for neuronet.
+%	% 		Dersom en pragmatisk implementasjon blir laget fra denne koden, kan dermed K_axon fjærnes, of listen med output synapser og doTransmission() kan legges over i K_auron.
+%	% 		I såfall får vi eit enklere oppsett of kvar node, med bare eit node element (K_auron) og eit 'edge' element (K_synapse), uten å miste kvalitet i simuleringen. 
+%	% 		Dette kan sees i plotta som sammenligner depol-kurve for de to ANN (sjå plott[_ref_])
+%	
+%	Konkluder med å diskutere lettheten i implementasjon(at KANN er vanskeligare å implementere, men med andre pluss..) 			ELLER:   i 'discussion and conclusion' ?
+
+%%\section{Forskjell i implementasjon}
+%Skrive at forskjellen mellom gamle og nye varianten av 3.gen. ANN (SANN) har mykje til felles med forskjellane mellom Moore vs. Mealy Auromata.
+%
+%Den gamle varianten er for så vidt den som er mest intuitiv å implementere / designe. Denne ser på umiddelbar tilstand (depol. verdi) for nodene. Dersom denne depol. kommer over terskel vil noden gi output til alle sine utnoder.
+%Dette er en direkte simulering av det biologiske neuronet. Kan beskrives (direkte?) med Moore Automata.
+%
+%For den foreslåtte varianten vil Mealy automata beskrive systemet bedre. Her er det 'state' for noden og i tillegg input som gir ut-oppførselen.
+%[skriv kva "utoppførsel" betyr. Alltid samme output (før synapsen) for den Moore-Automata varianten av SANN. For Mealy variant vil output være en flyttallsvariabel]
+%[skriv kvifor denne tanken kom -- at enkel kraftig prosessor vil være oppmot like effektiv med større flyttalsoperasjoner som ved enkle boolske transmissjoner (tjaneei..)
+%Dersom vi har mulighet er ferre større operasjoner bedre for den serielle CPU enn mange små operasjoner.]
+%
+%[Skriv at implementasjonen viste seg å bli meir omfattende enn først tenkt. Skriv om pEstimatedTaskTime og anna ekstra tidsplanlegging]
+%
+%% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
 
 
 
 
 
-	\subsubsection{Propagation of $\kappa$}
-	%Skriv at det er vanskelig å vite når kappa skal propagere. Skriv litt rundt dette: kva som er intuitivt (ved fyring), beste er å ha transient overføringsfunk men dette krever transferfunk. fokus, 
-	%umulig å vite kva som gir godt nok resultat, så bør gjøre dette eksperimentellt. : sammenligne depol.-forløp, og sjå når de ikkje lenger er lik. Kanskje etter en ekstra periode, lenger tid, anna? 
-	% 	Skal ivertfall vente ei stund. Resultatet om KANN er meir effektivt er avhengig av svaret på dette spm.
-	% KANSKJE DETTE IKKJE SKAL STÅ HER? VEIT IKKKJE KOR..
-	%ELLER: kan skrive resultatet her, etter at eg har sammenligna resultata..
-	For $\kappa$ANN it is hard to know when the activity variable, $\kappa$ should propagate. In many ways, $\kappa$ gives the general input of a node.
-	$\kappa_{ij}$, node $j$\,s influence on node $i$ is given by the period of node $j$, given by $\kappa_j$. 
-	It is wery hard to deside some specific time instance $\kappa_j$ should propagate, since the period when $\kappa_j$ is changed also influences $\kappa_i$. 
-	The period of neuron $j$ and thus the period between synaptic transmissions to neuron $i$ can also be said to be given by the new $\kappa_j$ first after the first period with the new $\kappa_j$.
-	
-	The best is to make a transfer function from $\kappa_j$ to $\kappa_i$ with a transient time course. 
-	Due to time limitations, this will unfortunately be outside the scope of this project, since this will further alter the postsynaptic nodes after node $j$. 
-	A neural network of transfer functions, where each node represents a transform, will probably give a better result both in terms of efficiancy and in terms of the transient time course of each node.
-	
-	What can be established from the above discussion is that the time of propagation should be somewhere between zero and two periods after updating $\kappa$, depending on when $\kappa$ is updated in the period.
-	Because of the caotic and unpredictable nature of neural networks, and the simplification to deside some constant time delay, the time delay between updating $\kappa$ and propagation of $\kappa$ have to be found experimentally.
-	As the effectivity of $\kappa$ANN is strongly dependent on this aspect, it is wery hard to theoretically find the efficiancy of the new model.
-
-	To experimentally find when $\kappa$ propagates, the transient time course of each neuron have to be compared.
-	For pragmatic ANNs, it is also hard to find a measure of ``good enough'' for the comparison of the two plots. 
-	SKRIV MEIR NÅR RESULTAT DUKKER OPP! %TODO
-	%TODO Når eg har sammenligna de to, skriv meir her. Bra nok kan være "rett" output for ut--noden, eller "rett" transient time course for ut-noden, osv. Sammenligner heile tida med den andre modellen som om den var rett.
-	% Dette kan også være feil. Kven veit.. Mykje å skrive på diskursjon etter dette aspektet!
-
-
-
-
-
-
-	%TODO uferdig subsection! XXX
 
 
 
@@ -165,7 +235,15 @@
 
 
 
-\chapter{FRA GAMMEL comparison and results -- fil:}
+
+
+
+
+
+
+
+
+%\chapter{FRA GAMMEL comparison and results -- fil:}
 
 
 Skrive innledning: Kva er felles for de to implementasjonane: Kva er kjendt i biologien, og kva er utelatt for desse implementasjonene?
@@ -175,13 +253,6 @@ Kva har dette til felles med andre implementasjoner, og kva er gjort bedre i den
 
 
 
-
-\section{Skrive kva som er utelatt} % Kanskje heller i discussion?
-Kva var originalt planlagt, men viste seg å bli for mykje arbeid?
-
-\begin{itemize}
- 	\item Synaptisk plastisitet.
-\end{itemize}
 
 
 
@@ -211,7 +282,7 @@ Kva var originalt planlagt, men viste seg å bli for mykje arbeid?
 
 
 
-\section{Discussion}
+\section{Discussion and Concluding Remarks}
 In the course of this project what is thought to be a new model for artificial neural networks have been developed. 
 Because the primary focus of the project was to compare the developed model for ANN with other ANNs with the ability to represent both firing time and firing frequency, the development and implementation recieved this focus. 
 %The new model was therefore initially implemented as a mere variant of a third generation ANN, with respect to information propatation.
@@ -231,7 +302,7 @@ If we define the third generation ANN as a network of nodes capable of firing a 
 %If the output of a node is given as a spike following a history that cause the value of the node to go to suprathreshold levels, the implementation would fall under the previous definition of SANN.
 An implementation where the output of a node is given as a spike following an imput history that cause the value of the node to go to suprathreshold levels, the implementation would fall under the previous definition of SANN.
 %If we define the output of each node in $\kappa$ANN to be the spikes following a history that cause the value of the node to go to suprathreshold levels, the network would fall under the SANN catherory as previously defined.
-The nodes of this implementation of $\kappa$ANN could be said to be a Mealey automata of a SN, and could therefore give output to a SN. %SANN model. %BLI HEILT SIKKER PÅ MEALY AUTOMATA! TODO
+The nodes of this implementation of $\kappa$ANN could be said to be a Mealey automata of the LIF model of the neuron, and could therefore give output to a SN. %SANN model. %BLI HEILT SIKKER PÅ MEALY AUTOMATA! TODO
 %This is how it is implemented in this project.
 
 %TODO Enten skriv koleis den propagerer, eller kvifor det faller utafor:
@@ -249,14 +320,15 @@ In $\kappa$ANN we have ``firing'' for a different reason, one is to be able to c
 %As firing of a node causes the value to be reset to zero, this is an important part of the inter--spike period for the neuron.
 %To be able to simulate this and thus the spike time
 %TODO  HER  TODO  HER  TODO  HER  TODO  HER  TODO  HER  TODO  HER  TODO  HER  TODO  HER  TODO  HER  TODO  HER  TODO  HER  TODO
-This is done to be able to be able to use mechanisms of learning called STDP, and to be able to communicate with SNs.
+This is done to be able to use mechanisms of learning called STDP, and to be able to communicate with SNs.
 If a $\kappa$ANN implementation wants to communicate with a SN, this could be done by defining a special set of transductor synapses.
 These synapses would use the synaptic transmission scheme from the SANN model, and ouput would only be sent through it after a spike(after the right time delay).
 %sending output through it after a spike (after the right time delay).
 
 
-%
-In this implementation, the time of propagation also differs. It was found best to propagate $\kappa$ ``immediately'', that is the timeiteration after the time of the changed $\kappa$.
+% 		% TODO Få med : Differs FROM SANN 				     XXX Sjekk det som kommer etter forrige "XXX" (Skrevet litt for seint..)
+In this implementation, the time of propagation also differs from that of the SANN model. 
+It was found best to propagate $\kappa$ ``immediately'', that is the time iteration after the time of the changed $\kappa$.
 Initially the propataion of the activity level waited until the first spike of the node. This gave unrealistic time delays in the network. %TODO Finn/Lag figur! Skriv om dette tidligere!
 % TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
 % TODO Dårlig under her . Litt rotete over også..
@@ -264,21 +336,52 @@ Initially the propataion of the activity level waited until the first spike of t
 %It was found that the time delay introduced by waiting for the first spike gave a delay thought  to be to large. In this implementation the activity of the node propagates as soon as the input value changes.
 %
 %The $\kappa$N could also give output as a function of the only its input. 
-In this case the node becomes stateless in respect to its output, and becomes a variant of the second generation ANN.
+% TODO TODO Få med at neste setning bare gjelder "in respect to the output .."
+If the node propagates its signal ``immediately'', it could be seen as stateless with respect to its output. %, and becomes a variant of the second generation ANN for this aspect of the output. %XXX sjå over setn. Spess siste 5 ord.
+The output then becomes a variant of the output given by a node of the second generation ANN.
+% 		% 		%
 The activation function is based on a mechanistic model of the neuron, and differs somewhat to that of a node of a second generation ANN.
 %If we instead let each $\kappa$N give an output as a function of the present and estimated future input, and give a similar output, the network becomes something else.
 %The output now varies as a function of the input, and the node becomes could be made stateless in this respect. 
 %In this case the ANN nodes become very similar to a node of a second generation ANN.
-As output of a node is given by the activity level of the node, not the state of the node, we have that the KANN node is able to communicate with an ANN of the second generation.
+As output of a node is given by the activity level of the node, not the state of the node, we have that a $\kappa$ANN is able to communicate with an ANN of the second generation.
+% XXX Få også med at i tillegg har den mulighet for å gi anna type output. Til SANN, som spikes..
 
-We still have the oppurtunity to calculate the value of the nodes by the concept of ``time windows''.
-By making specialized synapses for this purpose, a $\kappa$N could also communicate with a node of the third generation ANN, SANN.
-for the connection between a KN and SN, where only the spike is transmitted, the model makes it possible to communicate with a SANN node. 
+We also have the oppurtunity to calculate the ``depolarization'' value of the nodes by the concept of ``time windows''. 
+%We still have the oppurtunity to calculate the value of the nodes by the concept of ``time windows''.
+% TODO Skriv at vi kan kalkulere spike times.
+By equations developed for this project, the $\kappa$N also has the ability to calculate the time of its next spike.
+By making specialized synapses for this purpose, a $\kappa$N could therefore communicate with a node of the third generation ANN, SANN.
+%By making specialized synapses for this purpose, a $\kappa$N could also communicate with a node of the third generation ANN, SANN.
+To achieve this, a special synapse based on the SANN synapse has to be developed for the conjunction of a KN and a SN.
+%To achieve this, a special synapse based on the SANN synapse has to be developed for the connection between a KN and SN.
+This synapse should then be based on the synapse used in the SANN model, where only the spike is transmitted.
+%If this synapse is created by the model used for the SANN synapse, where only the spike is transmitted, nodes of the $\kappa$ANN model is able to communicate with a SANN node.  %makes it possible 
 
 %If desired, the spike time and state of the neuron can still be calculated. 
 
+
+An other aspect that appeared as a consequence of the development of the $\kappa$ANN was the concept of time scheduling as done in $\kappa$ANN.
+In this concept, each node contains a variable giving its planned task time.
+When the time arrives, a pointer to the element is inserted into \emph{pWorkTaskQue}.
+%TODO Skriv vidare her..
+% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+%Fortsett litt, her. Tenker at det neste kan stå sist..
+
+
+
+
 In this implementation, it is possible that the full advantage of the new model is neglected in the desire to compare the model to the SANN model.
-Because this was first discovered when the results were analyzed, and due to little time, this will be placed under "for furter work". % TODO TA vekk/SKriv om!
+Because this was first discovered when the results were analyzed, and due to little time, this will be the first continuation of this project.			%this will be placed under "for furter work".
+An other aspect that was not tested was the efficiancy of the new model.
+The inital desire to develop this ANN model was that simulation of a time--variant variable used to much computational resouces.
+
+Another aspect is that for a SANN node, a large amount of work is needed to maintain the activation level of a node, even if the activation level of the node is constant.
+%For a node that fires at a constant rate, the calculation required to maintain this firing rate would be constant.
+For a situation where a node recieves input that makes if fire at a constant, high rate, the calculations required by the SANN model would give a high, constant work load.
+For a node of the $\kappa$ANN model, the same situation would initially require much computational resouces.
+After the node's responce to this activation level was calculated, the computations required to maintain this level would go to almost zero.
+%The same situation would for the $\kappa$ANN model would initially require much computational resouces, but after the node's responce to this activation level was calculated, the computations required would soon go to zero.
 %FORTSETT HER!
 
 %så gå over til sammenligning av denne mot SANN.
@@ -321,7 +424,7 @@ This required less work because I followed principles that was important to Bjar
 One element that is not implemented, is axo--somatic and axo--axonic synases. 
 This is synapses where the input to the postsynaptic neuron enters at other places of the neuron than the dendrite. 
 In biology, most inhibitory synases have theire input close to the soma of the postsynaptic neuron. 
-This will give the inhibitory input less delay compared to the exitatory input, and might be an important aspect in neural computations.
+This will give the inhibitory input less delay compared to the excitatory input, and might be an important aspect in neural computations.
 This can be implemented easily if this is found to be important for some future use of this code.
 
 An other important aspect that is not impelented is axo-axonic synapses, linked to short term synaptic plasticity.
@@ -330,7 +433,7 @@ An other important aspect that is not impelented is axo-axonic synapses, linked 
 Short--term synaptic plasticity is synaptic plasticity that does not have any long term effect of the neuroal network (learning), only on more immedate aspects of signal transmission.
 In particular, we have the synapses that gives input near the axon terminal of the neuron (axo-axonic synapses). This will alter the depolarization at the neurons output synapses. %og auke/minke mengde Ca2+ i presyn. bit av synapsen.
 This will not cause any transmission to occur, only ``prime'' the presynaptic membrane of the synapse for transmission.
-When the next action potential arrives, the size of the transmission will be larger than usual (or less, depending on whether the axo--axonic synapse is exitatory or inhibitory).
+When the next action potential arrives, the size of the transmission will be larger than usual (or less, depending on whether the axo--axonic synapse is excitatory or inhibitory).
 Again, neither short--term synaptic plasticity or axo--axonic synapses has been implemented because this was not an aspect of this project and due to time constraints.
 % Skriv heller at short--term syn.p. ikkje er implementert, så axo-axonic synapses ville ikkje auka funksjonaliteten til simulatoren.
 Implementing it will involve less work due to the implementation design in this code.
@@ -363,40 +466,40 @@ For this reason I found it best to implement as generally as possible, for futur
 %slutt: En eller anna plass: ....
 
 
-\section{Conclution}
-% DET neste er ikkje bra å ha her!
-Grunnen for å fokusere på spike time, i utgangspunktet var oppdagelsen av at synapser lærer ved positiv eller negativ vekt-endring etter overføring. 
-Hvilken, og kva størrelse er avgjort av når synaptisk overføring kommer i forhold til postsyn. fyring.
-
-Etter litt har man funnet ut at desse mekanismene bare gjelder enkelte synapser, der postsynaptiske neurotransmittor receptors er spenningsavhengig for overføring. 
-Med høg depolarisering, dvs lav spenning overføres meir, og bl.a. $Ca^{2+}$ som er viktig for postsynaptisk plastisitet.
-"To my knowledge" har det bare blitt funnet en slik neurotransmittor-sensor i biologien. Dette er den glutamatiske NMDA receptoren.
-Glutamatisk overføring har vore veldig mykje i fokus for synaptisk overføring, og det er ikkje rart at STDP har fått så veldig høgt fokus %NEI, FAEN! må ikkje argumentere mot oppgaveteksten!
 
 
-%Ikkje bruk EG. Skriv om:
-I have in this project designed and implemented a working ANN of SANN and a new model ANN.
-The design and implementation of the two models have been compared in respect to [KVA DA?].
-To summarise this comparison, we can say that ....
 
-\section{Notater: Kva burde eg gjordt annaleis?}
-Burde ikkje bygd de to implementasjonane så lik. (?)
-Det er vanskelig å sammenligne de to. For K\_auron kunne eg ivertfall droppa dendrite og kanskje axon.
-Jeje - vettafaen eg.
 
-Burde ikkje brukt så mykje tid på pEstimatedTaskTime-lista. Kanskje eg kan argumentere for at dette kan være nyttig, men for dette prosjektet er det tidssløs.
+
+
+
+
+
+
 
 
 \section{Ting som kanskje er nye}
 Skriv litt om optimaliseringa gjordt i SANN. Simulert asynkron tid istedetfor oppdatering kvart tidssteg.
 
-Kalkulering av lekkasje: Kvar gang det kommer nytt input, framfor å gjøre det kvar tidsiterasjon.
+
+
+
+
+
 
 \section{Kva burde eg gjordt annerledes?}
 Skriv at fokuset mitt i denne implementeringa var å sammenligne de to modellene. Dette gjorde at eg satt opp auronet på eg spesiell, og ikkje-optimal måte.
 (Både for effektivitet, men også for implementasjon. Det var kanskje vanskeligere å implementere modellen på måten eg gjorde det, enn nødvendig. Kann trenger bare eit auron, med synapser ut.)
 Dette burde eg gjordt annerledes, og både implementering og effektivitet ville vunnet på dette.
 
+
+
+
+Burde ikkje bygd de to implementasjonane så lik. (?)
+Det er vanskelig å sammenligne de to. For K\_auron kunne eg ivertfall droppa dendrite og kanskje axon.
+Jeje - vettafaen eg.
+
+Burde ikkje brukt så mykje tid på pEstimatedTaskTime-lista. Kanskje eg kan argumentere for at dette kan være nyttig, men for dette prosjektet er det tidssløs.
 
 \section{Feiler og mangler}
 Skriv om feiler og mangler, forenklinger, ting eg ser bort ifra, ting eg går ut fra, osv.
@@ -423,15 +526,15 @@ Tilsvarende for refraction period..
 
 Transferfunk. ANN?
 
-\section{Effektivitetsanalyse: Korleis gjennomføre}
-Kan lage ei while-løkke, som lager eit nytt neuron i kvar iter, og lager synapse til eit E neuron.
-
-Slik kan eg lage eit testneuron med f.eks. 1000 input (kan referere til at dette er estimerte vanlige nivået).
-Kan dermed sammenligne SN og KN med hensyn på effektivitet.
-
-Dersom eg vidare lar sensor funk variere kvar tiande tidssteg for ti prosent, 20. tidssteg for 20 % osv.
-Så har eg noke å skrive om i forhold til testoppsett.
-
+%\section{Effektivitetsanalyse: Korleis gjennomføre}
+%Kan lage ei while-løkke, som lager eit nytt neuron i kvar iter, og lager synapse til eit E neuron.
+%
+%Slik kan eg lage eit testneuron med f.eks. 1000 input (kan referere til at dette er estimerte vanlige nivået).
+%Kan dermed sammenligne SN og KN med hensyn på effektivitet.
+%
+%Dersom eg vidare lar sensor funk variere kvar tiande tidssteg for ti prosent, 20. tidssteg for 20 % osv.
+%Så har eg noke å skrive om i forhold til testoppsett.
+%
 
 
 
@@ -481,5 +584,38 @@ Så har eg noke å skrive om i forhold til testoppsett.
 
 
 	\section{ Konklusjon }
+
+
+%	\subsubsection{Propagation of $\kappa$}
+%	%Skriv at det er vanskelig å vite når kappa skal propagere. Skriv litt rundt dette: kva som er intuitivt (ved fyring), beste er å ha transient overføringsfunk men dette krever transferfunk. fokus, 
+%	%umulig å vite kva som gir godt nok resultat, så bør gjøre dette eksperimentellt. : sammenligne depol.-forløp, og sjå når de ikkje lenger er lik. Kanskje etter en ekstra periode, lenger tid, anna? 
+%	% 	Skal ivertfall vente ei stund. Resultatet om KANN er meir effektivt er avhengig av svaret på dette spm.
+%	% KANSKJE DETTE IKKJE SKAL STÅ HER? VEIT IKKKJE KOR..
+%	%ELLER: kan skrive resultatet her, etter at eg har sammenligna resultata..
+%	For $\kappa$ANN it is hard to know when the activity variable, $\kappa$ should propagate. In many ways, $\kappa$ gives the general input of a node.
+%	$\kappa_{ij}$, node $j$\,s influence on node $i$ is given by the period of node $j$, given by $\kappa_j$. 
+%	It is wery hard to deside some specific time instance $\kappa_j$ should propagate, since the period when $\kappa_j$ is changed also influences $\kappa_i$. 
+%	The period of neuron $j$ and thus the period between synaptic transmissions to neuron $i$ can also be said to be given by the new $\kappa_j$ first after the first period with the new $\kappa_j$.
+%	
+%	The best is to make a transfer function from $\kappa_j$ to $\kappa_i$ with a transient time course. 
+%	Due to time limitations, this will unfortunately be outside the scope of this project, since this will further alter the postsynaptic nodes after node $j$. 
+%	A neural network of transfer functions, where each node represents a transform, will probably give a better result both in terms of efficiancy and in terms of the transient time course of each node.
+%	
+%	What can be established from the above discussion is that the time of propagation should be somewhere between zero and two periods after updating $\kappa$, depending on when $\kappa$ is updated in the period.
+%	Because of the caotic and unpredictable nature of neural networks, and the simplification to deside some constant time delay, the time delay between updating $\kappa$ and propagation of $\kappa$ have to be found experimentally.
+%	As the effectivity of $\kappa$ANN is strongly dependent on this aspect, it is wery hard to theoretically find the efficiancy of the new model.
+%
+%	To experimentally find when $\kappa$ propagates, the transient time course of each neuron have to be compared.
+%	For pragmatic ANNs, it is also hard to find a measure of ``good enough'' for the comparison of the two plots. 
+%	SKRIV MEIR NÅR RESULTAT DUKKER OPP! %TODO
+%	%TODO Når eg har sammenligna de to, skriv meir her. Bra nok kan være "rett" output for ut--noden, eller "rett" transient time course for ut-noden, osv. Sammenligner heile tida med den andre modellen som om den var rett.
+%	% Dette kan også være feil. Kven veit.. Mykje å skrive på diskursjon etter dette aspektet!
+
+
+
+
+
+
+
 
 

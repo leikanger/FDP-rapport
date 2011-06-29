@@ -99,7 +99,7 @@ Synaptic plasticity will hopefully be modelled and implemented in a later projec
 %This project is about the comparison between 
 
 %Opening of a membrane channel will change the permeability of the membrane to some ions (depending on the channel), and the ion pumps will not be able to maintain the potential different from the equilibrium potential. 
-%This causes the potential of the neuron to change accordingly, and is the basis of exitatory and inhibitory postsynaptic potentials (E-PSP/I-PSP)\cite{PrinciplesOfNeuralScience4edKAP07}.
+%This causes the potential of the neuron to change accordingly, and is the basis of excitatory and inhibitory postsynaptic potentials (E-PSP/I-PSP)\cite{PrinciplesOfNeuralScience4edKAP07}.
 %X XX ref kap 7. kandel. s. 131
 
 
@@ -163,13 +163,13 @@ Because of the active pumps, different states with different permeability do the
 The membrane at rest, that is with no open ion channels, gives the resting membrane potential, $V_r$. 
 
 In the case of synaptic input to a neuron, the postsynaptic membrane will open ligand gated channels (se section \ref{ssecTheNeuron}). 
-Both for exitatory and inhibitory input this will push the neurons value and could be seen as an external force in the system.
+Both for excitatory and inhibitory input this will push the neurons value and could be seen as an external force in the system.
 %For our use, we set this external force to be a constant.
 Whether this external driving force can be percieved as a constant or is a more complicated dynamical system is as everything else in the nature; complicated. %Skriv slutten analeis.
 The neuron has NMDA channels that are more permeable to both the normal ions in addition to $Ca^{2+}$. Since the NMDA-R is voltage dependent, this causes the glutamatic transmission to be a function of the postsynaptic potential.
 
 %For E input. Kva skjer. Sjå på som eksternt pådrag. 
-As this is a mechanism that is little described in articles in neuroscience and to my knowledge not used in ANNs, I will not use voltage dependent exitatory ion channels in my two implementations of ANN. 
+As this is a mechanism that is little described in articles in neuroscience and to my knowledge not used in ANNs, I will not use voltage dependent excitatory ion channels in my two implementations of ANN. 
 %Skriv at dette uansett ikkje har noko innverkning på resultatet? Eller blir dette også dumt i forhold til relevansen til denne linja i teksten?
 For my implementations the external driving force on the membrane potential will in other words be a constant.
 
@@ -193,7 +193,7 @@ Where $\dot{v}_{in}(t)$ gives the effect of synaptic input to the neuron% XXX KV
 % TODO Ikkje del opp i underavsnitt: Skriv heller "Element for diffligninga", eller noke, og få med begge her.
 % Men det eg heller kan ha med som underavsnitt er "forkrav for ligningene" eller "utgangspkt" eller "antagelser for ligningene"...
 \subsubsection{The input}
-The input, represented by $\dot{v}_{in}(i)$ in the above equation, is a function of the neurons exitatory and inbibitory input. 
+The input, represented by $\dot{v}_{in}(i)$ in the above equation, is a function of the neurons excitatory and inbibitory input. 
 The neurons input waries with time, but for now we look at the variable $I$ as a constant in respect to time.
 %One method for a varying degree of input will be introduced in section \ref{ssecVariableInputBetweenSpikes}.
 Later, in section \ref{ssecVariableInputBetweenSpikes}, the method will be expanded to account for a varying degree of input. % (section \ref{ssecVariableInputBetweenSpikes}).
@@ -201,8 +201,8 @@ Later, in section \ref{ssecVariableInputBetweenSpikes}, the method will be expan
 \begin{equation}
 	\dot{v}_{in}(t) = I
 \end{equation}
-%$I$ is the effect of the input to the neuron (sum of exitatory and inhibitory input).
-$I$ represents the effect of the synaptic input to the neuron at time $t$, the sum of the effect of exitatory and inhibitory input to the neuron.
+%$I$ is the effect of the input to the neuron (sum of excitatory and inhibitory input).
+$I$ represents the effect of the synaptic input to the neuron at time $t$, the sum of the effect of excitatory and inhibitory input to the neuron.
 
 %skriv også at v_in(i) er i virkeligheita eit dynamisk forløp, men for ANN kan vi forenkle, og sjå på denne som konstant.
 
@@ -227,6 +227,7 @@ In addition we have that the extracellular ionic environment is to large extent 
 
 
 \subsection{The depolarization equation}%equation for the neurons value}
+%\label{ssecDepolEq}
 This gives us the differential equation 
 \begin{equation}
 	\dot{v}(t) = \dot{v}_{in}(I) - \dot{v}_{out}(t) = I - \alpha v(t)
