@@ -48,6 +48,8 @@
 %		- Utvikle SANN. Laga selv for best å kunne sammenligne forskjellene.
 %		For begge ANN:  Sterk inspirert av biologien.
 %			-> i tillegg til fordelane som er nevnt tidligare: gir eit felles design for implementasjonane av de to modellane => Meir sammenlignbar.
+
+
 In this project two artificial neural networks have been designed and implemented. 
 For the implementation it has been focused on comparability, both in respect to the design of the simulation and the behavior of the indivitual node.
 The systems will be more comparable if both systems have the same blueprint. 
@@ -108,7 +110,7 @@ In this report it is most interresting with the transient depolarization curve o
 	If the value goes above the firing threshold, a simulated action potential is fired.
 	The value of the node is modelled as a leaky integration of the node's input, and each time iteration we have a little dissapation of the value.
 
-	For the $\kappa$ANN model, use higher order mathemathics to calculate the firing time of the node.
+	The $\kappa$ANN model use higher order mathemathics to calculate the firing time of the node. % SELV OM DETTE IKKJE ER EINASTE SKILL! Skriv om det andre også?
 	Each node is modelled as a LIF neuron, and the leaky integration is included in the equations used by $\kappa$ANN (sec. \ref{secMatematiskModelleringAvBioNeuron}).
 	%In these equations we calculate the firing time of the node, given a constant level of input until firing of the node. 
 	% %As the equations from sec. \sec{secMatematiskModelleringAvBioNeuron} requires a constant activity level, the concept of a time window wa s introduced.
@@ -196,7 +198,9 @@ In this report it is most interresting with the transient depolarization curve o
 		%For the SN, the activity variable give the node's state compared to the firing threshold.  Synaptic input is inte
 		In the SN, synaptic input is integrated to a ``depolarization'' for the node.
 		When the value reach the firing threshold, an action potential is simulated in the node.
-		For the $\kappa$N, the activity variable gives the \emph{level} of activity for the node, and the firing time is calulated from the present level of input.
+		%In $\kappa$ANN, there we have two variables. The activity variable is the variable that   % XXX TODO TODO TODO Skriv om Kappa og v_0
+		For the $\kappa$N, the activity variable gives the \emph{level} of activity for the node, 
+			and the firing time is calulated from the present level of input in addition to the value of the node.
 		%In the SN, the activity variable gives the nodes charge towards the firing threshold.
 		%For the $\kappa$N the activity variable gives the activity level of the node.
 		%
@@ -409,34 +413,24 @@ inline void K_auron::changeKappa_derivedArg( double dInputDerived_arg)
 
 
 
-\section{Theoretical Comparison Between the two Models}
-SKAL EG SKRIVE DETTE, her også? Sjå diskurs i conclution 1, neste fil.
+%\section{Theoretical Comparison Between the two Models}
+%SKAL EG SKRIVE DETTE, her også? Sjå diskurs i conclution 1, neste fil.
 
 %TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
-%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
-%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
-%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
-(er her)..		
 
 
 
-%%Viktig eksempel til diskurs.
-%		In addition, we have the aspect of \emph{how} the activity of the node changes. 
-%		Let us take an example where we simulate a neuron with a constant level of synaptic input.
-%		For the $\kappa$N, the node will have a constant activity level, and does not have to recalculate the firing time of the node when the node fires.
-%		When the node fires, the node writes the current time iteration plus the previously calculated period to the member variable \emph{ulEstimatedTaskTime\_for\_object}.
-%		When the estimated task time is the same as \emph{time\_class::ulTime}, the node fires again and the same is repeated.
-%		For the SN, the number of input transmissions stays at a constant level to produce the same firing frequency for the node.
-%		The number of actions for the SN will therefore stay at a constant level throughtout the simulated period.
-%		As the $\kappa$N only has to calculate its activity level initially in the example, when its $\kappa$ is changed, we get a large difference in work load for this example. 
-%		
-%		The example is unrealistic for most circuits, but it examplifies when $\kappa$ANN will be more effective than SANN.
-%		Even thought the example is unrealistic, there might me situations where a $\kappa$N would be better than a SN.
-%% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
-%
-%
-%
-%
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -522,7 +516,7 @@ What is interesting about this curve is that it seems that the depolarization cu
 for the rising phase of the sensor curve. 
 For the falling phase of the curve we get a small difference between the depolarization curve of the SN and the $\kappa$N.
 
-% Skrive at for SANN så:
+
 What is the background for the difference between the curves?
 For discrete integration we may get something called the trunctation error. 
 The ``local truncation error'' is the immediate error after each time step. 
@@ -532,13 +526,15 @@ For the SN this might become a problem, and could be the basis of the difference
 
 
 
-%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
-%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
-%TODO TODO TODO TODO                                                                                                						 TODO TODO TODO TODO TODO 
+
+
+
+
+
+
+
+
 %TODO TODO TODO TODO                     HER ER EG KOMEN..                                                          						 TODO TODO TODO TODO TODO 
-%TODO TODO TODO TODO                                                                                                						 TODO TODO TODO TODO TODO 
-%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
-%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
 
 
 
@@ -547,7 +543,7 @@ For the SN this might become a problem, and could be the basis of the difference
 In SANN each node is modelled as a leaky-integrate-and-fire neuron.
 When the depolarization of the SN is updated, the leak of the neuron calculated as the previous value times the leak constant.
 The updated value then becomes %todo Skriv om denne setninga.
-\begin{equation} %TODO Introduser denne ligninga tidligare i oppgava. Her skal eg bare skrive siste del av den:    v_t = (1-\alpha) * v_{t-1}  XXX HAR EG GJORT DET? TODO SJEKK!
+\begin{equation}
 	v_t =  (1-\alpha) \cdot v_{t-1}  
 	\label{eqLekkasjeAnalyseAvTruncationError}
 \end{equation}
@@ -799,16 +795,7 @@ This could give errors of a considerable size.
 
 
 
-%TODO Flytte analyse over, over til comparison and  results? nee..
-%TODO synaptisk transmission overføringsplott, som viser pre og postsyn aktivitetsvar.? Eit som ikkje har problemer: for å vise at det funker..
 
 
-
-
-
-
-
-	%\subsection{Analysis of the postsynaptic activity variable as a result of syn. transmission} % KANSKJE
-	\subsection{etc.}
 
 

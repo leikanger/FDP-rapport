@@ -21,7 +21,7 @@
 % 		Skriv at eg vil gjøre eit forsøk på å lage eit ANN med flyttalsvariabel som propagerer (og kvifor), men med state for å gi spike timing.
 % 		%	x Forrige kapittel: Skriv om grunnen til å gå vidare til ANN med informasjon om relativ spike timing ALLEREDE ER gått gjennom. REFERER. Nevn STDP, LFPO.
 
-	Skriv først innledning, med mål om å sette meg og leser på samme utgangsnivå.
+	Skriv først innledning, med mål om å sette meg og leser på samme utgangsnivå. (motivasjonsnivå!)
 	Skrive litt om kvifor eg tenker det er lurt å gå videre fra SANN.
 	Modellere det, og bruke formalisert matematikk fremfor å ha ei naiv direkte simulering av mekanismene i enkeltneuronet.
 	%Skrive at eg desverre ikkje fekk tid til syn.P. i dette prosjektet?
@@ -32,28 +32,31 @@
 	%XXX Dette er vel heller analyse, forresten. TODO Skriv det over i analyse/comparison kapittel.
 	% MEN kanskje også her?
 
+
+
  		\subsection{The Activity Variable} %TODO I Implementasjon:SANN er det viktig at eg skriver at aktivitetsvariabelen er brukt til depol til noden. (da blir teksten under rett)
-	When the neuron is modelled as a LIF neuron, the depolarization of the node will behave much like a condencator. 
-	The depolarization value of a biological neuron will go towards some value $\kappa$ for a constant, continous input.
 	% This value is given by the input and the grade of leakiness.
 	% Ta vekk den over(kommentert ut), eller siste bit av den under.
 
-	As seen in section \ref{secMatematiskModelleringAvBioNeuron}, $\kappa$ is given by the input and the grade of leakiness of a node.
-	For changing $\kappa$, we introduced the concept of \emph{time window}. 
+	As seen in section \ref{secMatematiskModelleringAvBioNeuron}, $\kappa$ is given by the input and the grade of leakiness of the node.
+	For changing $\kappa$, we introduced the concept of a \emph{time window}. 
 	A time window is defined as a period of time where $\kappa$ is constant within the current interspike period (see section \ref{ssecVariableInputBetweenSpikes}).
 	By using eq. \eqref{eqVerdiligninga} it is possible to find the depolarization value of the node at any time $t \, \epsilon \, p_{isi}$.
-	We can therefore use $\kappa$ as the node's activity variable.
+	We can therefore use $\kappa$ as the node's activity variable, even if we use a simple reactive model for calculating spike time (e.g. the SANN model). % XXX XXX XXX Litt for kraftig, slutten. Sterk avsmak for?
 
 	%TODO TODO Skriv på nytt! Skriv også at det er mulig å kalkulere f=p^{-1}. Desse tre elementa gjør det mulig å kommunisere med alle de tre tiligere generasjonene ANN (men ikkje skriv "tidligere")
 	If $\kappa$ is used as the activity variable, more than the depolarization value of the node can be calculated by its activity variable. 
 	In section \ref{secMatematiskModelleringAvBioNeuron} we have seen that both the firing time and the period corresponding to the activity variable can be calculated when we use $\kappa$ as the activity variable.
 	%By using that the frequency is the inverse of the period,  it ...
-	It is therefore possible to use a node based on the mathematics present in section \ref{secMatematiskModelleringAvBioNeuron} as an interface to each of the other generations ANN.
-	% In section \ref{secMatematiskModelleringAvBioNeuron} we have seen that from kappa, both the value of the node (the ``depolartization'') and the estimated firing time can be calculated.
+	% % XXX TODO TODO Passer bedre i konslusjon!
+	As it is possible to calculate the corresponding frequency for any given activity level $\kappa$, it is possible for a $\kappa$N to communicate with a node of the second generation ANN.
+	%It is therefore possible to use a node based on the mathematics present in section \ref{secMatematiskModelleringAvBioNeuron} as an interface to each of the other generations ANN.
 
-	To interface with a second generation ANN, we can use that the frequency is the inverse of the period. The period is calculated from eq. \eqref{eqHeilePerioden}.
-	The $\kappa$N can as easily be used to get input from as sending output to a node of a second generation ANN. %TODO TODO Dette stemmer ikkje! xxx
+	To interface with a second generation ANN, we can use that the frequency is the inverse of the period. 
+	The period is calculated from eq. \eqref{eqHeilePerioden}.
+	The $\kappa$N can as easily get input from as sending output to a node of a second generation ANN. 
 
+	As the $\kappa$N is designed with a special focus on spike timing, it is also possible to communicate with a node of the third generation.
 	% TA VEKK: Interfacing with a node of the first XXX Dersom eg ikkje HEILT forstår 1.gen. noder.
 	For interfacing with a node of the first or third generation ANN, the spike time of the node will be used. % ref_123@i_KANN TODO enten forstå 1.gen HEILT, eller ta bort dette. (her og over("..all other gen. ANN"))
 	As the node ``fires an acion potential'', and sends output thourgh all its output synapses at the time calculated by eq. \eqref{eqRemainderOfPeriod}, the node could work as an interface to a node of a third generation ANN. 

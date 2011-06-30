@@ -70,7 +70,9 @@
 		General concepts such as simulated asynchronicity (sec.\ref{ssecTime}), generality of the implementation and the design of the indivitual node will be presented in this section. %TODO sett på internreferanser til rett subsection.
 	After the common framework of the simulation is presented, there will be a short discussion about how the two simulators are distinguished. %TODO skriv om! slutten er dårlig
 	%Towards the end of the section, different aspects like efficiancy and generality of the implementations are presented
-	Finally, a concept that is important for a comparison between the transient time course of the two models will be introduced is sec. \ref{ssecLogForComparison}. % %"log for comparison" xxx fiks referanse.
+	A method for time scheduling is introduced in sec. \ref{secPlannedEvents}.
+	% XXX
+	Finally, concepts that are important for the comparison between the transient time course of the two models will be introduced is sec. \ref{ssecLogForComparison} and sec. \ref{ssecTheSensorNode}.
 	
 	
 	%The ide is that a simulation based on higher level mathematics gives a more effective execution of the ANN than a direct simulation of a biological system.
@@ -83,7 +85,7 @@
 	\label{ssecTime}
 	The biological neurons does its tasks completely asynchronously.
 	%The concept of ``asynchronous'' comes from electronics, where 
-	By this it is ment that the different mechnanisms of one neuron can happen totally independently from an other, and the effectivity of one is not affected by the workload of other neurons.
+	By this it is ment that the different mechnanisms of one neuron can happen independently from an other, and the effectivity of one is not affected by the workload of other neurons.
 	This causes the calculation at each node to happen independently of other neurons.
 	%By this it is ment that the excitation, inhibition and firing of one neuron is separated from other neurons; %Ikkje "separated", men adskilt
 	%	Multiple neurons can do theire tasks simultaneously with no loss in efficiancy.
@@ -103,16 +105,18 @@
 	This interpretation of the concept is not possible to accomplish in the serial processor; Tasks can per definition not happen serially, independent of the timing of the other processes.
 	The solution to this is to let the time in the simulation be simulated.
 	As time (``chronos'') becomes a variable that is under our control, it is also possible to control chonology in the simulation. %XXX ".. under our contro." => ".. under the implementation's control."
-	This means that the simulator is able to arrange the order of events om theire order of occurence in the simulated time. %TODO ÆRS! Krokete som helvete. KRØKETE SKREVET: Skriv om!
+	This means that the simulator is able to arrange the order of events in theire order of occurence in the simulated time. %TODO ÆRS! Krokete som helvete. KRØKETE SKREVET: Skriv om!
 	%It is therefore possible to control the order of the events in the order of theire order of occurence in time, in the simulation.
 	
-	The consequence of this is that in a simulation of a network of tree nodes, node B could be ordered to happen after node A but simultaneously to node C, in respect to the simulated time. %Litt dårlig. KRØKETE
-	As each node has a time variant value, due to ``leakage'', time is an important element of the mechanisms of each node.
+	In a simulation of tree nodes, node B can therefore be scheduled to fire after node A but simultaneous to node C.
+	%The consequence of this is that in a simulation of a network of tree nodes, node B could be ordered to happen after node A but simultaneously to node C, in respect to the simulated time. %Litt dårlig. KRØKETE
+	As each node has a time variant value due to ``leakage'', time is an important element of the mechanisms of each node.
 	%As each node has a time variant value, with a value that leaks in respect to time, time is a very important element of the mechanisms of each node.
-	The concept of simulated time therefore becomes very important for the simulator.  %TODO Litt barnlig språk: VELDIG! Ta vekk "very"?
+	The concept of simulated time therefore becomes very important for the simulator. 
 
-	The simple solution to the concept of simulation of time is to iterate through all nodes at each time step, and update the value as a consequence of time propagation.
-	As efficiancy is important for a neural simulator that is to be used in technology, optimalization makes it undesirable to do the calculation for each node every time iteration.
+	The simple solution to the concept of simulation of time, is to iterate through all nodes at each time step, and update the nodes' value.
+	%For every node, the value is updated as a consequence of time propagation.
+	As efficiancy is important for a neural simulator that is to be used in technology, the computational cost involved makes it undesirable to use this scheme.
 	In the remainder of this section an alternative will be proposed.
 
 	%A discussion of what time is, is outside the scope of this text, but a discussion of the result of asynchronicity behavior is important to this project.
@@ -132,18 +136,19 @@
 	%DA MÅ VI define each time iteration so large that ALLE BLIR UTFØRT FØR SLUTT AV ITERASJON.
 	Using the ``real world'' time as a basis for these time steps will create to strong a dependence on the work load of the system.
 	% Alt for oppstykka tekst. Få også med at evt. kan vi ha STORE time steps.
-	As this means that is would only work if all tasks is carried out before the iteration ends, such a dependence is undesirable. % this is avoided.
+	This means that it would only work faultlessly if all tasks are carried out before the iteration ends.
+	Such a dependence is undesirable. % this is avoided.
 	% 																							% 					ville skapt for store tidssteg, and is undesirable.
 
 	A better alternative is to use a scheme based on serial execution. % ".. a time scheme .."? Må ha med litt meir enn bare scheme..
 	This could be based on a linked list containing the different task elements, and having a scheduler function that calls a certain function for each element.
 	If each element is a pointer to an instance of a class derived of a common interface class, the scheduler function could call one of the member functions of the interface class.
 
-	If we let the interface class be an abstract class, with pure virtual fuctions, these pure virtual function would also be inherited to the derived classes.
+	If we let the interface class be an abstract class, with pure virtual fuctions, these functions would also be inherited to the derived classes.
 	Unless the derived class defines these functions, it also inherits being an abstract class, and no object if that class can be created \cite{Stroustrup2000KAP12}.
-	We can therefore be certain that each object has its own version of the virtual function.
+	We can therefore be certain that each object of a class derived from the interface class has defined its own version of these functions.
 
-	To concretize this discussion, let us take a look at the mechanisms of the implementation.
+	To concretize this discussion, let us take a look at the mechanisms of the implementation AuronSim.
 	Here, the abstract time interface class is named \emph{class time\_interface}.
 	%The class definition can be seen in appendix \ref{appendixTimeInterfaceDefinition}. % ".. can be seen in appendix ?" => ".. is included in appendix ?".  Bedre, syns eg.
 	For the sake of completeness, the the class definition is included in appendix \ref{appendixTimeInterfaceDefinition}. % ".. can be seen in appendix ?" => ".. is included in appendix ?".  Bedre, syns eg.
@@ -151,14 +156,14 @@
 	We can see from the class definition that the two member functions of \emph{timeInterface} are defined as pure virtual functions.
 	%This gives that every derived class must first define these two functions before an instance of the class can be created.
 	This gives that for every derived class, these two functions have to be defined before an instance of the class can be created.
-	As these functions define the class' scheduled behavior, we have that every object of a class derived from \emph{class timeInterface} have a clearly defined behavior through these virtual fuctions.
+	As these functions define the class' scheduled behavior, we have that every object of a class derived from \emph{class timeInterface} have a clearly defined behavior, defined in the derived class' variant of these virtual fuctions.
 	%This gives that every object of a \emph{timeInterface} derived class has a clearly defined behavior for these inherited classes.
 	%We therefore have a clearly defined behaviour for every element that is derived from \emph{class timeInterface}.
 
 	Of the two functions inherited from \emph{timeInterface}, %\emph{doTask()} is responcible for executing the element's task.
 		the function that is resposnible for the node's temporal behaviour is the function \emph{doTask()}.
 	%The function that is resposnible for the node's temporal behaviour is the function \emph{doTask()}.
-	As every object of a \emph{time\_interface} derived class have defined its variant of this function, we can let this function be the function called by a global task--scheduler function. %XXX skriv at har tatt med koden i appendix?
+	As every object of a \emph{time\_interface} derived class have defined its variant of this function, we can let this be the function called by a global task--scheduler function. %XXX skriv at har tatt med koden i appendix?
 	%This function contains all the actions that are to be made as a result of the behavior that is to be implememnted as being chronological. %XXX Litt rart med ordet "chronological".
 	% %This function contains all the actions that are to be executed as a simulation of the behavior that is to be implememnted as being chronological. %XXX Litt rart med ordet "chronological".
 	The function doCalculation() will first become important later, when we discuss synaptic transmission in $\kappa$ANN (sec. \ref{ssecImpOfSynTransmissionKANNN}). 
@@ -175,12 +180,12 @@
 	% % The \emph{s\_auron} is chosen as the example presented in this section.
 	% AVSNITT SKAL VÆRE KOBLA IHOP MED NESTE LINJE
 
-	For the direct simulation of the biological neuron, the signal propagation is strongly causal; The ``action potential'' happens after the ``depolarization'' goes to suprathreshold levels.
+	For the direct simulation of the biological neuron, the signal propagation is strongly causal; The ``action potential'' happens after the value goes to suprathreshold levels.
 	Let the SANN node's \emph{s\_axon} element have the role of the axon in propagating the signal.
 	As the we will see in sec. \ref{ssecSANNAP}, the SANN node's \emph{s\_auron} represent the axon hillock in the biological neuron, and will be scheduled for execution when the value of the node goes to suprathreshold levels.
-	This gives that the task of \emph{s\_auron} is to add the node's axon to \emph{pWorkTaskQue}.
+	This gives that the task of \emph{s\_auron} is to add the node's axon to \emph{pWorkTaskQue}, scheduling it for execution at the next time step.
 	%xxx En av de neste tre. Kanskje en mellomting?
-	For a more comprehensive notion of the mechanisms behind this design, it is referred to appendix \ref{appendixDifferentDoTaskFunctions}, where all the tasks of element's \emph{doTask()} are listed.
+	For a more comprehensive notion of the mechanisms behind this design, it is referred to appendix \ref{appendixDifferentDoTaskFunctions}, where the most important element's \emph{doTask()} operations are listed.
 	%For a listing of the task of each element's \emph{doTask()} it is referred to appendix \ref{appendixDifferentDoTaskFunctions}. %XXX Ikkje heilt fornøgd med starten. "introduction" er feil. TODO Finn rett ord.
 	%For the reader, the elements' \emph{doTask()} actions are listed in appendix \ref{appendixDifferentDoTaskFunctions}. 					
 
@@ -209,24 +214,18 @@
 
 	\subsubsection{Time Propagation}
 	%Let us go back to the mechanism of the simulated time.
-	In \emph{time\_class}, most functions and variables are declared static. 
-	As we do not have multiple instances of time for some particular system, only one instance of time exists in the simulation.
-	
-	As \emph{time\_class::doTask()} inserts a [this] pointer to the end of \emph{pWorkTaskQue}, this function can not be declared static. %XXX Skriv at dette kunne blitt ungått, men ble ikkje brukt tid på
-	This could be avoided, but time was spent on developing other aspects of the simulator.
 
-	Each job is able to create new tasks in the simulation, and the global \emph{taskSchedulerFunction()} is a limited ``indefinate loop'', limited by the time scope defined by the command--line argument.
-	The main loop of the simulation is given by this function, an is included in this text to illustrate that allmost every aspect of the simulation is executed by the individual elements.
-	% Dersom det neste blå gjøres: (oog det skal det..)  Nevn såvidt at dette designet gjør programmet velegnet for distribuert programmering.
 
-	% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
-	%FLYTT  OVER I diskurs! (neste linjene, før koden)
-	% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
-	%For distributed computing, the taskscheduler function could be avoided by letting each subelement execute the small piece of code from \emph{taskscheduler()} before it returns.
-	%Centralized command over the network could then be avoided, and if %skriv om at time-skille-elementet kunne kjørt broadcast av ny tid ved iterasjon.
-	% 	%For execution over network or other distributed executions could be performed by letting each subelement execute the code from \emph{taskSchedulerFunction()} before it returns.
-	%This would make the execution truly distributed. %Sterke utsagn! Kanskje eg skal begrunne dei meir?
-	% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+% PASSER IKKJE HER. Legg anna plass, om det skal være med..
+%	In \emph{time\_class}, most functions and variables are declared static. 
+%	As we do not have multiple instances of time for some particular system, only one instance of time exists in the simulation.
+%
+%	As \emph{time\_class::doTask()} inserts a [this] pointer to the end of \emph{pWorkTaskQue}, this function can not be declared static. %XXX Skriv at dette kunne blitt ungått, men ble ikkje brukt tid på
+%	This could be avoided, but time was spent on developing other aspects of the simulator.
+
+	Each job is able to create new tasks in the simulation, and the global \emph{taskSchedulerFunction()} is an ``indefinate loop'' (limited by the time scope defined by the command--line argument).
+	The global infinite loop is thus the main loop in AuronSim, and included to illustrate that the execution is driven by the indivitual elements of the simulation.
+	%The main loop of the simulation is given by this function, an is included in this text to illustrate that allmost every aspect of the simulation is executed by the individual elements.
 
 \begin{lstlisting}
 while( time_class::ulTime < ulLengthOfSimulation)
@@ -245,13 +244,13 @@ while( time_class::ulTime < ulLengthOfSimulation)
 	
 	\subsubsection{An example}
 	To illustrate the previous discussion of the mechanisms of time, an example is presented.
-	Let \emph{pWorkTaskQue} contain a list of scheduled task $L = [a, b, c, T]$.
+	Let \emph{pWorkTaskQue} contain a list of scheduled tasks: %$L = [a, b, c, T]$.
 \begin{equation}
 	\nonumber
 	L = [a, b, c, T]
 \end{equation}
 
-	The next task to be executed is in this example task $a$.
+	The next task to be executed is task $a$.
 	If this task generate a new task $a_1$, we get the list
 
 
@@ -272,7 +271,7 @@ As indicated by the syntax, the element $T$ has a special role.
 To illustrate time propagation, $T$ has been included in the example as an instance of \emph{time\_class}.
 This gives that $T\rightarrow doTask()$ has the task of controlling the simulation of time. 
 One assignment is to iterate time.
-After the global time variable \emph{time\_class::ulTime} has been iterated and other aspects of time simutation is completed, $T$ inserts a [this] pointer to the end of \emph{pWorkTaskQue}.
+After the [global time] variable \emph{time\_class::ulTime} has been iterated and other aspects of time simutation is completed, $T$ inserts a [this] pointer to the end of \emph{pWorkTaskQue}.
 
 
 \begin{equation}
@@ -280,8 +279,8 @@ After the global time variable \emph{time\_class::ulTime} has been iterated and 
 	L = [a_1, c_1, c_2, T ]
 \end{equation}
 
-We can see that we are back at the initial condition of the example
-The number of tasks in each iteration of time is unimportant. 
+We can see that we are back at the initial condition of the example.
+%The number of tasks in each iteration of time is unimportant. 
 The role of $T$ as a ``time separation object'' is the fundamental mechanism in this time simulation.
 
 %An other way to see this is as two alternating ques of tasks, where new tasks are always inserted at the inactive que. 
@@ -295,12 +294,12 @@ The role of $T$ as a ``time separation object'' is the fundamental mechanism in 
 Some times is better to wait to the end of the time iteration before some variable is calculated.  %TODO Skriv når, tematisk dette er bra: når effekten først opptrer neste time iteration..
 An example is recalculation of the effect of the updated $\kappa$ as a consequence of synaptic transmission. 
 Change of $\kappa$ is summed up during of one time iteration, and the result only needs to be calculated before the next time iteration.
-
+% %
 For such mechanisms the concept of \emph{pCalculationTaskQue} was devised.
-As the end of the time iteration is defined by the execution of \emph{time\_class::doTask()}, all elements in the list can be defined to be executed before time is iterated.
+%As the end of the time iteration is defined by the execution of \emph{time\_class::doTask()}, all elements in the list can be defined to be executed before time is iterated.
 
 Several options for \emph{pCalculationTaskQue} has been considered.
-The choice became to make list of calculation tasks a linked list, due to the ease of insertion of new elements.
+The choice became to make the list of calculation tasks a linked list, due to the ease of insertion of new elements.
 Because every element only needs to be calculated once, a reorganization of the list that asserts uniqueness of each element was implemented.
 
 \begin{lstlisting}
@@ -309,7 +308,9 @@ std::list<timeInterface*> time_class::pCalculationTaskQue;
 
 Just as the inherited pure virtual function \emph{doTask()}, the function \emph{doCalculation()} is inherited to derived classes of \emph{class timeInterface}.
 Before time is iterated in \emph{time\_class::doTask()}, \emph{time\_class::doCalculation()} is executed.
-In \emph{time\_class} the function has the role of reorgazating the \emph{pCalculationTaskQue} list before calling the function \emph{doCalculation()} for all remaining entries of the list.
+In \emph{time\_class} the function has the role of reorgazating the \emph{pCalculationTaskQue} so that every element is unique.
+This is implemented by iterating thourgh the list, and for each iteration see if there are any duplicate entries and in this case remove the duplicates.
+After the reorganization of the list, the remains elements'  \emph{doCalculation()} was executed.
 %After the reorganization this implies that every element is only calculated once.
 
 %These mechanisms means that for every time some nodes $\kappa$ is updated, a [\emph{this}] pointer can be added to pCalculationTaskQue without fear of duplicate entries. 
@@ -366,7 +367,8 @@ Due to the reorganization or the list before the elements' \emph{doCalculation()
 	\subsection{The General Design}
 	\label{ssecTheGeneralDesign}
 		%In when rewieving the history of ANN, it was noted that the simulation of each node in ANN models improved for each generation ANN.
-		When rewieving the history of ANN, it could be noted that for each of generation of ANN models the simulation became more realistic and closer to the biological netwoks.
+		When the history of ANN was introduced, it could be noted that for each of generation of ANN models the simulation became more realistic and closer to the biological netwoks.
+		%When rewieving the history of ANN, it could be noted that for each of generation of ANN models the simulation became more realistic and closer to the biological netwoks.
 		The first two generations were stateless, in the form that each node's output were a direct consequence of its input.
 		For the second generation, the propagating signal can be interpreted as the firing frequency of the biological correlate.
 		In this case, the second generation gave a model that was closer to the biologial system, as the neuron in the frequency domain is closer to being stateless than the neuron in the time domain.
@@ -374,16 +376,15 @@ Due to the reorganization or the list before the elements' \emph{doCalculation()
 		%One can even say that the third generation is a direct simulation of 
 		The third generation could be seen as a direct simulation of biological neural nets, with the output of a node given as a consequence of the value (state) of the node becoming more than the firing threshold.
 	
-		Inspired by this observation, the general design of each node will % for both implementations
-			be the same as for the biological neuron.
+		Inspired by this observation, the general design of each node in AuroSim will be the same as for the biological neuron, introduced in sec. \ref{secTheBiologicalNeuralSystem}.
 		There are many benefits to this design, one is the compatability with neuroscience;
 			New aspects from neuroscience could easily be implemented and simulated in this code.
 		This text will later mention some possible examples of this. %% XXX What? Skriv bedre!
 
-		An other benefit is that it will be easier for people with a neuroscience background to get an overview of the implementation.
+		Another benefit is that it will be easier for people with a neuroscience background to get an overview of the implementation.
 		For the general reader, the most important aspects regarding neural systems' information flow has been presented in section \ref{secTheBiologicalNeuralSystem}. %DÅRLIG : ".. neural systems' information flow. "
 		%In our case, the most important information regarding neural systems' information flow has been presented in section \ref{secTheBiologicalNeuralSystem}. %DÅRLIG : ".. neural systems' information flow. "
-		It is recommended that the reader use this section as supporting litterature for a better overwiev while reading about the design of this simulator.
+		It is recommended that the reader use this section as a reference work while reading about the design of this simulator.
 		%for prosjektets del: begge er like: lette å sammenligne.
 
 		% Grunner til at bio-inspirert ANN er bra: % tru på darwinisme, forståelighet for neurofolk, greihet siden systemet allerede er introdusert, bra for sammenligning av de to,
@@ -401,10 +402,10 @@ Due to the reorganization or the list before the elements' \emph{doCalculation()
 		\end{itemize}
 		In real neurons the dendrite is not the only place the neuron recieves synaptic input, we also have synaptic input close to the cell body.
 		Most of the synaptic input on the cell body is inhibitory\cite{PrinciplesOfNeuralScience4edKAP12}.
-		In this implementation all the synaptic input to a node is located at the dendrite, but because of the modular structure of each node this can easily be changed.
+		In this implementation will all the synaptic input to a node be located at the dendrite, but because of the modular structure of each node this can easily be altered.
 		For comparison between the two models, what is important is that both versions have an equal design.
 		%This aspect has therefore been ignored in both implementations.  %TODO TODO Finn medre ord enn "ignorert". Dette sikter til at eg snur ryggen til. Dette er feil!
-		The choice has therefore been to disregard this in both implementations.
+		The choice was therefore not to implement this in AuroSim.
 						%TODO TODO 		disregarded  	er OGSÅ feil!
 
 
@@ -417,7 +418,7 @@ Due to the reorganization or the list before the elements' \emph{doCalculation()
 		%TODO lag evt. en subsubsection her.  Trenger litt oppdeling.
 		The auron has the role of all the parts of the neuron that lies close to the cell body. 
 		The most important of these in respect to information flow is the axon hillock, responsible for initiating action potentials.
-		As we have seen in sec. \ref{ssecTime}, the \emph{s\_auron} is therefore responsible for initiating the simulated action potential       by inserting a pointer to the axon to \emph{pWorkTaskQue}. %lat til den siste eg. Passer det?
+		As we have seen in sec. \ref{ssecTime}, the \emph{s\_auron} is responsible for initiating the simulated action potential   by inserting a pointer to the axon to \emph{pWorkTaskQue}. %lat til den siste eg. Passer det?
 
 		The axon is the simplest part of the neuron to simulate.
 		The digital axon it the object containing the node's output synapses.
@@ -559,7 +560,7 @@ Due to the reorganization or the list before the elements' \emph{doCalculation()
 	For the best result, it is also important that the implementations have a balance between being as simular as possible and optimalizing each implementation. % .. og ikkje bli kunstig lik den andre.xxx
 
 	The new model will be named $\kappa$ANN, referring to the constant $\kappa$ in eq. \eqref{eqVerdiligninga}. The old model is often referred to as SANN.
-	Initially, the two models were thorough to be so similar that each node element could be implemented as two variants of the same class.
+	Initially, the two models were thought to be so similar that each node element could be implemented as two variants of the same class.
 	To accomplish this, a scheme based on pointer functions and common variables was devised.
 
 	% Skriv om: XXX XXX 
@@ -567,7 +568,7 @@ Due to the reorganization or the list before the elements' \emph{doCalculation()
 	A new design based on inheritance was devised.
 % 	%
 	In this design, a common abstract class \emph{i\_[element]} contained all the similarities between the corresponding SN element and $\kappa$N element.
-	As this was inherited to both the SN and the $\kappa$N, the common aspects of the two variants of the model--specific elements was implemented only once.
+	As this was inherited to both the SN and the $\kappa$N, the common aspects of the model--specific variants of the elements was implemented only once.
 
 	The separable design and implementation of each model--specific node element gave a clear view of the similarities and differences between the two models.
 	All aspects that were common to the two models was implemented in the common abstract class, and the differences were implemented in model--specific derived classes.
@@ -578,7 +579,8 @@ Due to the reorganization or the list before the elements' \emph{doCalculation()
 
 	
 	When a common interface class is defined for all elements with the same function, a pointer to this element could be used for accessing the SN or the $\kappa$N element.
-	For example the list \emph{pAllAurons} exploit this fact, as it contains elements of both the SANN model--specific \emph{s\_auron} and the $\kappa$ANN model--specific \emph{K\_auron} auron element.
+	For example the list \emph{pAllAurons} exploit this fact, as it is designed to contains elements that point to instances of both the SANN model--specific \emph{s\_auron} 
+		and the $\kappa$ANN model--specific \emph{K\_auron} node element.
 	%Skriv kanskje litt meir. (eller kansje ta vekk..)
 
 
@@ -600,7 +602,7 @@ Due to the reorganization or the list before the elements' \emph{doCalculation()
 
 	\subsubsection{Construction of Node Elements} 
 	Because each element is connected to the next and the previous element in the signal path, a pointer to the ``containing'' element have to be supplied when constructing the element.
-	If the node construction begins at the ``master element'', the auron.
+	Let the node construction begins at the ``master element'', the auron.
 	At the construction of the auron, the dendrite and axon elements of the node is constructed.
 	As these elements have a pointer to the master element of the node, a [this] pointer has to be supplied by the auron at the time of construction. %Skriv om slutten.
 
@@ -613,6 +615,14 @@ Due to the reorganization or the list before the elements' \emph{doCalculation()
 	Because the connections are handled by the elements themselves, for example a new synapse can be constructed in the free store. 
 	The constructor of the synapse handles the insertion of a pointer to the element in the presynaptic axon's output list and the postsynaptic dendrite's input list.
 	A user of the implementation therefore does not have to worry about pointers or construction and destruction of elements.
+\begin{lstlisting}
+// A synapse can be created in the free store, and the user 
+//    does not have to worry about pointer operations, 
+// 	  memory allocation or exhaustion:
+// A fully functional synapse between node A and node B:
+new synapse( &A, &B, true, 0.017 ); 
+// The third argument defines the synapse as an inhibitory syn. 
+\end{lstlisting}
 
 	When a new node is to be made, this is done by creating a new auron element.
 	This will assign the member variables \emph{dendrite* pInputDendrite} and \emph{axon* pOutputAxon} with a pointer to these elements, created in the free store.
@@ -660,7 +670,7 @@ auron::auron() : tidInterface("auron")
 	When destructing a node, it is best to start with the ``master element'' of the node.
 	The auron only contains two pointers, one for the previous element and one for the next element in the signal path.
 	As both these elements only contain one auron pointer, this is easy to remove.
-	We will consentrate on the next element, the axon
+	We will consentrate on the next element in the signal path, the axon.
 	After the axon along the signal path, lies all the output synapses of the node.
 	As we have multiple output synapses, and the postsynaptic element can have a multitude of input connections, the synapse requires a little more attention.
 
@@ -691,12 +701,12 @@ auron::auron() : tidInterface("auron")
 
 	%TODO skriv slutt av forrige setn. bedre. : on the dereferenced pointer, eller value of the pointer, eller ?
 
-	In some of the elements we have a log used to log variables of interest.
+	In some of the elements we have a file strem used to log variables of interest.
 	This log is implemented as a file stream that will write an \emph{octave} executable script.
 	%This log is written as an \emph{octave} executable script.
-	When each element is destructed, we therefore have to finalize the \emph{octave} log file, and close the file stream used for writing to the log. 
+	When each element is destructed, we therefore have to finalize the \emph{octave} log file and close the file stream used for writing to the log. 
 	%This is also done in the destructor of the elements with a log. 
-	The logging of variables that is of used for a comparison between the two models is introduced in sec. \ref{ssecLogForComparison}.
+	%The logging of variables that is of used for a comparison between the two models is introduced in sec. \ref{ssecLogForComparison}.
 	%For more about logging variables that will be used to compare the two models, 
 	%As the log is written as an \emph{octave} script, the script also needs to be finished before the file stream is closed. 
 
@@ -963,10 +973,10 @@ auron::auron() : tidInterface("auron")
 
 \subsection{Log, for comparison}
 \label{ssecLogForComparison}
-To evaluate the transient time course of the nodes values, the best is to write the variables we are interrested in to a log and later evaluate this log in software specialized for this.
+To evaluate the transient time course of the nodes values, the best is to write the variables we are interested in to a log and later evaluate this log in software specialized for this.
 This enables us to run the ANN for the desired duration. 
 
-The software is implemented with arguments, and it is possible to deside the number of time iterations at each program call.
+The software is implemented to accept shell arguments, and it is possible to set the number of time iterations at each program call.
 The call \emph{./auroNett.out -i 100} will run the ANN for 100 time iterations.
 
 The log is implemented by writing the interresting variables to \emph{.oct} files. This is implemented by having a private std::ostream member in the \emph{i\_auron} class.
@@ -976,13 +986,13 @@ activityVar_logFile <<time_class::getTid() <<"\t"
 				    <<nAktivitetsVariabel <<";\n";
 \end{lstlisting}
 
-This writes each element a two value vector, separated by `;'. This is the syntax for matrices in octave.
-
+This writes the log for each element in a two value vector, separated by `;'. This is the syntax for matrices in octave.
+%
 The name of the log file in addition to writing the preamble required to make the log file an executable octave script is done in the auron constructor.
 %  evt. skriv : of \emph{i\_auron}.  OG
 %Since every derived element of a class also runs the ancestors constructor, the log will also be created for each derived class.
 
-Every auron therefore have one log file with the path \\ \mbox{\emph{./datafiles\_for\_evaluation/log\_auron[auron name]-activityVar.oct }}
+Every auron have a log file with the path \\ \mbox{\emph{./datafiles\_for\_evaluation/log\_auron[auron name]-activityVar.oct }}
 
 The .oct file is finalized in the aurons destructor. This includes to close the bracket for the aurons activity log--matrix, adding the commands required to making the octave script executable.
 For this reason it is important to call the destructor for all the auron objects. 
@@ -990,16 +1000,17 @@ Because all the auron objects are created in the free store, we will have to dea
 This can be done by using the \emph{delete} operator on a dereferenced pointer to the obect.
 
 Manual deletion of every auron is inconvenient and error prone (for the octave script). 
-The only thing that happens if the user forgets to free the memory is that the destructor for the auron will not be called. 
-This causes the .oct script to give errors when executing the script.
-For the sake of clean programming, a mechanism to avoid this has been implemented anyway.
+%The only thing that happens if the user forgets to free the memory is that the destructor for the auron will not be called. 
+%This causes the .oct script to give errors when executing the script.
+For the sake of clean programming, a mechanism for avoiding errors in the log file has been implemented.
 
-To accomplish this, 
-%For convenience,
-all aurons constructed will also place a [this] pointer in std::list$<$i\_auron*$>$ i\_auron::pAllAurons.
-The aurons destructor will remove the elment from this list.
+When aurons is constructed, a pointer to it is placed in the list \emph{i\_auron::pAllAurons}.
+When the object is destructed, it is responsible for removing all the pointers to it.
+%This is possible, as every element has a two way pointer to every element pointing to it, or pointed to.
+%To accomplish this, all aurons constructed will also place a [this] pointer in std::list$<$i\_auron*$>$ i\_auron::pAllAurons.
+%The aurons destructor will remove the elment from this list.
 
-Before the program terminates, all remaining elements in i\_aurons::pAllAurons will be deleted, and the destructor will be called.
+Before the program terminates, all remaining elements in \emph{i\_aurons::pAllAurons} will be deleted, and the destructor will be called.
 This will free the allocated memory, in addition to finalize the log for each auron.
 Finalizing the log file will cause the octave scripts to be executable.
 
@@ -1086,7 +1097,7 @@ To avoid reanalysis of old results, the old log files are automaticly removed at
 	For the $\kappa$N, a spike is planned by estimating the firing timen, given that the present level of input lasts for the remainder of the period. %the level of input until firing. 
 	%Given that the level of input is constant, the estimate becomes a certainity. 
 	As long as the activity level is constant, the estimated task time is the planned task time.
-	From the concept of time windows, we therefore have that $\kappa$N has a planned task time for each node state (value and level of input).
+	From the concept of time windows, we therefore have that $\kappa$N has a planned task time for a set of node input and an initial value for the time window. %each node state (value and level of input).
 	We can in this case say that the $\kappa$N calcutates the firing time given the present level of input for the remainder of the period.
 	This estimate can certainly be improved by using a more advanced scheme for estimation.
 
@@ -1168,11 +1179,11 @@ unsigned long ulEstimatedTaskTime_for_object;
 	If a new element was inserted with a planned time $t_{est} = 10^6$, the \emph{pEstimatedTaskTime} will become approximately $10^6$ elements long.
 	This gives a bad performance for the task of moving elements in the list.
 
-	Another aspect it that \emph{pEstimatedTaskTime} probably is more effective for planned tasks that does not change its planned task time so often. 
-	The difference between the two methods, even when the estimated task time was altered almost every time iteration was small.
+	Another aspect it that \emph{pEstimatedTaskTime} will be more effective for planned tasks that does not change its planned task time so often. 
+	The difference between the two methods, even when the estimated task time was altered every time iteration was small.
 	This indicate that the method probably is far more effective for other uses where the planned task time does not change so often.
-% 	%
-	As this aspect is not part of this project, the concept of \emph{pEstimatedTaskTime} will not be pursuited any further in this text.
+	In retrospect, it is noted that the efficiancy is most probably better than the direct approach if the planned tasks does not happen every time iteration, but e.g. $80\%$ of the time iterations.
+	This will be the first remaining aspect to be tested, but as this aspect is not directly part of the project assignment, the concept of \emph{pEstimatedTaskTime} will not be pursuited any further in this text.
 
 
 % XXX Dersom eg kjører en mellomting, dvs at vi sjekker kvar node kvar 10ande iter, så kan nodene flyttes over til pEstimatedTaskTime dersom de ligger innenfor neste 50 iter.
@@ -1192,7 +1203,8 @@ unsigned long ulEstimatedTaskTime_for_object;
 	\centering
 	\includegraphics[width=0.95\textwidth]{sensorAuron.eps}
 	\caption{Example of the use of a sensor auron. A sensor function is designed to be \mbox{$2\tau (1-cos(\pi \frac{t}{1000}))$} before time $t=1500$. After this it halves the amplitude and doubles the frequency.
-			The blue curve represents the sensor function. The green curve represents the ``depolarization'' of the node. (Generated by AuroSim)} 
+			The blue curve represents the sensor function. The green curve represents the ``depolarization'' of the node. Firing is represented by a vertical line in the value curve.
+			(Generated by AuroSim)} 
 	\label{figSensorAuronExample}
 \end{figure}
 
@@ -1248,7 +1260,7 @@ K_sensor_auron::K_sensor_auron(
 	For the K\_sensor\_auron this gives the code
 \begin{lstlisting}
 inline void K_sensor_auron::updateSensorValue()
-{ //{
+{ 
 	// Use two variables, to find the derived.
 	dLastSensedValue = dSensedValue;
 	dSensedValue = (*pSensorFunction)(); 
@@ -1257,7 +1269,7 @@ inline void K_sensor_auron::updateSensorValue()
 	if( dSensedValue != dLastSensedValue){
 		changeKappa_derivedArg( dSensedValue-dLastSensedValue );
 	}
-} //}
+}
 \end{lstlisting}
 
 	%Litt meir, kanskje. Ikkje heilt naudsynt..

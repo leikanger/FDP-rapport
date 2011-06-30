@@ -3,13 +3,126 @@
 
 
 
-%todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo 
-% 	ENDRE TITTEL på forrige kap  til "comparison and discussion".      "comparison and discussion"       "comparison and discussion"       "comparison and discussion"       "comparison and discussion"       "comparison and discussion" 
-% 		-> og endre tittel på dette kapittel til "Conclution"..
-%todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo 
+
+
+
+
+
+
+
+\section{Concluding Remarks}
+
+
+
+% xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx 
+% 
+%  	Hugs: dette er eit kort sammendrag. Han skal lese teksten. Tenk at eg skal lokke (en rastlaus) leser til å lese 100 sider..
+%
+% xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx 
+\section{Summary}
+In this project, a novel model for artificial neural networks has been developed. 
+A special emphasis has been put on the ability to represent the spike timing of the nodes, both in the design of the new model and in the comparison with ANN models of earlier generations.
+
+% TODO TODO Fortsett her. Neste (grønn tekst) er litt kiip. Vidare er bedre, føler eg.
+
+%As the value reaches the firing threshold, the neuron will fire a simulated action potential and reset its value.
+%Equations was set up for calculating when the value of the node goes above this threshold, and from this equations of the inter--spike period of the neuron.
+%
+%The novel model, named $\kappa$ANN, was based on mathematics developed during this project.
+%As the neuron often is modelled as a leaky integrate--and--fire 
+%where elements from technical cybernetics.
+
+
+The novel model for a neural network with the ability to represent spike timing was developed by the use of mathemathics from the field of technical cybernetics.
+During the project, it was found that these equations gave larger capabilities than the SANN model. % more than the ability to find the value of the node.
+Given a constant level of input, equations are developed for calculating the future values and firing time of each node.
+%The equations are based on the time--course of a leaky integrator to model the LIF neuron, and makes it possible to calculate future values it the input stays constant.
+%These equations gives the oppurtunity to calculate the future values, and thus estimate the firing time of the neuron. %, also the future values of the value can be computed based on a constant input.
+%This further gives the oppurtunity to estimate the firing time of the node.
+
+As the equations are based on a constant level of input, the concept of a ``time window'' is devised.
+By the use of this concept and equations developed espescially for this purpose, it is found that the next spike time of a node can be calculated if the initial value and level of input is know for the time window. %Dårlig slutt.
+
+By the use of these methods, an ANN is developed, and compared theoretically with the SANN model. % XXX ... theoretically AND EXPERIMENTALLY with the ... ?
+% % %
+The two designs are implemented, and the behaviour of the node is compared.
+% KANSKJE: TA VEKK? Skal bare være på ei halv side, og nevne de aller viktigaste funn..
+%
+%The comparison of the transient time course shows that the new model gives a similar simulation of the value.
+%There is a very small difference, and it is discussed 
+The transient time course of the value differs with a very small amount, and it is discussed whether this difference is an error caused by the global truncation error in the SANN node.
+
+% TODO OTOD TODO Fortsett her, etter at sammenligninga er gjort.
+
+%An ANN is designed by using these equations, and compared with a design based on a direct simulation of the neuron.
+% %The former design, known as SANN, 
+%The concept of the ``time window'' was developed to establish time intervals where the time window is defined to be a period where the input is constant.
+%Based on this consept, and equations developed especially for this purpose, it is possible to update the value of the node each time the input level of the node changes.
+%
+%In this report the capability of these two consepts combined is illustrated by comparing the value of a node of the new model with a node based on direct simulation of the neuron.
+%The value of the nodes of the two models is compared, and it is concluded that the transient time course of the new model gives a time course that is at least as good as the direct simulation done by the SANN model.
+%
+%It is concluded 
+%The time course of the value of the two nodes are compared 
+%The two the time course of the value of a node of the new model ANN with the time course of the previous model with spiking abilities.
+%Appearently, the two curves follow eachother.
+%A closer analysis gives that there was a small difference between the two.
+%This error it thought to be based on the concept of a global trunction error for the SANN caluclation of %HER XXX
+%After a closer analysis, it was found that the two cuves have a little 
+%It was concluded that the two values follow
+%It was concluded that the difference between the two plots gave maximum difference
+%it was possible to design and implement an artificial neural network based on the mathemathics developed.
+
+
+
+
+
+
+
+
 
 
 a
+
+% TODO TTTOOOODDDDDOOOOOO :  Fra [\label{ssecTheGeneralDesign}]  : This text will later mention some possible examples of this.  		Få det med i diskurs!
+
+
+	% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+	%For distributed computing, the taskscheduler function could be avoided by letting each subelement execute the small piece of code from \emph{taskscheduler()} before it returns.
+	%Centralized command over the network could then be avoided, and if %skriv om at time-skille-elementet kunne kjørt broadcast av ny tid ved iterasjon.
+	% 	%For execution over network or other distributed executions could be performed by letting each subelement execute the code from \emph{taskSchedulerFunction()} before it returns.
+	%This would make the execution truly distributed. %Sterke utsagn! Kanskje eg skal begrunne dei meir?
+	% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+
+% FInal remark: (gjelder pWorkTaskQue, \ref -> time propagation.
+% TODO Lag en heil section som diskuterer bruk i distribuerte systemer: Fett for kappa..
+	For further development, we could let the the two listed function calls be included in the individual elements' \emph{doTask()} function. 
+	Before the funtion is completed, the two operations listed below could be executed before the function return.
+	This makes the design intrinically distributed.
+
+
+
+
+
+% TIL DISKURS:
+	%FRA Design: (er med i ferdig tekst)
+	%The new model will be named $\kappa$ANN, referring to the constant $\kappa$ in eq. \eqref{eqVerdiligninga}. The old model is often referred to as SANN.
+	%Initially, the two models were thorough to be so similar that each node element could be implemented as two variants of the same class.
+	%To accomplish this, a scheme based on pointer functions and common variables was devised.
+
+
+
+
+	- Skriv om forbedring av estimert fyringstid: Kan bruke metoder fra kybb. F.eks. eit spesialisert kalman--filter kan kanskje utvikles?
+	
+
+
+
+
+
+
+
+
 
 
 
@@ -38,6 +151,9 @@ a
 	%	Kanskje eg skal her skrive om kva eg  reagerte på med SANN? (ikkje vent å sjå på resultatet, skriv uansett. Tolk heller at dette var feilt..)
 %XXXXXXXXXXXXXXXX XXX XXXXXXXXXXXXXXXXXXXXXXX XXX
 
+
+% Fekk ikkje gjort: 
+	%\subsection{Analysis of the postsynaptic activity variable as a result of syn. transmission} % KANSKJE
 
 
 
@@ -134,6 +250,38 @@ a
 %(Da må eg ha egene sensor-neuron som er spesiallaga for å sense en slik dynamisk state).
 %%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 %
+
+
+
+
+
+\section{Discussion and concluding remarks}
+
+%%Viktig eksempel til diskurs.
+%		In addition, we have the aspect of \emph{how} the activity of the node changes. 
+%		Let us take an example where we simulate a neuron with a constant level of synaptic input.
+%		For the $\kappa$N, the node will have a constant activity level, and does not have to recalculate the firing time of the node when the node fires.
+%		When the node fires, the node writes the current time iteration plus the previously calculated period to the member variable \emph{ulEstimatedTaskTime\_for\_object}.
+%		When the estimated task time is the same as \emph{time\_class::ulTime}, the node fires again and the same is repeated.
+%		For the SN, the number of input transmissions stays at a constant level to produce the same firing frequency for the node.
+%		The number of actions for the SN will therefore stay at a constant level throughtout the simulated period.
+%		As the $\kappa$N only has to calculate its activity level initially in the example, when its $\kappa$ is changed, we get a large difference in work load for this example. 
+%		
+%		The example is unrealistic for most circuits, but it examplifies when $\kappa$ANN will be more effective than SANN.
+%		Even thought the example is unrealistic, there might me situations where a $\kappa$N would be better than a SN.
+%% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+%
+%
+%
+%
+
+
+
+
+
+
+
+
 
 
 
