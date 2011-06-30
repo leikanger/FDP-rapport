@@ -190,30 +190,30 @@ Sammenligne tematisk? Skrive at eine er Moore, andre Mealy auromata?
 % 	Det originale systemet virker som eit bra system, siden jo meir vi tilnærmer oss BioSys, jo bedre blir resultatet.
 % 		- skrive at SANN tar steget videre for SANN, i henhold til 'bionics'.
 \chapter{Background information} 	%XXX KAPITTEL
-%VETTAFAEN om denne skal ligge her. Ikkje DENNE i så fall. SKRIV OM SOM FAEN!
-%In the start of this project effort were used on trying to find a model equal or similar to the model tested in this project.
-In the start of this project, a search for a similar model that could represent both firing time and firing frequency, was commenced.
-My ability to find relevant articles and reports was not so good, and
- 	I had already developed a ``new model'', later found to be called ``spiking artificial neural network''(SANN).
-To be certain this model was new, Yasser Roudi, topic supervisor of NEVR3004 -- neural networks, was asked. 
-After a meeting for about an hour, also used on litterature search for this new model, no model was found.
-This does not mean that the model does not exist, but we can be fairly certain.
-It is therefore entirely possible that the model presented in this text is the first of its kind.
-%Despite my effort to find such models, none has presented itself, neither from a comprehensive litterature seach or by asking professor Yasser Roudi, topic supervisor of NEVR3004 -- neural networks.
-%It is therefore possible that the model presented in this text is the first of its kind.
+	%VETTAFAEN om denne skal ligge her. Ikkje DENNE i så fall. SKRIV OM SOM FAEN!
+	%In the start of this project effort were used on trying to find a model equal or similar to the model tested in this project.
+	In the start of this project, a search for a similar model that could represent both firing time and firing frequency, was commenced.
+	My ability to find relevant articles and reports was not so good, and
+	 	I had already developed a ``new model'', later found to be called ``spiking artificial neural network''(SANN).
+	To be certain this model was new, Yasser Roudi, topic supervisor of NEVR3004 -- neural networks, was asked. 
+	After a meeting for about an hour, also used on litterature search for this new model, no model was found.
+	This does not mean that the model does not exist, but we can be fairly certain.
+	It is therefore entirely possible that the model presented in this text is the first of its kind.
+	%Despite my effort to find such models, none has presented itself, neither from a comprehensive litterature seach or by asking professor Yasser Roudi, topic supervisor of NEVR3004 -- neural networks.
+	%It is therefore possible that the model presented in this text is the first of its kind.
 
-\include{ANN}
+	\include{ANN}
 
-% Det biologiske systemet. Skrive i forhold til å lage en kunstig versjon av dette (ANN).
-\include{detBiologiskeSystemet}
+	% Det biologiske systemet. Skrive i forhold til å lage en kunstig versjon av dette (ANN).
+	\include{detBiologiskeSystemet}
 
 
 % Før vi kan lage en kunstig variant av neurale system, er det best å modellere det, og bruke matematiske rammer for simuleringa.
 % Dette er også for å formalisere det som tidligere er skrevet i "detBiologiskeSystemet". Gjøre mekanismene eksplisitt, matematisk.
-\chapter{The Equation} 				%XXX KAPITTEL
-%TODO Her må er skrive meir om kva modell som er i grunn for SANN, og for den nye modellen. Intro til kapittel.
-\include{theNewModel}
-
+\chapter{Modelling} 				%XXX KAPITTEL 			XXX XXX Finn bedre tittel på kap.
+	%TODO Her må er skrive meir om kva modell som er i grunn for SANN, og for den nye modellen. Intro til kapittel.
+	\include{theNewModel}
+	
 \chapter{Design and Implementation} %XXX KAPITTEL
 	In this project, a novel model for ANN has been developed.  %Drittord. Funker ikkje her. Pretensiøst ord..
 	In this chapter and the next, this new model will be presented.  %XXX Dårlig skrevet. Begynnt eit forsøk på å gjøre det bedre, under.
@@ -238,73 +238,73 @@ It is therefore entirely possible that the model presented in this text is the f
 	% TODO SKRIV MEIR: Fyll ut første side av kapittelet, under tittel, som blir satt av til dette.
 	The most important differences and similarities will be presented in chapter \ref{chapterComparisonAndResults}, ``Comparison and Results''. %TODO skriv "... in chapter ?, [TITTEL PÅ KAP]. Vær sikker på at tittel er rett.
 
-%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
-\begin{itemize}
-	\item Korleis man impleneterer er abhengig av kva som er målet for implementsjonen (likhet til det simulerte systemet("retthet"), effektivitet(pragmatisk), anna? ). (Se design, forrige kapittel)%TODO Skriv om det i forrige kapittel.
-	\item Skrive mine valg. Dette er avhengig av kva eg ønsker å sammenligne systemet for. Velger vel den pragmatiske veien(?)
-	\item programmeringsspråk (viktig for implenetation design): Objektorientert. Kanskje nemne at eg vil bruke C++ (Skal seinare skrives meir om (i "implementation"))
-%	\item Sammenligne læring? TODO Skriv kvifor læring ikkje er med: Målet for denne oppgaven er ikkje læring, men sammenligning av de to modellene. 
+	%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+	\begin{itemize}
+		\item Korleis man impleneterer er abhengig av kva som er målet for implementsjonen (likhet til det simulerte systemet("retthet"), effektivitet(pragmatisk), anna? ). (Se design, forrige kapittel)%TODO Skriv om det i forrige kapittel.
+		\item Skrive mine valg. Dette er avhengig av kva eg ønsker å sammenligne systemet for. Velger vel den pragmatiske veien(?)
+		\item programmeringsspråk (viktig for implenetation design): Objektorientert. Kanskje nemne at eg vil bruke C++ (Skal seinare skrives meir om (i "implementation"))
+%		\item Sammenligne læring? TODO Skriv kvifor læring ikkje er med: Målet for denne oppgaven er ikkje læring, men sammenligning av de to modellene. 
 % 																				- Dersom eg får tid til å sammenligne effektivitet: bedre å ta bort læring (få vekk en variabel i eit allerede komplekst system)
 % 																				- Tid: Har ikkje tid til å implementere læring i dette prosjektet. Referer også til mailen til Hans Plesser: 
 % 																					at modellene for imhibitorisk læring ikkje er ferdig modellert, så enda vanskeligare å implementere (må modelleres først).
-\end{itemize}
+	\end{itemize}
 
 
-% Generell design av implementasjon.
-\include{design}
+	% Generell design av implementasjon.
+	\include{design}
 
-% Inplementasjon for SANN. Korleis blir dette implementert? Kva er viktig? Korleis gjør eg det? 
-% Mangler?
-\include{implementasjon_SANN}
+	% Inplementasjon for SANN. Korleis blir dette implementert? Kva er viktig? Korleis gjør eg det? 
+	% Mangler?
+	\include{implementasjon_SANN}
 
-% Implementasjon for KANN. Korleis gjør eg det? Kva er viktig?
-% Mangler?
-\include{implementasjon_KANN}
+	% Implementasjon for KANN. Korleis gjør eg det? Kva er viktig?
+	% Mangler?
+	\include{implementasjon_KANN}
 
-% Kanskje skrive eget kapittel, eller seksjon i kvart av de overeståande, om "ANN simplifications and what is known in neuroscience".
+	% Kanskje skrive eget kapittel, eller seksjon i kvart av de overeståande, om "ANN simplifications and what is known in neuroscience".
 
-%\chapter{ANN simplifications and what is known in neuroscience}
-%HER skal tabellen ligge. Diskutere korleis mine ANN er laga, kva forenklinger har eg gjort, og kvifor. (sjå side 27 i FDP-loggbok)
-%Referer en del til kapittel \ref{chapNeuroscience}.
-%Her skal eg legge inn tekst som impliserer at eg er reflektert. Skrive alle feil og mangler som ligger i mine modeller, og implementasjon-design.
+	%\chapter{ANN simplifications and what is known in neuroscience}
+	%HER skal tabellen ligge. Diskutere korleis mine ANN er laga, kva forenklinger har eg gjort, og kvifor. (sjå side 27 i FDP-loggbok)
+	%Referer en del til kapittel \ref{chapNeuroscience}.
+	%Her skal eg legge inn tekst som impliserer at eg er reflektert. Skrive alle feil og mangler som ligger i mine modeller, og implementasjon-design.
 
 \chapter{Results and Discussion} 	%XXX KAPITTEL 			TODO TODO Finn en bra tittel. Dette kapittel skal inneholde resultat, sammenligning, diskurs, konklusjon.
-\label{chapterComparisonAndResults}
+	\label{chapterComparisonAndResults}
 
 % SAMMENLIGNING:
 % 	- korleis blir oppgavene tolket?
 % 	- sammenligning av ulike aspekter ved simuleringene.
-\include{comparisonAndResults}
+	\include{comparisonAndResults}
 
-\chapter{Conclusion}
-\include{discussionAndConclusion}
-%legg meir?
+\chapter{Conclusion} % xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx     xxx  TA VEKK ?
+	\include{discussionAndConclusion}
+	%legg meir?
 
-% TODO Gå gjennom teksten og endre en del "If .." ustagn. Mink graden av dette. 
-% 		Eksempelvis kan vi skrive 	"If we let A be equal to B, ..." 	som 	"Let A be equal to B. Then ..." 	=> gir mykje bedre flyt i teksten! Mindre, meir forståelige setninger. Lettere å henge med!
-% 		(Lær av matematikk-oppgaver. Var oppom Øystein i dag, og så artikkelen han satt å skreiv. Han brukte dette. Eg vart inspirert..)
+	% TODO Gå gjennom teksten og endre en del "If .." ustagn. Mink graden av dette. 
+	% 		Eksempelvis kan vi skrive 	"If we let A be equal to B, ..." 	som 	"Let A be equal to B. Then ..." 	=> gir mykje bedre flyt i teksten! Mindre, meir forståelige setninger. Lettere å henge med!
+	% 		(Lær av matematikk-oppgaver. Var oppom Øystein i dag, og så artikkelen han satt å skreiv. Han brukte dette. Eg vart inspirert..)
 
 
-% XXX XXX XXX XXX XXX XXX
-% 		APPENDIX 				Fiks appendix rett!
-% XXX XXX XXX XXX XXX XXX 
-%Kanskje eg skal ha med "table of abbrevations" i appendix, eller først.
-%TODO include{appendixTableOfAbbrevations} , eller ha det før innledning..
+	% XXX XXX XXX XXX XXX XXX
+	% 		APPENDIX 				Fiks appendix rett!
+	% XXX XXX XXX XXX XXX XXX 
+	%Kanskje eg skal ha med "table of abbrevations" i appendix, eller først.
+	%TODO include{appendixTableOfAbbrevations} , eller ha det før innledning..
 
-% Appendix:doTaskFunctions.tex : \chapter{doTask()} % TODO Her skal det som gjennomføres av de ulike elementas' doTask() listes opp. XXX Finn bra tittel. 
-% Denne gjenstår å skrives! XXX Viktig: det er nemlig lovet fra time -> simulated asynchronicity i design.tex..
+	% Appendix:doTaskFunctions.tex : \chapter{doTask()} % TODO Her skal det som gjennomføres av de ulike elementas' doTask() listes opp. XXX Finn bra tittel. 
+	% Denne gjenstår å skrives! XXX Viktig: det er nemlig lovet fra time -> simulated asynchronicity i design.tex..
 
-%Ta med taskSchedulerFunction() ? 	XXX Ja
-%Ta med argument-innlesing? 		XXX Ja
+	%Ta med taskSchedulerFunction() ? 	XXX Ja
+	%Ta med argument-innlesing? 		XXX Ja
 
 %Seier fra til tex at resten (eller neste) skal være nummerert som appendix (i referanser og i index):
 \appendix
-\include{appendixSynPlast}
-\include{appendixTimeInterface}
-\include{appendixTimeClass}
-\include{appendixDifferentDoTaskFunctions}
-%TODO Neste er ikkje rydda i. alt for lange linjer, og norske kommentarer.
-\include{appendixAndreAspektFraMain}
+	\include{appendixSynPlast}
+	\include{appendixTimeInterface}
+	\include{appendixTimeClass}
+	\include{appendixDifferentDoTaskFunctions}
+	%TODO Neste er ikkje rydda i. alt for lange linjer, og norske kommentarer.
+	\include{appendixAndreAspektFraMain}
 
 \bibliography{bibliografi}
 %\bibliographystyle{abbrvnat}
