@@ -146,7 +146,7 @@
 		%How does \eqref{eqSynapticTransmissionForKANN} expand to multiple synapses?
 		%
 		%TODO Skriv om: No er det for sein, og eg tenker ikkje beint.
-		As for temporally separated input, the synapses' total effect of multiple transmissions is modelled as a linear carracteristic. %TODO TODO Skriv kvifor / begrunn dette valget!
+		As for temporally separated input, the synapses' total effect of multiple transmissions is modeled as a linear carracteristic. %TODO TODO Skriv kvifor / begrunn dette valget!
 		%This gives that the postsynaptic potential is the sum over all the input nodes' transmission.
 		% %Just as the input of many ``simultaneous'' transmissions has a linear carracteristic, the input through multiple synapses be 
 		%
@@ -182,7 +182,7 @@
 		%In this way the synaptic transmission of the individual synapses can be decoupled from the postsynaptic activity variable, $\kappa_i$.
 		
 
-		\subsection{The Postsynaptic Effect of Synaptic Transmissons}
+		\subsection{Design of Synaptic Transmission}
 			\label{ssecSynInputToANodeKANN}
 			Equation \eqref{eqSumOfKij} defines the postsynaptic effect of transmissions from multiple input synapses.
 			In pragmatic ANNs the effectivity of the implementation is an issue, and an attempt has been made to make the calculation of the node's activity variable more effective.
@@ -193,7 +193,7 @@
 				Let $\kappa_{ij}$ be the synaptic transmission. The edge transmission in $\kappa$ANN is given by $u_{ij}(\kappa_j) = \Delta \kappa_{ij}$.
 			\end{mydef}
 																												%updating the postsynaptic node's activity variable after a transmission becomes more effective.
-			The synaptic transmission now becomes the integral of all the edge's transmissions, modelled by %eq. \eqref{eqSynapticTransmissionAsSumOfEdgeTransmissions}.      %, and is defined as
+			The synaptic transmission now becomes the integral of all the edge's transmissions, modeled by %eq. \eqref{eqSynapticTransmissionAsSumOfEdgeTransmissions}.      %, and is defined as
 			\begin{equation}
 				\kappa_{ij} = \sum_t{u_{ij}(\kappa_j)}
 				%\kappa_{ij} = \int{u_{ij}(\kappa_j)} \, \mathrm{d}t
@@ -267,7 +267,7 @@
 	%		Begynn med å skrive at det er er vankelig å vite når det skal skje. Diskuter litt fram og tilbake som intro til section. %TODO 
 	
 			The synaptic transmission is given by $\kappa_{ij} = w_{ij} \, \cdot \, p_{isi}^{-1}(\kappa_j)$, the synaptic weight multiplied by the inverse of the inter--spike period.
-			%In this implementation, $\kappa$ is used as the activity variable instead of the node's depolarization, and an other transmission scheme needs to be devised.
+			%In this implementation, $\kappa$ is used as the activity variable instead of the node's depolarization, and another transmission scheme needs to be devised.
 			Edge transmission is in this implementation defined as the change in synaptic transmission, or $u_{ij}(\kappa_j) = \Delta \kappa_{ij}$
 			%This itroduces mechanisms that makes it redundant to perform the sum over all the node's input synapses every time one synapse's $\kappa_{ij}$ is updated.
 			This introduces mechanisms that makes computational of the sum over alle the node's input synapses redundant, as more effective methods are used. %TODO skriv om!

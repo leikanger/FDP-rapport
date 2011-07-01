@@ -141,26 +141,41 @@ tabsize=4,                % sets default tabsize to 2 spaces
 \maketitle
 
 \begin{abstract}
-In this project, a novel model for artificial neural networks has been developed. 
-A special emphasis has been put on the ability to represent the spike timing of the nodes, both in the design of the new model and in the comparison with ANN models of earlier generations.
+%In this project, a novel model for artificial neural networks has been developed and compared to the SANN model. 
+%A special emphasis has been put on the ability to represent the spike timing of the nodes, both in the design of the new model and in the comparison with ANN models of earlier generations.
 
-The novel model for a neural network with the ability to represent spike timing was developed by the use of mathemathics from the field of technical cybernetics.
-During the project, it was found that these equations gave larger capabilities than the SANN model. % more than the ability to find the value of the node.
-Given a constant level of input, equations are developed for calculating the future values and firing time of each node, and the time of the next spike is possible to estimate.
-The simulated depolarization value of a node of the new model has been compared with the value of a node based on the SANN model.
-The time course of the value is compared for a continously changing input level.
-It is concluded that the transient value curve of the new model is as good as, or perhaps a little better than the direct simulation carried out by the SANN model.
+By the use of mathemathics from the field of technical cybernetics, new equations is developed and used to design a novel ANN model. 
+The novel model, named $\kappa$ANN, is not only able to calculate the firing times on a reactive basis, it is also able to estimate future spike times.
+
+The two models $\kappa$ANN and SANN are designed using a common framework and design, enabling a thourgh analysis of the similarities and differences between the two.
+%In addition to comparing the design of the two models, an analysis of nodes of the two ANN models 
+By logging the depolarization value of nodes of the two ANN models, the transient depolarization curve of the two models are compared.
+%
+%By the use of the new model's capability to compute the value of a node, a logging system was designed, and the transient depolarization curves are compared.
+%
+%The novel model for a neural network with the ability to represent spike timing was developed by the use of mathemathics from the field of technical cybernetics.
+%During the project, it was found that these equations gave larger capabilities than the SANN model. % more than the ability to find the value of the node.
+%Given a constant level of input, equations are developed for calculating the future values and firing time of each node, and the time of the next spike is possible to estimate.
+%The simulated depolarization value of a node of the new model has been compared with the value of a node based on the SANN model.
+%The time course of the value is compared for a continuously changing input level.
+It is concluded that the computed depolarization of the new model is as good as, or perhaps a little better in respect to the LIF equations, than the values computed by the SANN model.
+%It is concluded that the computed depolarization of the new model is as good as, or perhaps a little better in respect to the LIF equations, than the direct simulation carried out by the SANN model.
+%It is concluded that the transient depolarization curve of the new model is as good as, or perhaps a little more correct than the direct simulation carried out by the SANN model.
 
 %The equations are based on the time--course of a leaky integrator to model the LIF neuron, and makes it possible to calculate future values it the input stays constant.
+An analysis of the fundamental difference in the two models' calculation scheme is conducted, and it is hypothesized that the novel model will be more effective than the SANN model, for certain scenarios.
 
- 
-As the new model is based on the concept of the spiking neuron, spike time can be calculated for a $\kappa$N.
-It is therefore possible to transmit spikes through specialized synapses, and nodes of the $\kappa$ANN model can communicate with nodes based on the SANN model.
-%Transduction of the output of the $\kappa$N to a SANN will probably involve less effort than the transduction the other way.
-As the usual output of a $\kappa$N is given by an ``instantaneous frequency'' calculated from the present $\kappa$, the $\kappa$ANN node is able to communicate with nodes of the second generation ANN.
-The activation function for $\kappa$ANN can be seen as an activation funtion based on a mechanistic model of the neuron.
-% %
-It is therefore possible to use $\kappa$ANN as a interface between the second and the third generation ANN.
+As the $\kappa$ANN model is based on the LIF neuron model, the node can compute its spike times, and thus communicate with a SANN node.
+Natively, it sends continuous--valued signals, and can also communicate with a node of a second generation ANN.
+Is is concluded that the new model can be used as an interface between nodes of the mentioned ANN models.
+
+%As the new model is based on the concept of the spiking neuron, spike time can be calculated for a $\kappa$N.
+%It is therefore possible to transmit spikes through specialized synapses, and nodes of the $\kappa$ANN model can communicate with nodes based on the SANN model.
+%%Transduction of the output of the $\kappa$N to a SANN will probably involve less effort than the transduction the other way.
+%As the usual output of a $\kappa$N is given by an ``instantaneous frequency'' calculated from the present $\kappa$, the $\kappa$ANN node is able to communicate with nodes of the second generation ANN.
+%The activation function for $\kappa$ANN can be seen as an activation funtion based on a mechanistic model of the neuron.
+%% %
+%It is therefore possible to use $\kappa$ANN as a interface between the second and the third generation ANN.
 
 \end{abstract}
 
@@ -208,10 +223,10 @@ It is therefore possible to use $\kappa$ANN as a interface between the second an
 %	My ability to find relevant articles and reports was not so good, and
 %	 	I had already developed a ``new model'', later found to be called ``spiking artificial neural network''(SANN).
 %	To be certain that the new--new model was new, Yasser Roudi, topic supervisor of NEVR3004 -- neural networks, was asked. 
-%	After a meeting for about an hour, also used on litterature search for this new model, no model was found.
+%	After a meeting for about an hour, also used on literature search for this new model, no model was found.
 %	This does not mean that the model does not exist, but we can be fairly certain.
 %	It is therefore entirely possible that the model presented in this text is the first of its kind.
-	%Despite my effort to find such models, none has presented itself, neither from a comprehensive litterature seach or by asking professor Yasser Roudi, topic supervisor of NEVR3004 -- neural networks.
+	%Despite my effort to find such models, none has presented itself, neither from a comprehensive literature seach or by asking professor Yasser Roudi, topic supervisor of NEVR3004 -- neural networks.
 	%It is therefore possible that the model presented in this text is the first of its kind.
 
 	Before we start any discussion about ANN, we need to know some ANN history and some biology.
@@ -245,8 +260,8 @@ It is therefore possible to use $\kappa$ANN as a interface between the second an
 
 	Mathematical modelling of the neuron helps understand the neuron and the mechansims behind how the neuron works.
 	The ide behind $\kappa$ANN came as a result of models written to understand the neuron.
-	A good model could also be used to make a simulator of the modelled effects. 
-	%A delicate balance is to be mainained between simplifying the system to much, and not simplifying enough.
+	A good model could also be used to make a simulator of the modeled effects. 
+	%A delicate balance is to be maintained between simplifying the system to much, and not simplifying enough.
 	% TODO Fortsett her. LAg mindre, ikkje større..
 	% A good model of the neuron will also give us a guide when simulating the system.
 
@@ -255,10 +270,10 @@ It is therefore possible to use $\kappa$ANN as a interface between the second an
 	The neuron will fire an action potential if the value goes above firing threhold.
 	This makes the value of the neuron an important aspect of neuronal signal processing.
 	When a neuron recieves one kind of synaptic transmissions, ligand--gated channels are opened, and the potential of the neuron is changed as a function of the time the channel is open 
-		and the electrochemical driving force for the charged molechules.
+		and the electrochemical driving force for the charged molecules.
 
 	The electrochemical driving force can be seen as a potential field over the membrane.
-	This mechansim either comes from the concentration of diffenert kinds of chemical molechules, as a result of electrical potential, or a combination of the two.
+	This mechansim either comes from the concentration of diffenert kinds of chemical molecules, as a result of electrical potential, or a combination of the two.
 	%One aspect of this potential is the concentration gradient over the membrane.
 	Each ion will seek a state of the least order, or the highest order of entrophy. 
 	The concentration gradient of each ion is therefore an element of the electrochemical driving force for that ion.
@@ -302,7 +317,7 @@ The object model is designed to be general for the two models, both to make the 
 
 The design of each node is based on the biological neuron to be more intuitive for programmers with knowledge of neuroscience. 
 This is not only to make the implementation easier to use for potential future programmers, but also because little is known about what is important in neuroscience.
-If the implementation is constructed strongly inspired by the emulated system, with multible elements constructed in the same way as the original system, expantion and modification of the indivitual elements involve less effort.
+If the implementation is constructed strongly inspired by the emulated system, with multible elements constructed in the same way as the original system, expantion and modification of the individual elements involve less effort.
 Say, for example, that new aspects are discovered tomorrow. In this case, the code can easier be modified after this discovery.
 
 This principle does not only account for future uses by other programmers.
@@ -319,7 +334,7 @@ This required less work because principles that were important Bjarne Stroustrup
 %This will give the inhibitory input less delay compared to the excitatory input, and might be an important aspect in neural computations.
 %This can be implemented easily if this is found to be important for some future use of this code.
 %
-%An other important aspect that is not impelented is axo-axonic synapses, linked to short term synaptic plasticity.
+%Another important aspect that is not impelented is axo-axonic synapses, linked to short term synaptic plasticity.
 %%XXX An axo--axonic synapse is a synase that enters the postsynaptic neuron somewhere close to one of its output synapses.
 %% Gjør om rekkefølgen litt. Skriv om short-term syn.p. først, så evt. axo-axonic synapses.
 %Short--term synaptic plasticity is synaptic plasticity that does not have any long term effect of the neuroal network (learning), only on more immedate aspects of signal transmission.
@@ -334,10 +349,10 @@ This required less work because principles that were important Bjarne Stroustrup
 If the goal of the implementation is to simulate a neural network from biology, spatial and temporal resolution is more important than efficiency of the calculation.
 %When it comes to temporal and spatial resolution, this can easily be extended.
 In this implementation, spatial and temporal resolution can easity be extended.
-If we want to increase the accuracy, this can be done by increasing the number of elements in each node (and making the timestep accordingly smaller).
+If we want to increase the accuracy, this can be done by increasing the number of elements in each node (and making the time step accordingly smaller).
 This will also make the computational efficiency of the simulator less, and the pragmatic use of the simulator will suffer.
 
-If we need a better accuracy, and for example double the number of serial elements in each node and halve the size of the timestep, the functioning of each element will be the same.
+If we need a better accuracy, and for example double the number of serial elements in each node and halve the size of the time step, the functioning of each element will be the same.
 The temporal and spatial resolution will be increased two-fold at the expence of the computational efficiency of the simulator.
 
 With ``spatiotemporal resolution'' i refer to the ability to separate between elements located at different positions in space with a transmission delay.
@@ -376,7 +391,29 @@ For this reason I found it best to implement as generally as possible, for futur
 
 \chapter{Discussion and Concluding Remarks} 	%XXX KAPITTEL 	
 	\label{chapterComparisonAndResults}
-	% todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo  SKRIV INTRO!
+
+	In this project two artificial neural networks have been designed and implemented. 
+	For the implementation, the focus has been on comparability, both in respect to the design of the simulation and the behavior of the individual node.
+	%For the implementation it has been focused on comparability, both in respect to the design of the simulation and the behavior of the individual node.
+	The designs will be more comparable if both systems have the same general framework and object design. 
+	This is one of the reasons why the implementations are so inspired by biology.
+	Another cause for the strong resemblance with the biological neuron is the recognised connection between each generation of ANN; 
+		As ANN models evolve, each generation become closer to the biological version. %skriv om xxx.
+	This observation is a strong motivation to make the node design come close to the biological neuron.
+	%The comparability in design and implementation it the cause of an, in some cases, overly complicated object model.
+
+	For comparing the behavior of the individual nodes of the two nodels, some effort was put into a capable logging system. 
+	Different elements of the node with interresting variables of effects were logged by this system. This includes the \emph{K\_synapse}, the \emph{K\_auron} and the \emph{s\_auron}.
+	The synapse is logged mainly for design purposes. The two auron elements were logged for design purposes and for the ``depolarization'' value comparison.
+	Both auron models is able to write the ``depolarization'' to a log file. The $\kappa$N is also able to log it's activity level, through $\kappa$.
+
+	The activity level of a spiking neuron us not formalized; Neuroscientist often use variables such as the firing frequency to measure the activity of a neuron.
+	For this reason, no method has been implemented for logging the activity level of the SANN nodes.
+	The activity of the single node is a phenomenon that first becomes important when we analyze larger neural networks.
+	For the comparison of the single node, the value of the node is the best comparison variable. 
+	%This containt more information, and if analyzed also contains information of the firing frequency and the synaptic input of the node could be found.
+	In this report it is most interresting with the transient depolarization curve of the nodes.
+
 
 % SAMMENLIGNING:
 % 	- korleis blir oppgavene tolket?

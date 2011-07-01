@@ -53,7 +53,7 @@
 % 			
 % 			
 
-\section{Artificial neural networks: background}
+\section{Artificial Neural Networks: Background Information}
 \label{secANNhistory}
 %TODO Endre neste setning. Dårlig:
 To illuminate different aspects of artificial neural networks (ANN) a short history about ANN is presented in sec. \ref{ssecHistoryOfANN}. 
@@ -99,7 +99,7 @@ The curious reader may also find citations and references for further readings i
 \label{ssecHistoryOfANN}
 The pragmatic use of simulations of neural networks started with the McCulloch--Pitts neuron in 1943. 
 Warren McCulloch, an early neuroscientist, and matematician Walter Pitts first began a formalized discussion of the use of the mechanisms of the neuron in technology. % Bra? eller dårlig: slutten av linja.
-The result was the first artificial neural network, consisting of logical gates. McCullock and Pitts modelled the neuron as boolean devises (off--on response)\cite{MccullochPittsHistorie}. 
+The result was the first artificial neural network, consisting of logical gates. McCullock and Pitts modeled the neuron as boolean devises (off--on response)\cite{MccullochPittsHistorie}. 
 What is later referred to as the first generation ANN is based on the McCulloch--Pitts neuron\cite{Maass97networksof}.
 One of these models is Rosenblatt's Perceptron\cite{HaykinANNbok}.
 
@@ -136,7 +136,7 @@ The node's value is thus a result of the present excitatory and inhibitory input
 When a node is excited above the firing threshold, an action potential or ``spike'' is generated in the node. 
 When this spike reaches a synapse, after a simulated delay we get synaptic transmission at that synapse.
 From the information presented in sec. \ref{secTheBiologicalNeuralSystem}, we can see that this is much closer to the biological system that previous ANN generations.
-It is actually so close that the word ``simulation'' will occationally be used in this report.  	% ".. actually so closa that .." DÅRLIG. Fiks?
+It is actually so close that the word ``simulation'' will occasionally be used in this report.  	% ".. actually so closa that .." DÅRLIG. Fiks?
 %We can see that this is a better simulation of neural systems than that of the first two generations of ANN, based on the information presented in section \ref{secTheBiologicalNeuralSystem}.
 
 In the third generation ANN it is the action potentials or the "spikes", that is responsible for information processing.  %TODO Skriv om slutten / Feil ord.. 		".. or the "spikes" that is responsible for the information flow.
@@ -339,12 +339,12 @@ The mechanisms of the biological neuron, the action potential and synaptic trans
 
 % figur funker bare for pdflatex. Ta med til leveringa.
 % TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
-%\begin{figure}[htb!p]
-%	\centering
-%	\includegraphics[width=0.8\textwidth]{figurSTDP.jpeg}
-%	\caption{Spike timing-dependent plasticity. a, Synapses are potentiated if the synaptic event precedes the postsynaptic spike. Synapses are depressed if the synaptic event follows the postsynaptic spike. b, The time window for synaptic modification. The relative amount of synaptic change is plotted versus the time difference between synaptic event and the postsynaptic spike. The amount of change falls off exponentially as the time difference increases. In addition, the amount of potentiation decreases for stronger synapses, whereas the relative amount of depression is independent of synaptic size.}
-%	\cite{stableHebbVedSTDP}
-%\end{figure}
+\begin{figure}[htb!p]
+	\centering
+	\includegraphics[width=0.8\textwidth]{figurSTDP.jpeg}
+	\caption{Spike timing-dependent plasticity. a, Synapses are potentiated if the synaptic event precedes the postsynaptic spike. Synapses are depressed if the synaptic event follows the postsynaptic spike. b, The time window for synaptic modification. The relative amount of synaptic change is plotted versus the time difference between synaptic event and the postsynaptic spike. The amount of change falls off exponentially as the time difference increases. In addition, the amount of potentiation decreases for stronger synapses, whereas the relative amount of depression is independent of synaptic size.}
+	\cite{stableHebbVedSTDP}
+\end{figure}
 
 %\subsection{SANN -- ``the third generation ANN''}
 \subsection{Spiking Artificial Neural Network}
@@ -356,13 +356,13 @@ The importance of the relative spike timing of the presynaptic vs. the postsynap
 SANN is a simulation of a network of neurons in the time domain. Activity of each node is represented as the neurons depolarization. 
 In a simulation of neuron it is important to calculate the leakage of value each iteration, or in other ways so that the value is updated before it is used. 
 %For this simulation of biological neurons, it is important to calculate the leakage of value each iteration, or in other ways so that the value is updated before it is used. 
-%The behaviour of the neuron in the frequency domain follows that of the biological neuron since each node is a simulation of the biological neuron. %For this reason network aspects of the ANN will also aproximate that of biological NN
+%The behavior of the neuron in the frequency domain follows that of the biological neuron since each node is a simulation of the biological neuron. %For this reason network aspects of the ANN will also aproximate that of biological NN
 Simulating each neuron will be computationally demanding, as leakage, every spike and every transmission has to be simulated. %Dårlig setning..
 
 SANN use boolean signals intracellularly. 
-At for the biological synapse, the tranmission is given by the synaptic weigth. 
+At for the biological synapse, the tranmission is given by the synaptic weight. 
 
-The major advantage of SANN is that it retains imformation about the timing of the spiking for the neurons.  %TODO Ikkje skriv "retains". Finn på noko som gir bedre flyt i teksten.
+The major advantage of SANN is that it retains information about the timing of the spiking for the neurons.  %TODO Ikkje skriv "retains". Finn på noko som gir bedre flyt i teksten.
 An important mechanism for synaptic plasticity is Spike-Time Dependent Plasticity (STDP).
 
 Gustafsson et al. proposed in 1987 that the synaptic weight gain varied with the postsynaptic neurons depolarization after synaptic transmission\cite{Gustafsson03011987}. 
@@ -374,21 +374,13 @@ The biophysiological background for STDP is introduced in appendix \ref{appendix
 
 STDP could be said to be a more elaborate version of Hebbian learning (synaptic plasticity). 
 In STDP, it is not the activation level of the two nodes that is compared, but the timing of the transmission.
-If the presynaptic node contributes immediately before the postsynaptic node fires, a strong increase in the synaptic weigth will be the resulting synaptic plasticity.
-A contribution that ``comes to late'' will decrease the synaptic weigth instead of increasing it\cite{reviewSTDP}.
+If the presynaptic node contributes immediately before the postsynaptic node fires, a strong increase in the synaptic weight will be the resulting synaptic plasticity.
+A contribution that ``comes to late'' will decrease the synaptic weight instead of increasing it\cite{reviewSTDP}.
 
 
-% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
-% 				TA MED FØR LEVERING :
-%\begin{figure}[!htbp]
-%        \centering
-%        \includegraphics[width=0.8\textwidth]{figurSTDP.jpeg}
-%        \caption{Spike Time Dependent Plasticity(STDP): The timing of the postsynaptic spike in relation to the presynaptic neurons contribution gives the size and sign of the change of synaptic weight\cite{reviewSTDP}.} 
-%\end{figure}
-% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
 
-The possibility for a decrease in synaptic weight after transmission in combination with other aspects, makes it possible to design an ``intrinically stable STDP learning rule''\cite{StableHebbianLearningFromSTDP}.
-%LTD decreases the synaptic weight, and in combination with other aspects, makes it possible to design an ``intrinically stable STDP learning rule''\cite{StableHebbianLearningFromSTDP}.
+The possibility for a decrease in synaptic weight after transmission in combination with other aspects, makes it possible to design an ``intrinsically stable STDP learning rule''\cite{StableHebbianLearningFromSTDP}.
+%LTD decreases the synaptic weight, and in combination with other aspects, makes it possible to design an ``intrinsically stable STDP learning rule''\cite{StableHebbianLearningFromSTDP}.
 % 	%
 SANN is also computationally more powerful than the other generations ANN\cite{florian03}.
 Because of the advantages of SANN, the model has become popular in the field of ANN, and is frequency referred to as the ``third generations ANN''.
@@ -410,8 +402,8 @@ Because of the advantages of SANN, the model has become popular in the field of 
 %\subsection{The motivation for developing a new model -- $\kappa$ANN}
 % %\section{$\kappa$ANN --- The next generation?} %DETTE blri for mykje! ikkje gjør det eksplisitt! (la det ligge og ulme i leserens hode!
 %As a computational system, a neural system is fundamentally different from the processor in a computer. 
-%The neural system is based on a vast amount of computationally weak, massively parralell indivitual ``processors'' ---the neuron. 
-%The computational unit of a computer, the processor, is funtamentally different. It is one or a few, computationally strong, serial processor(s). 
+%The neural system is based on a vast amount of computationally weak, massively parralell individual ``processors'' ---the neuron. 
+%The computational unit of a computer, the processor, is fundamentally different. It is one or a few, computationally strong, serial processor(s). 
 %
 %In neural systems the neurons are directly connected, such that the output of one node is the input of another. In computers, the result of a computation is saved somewhere in memory and that can be accessed by (one of) the processor(s).
 %

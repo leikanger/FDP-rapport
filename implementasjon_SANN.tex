@@ -28,7 +28,7 @@
 	% Kjør masse sitering eller referering innad i dokumentet for å hente ut meir poeng fra sensor.
 	% Skrive at "Alle SANN" istedenfor "the usual way ..". Det er litt vanskelig å skrive "alle" uten å være påståelig.
 	% Ikkje skriv "usual way". Skriv heller at det er implementert som .. ( i dette prosjektet.. ). Skrive så at modellen SANN tilseier at dette er metoden..
-	The usual way to implement spiking artificial neural networks (SANN) is a direct simulation of the mechanisms that generate the behaviour of the neuron.
+	The usual way to implement spiking artificial neural networks (SANN) is a direct simulation of the mechanisms that generate the behavior of the neuron.
 	
 	In terminology from graph teory, a neural netwoks is a directed cyclic graph with a dynamic amplification (weights) on its edges.
 	The nodes of this graph are the neurons and the edges are the synapses between two neurons.% (The connection between them).
@@ -50,13 +50,13 @@
 	In this simulation we simplify the transmission, and other effects of elements like pre--action potential depolarization of the synapse is not included.%XXX FORENKLA VEKK
 	We then get that synaptic transmission can be executed by simply adding the synaptic weight to the postsynaptic neurons value.
 	%SKrive at dette er vanlig, og at dersom det er ønskelig å innføre slike prinsipp, kan dette lett gjøres pga den modulære oppbygginga til simuleringa.
-	The modular design of this implementation makes it possible to make changes to the indivitual elements without affecting the whole implementation.
+	The modular design of this implementation makes it possible to make changes to the individual elements without affecting the whole implementation.
 	It is therefore not much work to implement elements such as short term plasticity and axo--axonic synapses in future uses of this simulator.
 	% Forrige linja har kanskje ikkje så mykje med oppgava å gjøre?
 
 	% Kanskje bare: "The neuron .."
 	%The nodes of ANN are
-	The neuron is often modelled as a leaky--integrate--and--fire neuron (LIF-neuron). %TODO Referer.
+	The neuron is often modeled as a leaky--integrate--and--fire neuron (LIF-neuron). %TODO Referer.
 	In this model the node ``leaks'' a certain amount of the potential, and the value decreases a over time. 
 	% Skrive om ekvivalent kondensatorkrets?
 	This value varies as a function of the value of the neuron, and we get a first order differential equation for the value of the node.
@@ -92,8 +92,8 @@
 	
 
 	In the biological neuron, a new input signal changes the value of the postsynaptic neuron propotionally with the size of the transmission.
-	The size of the transmission is given by the synaptic weigth $w_{ij}$.
-	When a new transmission comes through a synapse, it is therefore the synaptic weigth that is sent into the postsynaptic dendrite.
+	The size of the transmission is given by the synaptic weight $w_{ij}$.
+	When a new transmission comes through a synapse, it is therefore the synaptic weight that is sent into the postsynaptic dendrite.
 	Because future use of the code may include short--term synaptic plasticity, or other aspects changing the size of the transmission from the synapse, the size of the transmission is sent in as an argument to the postsynaptic dendrite.
 	% TODO Gjør setninga over lettare! =kortare!
 	%As the size of transmission is given by the strength of the connection, the synaptic weight $w_{ij}$, the synaptic weight is what is sent in from the synapse.
@@ -112,7 +112,7 @@
 	\label{secTheLeakageForSANN}
 	%TODO Skriv i introen til section: om lekkasjen. Skriv om LIF. Internreferer!
 
-	The LIF neuron is modelled as being leaky with respects to time. %TODO REFERER.
+	The LIF neuron is modeled as being leaky with respects to time. %TODO REFERER.
 	One way of simulating leakage is to update the value every time iteration. %eller recalculate?
 	The leak can be defined as a value propotional to last calculated value.
 	As this is the value from the last time iteration, we get the equation for the new value $v_t$
@@ -246,7 +246,9 @@ inline void s_synapse::doTask()
 %	The specific mechanisms of synaptic plasticity have not been designed, but when the synaptic weight comes to close to being zero, the biological synapse will dissapear.
 % 	The plan is to make some condition for the dissapation of synapses as the synaptic weight becomes to small.
 
-\subsection{The Response of the SN}
+\subsection{Example: Depolarization Curve for the SANN}
+%\subsection{The Response of the SN}
+%\subsection{The Response of the SANN Node's Depolarization}
 	In the previous sections, the design of each node for the SANN was introduced.
 	The activity variable for the SN corresponds to the level of depolarization of the membrane potential for the biological neuron.
 	Excitatory synaptic input to a node will increase the value of the node and inhibitory synaptic input will decrease the node's value.
@@ -329,7 +331,7 @@ inline void s_synapse::doTask()
 	As AuroSim does not calculate synaptic plasticity, the result of a transmission is a constant postsynaptic change of size 18.
 
 	%This analysis shows that the above discussed design of the simulated neuron gives us the mechanisms of the neuron, in respect to synaptic transmission, leakage, refraction time and action potential firing.
-	This analysis shows that, in respect to synaptic transmission, leaky integration, refraction time and action potential firing, the design and implementation gives the behaviour of the neuron model used. 
+	This analysis shows that, in respect to synaptic transmission, leaky integration, refraction time and action potential firing, the design and implementation gives the behavior of the neuron model used. 
 																																														  %ELLER: .. considered model of the neuron.
 
 

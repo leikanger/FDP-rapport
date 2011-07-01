@@ -50,30 +50,9 @@
 %			-> i tillegg til fordelane som er nevnt tidligare: gir eit felles design for implementasjonane av de to modellane => Meir sammenlignbar.
 
 
-In this project two artificial neural networks have been designed and implemented. 
-For the implementation it has been focused on comparability, both in respect to the design of the simulation and the behavior of the indivitual node.
-The systems will be more comparable if both systems have the same blueprint. 
-This is one of the reasons why the implementations are so inspired by biology.
-An other cause for the strong resemblance with the biological neuron is the recognised connection between each generation of ANN; As ANN models evolve, each generation become closer to the biological version. %skriv om xxx.
-This observation is a strong motivation of make the impementation close to the biological neuron, as long as it does not affect the effectivity of the simulator. %bruk fleire setninger?
-%The comparability in design and implementation it the cause of an, in some cases, overly complicated object model.
-
-For comparing the behavior of the indivitual nodes of the two nodels, some effort was put into a capabel logging system. 
-Different elements of the node with interresting variables of effects were logged by this system. This includes the \emph{K\_synapse}, the \emph{K\_auron} and the \emph{s\_auron}.
-The synapse is logged mainly for design purposes. The two auron elements were logged for design purposes and for the ``depolarization'' value comparison.
-Both auron models is able to write the ``depolarization'' to a log file. The $\kappa$N is also able to log it's activity level, through $\kappa$.
-
-The activity level of a spiking neuron us not formalized; Neuroscientist often use variables such as the firing frequency to measure the activity of a neuron.
-For this reason, no method has been implemented for logging the activity level of the SANN nodes.
-The activity of the single node is a phenomenon that first becomes important when we analyze larger neural networks.
-For the comparison of the single node, the value of the node is the best comparison variable. 
-%This containt more information, and if analyzed also contains information of the firing frequency and the synaptic input of the node could be found.
-In this report it is most interresting with the transient depolarization curve of the nodes.
 
 
-
-
-\section{Comparison of Design and Implementation for the Two Models}
+\section{Comparison of the Design and Implementation}
 
 	% Design av de to implementasjonane er gjordt som en direkte simulering av neuronet (spiking neurons), med dendrite, axon, osv. 
 	% 	Dette førte til at eg begynte å impelmentere de to som like, bare med peiker-funksjoner for de funksjonane som trenkte å være ulike.
@@ -108,10 +87,10 @@ In this report it is most interresting with the transient depolarization curve o
 	The SANN model is a direct simulation of the depolarization of the neuron. 
 	Synaptic input alters the value of the node, 
 	If the value goes above the firing threshold, a simulated action potential is fired.
-	The value of the node is modelled as a leaky integration of the node's input, and each time iteration we have a little dissapation of the value.
+	The value of the node is modeled as a leaky integration of the node's input, and each time iteration we have a little dissapation of the value.
 
 	The $\kappa$ANN model use higher order mathemathics to calculate the firing time of the node. % SELV OM DETTE IKKJE ER EINASTE SKILL! Skriv om det andre også?
-	Each node is modelled as a LIF neuron, and the leaky integration is included in the equations used by $\kappa$ANN (sec. \ref{secMatematiskModelleringAvBioNeuron}).
+	Each node is modeled as a LIF neuron, and the leaky integration is included in the equations used by $\kappa$ANN (sec. \ref{secMatematiskModelleringAvBioNeuron}).
 	%In these equations we calculate the firing time of the node, given a constant level of input until firing of the node. 
 	% %As the equations from sec. \sec{secMatematiskModelleringAvBioNeuron} requires a constant activity level, the concept of a time window wa s introduced.
 	
@@ -166,7 +145,7 @@ In this report it is most interresting with the transient depolarization curve o
 
 %XXX HOVEDFORSKJELL: SN : integrerer input for å få state. 		KN: Umiddelbart input gir state, sammen med input historie.
 	
-	\subsection{Comparison of the Indivitual Node Elements}
+	\subsection{Comparison of the Individual Node Elements}
 	%	%todo SKRIV OM! Innledning til section
 	%In this section, some of the similarities and differences between each element of a node will be presented.
 	%
@@ -182,13 +161,13 @@ In this report it is most interresting with the transient depolarization curve o
 	As the elements of each node is designed by having a common abstract class derived to the two modes, the aspects that are different between the SN and the $\kappa$N stand out more clearly.
 	The similar aspects between the models are represented in the common interface class.
 
-	In this section, the differences in design for the indivitual elements of the two model--specific nodes are presented. %TODO Dårlig setning!
+	In this section, the differences in design for the individual elements of the two model--specific nodes are presented. %TODO Dårlig setning!
 	The results are presented in the order of the signal propagation within each node.
 	
 	%XXX Skal dette være med? Skriv om!
 	The comparison is presented in the order of the internal signal propagation within each node.
 	We will start by discussing an incoming synaptic transmission, continue to the dendrite's responce, before discussing the differences in the auron's and the axon's responce.
-	%The elements are compared by the function that defines the element's behaviour in time, the \emph{timeInterface} derived virtual function \emph{doTask()}.
+	%The elements are compared by the function that defines the element's behavior in time, the \emph{timeInterface} derived virtual function \emph{doTask()}.
 	%As this is what defines the action of the node, the design of this implementation isolates the location of the differences between each model--specific element. %XXX BLABLA TODO Fullfør.
 	% %First the mechanisms of signal transmission will be presented, by comparing the two synapse designs.
 	% %The results for the difference in dendritic integration of all input synapses transmission will then be presented.
@@ -217,7 +196,7 @@ In this report it is most interresting with the transient depolarization curve o
 		From sec. \ref{ssecTheSynapse}, we can see that this gives a direct simulation of synaptic transmission in the the biological synapse.
 		%This can be seen if we compare the workings of the synaptic transmission in the \emph{s\_synapse} with the biological synapse, introduced in sec. \ref{ssecTheSynapse}.
 
-		Synaptic transmission for the $\kappa$N is modelled in sec. \ref{ssecSynTransForANNliggeriKANNsection} by the presynaptic node's frequency and the synaptic weight.
+		Synaptic transmission for the $\kappa$N is modeled in sec. \ref{ssecSynTransForANNliggeriKANNsection} by the presynaptic node's frequency and the synaptic weight.
 		%For the $\kappa$N, synaptic transmission is defined in eq. \eqref{eqSynapticTransmissionForKANNimplementation} by the presynaptic node's frequency and the synaptic weight.
 		The edge transmission is further defined as the change in synaptic transmission. % in this implementation.
 		This gives that the postsynaptic activity variable can be updated by simply adding the edge transmission, and much redundant calculation is avoided.
@@ -259,7 +238,7 @@ In this report it is most interresting with the transient depolarization curve o
 			%the \emph{newInputSignal(double)} function has to test this as a part of its algorithm. %the incmng signal transmission.
 		The action potential is initiated after the predefined delay, implemented by serially linked internal node elements.
 		If the delay is set to $n$ time iterations, the first element of a linked list of $n$ elements is inserted into \emph{pWorkTaskQue}.
-		%If a delay is modelled into the simulation, the action potential is initiated after $n$ time steps, were $n$ is the predefined delay.
+		%If a delay is modeled into the simulation, the action potential is initiated after $n$ time steps, were $n$ is the predefined delay.
 		%This is best done by letting the dendrite insert the first element in a linket list of $n$ elements into \emph{pWorkTaskQue}.
 
 		For the $\kappa$N, the activity variable is time--invariant; From eq. \eqref{eqKappaSomFinalValueAvV} we get that $\kappa$ is the final value of the node, given a constant input.
@@ -442,7 +421,7 @@ inline void K_auron::changeKappa_derivedArg( double dInputDerived_arg)
 \label{secComparisonOfMechanismsOfNodeElements}
 	% XXX Dette skal hovedsaklig ligge i KANN, men siste plott skal også legges ved her (eller bare her?) \subsec.{Comparison between the transient time course of the depolarization of the K auron and s auron,Vettafaen kor det skal ligge}
 	%\subsection{Comparison of the transient time course of nodes of the two models}
-	\subsection{Transient Time Course of The Model--Specific Nodes}
+	\subsection{Time Course of Nodes' Depolarization Value}
 
 %\section{Comparison between the transient time course of the depolarization of the K auron and s auron ,   Vettafaen kor det skal ligge}
 To compare %the implementation of (?)
@@ -542,7 +521,7 @@ For the SN this might become a problem, and could be the basis of the difference
 
 	\subsubsection{Trunctation error of the SN} %Kanskje skrive "Spiking Node". Hugs at overskrifta blir også oppført i "index".
 	\label{ssecTruncationErrorOfSN}
-In SANN each node is modelled as a leaky-integrate-and-fire neuron.
+In SANN each node is modeled as a leaky-integrate-and-fire neuron.
 When the depolarization of the SN is updated, the leak of the neuron calculated as the previous value times the leak constant.
 The updated value then becomes %todo Skriv om denne setninga.
 \begin{equation}
@@ -772,7 +751,7 @@ This could give errors of a considerable size.
 		%	As the synaptic transmission is defined as the synaptic weight times the inverse of the period, the synaptic transmission is zero when $\kappa$ is less than $\tau$.
 			This gives a non--continuity for the derived, and causes the artifacts observed in fig. \ref{figEdgeTransmission}. 
 			%Combined with the concept of the edge transmission as the derived of the synaptic transmission is what causes in the artifacts in fig. \ref{figEdgeTransmission}. 
-			%For the edge transmission we therefore see the strange behaviour in fig. \ref{figEdgeTransmission:edge-b} when the activity variable becomes less than or equal to the threshold. %XXX Skriv om. 
+			%For the edge transmission we therefore see the strange behavior in fig. \ref{figEdgeTransmission:edge-b} when the activity variable becomes less than or equal to the threshold. %XXX Skriv om. 
 
 	% Feil ref.		The presynaptic node's activity variable is presented in fig. \ref{figEdgeTransmission:edge-a}.
 

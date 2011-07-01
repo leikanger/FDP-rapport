@@ -45,7 +45,7 @@
 	To be able to compare the two models, a common general and node specific design has been designed.
 
 	This section will start with describing the common framework of the implementations; 
-		General concepts such as simulated asynchronicity (sec.\ref{ssecTime}), generality of the implementation and the design of the indivitual node will be presented in this section. 
+		General concepts such as simulated asynchronicity (sec.\ref{ssecTime}), generality of the implementation and the design of the individual node will be presented in this section. 
 	After the common framework of the simulation is presented,
 		 mechanisms used to distinguish the two models are introduced in sec. \ref{ssecDESIGN_ObjectDesign}.
 		 %there will be a short discussion about how the two simulators are distinguished. 	
@@ -81,7 +81,7 @@
 	\label{ssecTime}
 	The biological neurons does its tasks completely asynchronously.
 	%The concept of ``asynchronous'' comes from electronics, where 
-	By this it is ment that the different mechnanisms of one neuron can happen independently from an other, and the effectivity of one is not affected by the workload of other neurons.
+	By this it is ment that the different mechnanisms of one neuron can happen independently from another, and the effectivity of one is not affected by the workload of other neurons.
 	This causes the calculation at each node to happen independently of other neurons.
 	%By this it is ment that the excitation, inhibition and firing of one neuron is separated from other neurons; %Ikkje "separated", men adskilt
 	%	Multiple neurons can do theire tasks simultaneously with no loss in efficiancy.
@@ -154,11 +154,11 @@
 	This gives that for every derived class, these two functions have to be defined before an instance of the class can be created.
 	As these functions define the class' scheduled behavior, we have that every object of a class derived from \emph{class timeInterface} have a clearly defined behavior, defined in the derived class' variant of these virtual fuctions.
 	%This gives that every object of a \emph{timeInterface} derived class has a clearly defined behavior for these inherited classes.
-	%We therefore have a clearly defined behaviour for every element that is derived from \emph{class timeInterface}.
+	%We therefore have a clearly defined behavior for every element that is derived from \emph{class timeInterface}.
 
 	Of the two functions inherited from \emph{timeInterface}, %\emph{doTask()} is responcible for executing the element's task.
-		the function that is resposnible for the node's temporal behaviour is the function \emph{doTask()}.
-	%The function that is resposnible for the node's temporal behaviour is the function \emph{doTask()}.
+		the function that is resposnible for the node's temporal behavior is the function \emph{doTask()}.
+	%The function that is resposnible for the node's temporal behavior is the function \emph{doTask()}.
 	As every object of a \emph{time\_interface} derived class have defined its variant of this function, we can let this be the function called by a global task--scheduler function. %XXX skriv at har tatt med koden i appendix?
 	%This function contains all the actions that are to be made as a result of the behavior that is to be implememnted as being chronological. %XXX Litt rart med ordet "chronological".
 	% %This function contains all the actions that are to be executed as a simulation of the behavior that is to be implememnted as being chronological. %XXX Litt rart med ordet "chronological".
@@ -220,7 +220,7 @@
 %	This could be avoided, but time was spent on developing other aspects of the simulator.
 
 	Each job is able to create new tasks in the simulation, and the global \emph{taskSchedulerFunction()} is an ``indefinate loop'' (limited by the time scope defined by the command--line argument).
-	The global infinite loop is thus the main loop in AuronSim, and included to illustrate that the execution is driven by the indivitual elements of the simulation.
+	The global infinite loop is thus the main loop in AuronSim, and included to illustrate that the execution is driven by the individual elements of the simulation.
 	%The main loop of the simulation is given by this function, an is included in this text to illustrate that allmost every aspect of the simulation is executed by the individual elements.
 
 \begin{lstlisting}
@@ -279,7 +279,7 @@ We can see that we are back at the initial condition of the example.
 %The number of tasks in each iteration of time is unimportant. 
 The role of $T$ as a ``time separation object'' is the fundamental mechanism in this time simulation.
 
-%An other way to see this is as two alternating ques of tasks, where new tasks are always inserted at the inactive que. 
+%Another way to see this is as two alternating ques of tasks, where new tasks are always inserted at the inactive que. 
 %When the active que is completed, time is iterated before we ``switch'' to the other task que.
 % %Skrive kvifor det ikkje er implementert slik? --at T har andre roller også, og to-kø--løsning ... nei. Kvifor?
 
@@ -480,7 +480,7 @@ Due to the reorganization or the list before the elements' \emph{doCalculation()
 %her, eller under effektivisering, eller under "The two ANN models"
 %Beste er kanskje å nevne det her, med frampeik til f.eks. "The two ANN models"
 
-%TODO KANSKJE HER? Skriv at dersom vi velger timestep til størrelsen av en refraction time (referer til ssecValueOfAlpha) så vil det (statistisk sett) bli rett å vente utsette vidaresending av aktivitet: ett timeStep.
+%TODO KANSKJE HER? Skriv at dersom vi velger time step til størrelsen av en refraction time (referer til ssecValueOfAlpha) så vil det (statistisk sett) bli rett å vente utsette vidaresending av aktivitet: ett timeStep.
 % //}
 
 
@@ -511,7 +511,7 @@ Due to the reorganization or the list before the elements' \emph{doCalculation()
 %
 % %	There are hypothesis in neuroscience that suprathreshold depolarization over the membrane somwhere in the neuron may send an intracellular message to the axon hillock that will initiate an action potential as a result.
 % %	% Kanskje: Skriv "theory" og i såfall REFERER!
-% %	This may explain the apparent random behaviour of the action potential as the neurons value approaches the firing threshold. %SKRIV BEDRE. Skriv at det ER appearent random behaviour først. XXX
+% %	This may explain the apparent random behavior of the action potential as the neurons value approaches the firing threshold. %SKRIV BEDRE. Skriv at det ER appearent random behavior først. XXX
 % %	If all the input enters at one place in the neuron (one dendrite compartment), a level of input that would not induce firing of the neuron if the input was more distributed on the neuron.
 %		
 %	If spatiotemroral aspects are in focus for the implementation, we could also expand the number of dendrites. 
@@ -535,7 +535,7 @@ Due to the reorganization or the list before the elements' \emph{doCalculation()
 %
 %	This structure introduces a new problem, the possibility of access and polution of the general design. 
 %	If the pointers \emph{pOutputAxon} and \emph{pInputDendrite} are protected, the encapsulation protocol of C++ will fix the problem, but now the variables are only accessable to the object or friends of the object.
-%	The associated \emph{axon} and \emph{dendrite} objects are generated in the \emph{soma::soma()} constructor, and can only be altered from an other class that is part of the auron class--cluster. %XXX skriv annaleis: auron class-cluster.
+%	The associated \emph{axon} and \emph{dendrite} objects are generated in the \emph{soma::soma()} constructor, and can only be altered from another class that is part of the auron class--cluster. %XXX skriv annaleis: auron class-cluster.
 %																															%Skriv utbrodert om kva friend er, og at alle classene i auron-gruppa er venner => "auron class-cluster".
 %
 %	For encapsulation within this new auron--structure, consisting of soma, axon, dendrite and synapse, we define these classes as \emph{friend} of eachother. 
@@ -878,7 +878,7 @@ auron::auron() : tidInterface("auron")
 %
 
 % 	Også viktig poeng! xxx
-%	In C++, the \emph{static\_cast} operator can be used to convert related types, such as a pointer to an object of one class to an other in the same class hiriachy. 
+%	In C++, the \emph{static\_cast} operator can be used to convert related types, such as a pointer to an object of one class to another in the same class hiriachy. 
 %	This will be safer that C style casting (or the \emph{reinterpret\_cast} in C++), that can convert a pointer to one class to some other totally unrelated class or variable.
 %	To follow stroustrup advice, %og kjøre compile-time type cheching når eg caster, så [det under]. Skriv litt om kvifor eg ikkje bruker dynamic cast.
 %	the safer \emph{static\_cast} will be used whenever explicit type convertion is exercised in this project.
@@ -1038,14 +1038,14 @@ tempFilAdr<<".oct";
 \end{lstlisting}
 
 We see that this that it is possible to create two synapse--logs for two synapses going to the same postsynaptic node, one excitatory and one inhibitory synapse.
-%Two synapses of the same kind could give the same result as one larger synapse(depending on the learning rule), but one excitatory and one inhibitory synapse should give an other result when synaptic plasticity is implemented.
+%Two synapses of the same kind could give the same result as one larger synapse(depending on the learning rule), but one excitatory and one inhibitory synapse should give another result when synaptic plasticity is implemented.
 A separate log file for inhibitory synapses could be interresting for analyzing $\kappa$ANN and for analyzing the effect of synaptic transmission after synaptic plasticity (when learning is implemented).
 %If future a implementation is made as a simulation of biological neural systems, we could end up differentiation between excitatory and inhibitory synapses when it comes to learning.
 %In this case it would be important that different log files are created.
 %This could give different learning rules for excitatory and inhibitory synapses, and different log files might become important in later projects based on this code.
 Se appendix \ref{appendixSecPresynapticSynapticPartOfTransmission} for a motivation for differentiating between excitatory and inhibitory synaptic plasticity and 
 	for a review of synaptic plasticity in biological neural systems.
-%This might be important when synaptic plasticity is implemented, as the excitatory synapses could be designed with an other set of learning rules that the inhibitory synpses.
+%This might be important when synaptic plasticity is implemented, as the excitatory synapses could be designed with another set of learning rules that the inhibitory synpses.
 
 
 The implementation takes arguments from shell that can set the number of iterations for the next execution (the code is listed in appendix \ref{appendixCommandLineArguments}).
@@ -1081,7 +1081,7 @@ To avoid reanalysis of old results, the old log files are automaticly removed at
 
 
 
-\subsection{Planned events}
+\subsection{Planned Events}
 	\label{secPlannedEvents}
 	One of the immediate differences between the SN and the $\kappa$N is the calculation of spike time for each node.
 	For the SN, the spike is a reactive event, in the respect that it acts as a consequence of the value going to suprathreshold levels.
@@ -1182,7 +1182,6 @@ unsigned long ulEstimatedTaskTime_for_object;
 % (Dette er bare en notat til seinare)
 
 
-%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO SJEKK OVER: skrevet seint på dagen.
 	\subsection{The Sensor Node}
 	\label{ssecTheSensorNode}
 	Inspired by biology, a specialized node was designed for the purpose of ``sensing'' some variable.

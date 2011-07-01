@@ -18,7 +18,7 @@
 % 
 % A different scheme was developed for the new model, based on how a node is scheduled for spiking in $\kappa$ANN.
 % %This is the scheme that is the way a node is scheduled for spiking in $\kappa$ANN.
-% %An other aspect that was developed for this project was the concept of time scheduling as done in $\kappa$ANN.
+% %Another aspect that was developed for this project was the concept of time scheduling as done in $\kappa$ANN.
 % In this concept, each node contains a variable giving its planned task time.
 % When the function that iterates time is executed, it also compares the present time with each elements scheduled task time.
 % At the right time, the node is executed.
@@ -65,7 +65,8 @@
 
 \section{Final Discussion and Concluding Remarks}
 In this project, a new model for ANN has been developed.
-As the primary focus is to compare the developed model to the other model capable of representing spikes for the nodes, the new model is designed like SANN.
+As the primary focus is to compare the developed model to the other model capable of representing spikes for the nodes, the new model is designed strongly inspired by SANN.
+Perhaps to strongly inspired.
 %In the course of this project what is thought to be a new model for artificial neural networks have been developed. 
 %Because the primary focus of the project was to compare the developed model for ANN with other ANNs with the ability to represent both firing time and firing frequency, the development and implementation recieved this focus. 
 % %The new model was therefore initially implemented as a mere variant of a third generation ANN, with respect to information propatation.
@@ -127,12 +128,12 @@ We can therefore state that $\kappa$ANN will have a constant work load, uncorrel
 This is a very important result.
 If the efficiancy of $\kappa$ANN is of the same scale as that of SANN, $\kappa$ANN will be a large contribution to the use of ANN with a spiking capability.
 
-%Efficiancy was not tested in this project. The behaviour of single nodes was, and it was compared on elements that SANN was able to provide.
-Only the behaviour of the single node was compared, not the efficiancy of a network of nodes. 
+%Efficiancy was not tested in this project. The behavior of single nodes was, and it was compared on elements that SANN was able to provide.
+Only the behavior of the single node was compared, not the efficiancy of a network of nodes. 
 This is due to time constraints and the size of this project.
 As the comparison was based on aspects both models was capable of, the comparison was done on the pemises of SANN.
 %The comparison was therefore done at the premises of SANN. 
-Fig. \ref{figComparisonBetweenSsensorAndKsensorDepolCurveFIXEdError} shows that the behaviour of the value is the same for nodes of the two models.
+Fig. \ref{figComparisonBetweenSsensorAndKsensorDepolCurveFIXEdError} shows that the behavior of the value is the same for nodes of the two models.
 %The next step shold therefore be to compare the two models with respect to efficiancy.
 
 %//{
@@ -193,11 +194,11 @@ This model of sheduled task times is based on that each element contains a varia
 If this list is compared to the next time iteration by the time--iteration function, this function could also execute the task at its planned time.
 This aspect is not model--specific, and can be used for both models, but as such mechanisms are native in $\kappa$ANN, it is best incoorporated in the $\kappa$ANN model.
 
-As all aspects used in the design and implementation in this project is designed by the author, time limitations made it impossible to commence a thought litterature search to find if an aspect allready has been developed.
+As all aspects used in the design and implementation in this project is designed by the author, time limitations made it impossible to commence a thought literature search to find if an aspect allready has been developed.
 It is therefore unknown to the author whether the mentioned aspects are contributions, or just ``reinventing the wheel''.
 For the new model, however, we can be fairly certain.
 %About a month was spent searching for similar models,
-After a comprehensive litterature search, and lengthy discussions with professor Yasser Roudi, it was concluded that this is the first ANN model of its kind.
+After a comprehensive literature search, and lengthy discussions with professor Yasser Roudi, it was concluded that this is the first ANN model of its kind.
 
 
 
@@ -232,7 +233,7 @@ After a comprehensive litterature search, and lengthy discussions with professor
 % 
 % The design of each node is based on the biological neuron to be more intuitive for programmers with knowledge of neuroscience. 
 % This is not only to make the implementation easier to use for potential future programmers, but also because little is known about what is important in neuroscience.
-% If the implementation is constructed strongly inspired by the emulated system, with multible elements constructed in the same way as the original system, expantion and modification of the indivitual elements involve less effort.
+% If the implementation is constructed strongly inspired by the emulated system, with multible elements constructed in the same way as the original system, expantion and modification of the individual elements involve less effort.
 % Say, for example, that new aspects are discovered tomorrow. In this case, the code can easier be modified after this discovery.
 % 
 % This principle does not only account for future uses by other programmers.
@@ -248,7 +249,7 @@ After a comprehensive litterature search, and lengthy discussions with professor
 % This will give the inhibitory input less delay compared to the excitatory input, and might be an important aspect in neural computations.
 % This can be implemented easily if this is found to be important for some future use of this code.
 % 
-% An other important aspect that is not impelented is axo-axonic synapses, linked to short term synaptic plasticity.
+% Another important aspect that is not impelented is axo-axonic synapses, linked to short term synaptic plasticity.
 % %XXX An axo--axonic synapse is a synase that enters the postsynaptic neuron somewhere close to one of its output synapses.
 % % Gjør om rekkefølgen litt. Skriv om short-term syn.p. først, så evt. axo-axonic synapses.
 % Short--term synaptic plasticity is synaptic plasticity that does not have any long term effect of the neuroal network (learning), only on more immedate aspects of signal transmission.
@@ -263,10 +264,10 @@ After a comprehensive litterature search, and lengthy discussions with professor
 % If the goal of the implementation is to simulate a neural network from biology, spatial and temporal resolution is more important than efficiency of the calculation.
 % %When it comes to temporal and spatial resolution, this can easily be extended.
 % In this implementation, spatial and temporal resolution can easity be extended.
-% If we want to increase the accuracy, this can be done by increasing the number of elements in each node (and making the timestep accordingly smaller).
+% If we want to increase the accuracy, this can be done by increasing the number of elements in each node (and making the time step accordingly smaller).
 % This will also make the computational efficiency of the simulator less, and the pragmatic use of the simulator will suffer.
 % 
-% If we need a better accuracy, and for example double the number of serial elements in each node and halve the size of the timestep, the functioning of each element will be the same.
+% If we need a better accuracy, and for example double the number of serial elements in each node and halve the size of the time step, the functioning of each element will be the same.
 % The temporal and spatial resolution will be increased two-fold at the expence of the computational efficiency of the simulator.
 % 
 % With ``spatial resolution'' i refer to the ability to separate between elements located at different positions in space.
@@ -312,7 +313,7 @@ The study of the effect of synaptic plasticity, in respect to the mechanisms of 
 % This will give the inhibitory input less delay compared to the excitatory input, and might be an important aspect in neural computations.
 % This can be implemented easily if this is found to be important for some future use of this code.
 % 
-% An other important aspect that is not impelented is axo-axonic synapses, linked to short term synaptic plasticity.
+% Another important aspect that is not impelented is axo-axonic synapses, linked to short term synaptic plasticity.
 % %XXX An axo--axonic synapse is a synase that enters the postsynaptic neuron somewhere close to one of its output synapses.
 % % Gjør om rekkefølgen litt. Skriv om short-term syn.p. først, så evt. axo-axonic synapses.
 % Short--term synaptic plasticity is synaptic plasticity that does not have any long term effect of the neuroal network (learning), only on more immedate aspects of signal transmission.
@@ -418,7 +419,7 @@ This will therefore be recommended for further research.
 % %Equations was set up for calculating when the value of the node goes above this threshold, and from this equations of the inter--spike period of the neuron.
 % %
 % %The novel model, named $\kappa$ANN, was based on mathematics developed during this project.
-% %As the neuron often is modelled as a leaky integrate--and--fire 
+% %As the neuron often is modeled as a leaky integrate--and--fire 
 % %where elements from technical cybernetics.
 % 
 % 
@@ -426,7 +427,7 @@ This will therefore be recommended for further research.
 % During the project, it was found that these equations gave larger capabilities than the SANN model. % more than the ability to find the value of the node.
 % Given a constant level of input, equations are developed for calculating the future values and firing time of each node, and the time of the next spike is possible to estimate.
 % The simulated depolarization value of a node of the new model has been compared with the value of a node based on the SANN model.
-% The time course of the value is compared for a continously changing input level.
+% The time course of the value is compared for a continuously changing input level.
 % It is concluded that the transient value curve of the new model is as good as, or perhaps a little better than the direct simulation carried out by the SANN model.
 % %Given a constant level of input, equations are developed for calculating the future values and firing time of each node.
 % %
@@ -440,7 +441,7 @@ This will therefore be recommended for further research.
 % % 
 % % By the use of these methods, an ANN is developed, and compared with the SANN model. % XXX ... theoretically AND EXPERIMENTALLY with the ... ?
 % % % % %
-% % The two designs are implemented, and the behaviour of the node is compared.
+% % The two designs are implemented, and the behavior of the node is compared.
 % % % KANSKJE: TA VEKK? Skal bare være på ei halv side, og nevne de aller viktigaste funn..
 % % %
 % % %The comparison of the transient time course shows that the new model gives a similar simulation of the value.
@@ -502,7 +503,7 @@ This will therefore be recommended for further research.
  % % TODO Lag en heil section som diskuterer bruk i distribuerte systemer: Fett for kappa..
  % 	For further development, we could let the the two listed function calls be included in the individual elements' \emph{doTask()} function. 
  % 	Before the funtion is completed, the two operations listed below could be executed before the function return.
- % 	This makes the design intrinically distributed.
+ % 	This makes the design intrinsically distributed.
  % 
  % 
  % 
@@ -534,7 +535,7 @@ This will therefore be recommended for further research.
 
 %//{
 % Hugs modellen om syn.trans.  	Skriv i conclusion that a better model can be included with a greater ease, in the K-synaptic transmission than the s-synaptic t.
-% 	(if I manage to modell such behaviour..)
+% 	(if I manage to modell such behavior..)
 
 
 % Diskurs:
@@ -663,7 +664,7 @@ This will therefore be recommended for further research.
 
 %% XXX Ligger som conclusion:
 %		\subsection{The Differences between the Models} %From a broader perspective / A larger view / Discussion : /  				XXX Skriv en av desse først..
-%		From the previous section, the difference between the indivitual elements was discussed. 
+%		From the previous section, the difference between the individual elements was discussed. 
 % 		The elements was discussed one at a time, following the propagation of the signal in the biological neuron.
 % 
 % 		In this section, the results from the comparison will be discussed with a broader view.

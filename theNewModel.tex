@@ -41,7 +41,7 @@ This gives that the reversal potential also could be referred to as the equilibr
 %The reversal potential is the electrical potential where the opening of an ion channel causes the directionality flow to be reversed.
 
 
-% xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx    Kvalitet er crap, men TA MED FIGUREN I RAPPORTEN!
+%  xxx    Kvalitet er crap, men TA MED FIGUREN I RAPPORTEN!
 %\begin{figure}[hbt!p]
 %	\centering
 %	\includegraphics[width=80mm]{membranePotAtRestFigFromKandel.jpg}
@@ -74,7 +74,7 @@ Where $E_{ion}$ is the equilibrium potential for the ion, C is a constant (for s
 %
 %skrive om at dette gir oss at for en komplett simulering av dette, trenger vi en variabel som holder orden på kvart ion.
 For a simulation with a high fidelity, the concentration of every ion and electrically charged particle or molecule have to be calculated.
-%A good simulation of the system therefore should have one variable for each of the electrically charged particles and molechules.
+%A good simulation of the system therefore should have one variable for each of the electrically charged particles and molecules.
 As there are many ions involved, and some protheins and neurotransmitters are electrically charged, this introduces a large computational load for the simulation.
 %There are many important ions and also a couple of protheins and neurotransmittors that are electrically charged, so this will introduce a large computational load in the simulation.
 % %Many, if not all of the previous implementations I have seen have a simplified structure for the node's value, by having one activation value; The electrical potential.
@@ -114,7 +114,7 @@ As this inhibits the neuron in respect to firing an action potential, these syna
 %Because of time limitations, modelling of the time delay and size of each transmission has not been evaluated in this project.
 %Another aspect that will be for further research, is modelling and implementation of synaptic plasticity. 
 %This is one important reason behind using artificial neural networks in technology, and the reason behind developing the spiking variant of ANN.
-%Synaptic plasticity will hopefully be modelled and implemented in a later project.
+%Synaptic plasticity will hopefully be modeled and implemented in a later project.
 % %This project is about the comparison between 
 
 %Opening of a membrane channel will change the permeability of the membrane to some ions (depending on the channel), and the ion pumps will not be able to maintain the potential different from the equilibrium potential. 
@@ -123,7 +123,7 @@ As this inhibits the neuron in respect to firing an action potential, these syna
 
 
 
-Some of the aspects introduces here was included to demonstrate the complexity of the simulated system, even at the level of the indivitual node.
+Some of the aspects introduces here was included to demonstrate the complexity of the simulated system, even at the level of the individual node.
 %Some of the aspects in the theory of the electrical potential for the neuron was introduced to show that the simulated system is a complex one, even at the level of the individual node. 
 %For each node we have a complex system with a continuously changing driving force and membrane conductance for each ion. 
 In ANN, we can simplify the neuron and only use one variable to describe the state. 
@@ -214,7 +214,7 @@ $I$ represents the effect of the synaptic input to the neuron;
 
 \subsection{The ``leakage''}
 %TODO Finn referanse for neste påstand!
-The neuron is often modelled as a leaky integrator. 
+The neuron is often modeled as a leaky integrator. 
 The ``leakage'' varies with the value of the neuron. % polarization over the membrane. 
 
 For biological neurons, the leakage is given as a function of the difference between the membrane potential and the resting membrane potential $V_r$. 
@@ -280,7 +280,7 @@ We get that the final value of $v(t)$ is given by $\kappa$:
 	\lim_{t\to\infty} v(t) = \kappa
 	\label{eqKappaSomFinalValueAvV}
 \end{equation}
-%An other way to look at it, is to say that $\kappa$ is the final value of $v(t)$.
+%Another way to look at it, is to say that $\kappa$ is the final value of $v(t)$.
 
 The above equations are only valid for a constant $\kappa$. 
 As the value is reset at the time of firing, we get that eq. \eqref{eqVerdiligninga} can be used within one inter--spike period(the period between consecutive action potentials).
@@ -433,7 +433,7 @@ If the value of the neuron is updated every each time $\kappa$ varies, it is pos
 
 %TODO Finn eit bedre navn på denne subsubsection.
 %\section{The constants in the depolarization equation}
-\section{Some Final Comments}
+\section{Final Comments}
 \label{ssecValueOfAlpha}
 
 The inter--spike interval for a neuron consists of two phases. 
@@ -560,7 +560,7 @@ With a time step of 1 m$s$, the simulation of the refraction period can be done 
 %	\end{split}
 %\end{equation}
 
-%For a discrete--time system the smallest timestep is defined as one time iteration. For such systems we get:
+%For a discrete--time system the smallest time step is defined as one time iteration. For such systems we get:
 %\begin{equation}
 %	\begin{split}
 %		\theta^* = \sum_0^{t_n^*} \! \omega  		&= 		\sum_0^{t_n^*} \! \frac{1}{ p(\kappa) } 	\\
