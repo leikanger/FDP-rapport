@@ -21,36 +21,9 @@
 
 
 
-\section{SANN design and implementation}
+\section{SANN --- Design and Implementation}
 \label{secSANN} 
 
-% SKRIV at dette er direkte simulering av neuronet i innledning.
-
-%todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo 
-
-
-Motivasjon for ANN med tid.
-	As introduced in sec. \ref{secANNhistory}, each generation of ANN could be said to move closer to being a simulation of the biological neural system.
-	
-
-
-
-	SKRIV INNLEDNING TIL SANN.
-	Her kan det være litt motivasjon, spiking-tid, og at det er lettest å lage dette ved direkte simulering av neuronet.
-	Oppsummere litt det som er skrevet i ANN (sende litt bakover--referanser til ANN kapittel)
-
-	SKRIV AT eg implementerer SANN for å bedre kunne sammenligne de to. Da kan eg sammenligne implementering også. (DO IT!)
-	Vidare har eg då frie rammer til når sammenligninga starter. Testinga er ikkje basert på rammene til implementasjonen, men implementasjonen kan heller delvis være basert på rammene til test-case. Dette gir mykje friare testing.
-
-	I innledninga: skriv det som står kommentert ut (tittelen). -at dette blir en simulering av mekanismene for enkeltneuron.
-
-	Bør nok også skrive at alt dette er mitt arbeid, men har blitt gjordt før.
-	Dette er ikkje eit argument for å gjøre arbeidet mitt større, men begrunne mangelen på 'cite'.
-	Element i denne teksten kan likevel være nye, men siden eg ikkje har oversikt over tilstanden til SANN vil desse fremstega bli skrevet veldig mildt om dersom de skrives i det heile tatt.
-
-	VIKTIG: få med problemer med SANN: forbered å lage eit "bedre" design for å løse desse problema! (Forbered skriving av kvifor eg starta å utvikle KANN, som skal skrives som innledning i \\section\{KANN\} \ref{secKANN}
-
-	%\section{Simuating the mechanisms of the neuron}
 
 	% Kjør masse sitering eller referering innad i dokumentet for å hente ut meir poeng fra sensor.
 	% Skrive at "Alle SANN" istedenfor "the usual way ..". Det er litt vanskelig å skrive "alle" uten å være påståelig.
@@ -83,8 +56,7 @@ Motivasjon for ANN med tid.
 
 	% Kanskje bare: "The neuron .."
 	%The nodes of ANN are
-	The neuron is
-					 often modelled as a leaky--integrate--and--fire neuron (LIF-neuron). %TODO Referer.
+	The neuron is often modelled as a leaky--integrate--and--fire neuron (LIF-neuron). %TODO Referer.
 	In this model the node ``leaks'' a certain amount of the potential, and the value decreases a over time. 
 	% Skrive om ekvivalent kondensatorkrets?
 	This value varies as a function of the value of the neuron, and we get a first order differential equation for the value of the node.
@@ -274,10 +246,29 @@ inline void s_synapse::doTask()
 %	The specific mechanisms of synaptic plasticity have not been designed, but when the synaptic weight comes to close to being zero, the biological synapse will dissapear.
 % 	The plan is to make some condition for the dissapation of synapses as the synaptic weight becomes to small.
 
-\subsection{The response of the SN}
+\subsection{The Response of the SN}
 	In the previous sections, the design of each node for the SANN was introduced.
 	The activity variable for the SN corresponds to the level of depolarization of the membrane potential for the biological neuron.
 	Excitatory synaptic input to a node will increase the value of the node and inhibitory synaptic input will decrease the node's value.
+
+	\begin{figure}[hb!tp]
+		\centering 		
+		\includegraphics[width=0.65\textwidth]{depolPlotAvSN/auronE_fig.jpg}
+		\caption{``Neural oscillator'': test circuit for SANN. Auron A[1-9] is connected with a synaptic weight $w_{ij}=1$, causing firing by a single transmission. 
+		All aurons in the neural oscillator exept node A7 is connected to auronE.
+		}
+		\label{figAuronE_schematics}
+	\end{figure}
+
+	Each time iteration, the value of the node will diminish due to ``leakage''. 
+	In AuroSim, the leakage is only computed whenever the value is used.
+	This is done by the use of equation \eqref{eqLeakageForSANN}.
+
+	%Skriv først (underveis i neste avsnitt) at for å teste dette kan vi lage en "neural oscillator", en krets som vil holdes aktiv av seg selv. Kvar output .. osv...
+	To test the implementation of the SN, the circuit in fig. \ref{figAuronE_schematics}
+		was tested. The connections between node A1 and node A2 has a synaptic weight of weight $W_{21}=1.1$, large enough to excite node A2 above firing threshold in a single transmission.
+	Each of the nodes A1-A9 has a synapse to the next node with a synaptic weight of one. 
+	From node A9, there is a synapse to node A1 of weitht 1 completing the ``neural oscillator''. In this circuit each of the nodes will fire once every ninth time iteration.
 
 	%TODO Lag figur om kretsen. Den skal ligge her. Neste plott er resultatet, og kan komme på neste side, eller noke..
 	\begin{figure}[hb!tp]
@@ -287,21 +278,6 @@ inline void s_synapse::doTask()
 		(Generated by AuroSim)} %TODO TODO Lag plot som beskriver kretsen, og referer dit, her.
 		\label{figAuronE}
 	\end{figure}
-
-%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
-%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
-%TODO TODO TODO TODO TODO TODO TODO TODO                              ENTEN Lag fig ?, over kretsen, eller fjærn denne ref.  HELST lag fig!                      TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
-%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
-%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
-	Each time iteration, the value of the node will diminish due to ``leakage''. 
-	In AuroSim, the leakage is only computed whenever the value is used.
-	This is done by the use of equation \eqref{eqLeakageForSANN}.
-
-	%Skriv først (underveis i neste avsnitt) at for å teste dette kan vi lage en "neural oscillator", en krets som vil holdes aktiv av seg selv. Kvar output .. osv...
-	To test the implementation of the SN, the circuit in fig. ? % XXX TODO Lag denne, og :  \ref{} TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
-		was tested. The connections between node A1 and node A2 has a synaptic weight of weight $W_{21}=1.1$, large enough to excite node A2 above firing threshold in a single transmission.
-	Each of the nodes A1-A9 has a synapse to the next node with a synaptic weight of one. 
-	From node A9, there is a synapse to node A1 of weitht 1 completing the ``neural oscillator''. In this circuit each of the nodes will fire once every ninth time iteration.
 
 	Except from node A7, every node in the ``neural oscillator'' have a synaptic connection to node E with a synaptic weight $W_{Ej}=0.017$ . %todo: ta vekk "constant" ?
 	There is no synapse from A7 to node E.

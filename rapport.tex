@@ -135,27 +135,41 @@ tabsize=4,                % sets default tabsize to 2 spaces
 
 \begin{document}   
 
+
+
+
 \maketitle
 
 \begin{abstract}
-By the use of mathematics from technical cybernetics, new methods are devised that enables a new model for artificial neural networks.
-A possible design of such a model is presented, and the behaviour of nodes of the new model is compared with that of a spiking node.
-%skriv litt om design-forskjeller.
-%skriv litt om tid : time scheduler
-% 			om design-prosessen?
-% 			om 
-A new model for artificial neural netwoks is presented.
+In this project, a novel model for artificial neural networks has been developed. 
+A special emphasis has been put on the ability to represent the spike timing of the nodes, both in the design of the new model and in the comparison with ANN models of earlier generations.
+
+The novel model for a neural network with the ability to represent spike timing was developed by the use of mathemathics from the field of technical cybernetics.
+During the project, it was found that these equations gave larger capabilities than the SANN model. % more than the ability to find the value of the node.
+Given a constant level of input, equations are developed for calculating the future values and firing time of each node, and the time of the next spike is possible to estimate.
+The simulated depolarization value of a node of the new model has been compared with the value of a node based on the SANN model.
+The time course of the value is compared for a continously changing input level.
+It is concluded that the transient value curve of the new model is as good as, or perhaps a little better than the direct simulation carried out by the SANN model.
+
+%The equations are based on the time--course of a leaky integrator to model the LIF neuron, and makes it possible to calculate future values it the input stays constant.
+
+ 
+As the new model is based on the concept of the spiking neuron, spike time can be calculated for a $\kappa$N.
+It is therefore possible to transmit spikes through specialized synapses, and nodes of the $\kappa$ANN model can communicate with nodes based on the SANN model.
+%Transduction of the output of the $\kappa$N to a SANN will probably involve less effort than the transduction the other way.
+As the usual output of a $\kappa$N is given by an ``instantaneous frequency'' calculated from the present $\kappa$, the $\kappa$ANN node is able to communicate with nodes of the second generation ANN.
+The activation function for $\kappa$ANN can be seen as an activation funtion based on a mechanistic model of the neuron.
+% %
+It is therefore possible to use $\kappa$ANN as a interface between the second and the third generation ANN.
+
 \end{abstract}
 
 
-% todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo 
-%
+
 % 			Oppgavetekst: SKAL MED, (og ta vekk det som er over..)
-%
-% todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo 
 \begin{figure}[h!tbp]
         \centering
-        \includegraphics[width=1.1\textwidth]{PerLeikanger-Oppgavetekst-engelsk.pdf}
+        \includegraphics[width=\textwidth]{PerLeikanger-Oppgavetekst-engelsk.pdf}
         %\caption{Spike Time Dependent Plasticity(STDP): The timing of the postsynaptic spike in relation to the presynaptic neurons contribution gives the size and sign of the change of synaptic weight\cite{reviewSTDP}.} 
 \end{figure}
 
@@ -164,56 +178,12 @@ A new model for artificial neural netwoks is presented.
 %Frampeik, med litt mystikk som impliserer at eg veit meir enn leser. (Hugs norsk fra grunnskulen: frampeik er bra!)
 %I tillegg til at det impliserer at eg har tenkt mykje over saken, så syr det teksten bedre sammen!
 
-\emph{Om oppgaveteksten:}
-Les meir grundig det som står på toppen. Den punktinndelte oppgava på bunnen gir følgende notater:
 
-Eit poeng: "(NB: Hold deg innenfor oppgaven,du kan ikke regne med å få
-kreditt for arbeid som går på siden av oppgavens uttalte fokus)."
-------> Skriv kvifor eg har implementert simuleringa så nøyaktig. Begrunn dette, for å få uttelling for det i karrakteren. 
-
-Hold også eit auge med skrivet eg fekk fra Øyvind S.: Korleis gjennomføre prosjekt. Spesiellt i forhold til innledning er dette viktig!
-	\emph{Pkt. 1}
-Oppgaveteksten seier: "Gi en oversikt over eksisterende modeller for ANN som representerer både fyringsrate og -tidspunkt. 
-Legg spesielt vekt på forhold som kan knyttes til stabilitet under læring og/eller tilbakekobling ("recurrent ANN")."
-
-Første setninga kan tolkes, men eg trur tolkininga som går på at det er en modell som representerer begge er mest rett (BÅDE). 
-Trur ikkje det er nokon modell som gjør dette. Kan skrive dette, så skrive om modeller som representerer fyringsrate ELLER -tidspunkt. (fANN, SANN).
-
-
-	\emph{Pkt. 2}
-"Beskriv det nye konseptet, og påpek hvordan dette skiller seg kvalitativt fra tidligere kjendte metoder."
-
-Tolkning: tidligere kjendte metoder - tidligare modeller som representerer tidspunkt for fyring. Bare SANN!
-
-Ellers er dette punktet rett--fram.
-
-	\emph{Pkt. 3}
-"Foreta en sammenlikning av det nye konseptet og konkurrerende metoder. Evalueringen kan baseres på et antall konkrete scenarier(mhp. inngangsdata osv.)."
-
-Tolkning:
-Konkurerende metoder er andre metoder som også representerer tidspunkt for spikes. Dette er bare SANN (kanskje ta med ulike implementasjonsmetoder av SANN? Timedriven/eventdriven?)
-Eg tenker at eg ikkje får tid til å gjøre en omfattende sammenligning av effektivitet, så sammenligner med bakgrunn i implementasjon. 
-
-Sammenligne litt for effektivitet (for ulike oppsett).
-
-Sammenligne tematisk? Skrive at eine er Moore, andre Mealy auromata?
-
-\newpage
-
-% todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo 
-%
-% 			Oppgavetekst: SKAL MED, (og ta vekk det som er over..)
-%
-% todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo 
-%\begin{figure}[h!tbp]
-%        \centering
-%        \includegraphics[width=1.1\textwidth]{PerLeikanger-Oppgavetekst-engelsk.pdf}
-%        %\caption{Spike Time Dependent Plasticity(STDP): The timing of the postsynaptic spike in relation to the presynaptic neurons contribution gives the size and sign of the change of synaptic weight\cite{reviewSTDP}.} 
-%\end{figure}
-
-
-
-\tableofcontents
+\pagestyle{empty} %get rid of header/footer for toc page
+\tableofcontents %put toc in
+\cleardoublepage %start new page
+\pagestyle{plain} % put headers/footers back on
+\setcounter{page}{1} %reset the page counter
 
 
 
@@ -233,17 +203,35 @@ Sammenligne tematisk? Skrive at eine er Moore, andre Mealy auromata?
 % 	Det originale systemet virker som eit bra system, siden jo meir vi tilnærmer oss BioSys, jo bedre blir resultatet.
 % 		- skrive at SANN tar steget videre for SANN, i henhold til 'bionics'.
 \chapter{Background information} 	%XXX KAPITTEL
-	%VETTAFAEN om denne skal ligge her. Ikkje DENNE i så fall. SKRIV OM SOM FAEN!
 	%In the start of this project effort were used on trying to find a model equal or similar to the model tested in this project.
-	In the start of this project, a search for a similar model that could represent both firing time and firing frequency, was commenced.
-	My ability to find relevant articles and reports was not so good, and
-	 	I had already developed a ``new model'', later found to be called ``spiking artificial neural network''(SANN).
-	To be certain this model was new, Yasser Roudi, topic supervisor of NEVR3004 -- neural networks, was asked. 
-	After a meeting for about an hour, also used on litterature search for this new model, no model was found.
-	This does not mean that the model does not exist, but we can be fairly certain.
-	It is therefore entirely possible that the model presented in this text is the first of its kind.
+%	In the start phase of this project, a search for a similar model that could represent both firing time and firing frequency, was commenced.
+%	My ability to find relevant articles and reports was not so good, and
+%	 	I had already developed a ``new model'', later found to be called ``spiking artificial neural network''(SANN).
+%	To be certain that the new--new model was new, Yasser Roudi, topic supervisor of NEVR3004 -- neural networks, was asked. 
+%	After a meeting for about an hour, also used on litterature search for this new model, no model was found.
+%	This does not mean that the model does not exist, but we can be fairly certain.
+%	It is therefore entirely possible that the model presented in this text is the first of its kind.
 	%Despite my effort to find such models, none has presented itself, neither from a comprehensive litterature seach or by asking professor Yasser Roudi, topic supervisor of NEVR3004 -- neural networks.
 	%It is therefore possible that the model presented in this text is the first of its kind.
+
+	Before we start any discussion about ANN, we need to know some ANN history and some biology.
+	This chapter will therefore introduce different aspects about the ANN.
+	ANN is a form for bionics, a emulation of computational aspects in the biological neural system.
+	Some time has therefore been used on reviewing mechnisms that are important for signal prosessing in the neuron.
+
+	The ANN history, with an emphasis on aspects important for synaptic plasticity, has been reviewed in sec. \ref{ssecHistoryOfANN}.
+	Early learning rules are introduced in sec. \ref{ssecSynPlastFor2gANN}. 
+
+	Recently, a stable learning rule has been discovered in neuroscience, Spike time--dependent plasticity.
+	This has increased the focus on the timing of each spike.
+	This is one of the reasons behind the development of the ANN model known as Spiking Artificial Neural Network(SANN).
+	%The result in the field of ANN is what is called Spiking artificial neural network has become increasingly popular.
+	A short review of SANN is presented in sec. \ref{ssecSpikinANN}.
+	
+	Different aspects of neuroscience are also introduced in this section.
+	Aspects that are of immediate importance to this project has been introduced in sec. \ref{secTheBiologicalNeuralSystem}.
+	For a more comprehensive study about synaptic plasticity, it is referred to appendix \ref{appendixSynPlast}.
+
 
 	\include{ANN}
 
@@ -254,44 +242,119 @@ Sammenligne tematisk? Skrive at eine er Moore, andre Mealy auromata?
 % Før vi kan lage en kunstig variant av neurale system, er det best å modellere det, og bruke matematiske rammer for simuleringa.
 % Dette er også for å formalisere det som tidligere er skrevet i "detBiologiskeSystemet". Gjøre mekanismene eksplisitt, matematisk.
 \chapter{Modelling} 				%XXX KAPITTEL 			XXX XXX Finn bedre tittel på kap.
+
+	Mathematical modelling of the neuron helps understand the neuron and the mechansims behind how the neuron works.
+	The ide behind $\kappa$ANN came as a result of models written to understand the neuron.
+	A good model could also be used to make a simulator of the modelled effects. 
+	%A delicate balance is to be mainained between simplifying the system to much, and not simplifying enough.
+	% TODO Fortsett her. LAg mindre, ikkje større..
+	% A good model of the neuron will also give us a guide when simulating the system.
+
+	In the LIF model of the neuron,  the value of each node is given by the electrochemical potential over the cell membrane. 
+	%In the neuron, the value of each node is given by the electrochemical potential over the cell membrane. 
+	The neuron will fire an action potential if the value goes above firing threhold.
+	This makes the value of the neuron an important aspect of neuronal signal processing.
+	When a neuron recieves one kind of synaptic transmissions, ligand--gated channels are opened, and the potential of the neuron is changed as a function of the time the channel is open 
+		and the electrochemical driving force for the charged molechules.
+
+	The electrochemical driving force can be seen as a potential field over the membrane.
+	This mechansim either comes from the concentration of diffenert kinds of chemical molechules, as a result of electrical potential, or a combination of the two.
+	%One aspect of this potential is the concentration gradient over the membrane.
+	Each ion will seek a state of the least order, or the highest order of entrophy. 
+	The concentration gradient of each ion is therefore an element of the electrochemical driving force for that ion.
+	
+	The second aspect of the potential field is the electrical potential over the membrane. 
+	If a particle is charged, we get a situation where nature have a desire to increase the level of entrophy for the charge.
+	This gives that the charged ions will get a driving force from any compartment or object with the similar charge.
+	
+	%If we combine these two effects we get a simplified system of the neuron.
+	
+	% TODO  under. Skriv alt heilt om! What? kanskje eg har gjort det?
+	In the biological neuron, the value of the node is therefore governed by many factors. 
+	The individual ion's equilibrium potential can be calculated by the Nernst equation (eq. \ref{eqNernstEquation}).
+
+
+	The electrical potential over the membrane of the biological neuron is given by the distribution of ions or charged particles and molecules over the  membrane.
+	%The membrane potential of the biological neuron is given by the distribution of electrically charged particles and molecules over the  membrane.
+	The electrical potential is an important part of the driving force for changing the value of the node.
+	It also is the prime motivator for the initiation of an action potential, and thus an important aspect to model.
+	%From this we can later talk about the differential equation of the nodes value.
+	%The electrical driving force is not the only one, and the value of the node at equilibrium is given by the sum of all these driving forces.
+
+
 	%TODO Her må er skrive meir om kva modell som er i grunn for SANN, og for den nye modellen. Intro til kapittel.
 	\include{theNewModel}
 	
 \chapter{Design and Implementation} %XXX KAPITTEL
-	In this project, a novel model for ANN has been developed.  %Drittord. Funker ikkje her. Pretensiøst ord..
-	In this chapter and the next, this new model will be presented.  %XXX Dårlig skrevet. Begynnt eit forsøk på å gjøre det bedre, under.
-	%In this chapter the design and implementation of an ANN based on the new model
-	%and the next, this new model will be presented. 
-	The qualitative differences between the ANN model based on a direct simulation of the neuron and the developed model will primarily be presented in the next chapter.
-	The most important differences can also be seen in the design done in this chaper. %TODO Skriv om!
+Implementing the mechanisms of a neural simulator is not trivial, even without optimizing it for run time efficiency.
+%todo SKriv om neste linje! xxx
+Even if this is not an important aspect of this project I have tried to, wherever possible, optimize the implementation for efficiency.
+%Skrive kvifor: Om at designet er optimalisert både for generalitet (for å gjøre utvidelser/endring lettere) og for effektivitet. DETTE for å kunne bruke implementationen videre (personlig, eller for andre).
 
-	% XXX Skriv om starten!
-	A neural simulator is placed in an environment, and will have a general design of each node. 
-	% In the remainder of this text this will be referred to as the framework of the simulation.
-	In this chapter this will be referred to as the framework of the simulation.
-	
-	% For a qulitative comparison ... (?) Kanskje bedre, siden det refererer til oppgaveteksten..
-	For a qualitative comparison between the two models, both models have been designed and implemented. %XXX Få med  "... from scratch."
-	As this was done ``from scratch'' in both cases, the similarities and differences became very clear to the author. %distinctive 	%  prominent 		%XXX Finn eit bedre ord. At det vart veldig klart for meg
+%The functions that are most often called are inlined. This means that I have given a hint to the compiler to put the compiled code wherever the functions are called.
+%This causes the function calls to run faster but also increases the size of the executable file, so this should be used with caution. %Kanskje skrive dette, men også da skrive størrelse på endelig program. ca. 0.5 M (?)
+%For this implementation, size will not be a problem. %Kvifor?
+%Inlining of functions are still kept to a minimum, in case of further work on this software. %skriv annaleis. Kvifor "in case of further work on this software."? Forklar bedre, eller skriv om (anna argumentering).
 
-	%XXX As this was done ``from scratch'' in both cases, the author became wery familliar with both models. %XXX Det er kanskje klart: eg har jo skapt dei..
-	% Det er allikevel eit poeng å få med, sammen med at bare de viktigste forskjellane er presentert i denne rapporten.
-	To optimize the implementations for a comparison between the two models, the most appropriate solution is to use a common framework for the two simulators.
-	This made the differences and similarities between the two designs/implementations more prominent. %TODO Skriv om litt.
-	% TODO SKRIV MEIR: Fyll ut første side av kapittelet, under tittel, som blir satt av til dette.
-	The most important differences and similarities will be presented in chapter \ref{chapterComparisonAndResults}, ``Comparison and Results''. %TODO skriv "... in chapter ?, [TITTEL PÅ KAP]. Vær sikker på at tittel er rett.
+The code is also written with a focus on possible expantion. %Also in other parts of the implementation, the code is written with a focus on possible future expantion.
+%Difor er ting laga enkel å forstå for en som kan nevro: oppsettet av nodene er lagt opp som det biologiske neuronet.
+The object model is designed to be general for the two models, both to make the two implementations more comparable for this project and to make the implementation better suitable for future comparison.
 
-	%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
-	\begin{itemize}
-		\item Korleis man impleneterer er abhengig av kva som er målet for implementsjonen (likhet til det simulerte systemet("retthet"), effektivitet(pragmatisk), anna? ). (Se design, forrige kapittel)%TODO Skriv om det i forrige kapittel.
-		\item Skrive mine valg. Dette er avhengig av kva eg ønsker å sammenligne systemet for. Velger vel den pragmatiske veien(?)
-		\item programmeringsspråk (viktig for implenetation design): Objektorientert. Kanskje nemne at eg vil bruke C++ (Skal seinare skrives meir om (i "implementation"))
-%		\item Sammenligne læring? TODO Skriv kvifor læring ikkje er med: Målet for denne oppgaven er ikkje læring, men sammenligning av de to modellene. 
-% 																				- Dersom eg får tid til å sammenligne effektivitet: bedre å ta bort læring (få vekk en variabel i eit allerede komplekst system)
-% 																				- Tid: Har ikkje tid til å implementere læring i dette prosjektet. Referer også til mailen til Hans Plesser: 
-% 																					at modellene for imhibitorisk læring ikkje er ferdig modellert, så enda vanskeligare å implementere (må modelleres først).
-	\end{itemize}
+The design of each node is based on the biological neuron to be more intuitive for programmers with knowledge of neuroscience. 
+This is not only to make the implementation easier to use for potential future programmers, but also because little is known about what is important in neuroscience.
+If the implementation is constructed strongly inspired by the emulated system, with multible elements constructed in the same way as the original system, expantion and modification of the indivitual elements involve less effort.
+Say, for example, that new aspects are discovered tomorrow. In this case, the code can easier be modified after this discovery.
 
+This principle does not only account for future uses by other programmers.
+In multiple occations, aspects that are where new to me have been implemented at after the main functionality of the classes where designed. 
+This required less work because principles that were important Bjarne Stroustrup during the creation of C++; To make the design general and open and suited for any future uses. %\cite{StroustrupDesignAndEvolutionOfCpp}.
+%This required less work because I followed principles that was important to Bjarne Stroustrup during the creation of C++; To make the design general and open and suited for any future uses.%ELLER NOKE Siter"TheDesignAndEvolution of C++".
+
+%
+%% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+%% dette ER diskurs (?) :
+%One element that is not implemented, is axo--somatic and axo--axonic synases. 
+%This is synapses where the input to the postsynaptic neuron enters at other places of the neuron than the dendrite. 
+%In biology, most inhibitory synases have theire input close to the soma of the postsynaptic neuron. 
+%This will give the inhibitory input less delay compared to the excitatory input, and might be an important aspect in neural computations.
+%This can be implemented easily if this is found to be important for some future use of this code.
+%
+%An other important aspect that is not impelented is axo-axonic synapses, linked to short term synaptic plasticity.
+%%XXX An axo--axonic synapse is a synase that enters the postsynaptic neuron somewhere close to one of its output synapses.
+%% Gjør om rekkefølgen litt. Skriv om short-term syn.p. først, så evt. axo-axonic synapses.
+%Short--term synaptic plasticity is synaptic plasticity that does not have any long term effect of the neuroal network (learning), only on more immedate aspects of signal transmission.
+%In particular, we have the synapses that gives input near the axon terminal of the neuron (axo-axonic synapses). This will alter the depolarization at the neurons output synapses. %og auke/minke mengde Ca2+ i presyn. bit av synapsen.
+%This will not cause any transmission to occur, only ``prime'' the presynaptic membrane of the synapse for transmission.
+%When the next action potential arrives, the size of the transmission will be larger than usual (or less, depending on whether the axo--axonic synapse is excitatory or inhibitory).
+%Again, neither short--term synaptic plasticity or axo--axonic synapses has been implemented because this was not an aspect of this project and due to time constraints.
+%% Skriv heller at short--term syn.p. ikkje er implementert, så axo-axonic synapses ville ikkje auka funksjonaliteten til simulatoren.
+%Implementing it will involve less work due to the implementation design in this code.
+%% Denne setninga er for å vise at det er lett å innføre. Skriv om.
+
+If the goal of the implementation is to simulate a neural network from biology, spatial and temporal resolution is more important than efficiency of the calculation.
+%When it comes to temporal and spatial resolution, this can easily be extended.
+In this implementation, spatial and temporal resolution can easity be extended.
+If we want to increase the accuracy, this can be done by increasing the number of elements in each node (and making the timestep accordingly smaller).
+This will also make the computational efficiency of the simulator less, and the pragmatic use of the simulator will suffer.
+
+If we need a better accuracy, and for example double the number of serial elements in each node and halve the size of the timestep, the functioning of each element will be the same.
+The temporal and spatial resolution will be increased two-fold at the expence of the computational efficiency of the simulator.
+
+With ``spatiotemporal resolution'' i refer to the ability to separate between elements located at different positions in space with a transmission delay.
+This is important for the output, scince different output synapses are situated at different locations of the neurons axon.
+This will cause different transmission delays, and might be important for the neural calculations.
+% Also the axon will be have more elements, and different synapses along the axon may have differenti time delay.
+This gives us the ability to make a separation between ``early synapses'' and ``late synapses'' along the axon, and gives us a better spatiotemporal resolution for the simulated neuron.
+
+The whole reason for developing the third generation ANN, spiking artificial neural networks, was the growing focus on the timing of the different events within the neural network.
+This is computational demanding, and high resolution simulations is not suited for real time pragmatic uses of ANNs. For simulations used to test hypothesis in neural science, however, accuracy is most important.
+The focus on generality in this implementation will therefore make the code reusable for possible future pragmatic uses and for implementing neural simulators.
+
+If the new model is more effective than the old model for spiking neural networks, we can not know whether this is only goes for one of these uses. 
+For this reason I found it best to implement as generally as possible, for future efficiancy comparison between the two models.
+%Skrive eksempel: "More specifically, if we divide the axon into smaller pieces, spatial accuracy is better."
+%Skriv om forskjellane mellom KANN og SANN. Her kommer kanskje største fordelen med KANN? (Kan kanskje legge inn vilkårlig antall element, til tilsvarende størrelse på 'time step').
+ 
 
 	% Generell design av implementasjon.
 	\include{design}
@@ -311,8 +374,9 @@ Sammenligne tematisk? Skrive at eine er Moore, andre Mealy auromata?
 	%Referer en del til kapittel \ref{chapNeuroscience}.
 	%Her skal eg legge inn tekst som impliserer at eg er reflektert. Skrive alle feil og mangler som ligger i mine modeller, og implementasjon-design.
 
-\chapter{Discussion and Concluding Remarks} 	%XXX KAPITTEL 			TODO TODO Finn en bra tittel. Dette kapittel skal inneholde resultat, sammenligning, diskurs, konklusjon.
+\chapter{Discussion and Concluding Remarks} 	%XXX KAPITTEL 	
 	\label{chapterComparisonAndResults}
+	% todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo  SKRIV INTRO!
 
 % SAMMENLIGNING:
 % 	- korleis blir oppgavene tolket?

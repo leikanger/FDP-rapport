@@ -12,7 +12,7 @@
 % 	Sjå [ ref_asdf2143@ANN ] i ANN.tex.
 
 %*********************** KANN ***************************
-\section{KANN design and implementation}
+\section{KANN --- Design and Implementation}
 \label{secKANN}
 	
 	We have seen that the SANN model calculates the firing time of each node as a reactive event, after the value of the node goes above threshold.
@@ -98,7 +98,7 @@
 
 	
 	%\subsection{Updating $\kappa$} %Calculation and recalculation of $\kappa$
-	\subsection{Synaptic transmission}
+	\subsection{Synaptic Transmission}
 	\label{ssecSynTransForANNliggeriKANNsection}
 		%TODO Skriv om, med kontinuerlig tanke på kappaANN. F.eks. : in biology, AND IN SANN, a synaptic ...
 
@@ -333,7 +333,7 @@ static std::list<timeInterface*> pCalculateTaskQue;
 % _____________________ fiksa til hit __________________________________________________________________________________________________________________________________________________________________________________
 
 
-		\subsection{Relcalculating $\kappa$}
+		\subsection{Relcalculation of $\kappa$}
 		\label{ssecRecalcKappa}
 		Defining the edge transmissions as the derived has many positive sides when we consider efficiancy of the implementation. 
 		%The negative sides comes when we consider the ease of implementation and the truncation error.
@@ -415,7 +415,7 @@ static std::list<timeInterface*> pCalculateTaskQue;
  		The first time $\kappa$ is calculated, it is calculated with the recalculate function, giving the filter a small initial period. %, based on the initial level of input.
 		Aurons with a large initial input will therefore get a smaller initial recalculation period that some auron with a smaller initial input. %due to a large initial error.
 
-		\subsection{Implementation of recalculation of $\kappa$}
+		\subsection{Implementation of Recalculation of $\kappa$}
 		The execution of the planned recalculation of $\kappa$ is done in the same way as the execution of the planned action potential for the $\kappa$ auron.
 		
 		For recalculation of $\kappa$ with the chosen method, we need a separate object whose \emph{doTask()} function will call the \emph{K\_auron}'s \emph{recalculateKappa()} function.

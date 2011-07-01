@@ -1,63 +1,34 @@
-% Her skal eg skrive om den nye modellen. Kva er \kappa, kva representerer denne, tid går mot uendelig.. osv.
 
-% Disposisjon:
-% 
-% 1) kva gir depol. for ein neuron. Kva gir input, kva gir lekkasje?
-% 2) utledning av depol.-ligning
-% 
-% 	TODO Lag frampeik om at "dette kan brukes til ANN", eller tilsvarende.
-%
+% Var egen section. ingen poeng. 
+%\section{Mathematical modelling of the biological neuron} 
 
-\section{Mathematical modelling of the biological neuron} 
+%no referer denne til kapittelet: xxx
 \label{secMatematiskModelleringAvBioNeuron}
 
 %Når eg skriver om:
 % Fokuser mest på at value, dvs. depol. til neuronet er kva som er viktig i forhold til fyring av AP. Difor bør vi prøve å modellere dette.
 % Ikkje tenk på Nernst, her. Det kommer i neste avsnitt.
 
-Mathematical modelling of the neuron helps understand the neuron and the mechansims behind how the neuron works.
-The ide behind $\kappa$ANN came as a result of models written to understand the neuron.
-A good model could also be used to make a simulator of the modelled effects. 
-%A delicate balance is to be mainained between simplifying the system to much, and not simplifying enough.
-% TODO Fortsett her. LAg mindre, ikkje større..
-% A good model of the neuron will also give us a guide when simulating the system.
-
-In the LIF model of the neuron,  the value of each node is given by the electrochemical potential over the cell membrane. 
-%In the neuron, the value of each node is given by the electrochemical potential over the cell membrane. 
-The neuron will fire an action potential if the value goes above firing threhold.
-This makes the value of the neuron an important aspect of neuronal signal processing.
-When a neuron recieves one kind of synaptic transmissions, ligand--gated channels are opened, and the potential of the neuron is changed as a function of the time the channel is open 
-	and the electrochemical driving force for the charged molechules.
-
-The electrochemical driving force can be seen as a potential field over the membrane.
-This mechansim either comes from the concentration of diffenert kinds of chemical molechules, as a result of electrical potential, or a combination of the two.
-%One aspect of this potential is the concentration gradient over the membrane.
-Each ion will seek a state of the least order, or the highest order of entrophy. 
-The concentration gradient of each ion is therefore an element of the electrochemical driving force for that ion.
-
-The second aspect of the potential field is the electrical potential over the membrane. 
-If a particle is charged, we get a situation where nature have a desire to increase the level of entrophy for the charge.
-This gives that the charged ions will get a driving force from any compartment or object with the similar charge.
-
-%If we combine these two effects we get a simplified system of the neuron.
-
-% TODO  under. Skriv alt heilt om! What? kanskje eg har gjort det?
-In the biological neuron, the value of the node is therefore governed by many factors. 
-The individual ion's equilibrium potential can be calculated by the Nernst equation (eq. \ref{eqNernstEquation}).
-
-
-The electrical potential over the membrane of the biological neuron is given by the distribution of ions or charged particles and molecules over the  membrane.
-%The membrane potential of the biological neuron is given by the distribution of electrically charged particles and molecules over the  membrane.
-The electrical potential is an important part of the driving force for changing the value of the node.
-It also is the prime motivator for the initiation of an action potential, and thus an important aspect to model.
-%From this we can later talk about the differential equation of the nodes value.
-%The electrical driving force is not the only one, and the value of the node at equilibrium is given by the sum of all these driving forces.
 
 
 
 
 
-\subsection{The equilibrium potential}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{The Equilibrium Potential}
 % TODO TODO Skriv også om lekkasje! Fra ANN.tex refererer eg hit når eg snakker om lekkasje. XXX Hugs å skrive om lekkasje her!
 % Sjå ANN.tex: Snakker om LIF-neuron. Skriv om LIF-neuron når eg skriver om lekkasjen!
 \label{ssecTheEquilibriumPotential}
@@ -212,7 +183,7 @@ The equations found in this section will be of importance later, when we discuss
 
 
 
-\subsection{The differential equation for neurons depolarization} 
+\section{The Differential Equation for the Neuron's Depolarization} 
 The equation for the potential can be stated as a first order differential equation:
 \begin{equation}
 	\dot{v}(t) = \dot{v}_{in}(t) - \dot{v}_{out}(t) %, \qquad i = \text{ neural input } %% XXX Endra \dot{v}_{in}(I) til  \dot{v}_{in}(t). XXX
@@ -224,7 +195,7 @@ Where $\dot{v}_{in}(t)$ gives the effect of synaptic input to the neuron and $\d
 
 % TODO Ikkje del opp i underavsnitt: Skriv heller "Element for diffligninga", eller noke, og få med begge her.
 % Men det eg heller kan ha med som underavsnitt er "forkrav for ligningene" eller "utgangspkt" eller "antagelser for ligningene"...
-\subsubsection{The input}
+\subsection{The Input}
 The input, represented by $\dot{v}_{in}(i)$ in the above equation, is a function of the neurons excitatory and inbibitory input. 
 The neurons input waries in time, but for now we look at the variable $I$ as a constant.
 %One method for a varying degree of input will be introduced in section \ref{ssecVariableInputBetweenSpikes}.
@@ -241,7 +212,7 @@ $I$ represents the effect of the synaptic input to the neuron;
 %skriv også at v_in(i) er i virkeligheita eit dynamisk forløp, men for ANN kan vi forenkle, og sjå på denne som konstant.
 
 
-\subsubsection{The ``leakage''}
+\subsection{The ``leakage''}
 %TODO Finn referanse for neste påstand!
 The neuron is often modelled as a leaky integrator. 
 The ``leakage'' varies with the value of the neuron. % polarization over the membrane. 
@@ -267,7 +238,7 @@ For the simplified neuron used in this model, $\alpha$ will be a constant. % wil
 % BRIFEKUNNSKAP:XXX :  In the CNS you also have socalled astrocytic domains, where the support--cells for the neurons have domains. Inside this domain one astrocyte is 
 
 
-\subsection{The depolarization equation}%equation for the neurons value}
+\section{The Depolarization Equation}%equation for the neurons value}
 %\label{ssecDepolEq}
 %This gives us the differential equation 
 The differential equation is given by:
@@ -326,7 +297,7 @@ The time $t$ then gives the time relative to the previous firing.
 %In the neuron we have that if the neurons value goes above some threshold the neuron will fire an action potential, and the value is reset. This introduces yet another nonlinearity: 
 %The action potential.
 
-\subsection{The Action Potential}
+\section{The Action Potential}
 The action potential, a ``spike'', and the period between action potentials, the interspike period, is the basis of the computational capabilities of the neuron.
 When the value of the neuron excedes the firing threshold an action potential is initialized, causing transmission at all the neuron's output synapses and resetting the neurons value.
 %This causes transmission at all the output synapses of the neuron, and resetting the value of the neuron to $V_r$. % = 0. Skrive at det er lik null. Gjør likningene under rett..
@@ -374,7 +345,7 @@ If $\kappa$ varies during the interspike period, the firing time will also chang
 
 
 
-\subsection{Variable input between spikes}
+\section{Variable Input Between Spikes}
 % TODO Skriv heilt om!
 \label{ssecVariableInputBetweenSpikes}
 %Equation \eqref{eqPeriodeligningForKonstIntraPeriodKAPPA} is based on a constant $\kappa$ during the inter--spike period.
@@ -461,8 +432,8 @@ If the value of the neuron is updated every each time $\kappa$ varies, it is pos
 
 
 %TODO Finn eit bedre navn på denne subsubsection.
-%\subsection{The constants in the depolarization equation}
-\subsection{Some final comments}
+%\section{The constants in the depolarization equation}
+\section{Some Final Comments}
 \label{ssecValueOfAlpha}
 
 The inter--spike interval for a neuron consists of two phases. 
@@ -548,7 +519,7 @@ With a time step of 1 m$s$, the simulation of the refraction period can be done 
 
 %For this we need to introduce a new concept called the firing cycle.
 
-%\subsubsection{The firing cycle}
+%\subsection{The firing cycle}
 %(Skriv om firing cycle, men at det er bedre å regne det ut fra verdien fra eq. \eqref{eqVerdiligninga})
 
 %Because of the cyclic nature of the neurons depolarization, it is possible to visualize the neurons interspike period as a firing cycle.

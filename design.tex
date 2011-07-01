@@ -1,8 +1,3 @@
-% Implementation design :
-
-
-% TODO Denne må skrives heilt om. Sett av to dager til dette. (1 natt+en dag?)
-
 
 %XXX INNLEDNING til kap. ER FLYTTA TIL rapport.tex (ELLER er planlagt flyttet).
 	% Skrive at alt dette er egenprodusert. Alle mekansimer, ligninger osv er egenprod. Dette var unødvendig, da SANN allerede er laget. Det er difor mulig at eg har innført nokre nye element for dette.
@@ -23,19 +18,6 @@
 % 				- Til innledning:  Sjå "kladd fra tidligare: effektivitet". Om at det er vanskelig å forutse kva som er effektivt. Eit par gode poeng der. Bør teste effektivitet, men dette får bli "for futher research".
 
 
-%XXX section design
-% 				- About efficiency (om å optimalisere effektivitet. Kø for beregning. (Variant av) avsnitt er skrevet)
-% 			skriv om sensor funksjoner!
-% 				- loggføring - sjå "log for comparison".
-% 				- synaptisk plastisitet. Har ikkje tid. Skriv at vi i denne oppgava fokuserer på implementasjonsforskjellen mellom KANN og SANN. Dersom effektivitet skulle sammenlignes er det best å fjærne syn.p. fra ligninga (mindre kaos)
-% 				- Skriv om kvalitative forskjeller for SANN og KANN. Forskjellen mellom SANN simulering av neuron og KANN matematisk simulering med estimering til fremtida.
-
-
-
-
-
-
-
 % 	Section: Design.
 % 		- Time
 % 		- The object design
@@ -46,16 +28,6 @@
 % 		- Log for comparison
 %
 %
-%
-%i subsection "sammenligning" (også noko som må designes..):
-% 		%- Tenkte initiellt å sammenligne effektivitet. Dette blir ikkje tid til.
-% 		% 	Målet blir heller å utvikle og sammenligne KANN mot SANN, ikkje resultatet av kjøringa av de to (ikkje effektivitet, men andre aspekt..) Dette bør kanskje skrives om.
-% 		%- Siden målet er å beskrive forskjellane i implementasjonen, er det viktig å isolere forskjellane mest mulig.
-% 		%	- Lager dermed eit generellt rammeverk som gjelder for begge implementasjonane, og modellane som underelement av elementa:
-% 		%		Underklasser av kvart element i nodene (SANN og KANN) som arver fra felles i_[element] abstrakt klasse. Dette gjør det lettare å isolere forskjellane (mest mulig av det som er likt ligger i i_[element]).
-
-
-% TODO Skriv om sensor funksjoner!
 
 
 
@@ -64,15 +36,39 @@
 	\label{secDesignForANN}
 	% Skriv en liten innledning til denne section. Det er tross alt litt tekst i den..
 
-	%In this section the common framework of the design and implementation of the two models will be presented.
-	%TODO Gå gjennom opplistinga i neste linje, når section er ferdigskrevet.
+	In this project, a novel model for ANN has been developed.  %Drittord. Funker ikkje her. Pretensiøst ord..
+	In this section, the general design for the two models is introduced.
+	As the two models is compared, theoretically and experimentally, the design is created with this in mind.
+
+	% XXX Skriv om starten!
+	A neural simulator is placed in an environment, and each node will have a general design.
+	To be able to compare the two models, a common general and node specific design has been designed.
+
 	This section will start with describing the common framework of the implementations; 
-		General concepts such as simulated asynchronicity (sec.\ref{ssecTime}), generality of the implementation and the design of the indivitual node will be presented in this section. %TODO sett på internreferanser til rett subsection.
-	After the common framework of the simulation is presented, there will be a short discussion about how the two simulators are distinguished. %TODO skriv om! slutten er dårlig
+		General concepts such as simulated asynchronicity (sec.\ref{ssecTime}), generality of the implementation and the design of the indivitual node will be presented in this section. 
+	After the common framework of the simulation is presented,
+		 mechanisms used to distinguish the two models are introduced in sec. \ref{ssecDESIGN_ObjectDesign}.
+		 %there will be a short discussion about how the two simulators are distinguished. 	
 	%Towards the end of the section, different aspects like efficiancy and generality of the implementations are presented
 	A method for time scheduling is introduced in sec. \ref{secPlannedEvents}.
 	% XXX
 	Finally, concepts that are important for the comparison between the transient time course of the two models will be introduced is sec. \ref{ssecLogForComparison} and sec. \ref{ssecTheSensorNode}.
+
+
+	For a qualitative comparison between the two models, both models have been designed and implemented. 
+	As this was done ``from scratch'' in both cases, the similarities and differences became distinctive to the author. 
+% 	%
+	To optimize the implementations for a comparison between the two models, the most appropriate solution is to use a common framework for the two simulators.
+	This made the differences and similarities between the two designs more prominent.
+	% TODO SKRIV MEIR: Fyll ut første side av kapittelet, under tittel, som blir satt av til dette.
+	%The most important differences and similarities will be presented in chapter \ref{chapterComparisonAndResults}, ``Comparison and Results''. 
+
+
+
+
+
+	%In this section the common framework of the design and implementation of the two models will be presented.
+	%TODO Gå gjennom opplistinga i neste linje, når section er ferdigskrevet.
 	
 	
 	%The ide is that a simulation based on higher level mathematics gives a more effective execution of the ANN than a direct simulation of a biological system.
@@ -242,7 +238,7 @@ while( time_class::ulTime < ulLengthOfSimulation)
 	The list \emph{pWorkTaskQue} is in other words a ``first--in--first--out'' (FIFO) que. %Skal den være med? Tenkte bare eg skulle ha med litt info fra kyb også..
 	%The list \emph{time\_class::pWorkTaskQue} is a static element of \emph{time\_class}.
 	
-	\subsubsection{An example}
+	\subsubsection{An Example}
 	To illustrate the previous discussion of the mechanisms of time, an example is presented.
 	Let \emph{pWorkTaskQue} contain a list of scheduled tasks: %$L = [a, b, c, T]$.
 \begin{equation}
@@ -549,6 +545,7 @@ Due to the reorganization or the list before the elements' \emph{doCalculation()
 
 
 	\subsection{The Object Design -- Differentiating by Inheritance} % Det er elementa i nodene i Models som er blir designet. Kanskje dette skal inn? XXX
+	\label{ssecDESIGN_ObjectDesign}
 %	\subsection{The Object Design -- Designing the two Models by Inheritance} % Det er elementa i nodene i Models som er blir designet. Kanskje dette skal inn? XXX
 	%TODO Finne bedre ord enn "aim".
 %	As the aim of this project is to develop and compare a new model ANN, with the existing model that takes into consideration the firing time of each node.
@@ -1081,12 +1078,6 @@ To avoid reanalysis of old results, the old log files are automaticly removed at
 %This is important so that we do not analyze old results when debugging.
 
 
-
-%\begin{figure}[htb!p]
-%	\centering
-%	\includegraphics[width=0.8\textwidth]{eps_auronE}
-%	\caption{Punktplott for spiking auron's aktivitetsVar (depol.), fra simulering. Generert ved å skrive aktivitetsVar til eit .oct fil (octave), og plotte resultatet seinere.}
-%\end{figure}
 
 
 

@@ -1,6 +1,7 @@
 
 %TODO Skriv: Sett av 2 dager.
 
+%//{
 
 
 
@@ -28,7 +29,6 @@
 
 
 % % TIL DISKURS:
-Innledning til sammenligning:
 %%XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 %Skrive at design av/teorien bak  de to impelmentasjonene er så forsjellig at det er vanskelig å sammenligne de to med testing. En enkel kjøring vil ha statisk input (ikkje-endrende input).
 %Mealy varianten av SANN (KANN) er spesialisert for ANN med dynamisk (endrende) input. Vil gi eit vanskeligere testoppsett for sammenligning av de to. Lett å implementere for KANN, vanskeligere å implementere for SANN.
@@ -61,8 +61,9 @@ Innledning til sammenligning:
 % 		Axon blir dermed unødvendige, og vi kan lage eit scheme som bruker tidsplanlegging for forskjellige tasks. FUNKER FOR BEGGE MODELLER!
 %
 %
+%//}
 
-\section{Discussion } % TODO Skriv tittel!
+\section{Final Discussion and Concluding Remarks}
 In this project, a new model for ANN has been developed.
 As the primary focus is to compare the developed model to the other model capable of representing spikes for the nodes, the new model is designed like SANN.
 %In the course of this project what is thought to be a new model for artificial neural networks have been developed. 
@@ -298,9 +299,10 @@ After a comprehensive litterature search, and lengthy discussions with professor
 	%\subsection{Analysis of the postsynaptic activity variable as a result of syn. transmission} % KANSKJE
 This work is a comparison between the signal propagation mechanisms of SANN and $\kappa$ANN.
 As time dictated, synaptic plastity was not implemented and compared.
-Synaptic plasticity is a research topic both in the field of ANN and in neuroscience, and established formal methods are hard to find.
+Synaptic plasticity is an active research topic both in the field of ANN and in neuroscience, and established formal methods are hard to find.
 % % 
-The study of the effect of synaptic plasticity, in respect to the mechanisms of $\kappa$ANN is one direction worth taking. %XXX Skriv om!
+%The study of the effect of synaptic plasticity, in respect to the mechanisms of $\kappa$ANN is one direction worth taking. %XXX Skriv om!
+The study of the effect of synaptic plasticity, in respect to the mechanisms of $\kappa$ANN is a direction that needs further recearch.
 
 % //{ om Axo-axonic synapses
 % %XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx Bra tekst. Ta med!
@@ -325,31 +327,36 @@ The study of the effect of synaptic plasticity, in respect to the mechanisms of 
 % //}
 
 Most conclusions in this report are theoretical. 
-One of the aspects that is theorized is that for certain situations for the single node, and for the neural networks, $\kappa$ANN will be superior to SANN in respect to efficiancy.
+One of the aspects that is theorized is that for certain situations for the single node, $\kappa$ANN will be more effective than SANN.
 Because of the complexity of the single node, and even more for networks of such nodes, it is very had to find theoretical results in respect to efficiancy.
-The certainity of the results should therefore be found experimentally.
+The rightfullness of these results should therefore be found experimentally.
 
 Espessially when synaptic plasticity is implemented, the efficiancy of $\kappa$ANN is hard to predict.
-Synaptic plasticity causes a continous change in the input of nodes, and what remains of the 
-%Skriv at kompleksiteten gjør desse result. litt usikre. (spess "certain" er usikkert kva innebærer)
+Synaptic plasticity causes the input of the nodes to change, and $\kappa$ would change each time iteration.
+The fact that the effecs of a changed $\kappa$, is at most computed once every time iteration makes it possible that $\kappa$ANN still is more effective than SANN.
+%Even if $\kappa$ANN shows to be less effective, we still have the concept with a more stable computational load for the simulation.
+This becomes important if an ANN with spiking capabilities is to be used in technology, and should be researched further.
+
 
 %The inital desire to develop this ANN model was that simulation of a time--variant variable used to much computational resouces.
 
-In this implementation, it is possible that the full advantage of the new model is neglected in the desire to compare the model to the SANN model.
-Because some of these aspects was first discovered when the results were analyzed, this should be the first continuation of this project.			%this will be placed under "for furter work".
+%In this implementation, it is possible that the full advantage of the new model is neglected in the desire to compare the model to the SANN model.
+%Because some of these aspects was first discovered when the results were analyzed, this should be the first continuation of this project.			%this will be placed under "for furter work".
 
 
 
 	% Tatt vekk fra teksten et annet sted. Passa ikkje der, men viktig å ha med! (brukes seinare i konklusjon)
-	As the $\kappa$N is designed with a special focus on spike timing, it is also possible to communicate with a node of the third generation.
+As the $\kappa$N is designed with a special focus on spike timing, it is also possible to communicate with a node of the third generation.
 	% TA VEKK: Interfacing with a node of the first XXX Dersom eg ikkje HEILT forstår 1.gen. noder.
-	For interfacing with a node of the first or third generation ANN, the spike time of the node will be used. % ref_123@i_KANN TODO enten forstå 1.gen HEILT, eller ta bort dette. (her og over("..all other gen. ANN"))
-	As the node ``fires an acion potential'', and sends output thourgh all its output synapses at the time calculated by eq. \eqref{eqRemainderOfPeriod}, the node could work as an interface to a node of a third generation ANN. 
-	Here special synapses needs to be devised for the transmission to SANN nodes. 
-	The connections between the $\kappa$N and the SN will use the transmission sceme from SANN, where the synapse transmit its synaptic weight to the postsynaptic node. 
-	Transmissons from the SN to  the $\kappa$N is a little more complex. Here the equivalent $\kappa$ resulting in the level of transmission needs to be calculated, and from this the level of transmission.
-	Development of a transductor node between different generations of ANN will not be procecuted further, as this falls outside the scope of this project.
+For interfacing with a node of the first or third generation ANN, the spike time of the node will be used. % ref_123@i_KANN TODO enten forstå 1.gen HEILT, eller ta bort dette. (her og over("..all other gen. ANN"))
+As the node ``fires an acion potential'', and sends output thourgh all its output synapses at the time calculated by eq. \eqref{eqRemainderOfPeriod}, the node could work as an interface to a node of a third generation ANN. 
+The connections between the $\kappa$N and the SN will use the transmission scheme from SANN, where the synapse transmit its synaptic weight to the postsynaptic node. 
+Transmissons from the SN to  the $\kappa$N is a little more complex. Here the equivalent $\kappa$ resulting in the level of transmission needs to be calculated, and from this the level of transmission.
+Development of a transductor node between different generations of ANN will not be procecuted further, but is an important direction to take.
+This will therefore be recommended for further research.
+%This is an important direction for further work, as an interface between the second and third generation ANN makes it possible to use aspects from both models in technology.
 
+%//{
 % Effektivitetsanalyse.
 % XXX Syn P
 %    Eit element eg ønskr sterkt å gjnnomføre er å sammenligne effektivten til den nye modellen til andre modeller. Eg føler modellen har store muligheter for effektivitet, spesiellt for neuralkretser med der nodenes $\kappa$ er konstant.
@@ -381,117 +388,126 @@ Because some of these aspects was first discovered when the results were analyze
 
 
 
-\section{Concluding Remarks}
-
-To make the two models comparable, the new model was initially designed to be as similar to SANN as possible.
-In regard to signal propagation, this caused the design to be a mere variant of SANN;
-	The activity of the node propagated when the computed value of the node went to suprathreshold levels.
-%This caused the implementation of $\kappa$ANN to be a mere variand of SANN, with respect to information propagation;
-%	The activity of the node propagated when the calculated value of the node went to suprathreshold levels.
-% %When the model was futher developed, it became clear that  %TODO Skriv når, og kvifor(at da) kappa propagerer.
-
-As the equations evolved, the aspect of planned events was introduced in the model.
-The node no longer transmitted as a result of the level of the value, it could plan its actions in advance.
-To be able to do this, 
-This gave a postsynaptic node the capability to 
-The firing time no longer happened reactively to the value going to suprathreshold levels, it planned the time of firing, and propagated a variable propotional to the node's firing frequency.
+% \section{Concluding Remarks}
+% 
+% To make the two models comparable, the new model was initially designed to be as similar to SANN as possible.
+% In regard to signal propagation, this caused the design to be a mere variant of SANN;
+% 	The activity of the node propagated when the computed value of the node went to suprathreshold levels.
+% %This caused the implementation of $\kappa$ANN to be a mere variand of SANN, with respect to information propagation;
+% %	The activity of the node propagated when the calculated value of the node went to suprathreshold levels.
+% % %When the model was futher developed, it became clear that  %TODO Skriv når, og kvifor(at da) kappa propagerer.
+% 
+% As the equations evolved, the aspect of planned events was introduced in the model.
+% The node no longer transmitted as a result of the level of the value, it could plan its actions in advance.
+% To be able to do this, 
+% This gave a postsynaptic node the capability to 
+% The firing time no longer happened reactively to the value going to suprathreshold levels, it planned the time of firing, and propagated a variable propotional to the node's firing frequency.
+% //}
 
 %fortsett med det under.
 
-\section{Summary}
-In this project, a novel model for artificial neural networks has been developed. 
-A special emphasis has been put on the ability to represent the spike timing of the nodes, both in the design of the new model and in the comparison with ANN models of earlier generations.
-
-% TODO TODO Fortsett her. Neste (grønn tekst) er litt kiip. Vidare er bedre, føler eg.
-
-%As the value reaches the firing threshold, the neuron will fire a simulated action potential and reset its value.
-%Equations was set up for calculating when the value of the node goes above this threshold, and from this equations of the inter--spike period of the neuron.
-%
-%The novel model, named $\kappa$ANN, was based on mathematics developed during this project.
-%As the neuron often is modelled as a leaky integrate--and--fire 
-%where elements from technical cybernetics.
 
 
-The novel model for a neural network with the ability to represent spike timing was developed by the use of mathemathics from the field of technical cybernetics.
-During the project, it was found that these equations gave larger capabilities than the SANN model. % more than the ability to find the value of the node.
-Given a constant level of input, equations are developed for calculating the future values and firing time of each node.
-%The equations are based on the time--course of a leaky integrator to model the LIF neuron, and makes it possible to calculate future values it the input stays constant.
-%These equations gives the oppurtunity to calculate the future values, and thus estimate the firing time of the neuron. %, also the future values of the value can be computed based on a constant input.
-%This further gives the oppurtunity to estimate the firing time of the node.
-
-As the equations are based on a constant level of input, the concept of a ``time window'' is devised.
-By the use of this concept and equations developed espescially for this purpose, it is found that the next spike time of a node can be calculated if the initial value and level of input is know for the time window. %Dårlig slutt.
-
-By the use of these methods, an ANN is developed, and compared theoretically with the SANN model. % XXX ... theoretically AND EXPERIMENTALLY with the ... ?
-% % %
-The two designs are implemented, and the behaviour of the node is compared.
-% KANSKJE: TA VEKK? Skal bare være på ei halv side, og nevne de aller viktigaste funn..
-%
-%The comparison of the transient time course shows that the new model gives a similar simulation of the value.
-%There is a very small difference, and it is discussed 
-The transient time course of the value differs with a very small amount, and it is discussed whether this difference is an error caused by the global truncation error in the SANN node.
-
-
-As the new model is based on the concept of the spiking neuron, spike time can be calculated for a $\kappa$N.
-It is therefore possible to transmit spikes through specialized synapses, and nodes of the $\kappa$ANN model can communicate with nodes based on the SANN model.
-%Transduction of the output of the $\kappa$N to a SANN will probably involve less effort than the transduction the other way.
-As the usual output of a $\kappa$N is given by an ``instantaneous frequency'' calculated from the present $\kappa$, the $\kappa$ANN node is able to communicate with nodes of the second generation ANN.
-The activation funtion for $\kappa$ANN can be seen as an activation funtion based on a mechanistic model of the neuron.
+% \section{Summary}
+% In this project, a novel model for artificial neural networks has been developed. 
+% A special emphasis has been put on the ability to represent the spike timing of the nodes, both in the design of the new model and in the comparison with ANN models of earlier generations.
+% 
+% % TODO TODO Fortsett her. Neste (grønn tekst) er litt kiip. Vidare er bedre, føler eg.
+% 
+% %As the value reaches the firing threshold, the neuron will fire a simulated action potential and reset its value.
+% %Equations was set up for calculating when the value of the node goes above this threshold, and from this equations of the inter--spike period of the neuron.
 % %
-It is therefore possible to use $\kappa$ANN as a interface between the second and the third generation ANN.
-
-% TODO Skriv om effektivitet, mulighet for å rekalkulere kappa,   ,    ,    ,    , 
-% TODO OTOD TODO Fortsett her, etter at sammenligninga er gjort.
-
-%An ANN is designed by using these equations, and compared with a design based on a direct simulation of the neuron.
-% %The former design, known as SANN, 
-%The concept of the ``time window'' was developed to establish time intervals where the time window is defined to be a period where the input is constant.
-%Based on this consept, and equations developed especially for this purpose, it is possible to update the value of the node each time the input level of the node changes.
-%
-%In this report the capability of these two consepts combined is illustrated by comparing the value of a node of the new model with a node based on direct simulation of the neuron.
-%The value of the nodes of the two models is compared, and it is concluded that the transient time course of the new model gives a time course that is at least as good as the direct simulation done by the SANN model.
-%
-%It is concluded 
-%The time course of the value of the two nodes are compared 
-%The two the time course of the value of a node of the new model ANN with the time course of the previous model with spiking abilities.
-%Appearently, the two curves follow eachother.
-%A closer analysis gives that there was a small difference between the two.
-%This error it thought to be based on the concept of a global trunction error for the SANN caluclation of %HER XXX
-%After a closer analysis, it was found that the two cuves have a little 
-%It was concluded that the two values follow
-%It was concluded that the difference between the two plots gave maximum difference
-%it was possible to design and implement an artificial neural network based on the mathemathics developed.
-
-
-
-
-
-
-
-
-
-
-% //{
-% % TODO TTTOOOODDDDDOOOOOO :  Fra [\label{ssecTheGeneralDesign}]  : This text will later mention some possible examples of this.  		Få det med i diskurs!
+% %The novel model, named $\kappa$ANN, was based on mathematics developed during this project.
+% %As the neuron often is modelled as a leaky integrate--and--fire 
+% %where elements from technical cybernetics.
 % 
 % 
-% 	% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
-% 	%For distributed computing, the taskscheduler function could be avoided by letting each subelement execute the small piece of code from \emph{taskscheduler()} before it returns.
-% 	%Centralized command over the network could then be avoided, and if %skriv om at time-skille-elementet kunne kjørt broadcast av ny tid ved iterasjon.
-% 	% 	%For execution over network or other distributed executions could be performed by letting each subelement execute the code from \emph{taskSchedulerFunction()} before it returns.
-% 	%This would make the execution truly distributed. %Sterke utsagn! Kanskje eg skal begrunne dei meir?
-% 	% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+% The novel model for a neural network with the ability to represent spike timing was developed by the use of mathemathics from the field of technical cybernetics.
+% During the project, it was found that these equations gave larger capabilities than the SANN model. % more than the ability to find the value of the node.
+% Given a constant level of input, equations are developed for calculating the future values and firing time of each node, and the time of the next spike is possible to estimate.
+% The simulated depolarization value of a node of the new model has been compared with the value of a node based on the SANN model.
+% The time course of the value is compared for a continously changing input level.
+% It is concluded that the transient value curve of the new model is as good as, or perhaps a little better than the direct simulation carried out by the SANN model.
+% %Given a constant level of input, equations are developed for calculating the future values and firing time of each node.
+% %
 % 
-% % FInal remark: (gjelder pWorkTaskQue, \ref -> time propagation.
-% % TODO Lag en heil section som diskuterer bruk i distribuerte systemer: Fett for kappa..
-% 	For further development, we could let the the two listed function calls be included in the individual elements' \emph{doTask()} function. 
-% 	Before the funtion is completed, the two operations listed below could be executed before the function return.
-% 	This makes the design intrinically distributed.
-% 
-% 
-% 
-% 
-% //} 
+% The equations are based on the time--course of a leaky integrator to model the LIF neuron, and makes it possible to calculate future values it the input stays constant.
+% % These equations gives the oppurtunity to calculate the future values, and thus estimate the firing time of the neuron. %, also the future values of the value can be computed based on a constant input.
+% % This further gives the oppurtunity to estimate the firing time of the node.
+% % 
+% % As the equations are based on a constant level of input, the concept of a ``time window'' is devised.
+% % By the use of this concept and equations developed espescially for this purpose, it is found that the next spike time of a node can be calculated if the initial value and level of input is know for the time window. %Dårlig slutt.
+% % 
+% % By the use of these methods, an ANN is developed, and compared with the SANN model. % XXX ... theoretically AND EXPERIMENTALLY with the ... ?
+% % % % %
+% % The two designs are implemented, and the behaviour of the node is compared.
+% % % KANSKJE: TA VEKK? Skal bare være på ei halv side, og nevne de aller viktigaste funn..
+% % %
+% % %The comparison of the transient time course shows that the new model gives a similar simulation of the value.
+% % %There is a very small difference, and it is discussed 
+% % The transient time course of the value differs with a very small amount, and it is discussed whether this difference is an error caused by the global truncation error in the SANN node.
+%  
+%  
+% As the new model is based on the concept of the spiking neuron, spike time can be calculated for a $\kappa$N.
+% It is therefore possible to transmit spikes through specialized synapses, and nodes of the $\kappa$ANN model can communicate with nodes based on the SANN model.
+% %Transduction of the output of the $\kappa$N to a SANN will probably involve less effort than the transduction the other way.
+% As the usual output of a $\kappa$N is given by an ``instantaneous frequency'' calculated from the present $\kappa$, the $\kappa$ANN node is able to communicate with nodes of the second generation ANN.
+% The activation function for $\kappa$ANN can be seen as an activation funtion based on a mechanistic model of the neuron.
+% % %
+% It is therefore possible to use $\kappa$ANN as a interface between the second and the third generation ANN.
+ 
+ % TODO Skriv om effektivitet, mulighet for å rekalkulere kappa,   ,    ,    ,    , 
+ % TODO OTOD TODO Fortsett her, etter at sammenligninga er gjort.
+ 
+ %An ANN is designed by using these equations, and compared with a design based on a direct simulation of the neuron.
+ % %The former design, known as SANN, 
+ %The concept of the ``time window'' was developed to establish time intervals where the time window is defined to be a period where the input is constant.
+ %Based on this consept, and equations developed especially for this purpose, it is possible to update the value of the node each time the input level of the node changes.
+ %
+ %In this report the capability of these two consepts combined is illustrated by comparing the value of a node of the new model with a node based on direct simulation of the neuron.
+ %The value of the nodes of the two models is compared, and it is concluded that the transient time course of the new model gives a time course that is at least as good as the direct simulation done by the SANN model.
+ %
+ %It is concluded 
+ %The time course of the value of the two nodes are compared 
+ %The two the time course of the value of a node of the new model ANN with the time course of the previous model with spiking abilities.
+ %Appearently, the two curves follow eachother.
+ %A closer analysis gives that there was a small difference between the two.
+ %This error it thought to be based on the concept of a global trunction error for the SANN caluclation of %HER XXX
+ %After a closer analysis, it was found that the two cuves have a little 
+ %It was concluded that the two values follow
+ %It was concluded that the difference between the two plots gave maximum difference
+ %it was possible to design and implement an artificial neural network based on the mathemathics developed.
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ % //{
+ % % TODO TTTOOOODDDDDOOOOOO :  Fra [\label{ssecTheGeneralDesign}]  : This text will later mention some possible examples of this.  		Få det med i diskurs!
+ % 
+ % 
+ % 	% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+ % 	%For distributed computing, the taskscheduler function could be avoided by letting each subelement execute the small piece of code from \emph{taskscheduler()} before it returns.
+ % 	%Centralized command over the network could then be avoided, and if %skriv om at time-skille-elementet kunne kjørt broadcast av ny tid ved iterasjon.
+ % 	% 	%For execution over network or other distributed executions could be performed by letting each subelement execute the code from \emph{taskSchedulerFunction()} before it returns.
+ % 	%This would make the execution truly distributed. %Sterke utsagn! Kanskje eg skal begrunne dei meir?
+ % 	% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+ % 
+ % % FInal remark: (gjelder pWorkTaskQue, \ref -> time propagation.
+ % % TODO Lag en heil section som diskuterer bruk i distribuerte systemer: Fett for kappa..
+ % 	For further development, we could let the the two listed function calls be included in the individual elements' \emph{doTask()} function. 
+ % 	Before the funtion is completed, the two operations listed below could be executed before the function return.
+ % 	This makes the design intrinically distributed.
+ % 
+ % 
+ % 
+ % 
+ % //} 
 
 
 
@@ -645,7 +661,7 @@ It is therefore possible to use $\kappa$ANN as a interface between the second an
 
 
 
-i%% XXX Ligger som conclusion:
+%% XXX Ligger som conclusion:
 %		\subsection{The Differences between the Models} %From a broader perspective / A larger view / Discussion : /  				XXX Skriv en av desse først..
 %		From the previous section, the difference between the indivitual elements was discussed. 
 % 		The elements was discussed one at a time, following the propagation of the signal in the biological neuron.

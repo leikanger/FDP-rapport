@@ -14,48 +14,79 @@
 % 	- 
 % 	- 
 
-\newpage
-\section{Oppgavetekst}
-In most artificial neural networks (ANN),  a neuron's output variable can be said to represent the time varying firing rate (i.e. number of action potentials per time unit) of its biological equivalent.\\
-In this domain, there is no representation of firing time and other aspects related to causality and stability that appear to be central to the learning process in a biological neural network.
- 
- In this project, you will develop a new concept for ANN that takes into consideration both firing rate and firing time, and compare it with the existing model known as Spiking ANN (SANN).
- \begin{itemize} 
-  \item[1] Give an overview of existing ANN models that represents both firing rate and firing time. Emphasis should be put on factors that can be related to stability for synaptic plasticity (learning) and/or feedback ("recurrent ANN").
-  \item[2] Describe the new ANN concept, and point out how this differs qualitatively from previous models.
-  \item[3] Compare the new concept with competing methods. The evaluation may be based on a number of specific scenarios (with respect to input data etc.).
- \end{itemize}
-
- Supervisor:      Øyvind Stavdahl, Associate Professor, Department of Engineering Cybernetics, NTNU\\
-                  Professor Gaute Einevoll, Department of Mathematical Sciences and Technology, Norwegian University of Life Sciences.
-\newpage
-
-\section{Abstract}
-Husk: tittel er ekte delmengd av abstract, som er ekte delmengd av introduction, som er ekte delmengd av rapport.
-
 \section{Introduction}
+Artificial Neural Networks(ANN) is often used for artificial intelligence or other computer algorithms that require learning.
+Traditionally, a frequently based neuron is used to model each node.
+In this scheme, each node of the ANN gives an output based on the present input.
+This model use a continuous ``activation function'' to compute the output of a node.
 
-In this text many 
+Lately, there has been an increasing awareness among neuroscientists that the relative spike time of two neurons is important for the synaptic plasticity in the connecting synapse.
+This has led to the developent of what is referred to as ``the third generation ANN''.
+Spiking Artificial Neural Networks(SANN) uses a simlified matematical model of the biological neuron to give its behaviour. %the behaviour of the biological neuron. 
+%Spiking Artificial Neural Networks(SANN) use a direct simulation of a simlified matematical model of the neuron to give the behaviour of the biological neuron.
+The most common used model is the ``Leaky integrate--and--fire''(LIF) neuron\cite{Maass97networksof}.
+% % % 
+As the value of a LIF neuron is time--variant, the value of the node has to be simulated. 
+This involves an updating of the value, either every time the value is used or every time iteration of the ANN.
+As a direct simulation of a time variant signal is computationally demanding, a time--invariant signal is preferable.
+
+New equations for modelling the LIF neuron has been developed based on mathematics from electronics and cybernetics.
+An equation for the value of the neuron was turned around, and can be used for calculating the time when the value reaches a certain threshold.
+If this threshold is the firing threshold of the neuron, this equation gives a calculation of the interspike period of the neuron.
+
+In this report, a novel model for ANN with the capability to calculate the spike time is introduced.
+A simple simulation is performed, and the result is compared to that of node of a SANN node.
+
+\emph{Chapter 1} $\;$ introduces relevant background information. 
+	First, a short review of the history of ANN is introduced. This gives an introduction to the development of ANN. After this, important aspects of the biological neuron is introduced, with a focus on its signal processing mechanisms.
+
+In \emph{Chapter 2} $\;$ the new model is evolved. The modelling chapter starts from scratch, with the depolarization equation for the value. From this it eventually presents the mathematics behind the new ANN model.
+
+\emph{Chapter 3} $\;$ introduces the design and implementation of the two models used. 
+	The first section is about the general design that will be common to both implementations. Elements that are important for execution and  theoretical and experimental comparison will be introduced in this section.
+	Following the general design, the design and implementation details will be introduced.
+
+Finally \emph{Chapter 4} $\;$ presents the comparions and discussion of the results.
+	The chapter will start with a section containing a theoretical comparison between the two designs.
+	The experimental results are presented and compared in the next section.
+	For the remainder of the chapter, a final discussion and concluding remarks are presented.
+
+
+
+
+
+%Korleis skrive rapport:
+%
+%State the problem addressed in the report and explain why the problem is significant. Depending on the complexity of both, this may be done in one or two sentences.
+%
+%Describe the purpose or goal(s) of the report--what you were asked to accomplish.
+%
+%Provide general background information the reader needs to know to understand the report, such as the methods and theories used to gather the information.
+%
+%Explain the scope of the report's contents, including what is covered and, if necessary, what is not covered. For example, your report may include findings made during an investigation but not recommendations about how to respond to those findings.
+
+
+
+
 
 % XXX Følgende er kjempeviktig å ha med:
-In this report the convention used by Rolls and Treves in ``Neural Networks and Brain Functions'' will be used. 
-For any transmission through a synapse between neuron $j$ and neuron $i$, we define the synaptic strength $w_{ij}$.  % TODO Skriv heller: "..through a synapse FROM neuron $j$ TO neuron $i$, we .."
-Note that the first subscript refers to the recieving neuron and the last subscript to the presynaptic neuron (the signalling neuron) \cite{TrevesNeuralNetworks}.
-This convention will be used in this text. 
-% XXX XXX XXX  (bra skrevet er det og)
-
-
+% In this report the convention used by Rolls and Treves in ``Neural Networks and Brain Functions'' will be used. 
+% For any transmission through a synapse between neuron $j$ and neuron $i$, we define the synaptic strength $w_{ij}$.  % TODO Skriv heller: "..through a synapse FROM neuron $j$ TO neuron $i$, we .."
+% Note that the first subscript refers to the recieving neuron and the last subscript to the presynaptic neuron (the signalling neuron) \cite{TrevesNeuralNetworks}.
+% This convention will be used in this text. 
+% % XXX XXX XXX  (bra skrevet er det og)
+ 
 
 
 %%%%%%%%%%55
-Skriv litt om korleis denne rapporten kan brukes:
-Denne rapporten er en rapport på eit ommfattende arbeid, med elementer som har blitt jobbet med i oppmot 2 år.
-Dette gjør at det kanskje blir litt mykje å lese den "perm til perm", men eit forsøk har blitt gjort for å komprimere stoffet til under hundre sider med tekst.
-
-Siden mykje av de diskuterte mekanismane er kompleks, funker ikkje uml, men ting må forkleres. Dette har blitt forsøkt.
-Mykje innhold gjør likevel at det kanskje kan bli litt mykje å bite over for en leser, og rapporten er kanskej best som eit opopslagsverk. 
-(så skriv utvida innholdsfotegnelse, med fokus på også element som kan være nye, som sceduler, KANN, osv.)
-%%%%%%%%%%55
+% Skriv litt om korleis denne rapporten kan brukes:
+% Denne rapporten er en rapport på eit ommfattende arbeid, med elementer som har blitt jobbet med i oppmot 2 år.
+% Dette gjør at det kanskje blir litt mykje å lese den "perm til perm", men eit forsøk har blitt gjort for å komprimere stoffet til under hundre sider med tekst.
+% 
+% Siden mykje av de diskuterte mekanismane er kompleks, funker ikkje uml, men ting må forkleres. Dette har blitt forsøkt.
+% Mykje innhold gjør likevel at det kanskje kan bli litt mykje å bite over for en leser, og rapporten er kanskej best som eit opopslagsverk. 
+% (så skriv utvida innholdsfotegnelse, med fokus på også element som kan være nye, som sceduler, KANN, osv.)
+% %%%%%%%%%%55
 
 
 
