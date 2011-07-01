@@ -15,22 +15,29 @@
 \section{KANN design and implementation}
 \label{secKANN}
 	
-	%KANSKJE NESTE subsection er INNLEDNING til section? ELLER kanskej eg heller skal skrive motivatorisk? (SKrive om mine håp for modellen..)
-	INNLEDNING: Mens SANN kjører en direkte simulering av mekanismene i neuronet, har eg i dette prosjektet modellert mekanismene.
-	Ved hjelp av matematikken fra sec. [ref->modellering-kap] er ideen at det er mulig å lage eit meir effektivt, eller på andre måter bedre, ANN.
-% 		Skriv at eg vil gjøre eit forsøk på å lage eit ANN med flyttalsvariabel som propagerer (og kvifor), men med state for å gi spike timing.
-% 		%	x Forrige kapittel: Skriv om grunnen til å gå vidare til ANN med informasjon om relativ spike timing ALLEREDE ER gått gjennom. REFERER. Nevn STDP, LFPO.
+	We have seen that the SANN model calculates the firing time of each node as a reactive event, after the value of the node goes above threshold.
+	By the use of the equation presented in sec. \ref{secMatematiskModelleringAvBioNeuron}, an ANN could be designed to follow the same scheme.
 
-	Skriv først innledning, med mål om å sette meg og leser på samme utgangsnivå. (motivasjonsnivå!)
-	Skrive litt om kvifor eg tenker det er lurt å gå videre fra SANN.
-	Modellere det, og bruke formalisert matematikk fremfor å ha ei naiv direkte simulering av mekanismene i enkeltneuronet.
-	%Skrive at eg desverre ikkje fekk tid til syn.P. i dette prosjektet?
+	If the constantly updated estimated firing time is used, the scheme for the calculation of firing for the node will be different.
+	%It could also use the constantly updated estimatet firing time.
+	When the estimatet firing time is the same as the current time iteration, the element's task is executed.
+	The task is therefore scheduled for execution at the estimated firing time.
+	This gives a proactive model for determining the firing time.
 
-	Skriv også det som står i TODO over, eller i ANN.tex: [ ref\_asdf2143@ANN ]% Søk etter ref_asdf2143@ANN i fila ANN.tex.
-	"As we will see, this new model for ANN have both a state and output given by the last time iteration's state and the input to the node. 
-	This gives that the node is able to communicate with all the previous forms of ANN, and might serve as an important transform between different models of ANN."
-	%XXX Dette er vel heller analyse, forresten. TODO Skriv det over i analyse/comparison kapittel.
-	% MEN kanskje også her?
+	Another aspect is that the value of the node only has to be calculates when accessed.
+	This gives that the ANN possibly is more effective than ANN based on direct simulation of the neuron.
+	The equations presented in sec. \ref{secMatematiskModelleringAvBioNeuron} also gives a time--invariant activity variable.
+	In addition to being more effective, this does not involve global trunction errors from the integration of time effects for the activity variable.
+	As the value of the node is calculated when needed, both the error from trunction errors and the computational load introduced by the calculations will be decreased.
+
+	In this section, different an ANN model is designed by the use of equations from sec. \ref{secMatematiskModelleringAvBioNeuron}.
+	Only the aspects that differ from the SANN model will be presented. 
+	
+	%Skriv også det som står i T ODO over, eller i ANN.tex: [ ref\_asdf2143@ANN ]% Søk etter ref_asdf2143@ANN i fila ANN.tex.
+	%As we will see, this new model uses both the state of the node at the start of the presente time window and the synaptic input to the node, $\kappa_{ij}$ to calculate the output of the node.
+
+	%As we will see, this new model for ANN have both a state and output given by the last time iteration's state and the input to the node. 
+	%This gives that the node is able to communicate with all the previous forms of ANN, and might serve as an important transform between different models of ANN."
 
 
 
@@ -42,28 +49,34 @@
 	For changing $\kappa$, we introduced the concept of a \emph{time window}. 
 	A time window is defined as a period of time where $\kappa$ is constant within the current interspike period (see section \ref{ssecVariableInputBetweenSpikes}).
 	By using eq. \eqref{eqVerdiligninga} it is possible to find the depolarization value of the node at any time $t \, \epsilon \, p_{isi}$.
-	We can therefore use $\kappa$ as the node's activity variable, even if we use a simple reactive model for calculating spike time (e.g. the SANN model). % XXX XXX XXX Litt for kraftig, slutten. Sterk avsmak for?
+	We can therefore use $\kappa$ as the node's activity variable, even if we use a reactive model for calculating spike time(like in the SANN model). 
 
 	%TODO TODO Skriv på nytt! Skriv også at det er mulig å kalkulere f=p^{-1}. Desse tre elementa gjør det mulig å kommunisere med alle de tre tiligere generasjonene ANN (men ikkje skriv "tidligere")
 	If $\kappa$ is used as the activity variable, more than the depolarization value of the node can be calculated by its activity variable. 
 	In section \ref{secMatematiskModelleringAvBioNeuron} we have seen that both the firing time and the period corresponding to the activity variable can be calculated when we use $\kappa$ as the activity variable.
 	%By using that the frequency is the inverse of the period,  it ...
 	% % XXX TODO TODO Passer bedre i konslusjon!
-	As it is possible to calculate the corresponding frequency for any given activity level $\kappa$, it is possible for a $\kappa$N to communicate with a node of the second generation ANN.
+	As it is possible to calculate the corresponding frequency for any given activity level $\kappa$, it is possible for a $\kappa$N to communicate with a node of the second generation ANN;
 	%It is therefore possible to use a node based on the mathematics present in section \ref{secMatematiskModelleringAvBioNeuron} as an interface to each of the other generations ANN.
-
-	To interface with a second generation ANN, we can use that the frequency is the inverse of the period. 
+		To interface with a second generation ANN, we can use that the frequency is the inverse of the period. 
 	The period is calculated from eq. \eqref{eqHeilePerioden}.
-	The $\kappa$N can as easily get input from as sending output to a node of a second generation ANN. 
+	%The $\kappa$N can as easily get input from as sending output to a node of a second generation ANN. 
 
-	As the $\kappa$N is designed with a special focus on spike timing, it is also possible to communicate with a node of the third generation.
-	% TA VEKK: Interfacing with a node of the first XXX Dersom eg ikkje HEILT forstår 1.gen. noder.
-	For interfacing with a node of the first or third generation ANN, the spike time of the node will be used. % ref_123@i_KANN TODO enten forstå 1.gen HEILT, eller ta bort dette. (her og over("..all other gen. ANN"))
-	As the node ``fires an acion potential'', and sends output thourgh all its output synapses at the time calculated by eq. \eqref{eqRemainderOfPeriod}, the node could work as an interface to a node of a third generation ANN. 
-	Here special synapses needs to be devised for the transmission to SANN nodes. 
-	The connections between the $\kappa$N and the SN will use the transmission sceme from SANN, where the synapse transmit its synaptic weight to the postsynaptic node. 
-	Transmissons from the SN to  the $\kappa$N is a little more complex. Here the equivalent $\kappa$ resulting in the level of transmission needs to be calculated, and from this the level of transmission.
-	Development of a transductor node between different generations of ANN will not be procecuted further, as this falls outside the scope of this project.
+
+\begin{figure}[hbt!p] 
+	\centering
+	%
+   	\subfloat[Value function for $\kappa=10.1 \,\text{, } \tau=10$]{\label{figDemonstrasjonAvFrekvAvKappa:edge-a} 						\includegraphics[width=0.5\textwidth]{pdfVerdifunksjonen_med_terskel_T_10__K_10komma1.pdf} 		}  
+   	\subfloat[Value function for $\kappa=12 \,\text{, } \tau=10$]{\label{figDemonstrasjonAvFrekvAvKappa:edge-b} 						\includegraphics[width=0.5\textwidth]{pdfVerdifunksjonen_med_terskel_T_10__K_12.pdf} 		}  
+	%\caption{Demonstration of the value function for changing kappa}
+	\caption{ 	( \ref{figDemonstrasjonAvFrekvAvKappa:edge-a} ) The value fuction with $\kappa=1.01\cdot\tau$ and   
+				( \ref{figDemonstrasjonAvFrekvAvKappa:edge-b} ) The value fuction with $\kappa=1.2\cdot\tau$
+			} %TODO skriv om dette tomrommet i teksten under.
+	\label{figEdgeTransmission}
+\end{figure}
+
+
+
 
 	% TA VEKK? Blir så veldig svevende.. Fin tekst, men får følelsen av at dette er fiction.
 	%The first generation ANN were stateless, and the ouput only varied with the immediate input. 
@@ -72,7 +85,7 @@
 	%
 	%In a $\kappa$N, the activity variable can therefore represent $\kappa$ instead of the depolarization of a corrsponding neuron.
 	
-	If a suitable scheduler is devised $\kappa$ could be used effectively for planning, or ``estimating'' the firing time of the node.
+	If a suitable scheduler is devised, $\kappa$ could be used effectively for planning, or ``estimating'' the firing time of the node.
 	The rationale behind the use of the word estimate is that the estimated firing time will change every time the activity variable changes, possibly before the initially calculated firing time. 
 	The firing time is then updated. 
 	The first firing times computed by eq. \eqref{eqRemainderOfPeriod} is therefore but a naive estimate of the firing time of the node.
@@ -103,8 +116,7 @@
 		\end{equation}
 		Where $u_{ij}(t)$ is the control signal from node $j$ to node $i$, $w_{ij}$ is the size of the synaptic weight %between node $j$ and node $i$ 
 			and $f_j$ is the presynaptic node's firing frequency.
-		Because $\kappa$ANN contains elements from both the second and third generation ANN, % eller :  {ANN and from SANN} %Litt dristig å sammenligne meg med 3.gen som en anna modell? (men det er jo sant..)
-																							 we can not ute either of these transmisson rules.
+		Because $\kappa$ANN contains elements from both the second and third generation ANN, it is not given that we can use either of these transmisson rules.
 
 		%Eq. \eqref{eqSynapticTransmissionFor2genANN} states that the contribution from node $j$ to node $i$'s activity variable is a function of the frequency of the presynaptic neuron.
 		Inspired by \eqref{eqSynapticTransmissionFor2genANN}, we define synaptic transmisson in $\kappa$ANN as the synaptic weight times the activity variable's corresponding frequency.
@@ -177,6 +189,9 @@
 			
 			% As we will see, ... (det under) .  		No fremstår det som en ubegrunna påstand. XXX
 			If we define a transmission in the edge as the derived of the corresponding synaptic transmission, we will see that this makes the implementation more effective.
+			\begin{mydef}
+				Let $\kappa_{ij}$ be the synaptic transmission. The edge transmission in $\kappa$ANN is given by $u_{ij}(\kappa_j) = \Delta \kappa_{ij}$.
+			\end{mydef}
 																												%updating the postsynaptic node's activity variable after a transmission becomes more effective.
 			The synaptic transmission now becomes the integral of all the edge's transmissions, modelled by %eq. \eqref{eqSynapticTransmissionAsSumOfEdgeTransmissions}.      %, and is defined as
 			\begin{equation}
@@ -195,7 +210,7 @@
 			In the previous paragraph, we used two 		 different expressions for transmission through a connection between two nodes. 
 			%We have in the previous paragraph used two
 			The synaptic transmission $\kappa_{ij}$ is used as the amount $\kappa_j$ transmitted by the connection between node $j$ and node $i$. 
-			The edge transmission $u_{ij}(\kappa_j)$ is used as the transmission from node $j$ to node $u$ in the implementation. 
+			The edge transmission $u_{ij}(\kappa_j)$ is used as the transmission from node $j$ to node $i$ in the implementation. 
 			These two transmissions differ if the implementation's solution is different than a direct implementation of eq. \eqref{eqSynapticTransmissionAsSumOfEdgeTransmissions}.
 			%A discussion 
 			% FEIL: The choice for this implementation is presented in the next section (sec. \ref{ssecImpOfSynTransmissionKANNN}).
@@ -228,7 +243,7 @@
 			%Now the postsynaptic $\kappa_i$ can be calculated without summing all the synapse inputs after changed input at one of its edges.
 			% %In this case the postsynaptic $\kappa$ can be recalucated without summing all the synaptic inputs every time one synapse changes its transmission.
 
-			To sum up the analysis in this seciton, edge transmission of the implementation is defines as  $u_{ij}(\kappa_j) = \Delta K_{ij}$.
+			To sum up the analysis in this seciton, edge transmission of the implementation is defines as  $u_{ij}(\kappa_j) = \Delta \kappa_{ij}$.
 			For each edge transmission the synaptic transmission $\kappa_{ij}$ is the integral of all edge transmissions, and is updated by simply adding the new edge transmission.
 			The postsynaptic node's activity variable $\kappa_i$ is the sum of all it's input transmissions, and is updated by the same principle; %var: , and can be updated ..
 				After an edge transmission $u_{ij}(\kappa_j)$, $\kappa_i$ is updated by simply adding $u_{ij}(\kappa_j)$. 
@@ -309,10 +324,6 @@ static std::list<timeInterface*> pCalculateTaskQue;
 	
 	
 
-% _____________________ fiksa til hit __________________________________________________________________________________________________________________________________________________________________________________
-| \\ \emph{\bf\large{{----------------------------- fiksa til hit ----------------------------}}}\\
-%\newpage
-
 %			As we allways calculate the next value as a funcion of the previous value and the new input, we will get an integration of the local truncation errors, and possibly get an error of some size.
 %			This effect is often referred to as ``the global truncation error''.
 
@@ -324,31 +335,23 @@ static std::list<timeInterface*> pCalculateTaskQue;
 
 		\subsection{Relcalculating $\kappa$}
 		\label{ssecRecalcKappa}
-		Defining the edge transmissions as the derived has many positive sides when we consider efficiancy of the implementation. The negative sides comes when we consider the ease of implementation and the truncation error.
-		Using the edge transmission as the derived of the synaptic transmission makes it harder to do the implementation. 
-		It also introduces a BLA BLA  global truncation error.
-		%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
-		%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
-		%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
-		%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
-		%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
-		%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO    Her er eg komen..
-		%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
-		%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
-		%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
-		%TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
-		The positive sides of defininge edge transmission as the derived has been covered. 
-		Defining edge transmission as the derived has been discussed 	
+		Defining the edge transmissions as the derived has many positive sides when we consider efficiancy of the implementation. 
+		%The negative sides comes when we consider the ease of implementation and the truncation error.
+		The negative sides comes as a result of the truncation error.
 
 
 
 
-		Because synaptic transmission is implemented as the derived of the $\kappa_{ij}$, and the postsynaptic activity variable $\kappa_i$ as the integral of this kind of synaptic transmission
-		, we have to consider the trunction error of $\kappa_i$. 
-		Every small error in the calculated $\kappa_i$ will for ever be a part of the result, and we can get potential large errors after a relatively short time.
+		Because synaptic transmission is designed as the derived of the $\kappa_{ij}$ and the postsynaptic activity variable $\kappa_i$ as the integral of this kind of synaptic transmission
+			, we have to consider the trunction error of $\kappa_i$. 
+		Every small error in the calculated $\kappa_i$ will subsequently be a part of the result.
+		We get possibility of large errors after a relatively short time.
+		We should therefore recalculate $\kappa_i$ periodically.
 
-		For this reason it is important to recalculate $\kappa_i$ periodically.
-		For the recalculation of $\kappa$, a period with the right balance between recalculating to often and not often enough was devised.
+
+		%For this reason it is important to recalculate $\kappa_i$ periodically.
+		%One solution to this is to recalculate $\kappa_i$ periodically.
+		For the recalculation of $\kappa$, a period with the right balance between recalculating to often and not often enough has been devised. %XXX Endre desse to setningene, dersom eg har tid. (siste eg gjør)
 		If the recalculation happens to often, to much effort will go into recalculating $\kappa$, and if the recaluclation happens to seldom, a global trunction error of unacceptable size might emerge.
 
 		The truncation error might vary with variables such as hardware architecture, system load and even the individual auron's activity level,
@@ -358,12 +361,10 @@ static std::list<timeInterface*> pCalculateTaskQue;
 		%To best achieve this, the period between recalculating $\kappa$ is designed to be dynamic as a function of the error at the last recalcualation. 
 		It is important to limit both the minimum and the maximum period between recalulations of $\kappa$.
 		To achieve this, an altered sigmoid function has been devised for this purpose.
-		This function should have the maximum value when the error is zero ($\lim_{E \to 0} p_e(E) \neq \infty$) and a minimal period ($\lim_{E\to\infty} p_e(E) \neq 0$).
-		This function should therefore have a maximum when the error is very small, and a minimum period as the error grows very large. 
-		%OVER: XXX Dårlig skrevet (bare siste linja)
+		This function gives a maximum value when the error is zero ($\lim_{E \to 0} p_e(E) \neq \infty$) and a positive minimal \linebreak
+			period($\lim_{E\to\infty} p_e(E) \neq 0$).
+		%This function should therefore have a maximum when the error is very small, and a minimum period as the error grows very large. 
 
-		An altered sigmoid function suitable for this purpose has been devised.
-		%I have devised an altered sigmoid function suitable for this purpose.
 		\begin{equation}
 			\label{eqAlteredSigmoidFunk}
 			p_e(E) = (c_1+c_2) - \frac{c_2}{1+e^{-(c_4*E-c_3)}}
@@ -372,10 +373,11 @@ static std::list<timeInterface*> pCalculateTaskQue;
 
 		\begin{figure}[bht!]
 			\begin{center}
-				\includegraphics[width=0.95\textwidth]{sigmaPlot.eps}
+				\includegraphics[width=0.95\textwidth]{sigmaPlot}
 				%\caption{Demonstration of the value function for changing kappa}
 			\end{center}
-			\caption{Plot of the altered sigmoid function (eq. \ref{eqAlteredSigmoidFunk}), with \mbox{$c_1$ = 100}, \mbox{$c_2$ = 250}, \mbox{$c_3$ = 10} and \mbox{$c_4$ = 0.5} }
+			\caption{Plot of the altered sigmoid function (eq. \ref{eqAlteredSigmoidFunk}), with \mbox{$c_1$ = 100}, \mbox{$c_2$ = 250}, \mbox{$c_3$ = 10} and \mbox{$c_4$ = 0.5}. 
+					The minimum is given by the constant $c_1$.  }
 			\label{figAlteredSigmoidFunction}
 		\end{figure}
 	
@@ -384,47 +386,44 @@ static std::list<timeInterface*> pCalculateTaskQue;
 	
 		From \eqref{eqAlteredSigmoidFunk} we can see that the altered sigmoid function has the maximum value of $c_1+c_2$.
 		In fig. \ref{figAlteredSigmoidFunction} the values $c_1 = 100$ and  $c_2 = 250$, giving the maximum value as 350 time iterations between recalculation of $\kappa$.
-		Because of a small degree of truncation error in the small test cases used while testing this implementation, the minimal period between recalculation was set so $c_1=100$ time iterations. 
-		This can easily be altered for larger test cases, or other situations where the truncation errors become an issue.
-		% TODO Skriv om det under. Blir overflødig..
+		Because of a small degree of truncation error in the test cases used while testing this implementation, the minimal period between recalculation was set to $c_1=100$ time iterations. 
+		This can easily be altered for situations where the truncation errors become an issue.
+		% T ODO Skriv om det under. Blir overflødig..
 		%The altered sigmoid function \eqref{eqAlteredSigmoidFunk} is used when the period to the next recalculation of $\kappa$ is planned. 
 		%The maximum value, in this context, gives the maximum period before the new recalculation is done. %This happens when the error is wery small (se fig \ref{figAlteredSigmoidFunction}).
 		%The minimal and maximal period between recaluclation can be modified by altering the constants $c_1$ and $c_2$.
 
-		%TODO skriv litt om, de neste to avsnitta.
-		% TODO SKRIV DETTE, MEN SKRIV OM FØRST :  One other thing that is worth noting is the variables $c_3$ and $c_4$ giving the shape of the curve. $c_4$ gives the lenght of the curve, that is how steep it is.
+		%TO DO skriv litt om, de neste to avsnitta.
+		% T ODO SKRIV DETTE, MEN SKRIV OM FØRST :  One other thing that is worth noting is the variables $c_3$ and $c_4$ giving the shape of the curve. $c_4$ gives the lenght of the curve, that is how steep it is.
 		
 
 
-		% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
-		% Har rudda i tekst til hit.
-		\subsection{------------ Har rydda i tekst, til hit ------------- }
 
-		After some analysis, I desided to use the values used in fig. \ref{figAlteredSigmoidFunction}.
-		This gives a function that gives maximum period between recalculation of $\kappa$ when the error is below about 10. 
-		It has a relatively steep decent between an error of 10 and 30. The minimum period is set to 100 time steps and the maximum to 350 time iterations.
-
-		The minimum time between recalculation of $\kappa$ will limit the use of resources. %cause the simulation not to use to much resouces.
-		The maximum value of this function is limited because the error will have a stocastic nature, and one could e.g. end up with zero error if one get equal positive and negative errors.
-		This could potentially give a very large period before the next recalculation of $\kappa$.
-
-		Because of the stocastic element of the trunction error, the planning of the next recalculation of $\kappa$ is also implemented as a FIR--filter with a moving average over the last three values.
-		%For this reason, the calculation of the period between recalculation of $\kappa$ is also implemented as a FIR--filter with a moving average over the last three values.
-		%
-		%When the auron is constructed, $\kappa$ is recalculated before any input synapses is defined. This gives the filter a small initial period.
-		When the simulation starts, $\kappa$ is first calculated by the recaluclate function, giving the recalculate function a small initial period based on the level of synaptic input.
-		% ELLER MEIR RETT: The first time $\kappa$ is calculated, it is calculated with the recalculate function, giving the filter a small initial period, based on the initial level of input.
+%		After some analysis, I decided to use the values used in fig. \ref{figAlteredSigmoidFunction}.
+%		This gives a function that gives maximum period between recalculation of $\kappa$ when the error is below about 10. 
+%		It has a relatively steep decent between an error of 10 and 30. The minimum period is set to 100 time steps and the maximum to 350 time iterations.
+%
+%		The minimum time between recalculation of $\kappa$ will limit the use of resources. %cause the simulation not to use to much resouces.
+%		The maximum value of this function is limited because the error will have a stocastic nature, and one could e.g. end up with zero error if one get equal positive and negative errors.
+%		This could potentially give a very large period before the next recalculation of $\kappa$.
+%
+%		Because of the stocastic element of the trunction error, the planning of the next recalculation of $\kappa$ is also implemented as a FIR--filter with a moving average over the last three values.
+%		%For this reason, the calculation of the period between recalculation of $\kappa$ is also implemented as a FIR--filter with a moving average over the last three values.
+%		%
+%		%When the auron is constructed, $\kappa$ is recalculated before any input synapses is defined. This gives the filter a small initial period.
+%		When the simulation starts, $\kappa$ is first calculated by the recaluclate function, giving the recalculate function a small initial period based on the level of synaptic input.
+ 		The first time $\kappa$ is calculated, it is calculated with the recalculate function, giving the filter a small initial period. %, based on the initial level of input.
 		Aurons with a large initial input will therefore get a smaller initial recalculation period that some auron with a smaller initial input. %due to a large initial error.
 
 		\subsection{Implementation of recalculation of $\kappa$}
 		The execution of the planned recalculation of $\kappa$ is done in the same way as the execution of the planned action potential for the $\kappa$ auron.
-		In the next section I will use some time on evaluating different methods for executing planned events at the planned time.
-		The choice of method for this implementation is described in section \ref{ssChoiceOfTimeEstimationForThisImplementation}.
 		
-		For recalculation of $\kappa$ with the chosen method, we need a separate object whose doTask() function will call the K\_aurons recalculateKappa() function.
-		To achieve this, each K\_auron has its own object of the class recalcKappaClass().
+		For recalculation of $\kappa$ with the chosen method, we need a separate object whose \emph{doTask()} function will call the \emph{K\_auron}'s \emph{recalculateKappa()} function.
+		To achieve this, each \emph{K\_auron} has its own object of the class \emph{recalcKappaClass}.
 
-		recalcKappaClass::doTask() then will call the associated K\_aurons recalculateKappa() function, in addition to planning the time of the next recalculation according to the considerations in section \ref{ssecRecalcKappa}.
+		The function \emph{recalcKappaClass::doTask()} will call the associated \emph{K\_auron}'s \emph{recalculateKappa()} function.
+		After $\kappa$ is recalculated, the next recalculation will be scheduled based on the error from this recalculation. 
+	%	in addition to planning the time of the next recalculation according to the considerations in section \ref{ssecRecalcKappa}.
 		
 
 % HER EHER HER er eg.
@@ -439,50 +438,48 @@ static std::list<timeInterface*> pCalculateTaskQue;
 
 
 
-% KAN ikkje denne takast vekk? XXX XXX XXX
-	\subsection{Estimation of firing time}
-	% Skriv kvifor eg kaller det "Estimation" og ikkje calculation.
-	%TODO dette var en del av section{KANN} tidligere. Fokuset i teksten er det. Skriv om slik at det gjelder generelt, men med spesiellt fokus på KANN.
-	For KANN, synaptic transmission can be defined as transmission of change in the postsynaptic node's input level.
-	The input of a node, in terms of $\kappa$, is propotional to the synaptic weight and inversly propotional with the presynaptic inter--spike period.
-
-	When the presynaptic node changes its activation level, and its period increases or decreases, the level of synaptic transmission will be altered accordingly. 
-	Because of the number of synapses per axon/ dendrite, it is most efficient to perform as many of the calucations as possible in the presynaptic auron.
-	For this reason, the most efficient way of calucating the postsynaptic dendrite's activation level is to let the synapse transmit the derived of the signal (change).
-	%TODO Har skrevet dette tidligare. (to subsections før). Skriv om, og referer/underbygg denne måten.
-
-	If the transmitted varible is the derived of the signal the postsynaptic dendrite can easily calculate the changed postsynaptic $\kappa_i$, as sen in section \ref{ssecSynInputToANodeKANN}.
-	% XXX SAGT FØR: If we define $\kappa_{ij}$ as the contribution on $\kappa_i$ from the synapse between node $j$ and node $i$ , $\kappa_i$ can be calculated as
-	%\begin{equation}
-	%	\kappa_{i} = \sum_j{\kappa_{ij}}
-	%\end{equation}
-	
-	If every $\kappa_{ij}$ but one, $\kappa_{ix}$, is kept constant, it can be shown that $\Delta \kappa_i$ is equal to $\Delta \kappa_{ix}$.
-	Following that $\kappa$ is calculated as a superposition of all the input synapses contribution, these equations can be extended to change of transmission of multiple synapses.
-	This gives us the equation for the change of postsynaptic activation level following synaptic transmission at synapse from node $x$ to node $i$.
-
-	\begin{equation}
-		\kappa_{ij, new} = \kappa_{ij, old} + \Delta \kappa_{ij}
-	\end{equation}
-
-	Instead of calculating all of this at every synapse, or for every synapse at the postsynaptic dendrite, it is better to calculate as much as possible presynapticlly.
-	This gives one calulation every time a node fires an action potential, instead of one for every output synapse.
-
-	%XXX XXX XXX Trur eg skrive  resten i subsubsection: implementation:KANN -> pEstimatedTaskTime -> execution of elements
-	
-	% TODO SKRIV litt om dette her, og lag eit frampeik til etter pEstimatedTaskTime, der eg skal skrive meir om dette.
-	%Transmission of the derived solves many problems concerning efficiency, but it also introduces integral error for the postsynaptic $\kappa_i$
-	%This problem can be solved, and we will come out JAJAJ. Skriv anna gang-- TODO
-
-
-	%Etterkvart: skriv om integral-errors og fiksing av dette ved å bruke pEstimatedTaskTime (regelmessig fiksing, som er adaptiv med basis i feilen på postsyn signal (høg feil=>oftere regelmessighet på resumming av kappa)).
-
-
-	When the firing time is estimated, it is fundamental that we have a mechanism for executing these elements at the right time. 
-	In the section \ref{secPlannedEvents} two different solutions has been proposed for this. 
-	The section is concluded by presenting a discussion behind the choice for this implementation.
-	%XXX BLÆ! skriv om linja over!
-	%In section \ref{ssChoiceOfTimeEstimationForThisImplementation} the choice for this implementation will be presented, and different pros and cons with each method will be discussed.
+% % KAN ikkje denne takast vekk? XXX XXX XXX
+% 	\subsection{Estimation of firing time}
+% 	% Skriv kvifor eg kaller det "Estimation" og ikkje calculation.
+% 	%TODO dette var en del av section{KANN} tidligere. Fokuset i teksten er det. Skriv om slik at det gjelder generelt, men med spesiellt fokus på KANN.
+% 	%For KANN, edge transmission can be wieved as transmission of the change in the presynaptic node's input level.
+% 	For $\kappa$ANN, synaptic transmission $\kappa_{ij}$ is given by eq. \eqref{eqSynapticTransmissionAsSumOfEdgeTransmissions}.
+% 	Edge transmission is further defined ad the change in $\kappa_{ij}$, and gives the input of the postsynaptic node.
+% 	%The input of a node, in terms of $\kappa$, is propotional to the synaptic weight and inversly propotional with the presynaptic inter--spike period.
+% 
+% %	When the presynaptic node changes its activation level, and its period increases or decreases, the level of synaptic transmission will be altered accordingly. 
+% %	Because of the number of synapses per axon/ dendrite, it is most efficient to perform as many of the calucations as possible in the presynaptic auron.
+% %	For this reason, the most efficient way of calucating the postsynaptic dendrite's activation level is to let the synapse transmit the derived of the signal (change).
+% %	% Har skrevet dette tidligare. (to subsections før). Skriv om, og referer/underbygg denne måten.
+% 
+% 	
+% %	If every $\kappa_{ij}$ but one, $\kappa_{ix}$, is kept constant, it can be shown that $\Delta \kappa_i$ is equal to $\Delta \kappa_{ix}$.
+% % 	%Following this, $\kappa$ is calculated as a superposition of all the input synapses' contribution, these equations can be extended to change of transmission of multiple synapses.
+% %	%This gives us the equation for the change of postsynaptic activation level following synaptic transmission at synapse from node $x$ to node $i$.
+% %	We get that
+% %
+% %	\begin{equation}
+% %		\kappa_{ij, new} = \kappa_{ij, old} + \Delta \kappa_{ij}
+% %	\end{equation}
+% 
+% %	Instead of calculating all of this at every synapse, or for every synapse at the postsynaptic dendrite, it is better to calculate as much as possible presynapticlly.
+% %	This gives one calulation every time a node fires an action potential, instead of one for every output synapse.
+% 
+% 	%X XX X XX  XX X Trur eg skrive  resten i subsubsection: implementation:KANN -> pEstimatedTaskTime -> execution of elements
+% 	
+% 	% TOD O SKRIV litt om dette her, og lag eit frampeik til etter pEstimatedTaskTime, der eg skal skrive meir om dette.
+% 	%Transmission of the derived solves many problems concerning efficiency, but it also introduces integral error for the postsynaptic $\kappa_i$
+% 	%This problem can be solved, and we will come out JAJAJ. Skriv anna gang-- TODO
+% 
+% 
+% 	%Etterkvart: skriv om integral-errors og fiksing av dette ved å bruke pEstimatedTaskTime (regelmessig fiksing, som er adaptiv med basis i feilen på postsyn signal (høg feil=>oftere regelmessighet på resumming av kappa)).
+% 
+% 
+% 	When the firing time is estimated, it is fundamental that we have a mechanism for executing these elements at the right time. 
+% 	In the section \ref{secPlannedEvents} two different solutions has been proposed for this. 
+% 	The section is concluded by presenting a discussion behind the choice for this implementation.
+% 	%XXX BLÆ! skriv om linja over!
+% 	%In section \ref{ssChoiceOfTimeEstimationForThisImplementation} the choice for this implementation will be presented, and different pros and cons with each method will be discussed.
 
 
 
@@ -641,7 +638,7 @@ static std::list<timeInterface*> pCalculateTaskQue;
 %	%Uavhengig av korleis eg finner element, kan eg skrive om flytting av element:
 %	When the estimated task time is altered, one can assume that the new position will be located not far from the old position, compared to the size of the whole pEstimatedTaskTime list.
 %	In this case, the most efficient way of finding the new position is to iterate $x$ positions from the old estimated time iteration in pEstimatedTaskTime, instead of finding the position from one of the ends of pEstimatedTaskTime.
-%	The relative moval of the task can be desided by taking the difference between the new estimate and the old estimate of the task time, $x$, and move the object pointer $x$ iterations along pEstimatedTaskTime. 
+%	The relative moval of the task can be decided by taking the difference between the new estimate and the old estimate of the task time, $x$, and move the object pointer $x$ iterations along pEstimatedTaskTime. 
 %	$x$ may be positive or regative.
 %	
 %%	\subsubsection{Flytting av element}

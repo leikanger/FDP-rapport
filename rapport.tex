@@ -36,7 +36,7 @@
 
 
 
-\documentclass[a4paper,11 pt]{report}
+\documentclass[b5paper,11 pt]{report}
 %LEVERES SOM : \documentclass[b4paper,11 pt]{report}
 
 
@@ -47,15 +47,13 @@
 %TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
 % Innfør begreped AuroSim. Brukes i alle plott. AuroSim = this implementation!
 
+% TODO DERSOM TID: lag figur-tekst på fig som viser kappa, i Model->The Activity Variable.
+% DOTO    - - - -: sett inn figur med alpha (ligger i mappa..)
 
 
 
-
-% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO Skriv inn navn på alle refererte enkeltkapittel, i bibliografi.bib TODO
-% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO Endre rapport i NEVR3003, og legg det inn som appendix. Referert til i "The BiologiskeSystemet" -- kapittelet.   TODO Tar nokre timer.
-% 																	TODO Gjør om denne, slik at en kybber kan lese den. Definer uttrykk som LTP, LTD, (AMPA?), ATP,  ...
-% TODO Skriv om sensorauron i design.tex. Brukes i implementasjon_KANN.tex ...
-% TODO Legg ved eit plot av ei synapse loggfil eller auron loggfil.
+% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO Skriv inn navn på alle refererte enkeltkapittel, i bibliografi.bib TODO (alså navnet på kapittelet i boka, som er ref.)
+% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO APPENDIX!  Endre rapport i NEVR3003, og legg det inn som appendix. Referert til i "The BiologiskeSystemet" -- kapittelet.   TODO Tar nokre timer.
 
 %%%%%%%% KRISTOFFER sine usepackage (i diplomen)
 %\documentclass[a4paper, english, 12pt]{article}
@@ -85,16 +83,28 @@
 \usepackage{listings} %for c++ kode
 \lstset{language=c++}
 
+
+\usepackage{amsthm}
+\newtheorem{mydef}{Definition}
+
+
 %\usepackage{pstricks} % For teikning. 		FOR mykje styr å lære..
 %\usepackage{pstricks-add}
  %\let\psgrid\relax %XXX Fjærner GRID på alle pstricks teikninger. (global removal)
 
-%\usepackage{epstopdf} % for å få med eps i pdf-latex (?)
+%\usepackage{epstopdf} % for å få med eps i pdf-latex (?)    funkerIkkje.. Gjør det manuellt for filene..
 
 
 
 %Kanskje dette er naudsynt? For metapost:
 %\DeclareGraphicsRule{*}{mps}{*}{}
+
+
+
+
+
+
+
 
 
 %%%%%%%% Fra Kristoffer sin master:
@@ -125,6 +135,8 @@ tabsize=4,                % sets default tabsize to 2 spaces
 
 \begin{document}   
 
+\maketitle
+
 \begin{abstract}
 By the use of mathematics from technical cybernetics, new methods are devised that enables a new model for artificial neural networks.
 A possible design of such a model is presented, and the behaviour of nodes of the new model is compared with that of a spiking node.
@@ -134,10 +146,18 @@ A possible design of such a model is presented, and the behaviour of nodes of th
 % 			om 
 A new model for artificial neural netwoks is presented.
 \end{abstract}
-\maketitle
 
-%TODO 
-% 	For kvart plott: Skriv at det er fra log-filene fra implementasjonen.
+
+% todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo 
+%
+% 			Oppgavetekst: SKAL MED, (og ta vekk det som er over..)
+%
+% todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo todo 
+\begin{figure}[h!tbp]
+        \centering
+        \includegraphics[width=1.1\textwidth]{PerLeikanger-Oppgavetekst-engelsk.pdf}
+        %\caption{Spike Time Dependent Plasticity(STDP): The timing of the postsynaptic spike in relation to the presynaptic neurons contribution gives the size and sign of the change of synaptic weight\cite{reviewSTDP}.} 
+\end{figure}
 
 
 %Når det gjelder skriving, så er det veldig effektivt med uttrykk som "the rationale behind the choise of letters $n$,$s$, and $a$ is explained in chapter 3." 	Bruk dette! 

@@ -54,7 +54,7 @@
 % 			
 
 \section{Artificial neural networks: background}
-
+\label{secANNhistory}
 %TODO Endre neste setning. Dårlig:
 To illuminate different aspects of artificial neural networks (ANN) a short history about ANN is presented in sec. \ref{ssecHistoryOfANN}. 
 The models presented in the following section are either of a historical interrest or of a more immediate relevance to this project.
@@ -103,7 +103,7 @@ The result was the first artificial neural network, consisting of logical gates.
 What is later referred to as the first generation ANN is based on the McCulloch--Pitts neuron\cite{Maass97networksof}.
 One of these models is Rosenblatt's Perceptron\cite{HaykinANNbok}.
 
-The next generation of ANNs have computational units with a continous activation function. 
+The next generation of ANNs have computational units with a continuous activation function. 
 A common activation function is the \emph{sigmoid function} $\sigma(y)=\frac{1}{1+e^{-y}}$ \cite{HaykinANNbok}.
 In sec. \ref{ssecTheNeuron} and \ref{ssecTheActionPotential}, the computational basis of networks of neurons will be introduced. 
 We will see that the neuron has a boolean carracteristic, in the form that the neuron as a whole either sends output through all its output synapses or rests. 
@@ -170,14 +170,14 @@ What propagates through the network, the activation function and synaptic plasti
 The first generation of artificial neurons were so--called threshold gates, with a boolean output that was [true] if the summed input were above some threshold.
 %with output of zero unless the input summed to some value above threshold, causing the output to become one.
 Nodes of the second generation gave, in some respects, a better simulation of the biological neuron. % than the first.
-%It does not have discrete ``states'' for the input, but have a continous ``activation function'' giving output as a function of the node's immediate input.
+%It does not have discrete ``states'' for the input, but have a continuous ``activation function'' giving output as a function of the node's immediate input.
 The model does not classify the input to discrete ``states'', giving the output of the node. 
-Instead in has a continous ``activation function'' that gives output as a function of the node's immediate input.
+Instead in has a continuous ``activation function'' that gives output as a function of the node's immediate input.
 %
-This activation function is found to give the best result if the function is a continous, differentiatable sigmoid funtion\ref{HaykinANNbok}.
-%In the second generation ANN, the spatially summed input (summed over all the input synapses) is not classified between two states, but gives an output based on the continous nonlinear activation function.
+This activation function is found to give the best result if the function is a continuous, differentiatable sigmoid funtion\ref{HaykinANNbok}.
+%In the second generation ANN, the spatially summed input (summed over all the input synapses) is not classified between two states, but gives an output based on the continuous nonlinear activation function.
 % TODO TODO TODO ODO TODO TODO TODO Sjå over neste linje. Gidd ikkje no..
-If the transmissions between nodes is viewed as the firing frequency of the neuron, we can say that the continous output value represents the output frequency as a function of the input frequency over the time step in the simulation.
+If the transmissions between nodes is viewed as the firing frequency of the neuron, we can say that the continuous output value represents the output frequency as a function of the input frequency over the time step in the simulation.
 																									%the firing frequency of the node is a function of the spatially and temporally summed input input to the node, 
 																										%or the sum of the transmissions in all the node's input synapses.
 In this case, the second generation ANN is closer to the biological neural network, than the ``threshold gates'' of the first generation. % ANN. 

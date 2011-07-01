@@ -65,7 +65,7 @@ It also is the prime motivator for the initiation of an action potential, and th
 In the biological neuron, the reversal potential for the different ions can be calculated by the Nernst equation. 
 %The reversal potential is the electrical potential where the ion flow will be revesed (flow the oposite direction). % if an ion channel is opened.
 The reversal potential is the electrical potential where the driving force will be reversed.
-As this is a continous variable, the value for the point of reversal is zero. 
+As this is a continuous variable, the value for the point of reversal is zero. 
 This gives that the reversal potential also could be referred to as the equilibrium potential.
 %The reversal potential is the electrical potential where the opening of an ion channel causes the directionality flow to be reversed.
 
@@ -154,7 +154,7 @@ As this inhibits the neuron in respect to firing an action potential, these syna
 
 Some of the aspects introduces here was included to demonstrate the complexity of the simulated system, even at the level of the indivitual node.
 %Some of the aspects in the theory of the electrical potential for the neuron was introduced to show that the simulated system is a complex one, even at the level of the individual node. 
-%For each node we have a complex system with a continously changing driving force and membrane conductance for each ion. 
+%For each node we have a complex system with a continuously changing driving force and membrane conductance for each ion. 
 In ANN, we can simplify the neuron and only use one variable to describe the state. 
 This is done for the sake of efficiancy.
 %For artificial neurons used in an ANN most of these aspects can be simplified without affecting the result much. 
@@ -315,14 +315,14 @@ The above equations are only valid for a constant $\kappa$.
 As the value is reset at the time of firing, we get that eq. \eqref{eqVerdiligninga} can be used within one inter--spike period(the period between consecutive action potentials).
 The time $t$ then gives the time relative to the previous firing.
 
-%The action potential is a discontinuity in the othervise continous system. The continous equation is only valid between action potentials (within one period).
-% %If we reset every aspect of the equation to be reset after firing, the equation can be used for the discontinous system. 
+%The action potential is a discontinuity in the othervise continuous system. The continuous equation is only valid between action potentials (within one period).
+% %If we reset every aspect of the equation to be reset after firing, the equation can be used for the discontinuous system. 
 %To use \eqref{eqVerdiligninga} for the whole time range, we define $t = t_{abs}-t_f$, where $t_{abs}$ is the absolute time and $t_f$ is the time of the last action potential. 
 %In this way $t$ represents the time since the start of the current period.
 
 
 
-%Equation \eqref{eqVerdiligninga} describes a continous nonlinear system. 
+%Equation \eqref{eqVerdiligninga} describes a continuous nonlinear system. 
 %In the neuron we have that if the neurons value goes above some threshold the neuron will fire an action potential, and the value is reset. This introduces yet another nonlinearity: 
 %The action potential.
 
@@ -381,18 +381,23 @@ If $\kappa$ varies during the interspike period, the firing time will also chang
 
 %If $\kappa$ needs to be constant during the whole period, we get a large time lag for the system, so we need to devise a scheme for avoiding this.
 
-If $\kappa$ is defined as a variable during the inter--spike period, eq. \eqref{eqVerdiligninga} and \eqref{eqTidTilFyringVedEndraKappa} can not be used directly.
+If $\kappa$ varies during the inter--spike period, eq. \eqref{eqVerdiligninga} and \eqref{eqTidTilFyringVedEndraKappa} can not be used directly.
 %If we allow the activation level of the node to change during the inter--spike period of the neuron, we cannot use \eqref{eqVerdiligninga} and \eqref{eqTidTilFyringVedEndraKappa} directly.
 To avoid this limitation, the concept of a ``time window'' is introduced. 
-A time window is defined as the smallest of [a time interval where $\kappa$ is constant] or [the remainder of the interspike period].
+%A time window is defined as a period of time where $\kappa$ is constant, within one interspike period.
+\begin{mydef}
+A time window is a time interval where $\kappa$ is constant, within one interspike period.
+\end{mydef}
+%
+We get that a time window is defined as the smallest of [a time interval where $\kappa$ is constant] or [the remainder of the interspike period].
 %To solve this problem, the concept of a ``time window'' is introduced. A time window is defined as the smallest of [a time interval where the activation level of the node is constant] or [the remainder of the interspike period].
 %Within each time window both \eqref{eqVerdiligninga} and \eqref{eqRemainderOfPeriod} is therefore valid. % .. kan bli brukt.
-As $\kappa$ is constant within a time window, equation \eqref{eqVerdiligninga} and \eqref{eqRemainderOfPeriod} is also valid within a time window.
+As $\kappa$ is constant within a time window, equation \eqref{eqVerdiligninga} and \eqref{eqRemainderOfPeriod} is valid within a time window.
 %Both equation \eqref{eqVerdiligninga} and \eqref{eqRemainderOfPeriod} is therefore valid within a time window.
 
 \begin{figure}[hbt!p]
 	\centering
-	\includegraphics[width=0.95\textwidth]{demonstrasjonAvUlikeKappaforVerdifunksjonen.eps}
+	\includegraphics[width=0.95\textwidth]{demonstrasjonAvUlikeKappaforVerdifunksjonen}
 	\caption{$v(t)$ for changing $\kappa$. $\kappa_0=0.7$. At time $t_p=100$ $\kappa$ changes to $\kappa_1=0.5$. 
 			At time $t_p=150$ $\kappa$ is set to $\kappa_2=1$.}
 	\label{figVerdifunksjonen}
@@ -439,7 +444,7 @@ If $\kappa$ is changed before the estimated firing time, the firing time will be
 In fig. \ref{figVerdifunksjonen}, $v(t)$ is simulated for three different time windows. 
 At time $t_p=100$, $\kappa$ changes from $\kappa_0=0.7$ to $\kappa_1=0.5$. 
 At time $t_p=150$, $\kappa$ is set to $\kappa_2=1$. 
-Figure \ref{figVerdifunksjonen} implies that the value function is a continous function that converges toward the updated $\kappa$. %, also when $\kappa$ varies.
+Figure \ref{figVerdifunksjonen} implies that the value function is a continuous function that converges toward the updated $\kappa$. %, also when $\kappa$ varies.
 
 
 With the concept of time windows, eq. \eqref{eqTidTilFyringVedEndraKappa} can be used to calculate the remaining part of the neurons period after $\kappa$ changes value. 
@@ -507,7 +512,7 @@ With a time step of 1 m$s$, the simulation of the refraction period can be done 
 % Plott av frekvens med, og uten refraction period:
 \begin{figure}[bhtp]
 	\begin{center}
-		\includegraphics[width=0.95\textwidth]{frekvensPlotRefractionPeriod.eps}
+		\includegraphics[width=0.95\textwidth]{frekvensPlotRefractionPeriod}
 	\end{center}
 	\caption{Frequency for a neuron, with and without refraction period for the neuron.}
 	\label{figFrekvensMedOgUtenRefractionPeriod}
